@@ -69,6 +69,7 @@ app/
   app.vue                 raíz: layout + página
   layouts/default.vue     cabecera con la navegación y pie
   pages/index.vue         home con las tarjetas de cada sección
+  pages/teoria/           listado de tiempos por nivel y teoría de cada uno
   utils/content.ts        tipos del contenido y carga de content/*.json
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
 content/
@@ -81,5 +82,6 @@ scripts/
 test/
   content.spec.ts         valida todo el contenido de content/
   merge-content.spec.ts   valida la fusión sin duplicados
+  teoria.spec.ts          cada fichero de content/tenses/ tiene su ruta en /teoria
   smoke.spec.ts           test de humo: monta la home
 ```
