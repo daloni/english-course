@@ -44,6 +44,41 @@ Genera **$3** frases con hueco de nivel **$2** para el tiempo verbal **$1** y a�
 - No hay campo de nivel: **$2** decide el vocabulario y la longitud de la frase (A1-A2 frases
   cortas y cotidianas, B1+ frases más largas, con subordinadas o phrasal verbs).
 
+### Otros tipos de ejercicio
+
+Sin `type` la frase es de hueco. Los otros dos tipos van en el mismo fichero y usan `prompt`
+para la frase **entera**, sin `___`:
+
+```json
+[
+  {
+    "id": "present-simple-011",
+    "tenseId": "present-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Sarah works in a bank.",
+    "solution": "Sarah doesn't work in a bank.",
+    "explanation": "La -s de la tercera persona pasa al auxiliar: doesn't work."
+  },
+  {
+    "id": "present-simple-012",
+    "tenseId": "present-simple",
+    "type": "choice",
+    "prompt": "My brother gets up at seven every morning.",
+    "options": ["Present Simple", "Present Continuous", "Past Simple"],
+    "solution": "Present Simple",
+    "explanation": "every morning describe una rutina."
+  }
+]
+```
+
+- `transform`: `form` es la forma a la que hay que pasar la frase (`negative` o
+  `interrogative`) y `solution` es la frase entera reescrita.
+- `choice`: `options` son los tiempos verbales entre los que elegir (uno de ellos es
+  `solution`, y es el nombre del tiempo **$1**); los otros deben ser plausibles.
+- `explanation`: una línea en español con el porqué, que se muestra al fallar. Opcional en las
+  frases de hueco, donde si falta se enseña la estructura del tiempo.
+
 ## Reglas
 
 - Vocabulario y verbos variados: no diez frases con el mismo verbo ni todas afirmativas.

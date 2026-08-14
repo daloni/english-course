@@ -58,5 +58,77 @@
     "tenseId": "present-simple",
     "prompt": "The train to Madrid ___ (leave) twice a day.",
     "solution": "leaves"
+  },
+  {
+    "id": "present-simple-011",
+    "tenseId": "present-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Sarah works in a bank.",
+    "solution": "Sarah doesn't work in a bank.",
+    "explanation": "La -s de la tercera persona pasa al auxiliar: doesn't work, nunca doesn't works."
+  },
+  {
+    "id": "present-simple-012",
+    "tenseId": "present-simple",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They live in Bristol.",
+    "solution": "Do they live in Bristol?",
+    "explanation": "Do + sujeto + verbo en infinitivo: el auxiliar va delante del sujeto."
+  },
+  {
+    "id": "present-simple-013",
+    "tenseId": "present-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "The shop opens on Sundays.",
+    "solution": "The shop doesn't open on Sundays.",
+    "explanation": "Con he / she / it el auxiliar es does, y el verbo pierde la -s: doesn't open."
+  },
+  {
+    "id": "present-simple-014",
+    "tenseId": "present-simple",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "He finishes work at six.",
+    "solution": "Does he finish work at six?",
+    "explanation": "Does he finish, no Does he finishes: solo el auxiliar lleva la marca de tercera persona."
+  },
+  {
+    "id": "present-simple-015",
+    "tenseId": "present-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "I understand the question.",
+    "solution": "I don't understand the question.",
+    "explanation": "Con I / you / we / they el auxiliar es do: I don't understand."
+  },
+  {
+    "id": "present-simple-016",
+    "tenseId": "present-simple",
+    "type": "choice",
+    "prompt": "My brother gets up at seven every morning.",
+    "options": ["Present Simple", "Present Continuous", "Past Simple"],
+    "solution": "Present Simple",
+    "explanation": "every morning describe una rutina, y las rutinas van en Present Simple."
+  },
+  {
+    "id": "present-simple-017",
+    "tenseId": "present-simple",
+    "type": "choice",
+    "prompt": "Water boils at one hundred degrees.",
+    "options": ["Present Simple", "Present Continuous", "Present Perfect"],
+    "solution": "Present Simple",
+    "explanation": "Los hechos que siempre son verdad se cuentan en Present Simple."
+  },
+  {
+    "id": "present-simple-018",
+    "tenseId": "present-simple",
+    "type": "choice",
+    "prompt": "She never drinks coffee after lunch.",
+    "options": ["Present Simple", "Past Simple", "Present Perfect"],
+    "solution": "Present Simple",
+    "explanation": "never es un adverbio de frecuencia: acompaña a las costumbres, en Present Simple."
   }
 ]

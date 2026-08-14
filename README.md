@@ -41,7 +41,7 @@ ejecutando `pnpm test test/content.spec.ts`.
 
 | Comando                    | Qué hace                                                              |
 | -------------------------- | --------------------------------------------------------------------- |
-| `/frases <tiempo> <nivel> <n>` | Añade `<n>` frases con hueco a `content/exercises/<tiempo>.json`  |
+| `/frases <tiempo> <nivel> <n>` | Añade `<n>` frases (hueco, transformar o elegir el tiempo) a `content/exercises/<tiempo>.json` |
 | `/verbo <infinitivo>`      | Añade o completa el verbo en `content/verbs.json`                      |
 | `/reading <tema> <nivel>`  | Escribe un texto con preguntas en `content/readings/<slug>.json`       |
 | `/teoria <tiempo>`         | Redacta o amplía la teoría de `content/tenses/<slug>.json`             |
@@ -71,12 +71,14 @@ app/
   pages/index.vue         home con las tarjetas de cada sección
   pages/teoria/           listado de tiempos por nivel y teoría de cada uno
   pages/verbos/           tabla de verbos y ejercicio de conjugación
+  pages/frases/           elección de tiempo y ronda de ejercicios en frases
+  components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
   utils/check.ts          corrección de las respuestas escritas y tercera persona
   utils/content.ts        tipos del contenido y carga de content/*.json
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
 content/
   tenses/<slug>.json      teoría, estructura y ejemplos de cada tiempo verbal
-  exercises/<slug>.json   frases con hueco de un tiempo verbal
+  exercises/<slug>.json   ejercicios en frases: hueco, transformar y elegir el tiempo
   readings/<slug>.json    lectura con preguntas de comprensión
   verbs.json              lista de verbos con pasado, participio y traducción
 scripts/
@@ -87,5 +89,6 @@ test/
   teoria.spec.ts          cada fichero de content/tenses/ tiene su ruta en /teoria
   check.spec.ts           normalización y corrección de las respuestas
   verbos.spec.ts          tabla de verbos y ronda completa de conjugación
+  frases.spec.ts          cada fichero de content/exercises/ y su tipo de ejercicio
   smoke.spec.ts           test de humo: monta la home
 ```

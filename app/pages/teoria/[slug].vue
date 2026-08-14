@@ -11,12 +11,6 @@ if (!tense) {
 // The markdown comes from content/tenses/*.json, versioned in this repo, so it is trusted.
 const theory = marked.parse(tense.theory, { async: false })
 
-const formLabels: Record<Form, string> = {
-  affirmative: 'Afirmativa',
-  negative: 'Negativa',
-  interrogative: 'Interrogativa'
-}
-
 const examplesByForm = forms
   .map(form => ({ form, examples: tense.examples.filter(example => example.form === form) }))
   .filter(group => group.examples.length > 0)

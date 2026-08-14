@@ -8,6 +8,12 @@ export const forms = ['affirmative', 'negative', 'interrogative'] as const
 export type Level = typeof levels[number]
 export type Form = typeof forms[number]
 
+export const formLabels: Record<Form, string> = {
+  affirmative: 'Afirmativa',
+  negative: 'Negativa',
+  interrogative: 'Interrogativa'
+}
+
 export interface Example {
   form: Form
   en: string
@@ -35,12 +41,31 @@ export interface Verb {
   es: string
 }
 
+export const exerciseTypes = ['gap', 'transform', 'choice'] as const
+
+export type ExerciseType = typeof exerciseTypes[number]
+
+export const exerciseTypeLabels: Record<ExerciseType, string> = {
+  gap: 'rellenar el hueco',
+  transform: 'transformar la frase',
+  choice: 'elegir el tiempo'
+}
+
 export interface Exercise {
   id: string
   /** Tense.id this exercise drills */
   tenseId: string
+  /** Defaults to 'gap', the only type the seed content had. */
+  type?: ExerciseType
+  /** 'gap': sentence with a ___ hole. 'transform' / 'choice': the whole sentence. */
   prompt: string
   solution: string
+  /** 'transform' only: the form the sentence has to be turned into. */
+  form?: Form
+  /** 'choice' only: what to pick from; `solution` is one of them. */
+  options?: string[]
+  /** Shown after a wrong answer, instead of the tense structure. */
+  explanation?: string
 }
 
 export interface Question {
@@ -77,3 +102,8 @@ export const readings: Reading[] = Object.values(readingFiles)
   .sort((a, b) => a.level.localeCompare(b.level) || a.title.localeCompare(b.title))
 
 export const tenseById = (id: string) => tenses.find(tense => tense.id === id)
+
+/** Exercises of a tense, in file order: the drill is always the same, no shuffling. */
+export const exercisesOf = (tenseId: string) => exercises.filter(exercise => exercise.tenseId === tenseId)
+
+export const typeOf = (exercise: Exercise): ExerciseType => exercise.type ?? 'gap'

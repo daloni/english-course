@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { exerciseFiles, exercises, forms, levels, readingFiles, readings, tenseFiles, tenses, verbs } from '../app/utils/content'
+import { exerciseFiles, exerciseTypes, exercises, forms, levels, readingFiles, readings, tenseFiles, tenses, typeOf, verbs } from '../app/utils/content'
 
 // Guards every JSON file under content/: a missing field, a duplicate id or a file name that
 // no longer matches its slug fails here instead of at runtime in the browser.
@@ -103,8 +103,31 @@ describe('exercises', () => {
       expectText(exercise.prompt, `${exercise.id}.prompt`)
       expectText(exercise.solution, `${exercise.id}.solution`)
       expect(ids, `${exercise.id}.tenseId`).toContain(exercise.tenseId)
-      // A gap-fill sentence: the prompt is where the solution goes.
-      expect(exercise.prompt, `${exercise.id}.prompt needs a ___ gap`).toContain('___')
+      expect(exerciseTypes, `${exercise.id}.type`).toContain(typeOf(exercise))
+
+      if (exercise.explanation !== undefined) {
+        expectText(exercise.explanation, `${exercise.id}.explanation`)
+      }
+    }
+  })
+
+  // Each type is answered differently, so each one needs its own fields to be usable.
+  it('has the fields its type needs', () => {
+    for (const exercise of exercises) {
+      if (typeOf(exercise) === 'gap') {
+        // A gap-fill sentence: the prompt is where the solution goes.
+        expect(exercise.prompt, `${exercise.id}.prompt needs a ___ gap`).toContain('___')
+      }
+
+      if (typeOf(exercise) === 'transform') {
+        expect(forms, `${exercise.id}.form`).toContain(exercise.form)
+      }
+
+      if (typeOf(exercise) === 'choice') {
+        expect(exercise.options?.length, `${exercise.id}.options`).toBeGreaterThan(1)
+        exercise.options!.forEach((option, i) => expectText(option, `${exercise.id}.options[${i}]`))
+        expect(exercise.options, `${exercise.id}.solution must be one of the options`).toContain(exercise.solution)
+      }
     }
   })
 })

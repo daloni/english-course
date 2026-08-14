@@ -1,0 +1,62 @@
+[
+  {
+    "id": "past-simple-001",
+    "tenseId": "past-simple",
+    "prompt": "We ___ (visit) my grandparents last weekend.",
+    "solution": "visited"
+  },
+  {
+    "id": "past-simple-002",
+    "tenseId": "past-simple",
+    "prompt": "She ___ (not / come) to the meeting yesterday.",
+    "solution": "didn't come"
+  },
+  {
+    "id": "past-simple-003",
+    "tenseId": "past-simple",
+    "prompt": "___ (you / see) the film on Saturday?",
+    "solution": "Did you see"
+  },
+  {
+    "id": "past-simple-004",
+    "tenseId": "past-simple",
+    "prompt": "The concert ___ (start) two hours late.",
+    "solution": "started"
+  },
+  {
+    "id": "past-simple-005",
+    "tenseId": "past-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "They bought a new car in 2019.",
+    "solution": "They didn't buy a new car in 2019.",
+    "explanation": "Tras didn't el verbo vuelve al infinitivo: didn't buy, no didn't bought."
+  },
+  {
+    "id": "past-simple-006",
+    "tenseId": "past-simple",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "You called her last night.",
+    "solution": "Did you call her last night?",
+    "explanation": "Did + sujeto + infinitivo: el pasado lo marca did, no el verbo principal."
+  },
+  {
+    "id": "past-simple-007",
+    "tenseId": "past-simple",
+    "type": "choice",
+    "prompt": "I finished the report two days ago.",
+    "options": ["Past Simple", "Present Perfect", "Present Simple"],
+    "solution": "Past Simple",
+    "explanation": "two days ago es un momento cerrado del pasado, y eso pide Past Simple."
+  },
+  {
+    "id": "past-simple-008",
+    "tenseId": "past-simple",
+    "type": "choice",
+    "prompt": "When I was a child, I lived in a small village.",
+    "options": ["Past Simple", "Present Perfect", "Present Continuous"],
+    "solution": "Past Simple",
+    "explanation": "when I was a child sitúa la acción en un pasado terminado: Past Simple."
+  }
+]

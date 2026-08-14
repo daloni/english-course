@@ -19,11 +19,17 @@ const contractions: [RegExp, string][] = [
   [/'ll\b/g, ' will']
 ]
 
-/** Lowercase, single spaces, straight apostrophes and contractions written in full. */
+/**
+ * Lowercase, single spaces, straight apostrophes and contractions written in full.
+ * The final full stop or question mark is dropped: rewriting a whole sentence is about
+ * the auxiliary and the word order, not about the punctuation.
+ */
 export function normalize(answer: string): string {
   const text = answer
     .toLowerCase()
     .replace(/[’‘´`]/g, '\'')
+    .trim()
+    .replace(/[.!?]+$/, '')
     .trim()
 
   return contractions
