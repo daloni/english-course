@@ -39,6 +39,26 @@ con `SpeechSynthesis` (acento en-US o en-GB y tres velocidades) y corrige la rep
 `SpeechRecognition`, que hoy solo existe en Chrome y Edge y pide permiso para el micrófono.
 En Firefox o Safari la página lo avisa y sigue permitiendo escuchar las frases.
 
+## Progreso y repaso espaciado
+
+Cada respuesta de `/frases`, `/verbos/practica` y `/reading` se apunta en `localStorage` (una
+sola clave, `ingles:progress`) con sus aciertos, sus fallos y una caja Leitner de tres:
+
+| Caja | Cuándo vuelve  |
+| ---- | -------------- |
+| 1    | el mismo día   |
+| 2    | a los 2 días   |
+| 3    | a los 7 días   |
+
+Acertar sube de caja y aleja el repaso; fallar devuelve el ejercicio a la caja 1, así que
+sigue en la cola de hoy aunque se recargue la página. `/progreso` resume lo practicado por
+tiempo verbal y por sección, lista lo que más se falla y deja exportar el progreso a JSON,
+importarlo o reiniciarlo. El botón **Repasar hoy** abre `/repaso`, una sesión con lo que
+vence hoy y solo con eso, mezclando frases, verbos y preguntas de reading.
+
+El speaking no cuenta para el progreso: su corrección es un porcentaje de palabras, no un
+acierto o un fallo.
+
 ## Generar contenido con Claude Code
 
 El contenido vive en `content/` como JSON versionado y se escribe con comandos de
@@ -82,10 +102,14 @@ app/
   pages/frases/           elección de tiempo y ronda de ejercicios en frases
   pages/reading/          listado de lecturas y lectura con glosario y preguntas
   pages/speaking.vue      escuchar la frase, repetirla al micrófono y comparar
+  pages/progreso.vue      resumen de lo practicado, fallos y exportar / importar
+  pages/repaso.vue        sesión de repaso con lo que vence hoy
   components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
   composables/useSpeech.ts  Web Speech API: síntesis de voz y reconocimiento
+  composables/useProgress.ts  el progreso del navegador: apuntar, resumir y exportar
   utils/check.ts          corrección de las respuestas escritas y tercera persona
   utils/diff.ts           comparación palabra a palabra de lo que se ha dicho
+  utils/progress.ts       cajas Leitner, guardado en localStorage e ítems repasables
   utils/content.ts        tipos del contenido y carga de content/*.json
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
 content/
@@ -105,5 +129,6 @@ test/
   reading.spec.ts         valida content/readings/ y corrige las preguntas en /reading
   diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
   speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
+  progress.spec.ts        cajas Leitner, persistencia serializada y sesión de repaso
   smoke.spec.ts           test de humo: monta la home
 ```

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { marked } from 'marked'
 
+const { record } = useProgress()
+
 const route = useRoute()
 const reading = readingById(String(route.params.slug))
 
@@ -29,6 +31,15 @@ const hits = computed(() => results.value.filter(result => result.correct).lengt
 
 /** «Lisbon / Lisboa» accepts either one, but only the first is shown as the answer. */
 const shownAnswer = (question: Question) => question.answer.split('/')[0]!.trim()
+
+/** Correcting the whole set also records one attempt per question in the progress. */
+function submit() {
+  submitted.value = true
+
+  for (const result of results.value) {
+    record(readingItemId(reading!, result.question), result.correct)
+  }
+}
 
 function retry() {
   answers.value = {}
@@ -102,7 +113,7 @@ useSeoMeta({
             Preguntas
           </h2>
 
-          <form @submit.prevent="submitted = true">
+          <form @submit.prevent="submit">
             <ol class="space-y-8">
               <li
                 v-for="(result, i) in results"

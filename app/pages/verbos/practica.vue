@@ -4,16 +4,13 @@ useSeoMeta({
   description: 'Ejercicio de conjugación: escribe el pasado simple, el participio o la tercera persona del verbo y comprueba la respuesta al instante.'
 })
 
+const { record } = useProgress()
+
 const total = 10
 
-/** What can be asked about a verb. Each question picks one of these at random. */
-const kinds = [
-  { label: 'Pasado simple', solution: (verb: Verb) => verb.past },
-  { label: 'Participio', solution: (verb: Verb) => verb.participle },
-  { label: 'Present Simple, 3.ª persona (he / she / it)', solution: (verb: Verb) => thirdPerson(verb.infinitive) }
-]
-
 interface Question {
+  /** Item.id, para apuntar el intento en el progreso. */
+  id: string
   verb: Verb
   label: string
   solution: string
@@ -30,12 +27,12 @@ function shuffle<T>(items: T[]): T[] {
   return copy
 }
 
-/** Ten different verbs, each asked for one of its forms. */
+/** Ten different verbs, each asked for one of the forms the progress knows about. */
 function newQuiz(): Question[] {
   return shuffle(verbs).slice(0, total).map((verb) => {
-    const kind = kinds[Math.floor(Math.random() * kinds.length)]!
+    const form = verbForms[Math.floor(Math.random() * verbForms.length)]!
 
-    return { verb, label: kind.label, solution: kind.solution(verb) }
+    return { id: verbItemId(verb, form), verb, label: form.label, solution: form.of(verb) }
   })
 }
 
@@ -77,6 +74,7 @@ function submit() {
 
   const correct = isCorrect(answer.value, question.value.solution)
 
+  record(question.value.id, correct)
   results.value.push({ question: question.value, answer: answer.value, correct })
   checked.value = { correct, solution: question.value.solution }
 }

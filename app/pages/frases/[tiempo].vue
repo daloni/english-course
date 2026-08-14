@@ -2,6 +2,8 @@
 // Un componente por tipo de ejercicio; el de la frase actual se elige por su `type`.
 import { ExerciseChoice, ExerciseGap, ExerciseTransform } from '#components'
 
+const { record } = useProgress()
+
 const route = useRoute()
 const tense = tenseById(String(route.params.tiempo))
 const drill = tense ? exercisesOf(tense.id) : []
@@ -72,6 +74,7 @@ function submit() {
 
   const correct = isCorrect(answer.value, exercise.value.solution)
 
+  record(frasesItemId(exercise.value), correct)
   results.value.push({ exercise: exercise.value, answer: answer.value, correct })
   checked.value = { correct, exercise: exercise.value }
 }
