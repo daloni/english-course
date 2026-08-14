@@ -1,8 +1,17 @@
 {
   "id": "travel",
   "title": "A weekend in Lisbon",
+  "topic": "Viajes",
   "level": "A2",
   "text": "Last spring my sister and I spent three days in Lisbon. We arrived on Friday evening and took the old yellow tram to our hotel in Alfama. The streets there are narrow and steep, so we walked slowly and stopped a lot.\n\nOn Saturday we visited the castle. From the top you can see the whole city and the river. In the afternoon it started to rain, so we went to a small café and ate pastéis de nata, the famous cream cakes of the city.\n\nOn Sunday we took a train to Belém. The tower was full of tourists, but the queue moved fast. We came home tired, with a hundred photos and a plan to go back in summer.",
+  "glossary": [
+    { "en": "tram", "es": "tranvía" },
+    { "en": "narrow", "es": "estrecho" },
+    { "en": "steep", "es": "empinado" },
+    { "en": "castle", "es": "castillo" },
+    { "en": "queue", "es": "cola, fila" },
+    { "en": "tired", "es": "cansado" }
+  ],
   "questions": [
     {
       "id": "travel-q1",
@@ -12,7 +21,8 @@
         "Three days",
         "Two weeks"
       ],
-      "answer": "Three days"
+      "answer": "Three days",
+      "explanation": "La primera frase lo dice: «my sister and I spent three days in Lisbon»."
     },
     {
       "id": "travel-q2",
@@ -22,7 +32,8 @@
         "By taxi",
         "On foot"
       ],
-      "answer": "By tram"
+      "answer": "By tram",
+      "explanation": "«We arrived on Friday evening and took the old yellow tram to our hotel». Caminaron por Alfama, pero al hotel llegaron en tranvía."
     },
     {
       "id": "travel-q3",
@@ -32,7 +43,8 @@
         "Because it began to rain",
         "Because they were lost"
       ],
-      "answer": "Because it began to rain"
+      "answer": "Because it began to rain",
+      "explanation": "«In the afternoon it started to rain, so we went to a small café»: *so* introduce la consecuencia, y la causa es la lluvia."
     },
     {
       "id": "travel-q4",
@@ -42,7 +54,20 @@
         "There were few visitors",
         "The queue was quick"
       ],
-      "answer": "The queue was quick"
+      "answer": "The queue was quick",
+      "explanation": "«The tower was full of tourists, but the queue moved fast»: había mucha gente, pero la cola avanzaba rápido."
+    },
+    {
+      "id": "travel-q5",
+      "question": "Which city is the text about?",
+      "answer": "Lisbon / Lisboa",
+      "explanation": "El texto habla de Lisboa: Alfama, Belém y los pastéis de nata son barrios y dulces de la ciudad."
+    },
+    {
+      "id": "travel-q6",
+      "question": "What did they eat in the café?",
+      "answer": "Pastéis de nata / Pasteis de nata / Cream cakes / Cakes",
+      "explanation": "«we ate pastéis de nata, the famous cream cakes of the city»: la aposición traduce el nombre portugués."
     }
   ]
 }

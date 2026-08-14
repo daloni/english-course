@@ -71,18 +71,25 @@ export interface Exercise {
 export interface Question {
   id: string
   question: string
-  /** Answer choices; `answer` is one of them. */
-  options: string[]
+  /** Answer choices; `answer` is one of them. Without options the answer is written. */
+  options?: string[]
+  /** A written answer may list alternatives separated by "/", as in the exercises. */
   answer: string
+  /** Why that is the answer, shown when correcting. */
+  explanation: string
 }
 
 export interface Reading {
   /** Slug, matches the file name: content/readings/<id>.json */
   id: string
   title: string
+  /** Tema en español: what the list shows next to the English title. */
+  topic: string
   level: Level
   /** The English text to read, in Markdown */
   text: string
+  /** Key vocabulary, shown in a collapsible glossary above the questions. */
+  glossary?: { en: string, es: string }[]
   questions: Question[]
 }
 
@@ -102,6 +109,12 @@ export const readings: Reading[] = Object.values(readingFiles)
   .sort((a, b) => a.level.localeCompare(b.level) || a.title.localeCompare(b.title))
 
 export const tenseById = (id: string) => tenses.find(tense => tense.id === id)
+
+export const readingById = (id: string) => readings.find(reading => reading.id === id)
+
+/** Estimated reading time at ~150 wpm, the pace of a learner reading in English. */
+export const readingMinutes = (reading: Reading) =>
+  Math.max(1, Math.round(reading.text.trim().split(/\s+/).length / 150))
 
 /** Exercises of a tense, in file order: the drill is always the same, no shuffling. */
 export const exercisesOf = (tenseId: string) => exercises.filter(exercise => exercise.tenseId === tenseId)

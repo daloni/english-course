@@ -37,7 +37,8 @@ pnpm dev      # http://localhost:3000
 El contenido vive en `content/` como JSON versionado y se escribe con comandos de
 [Claude Code](https://claude.com/claude-code) definidos en `.claude/commands/`. Cada comando
 lleva el esquema exacto del fichero que toca, fusiona en vez de sobrescribir y termina
-ejecutando `pnpm test test/content.spec.ts`.
+ejecutando el test que valida ese contenido (`pnpm test test/content.spec.ts`, o
+`test/reading.spec.ts` en el caso de `/reading`).
 
 | Comando                    | Qué hace                                                              |
 | -------------------------- | --------------------------------------------------------------------- |
@@ -72,6 +73,7 @@ app/
   pages/teoria/           listado de tiempos por nivel y teoría de cada uno
   pages/verbos/           tabla de verbos y ejercicio de conjugación
   pages/frases/           elección de tiempo y ronda de ejercicios en frases
+  pages/reading/          listado de lecturas y lectura con glosario y preguntas
   components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
   utils/check.ts          corrección de las respuestas escritas y tercera persona
   utils/content.ts        tipos del contenido y carga de content/*.json
@@ -79,16 +81,17 @@ app/
 content/
   tenses/<slug>.json      teoría, estructura y ejemplos de cada tiempo verbal
   exercises/<slug>.json   ejercicios en frases: hueco, transformar y elegir el tiempo
-  readings/<slug>.json    lectura con preguntas de comprensión
+  readings/<slug>.json    lectura con glosario y preguntas de comprensión
   verbs.json              lista de verbos con pasado, participio y traducción
 scripts/
   merge-content.mjs       fusiona JSON en content/ sin duplicar entradas
 test/
-  content.spec.ts         valida todo el contenido de content/
+  content.spec.ts         valida los tiempos, verbos y ejercicios de content/
   merge-content.spec.ts   valida la fusión sin duplicados
   teoria.spec.ts          cada fichero de content/tenses/ tiene su ruta en /teoria
   check.spec.ts           normalización y corrección de las respuestas
   verbos.spec.ts          tabla de verbos y ronda completa de conjugación
   frases.spec.ts          cada fichero de content/exercises/ y su tipo de ejercicio
+  reading.spec.ts         valida content/readings/ y corrige las preguntas en /reading
   smoke.spec.ts           test de humo: monta la home
 ```

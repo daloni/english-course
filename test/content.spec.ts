@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { exerciseFiles, exerciseTypes, exercises, forms, levels, readingFiles, readings, tenseFiles, tenses, typeOf, verbs } from '../app/utils/content'
+import { exerciseFiles, exerciseTypes, exercises, forms, levels, tenseFiles, tenses, typeOf, verbs } from '../app/utils/content'
 
 // Guards every JSON file under content/: a missing field, a duplicate id or a file name that
 // no longer matches its slug fails here instead of at runtime in the browser.
@@ -132,36 +132,5 @@ describe('exercises', () => {
   })
 })
 
-describe('readings', () => {
-  it('has unique ids', () => {
-    expect(readings).toHaveLength(Object.keys(readingFiles).length)
-    expect(duplicates(readings.map(reading => reading.id))).toEqual([])
-  })
-
-  describe.each(Object.entries(readingFiles))('%s', (path, reading) => {
-    it('is named after its id', () => {
-      expectText(reading.id, 'id')
-      expect(reading.id).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/)
-      expect(fileName(path)).toBe(`${reading.id}.json`)
-    })
-
-    it('has the required fields', () => {
-      expectText(reading.title, 'title')
-      expectText(reading.text, 'text')
-      expect(levels).toContain(reading.level)
-    })
-
-    it('has questions whose answer is one of the options', () => {
-      expect(reading.questions?.length).toBeGreaterThan(0)
-      expect(duplicates(reading.questions.map(question => question.id))).toEqual([])
-
-      for (const question of reading.questions) {
-        expectText(question.id, 'question id')
-        expectText(question.question, `${question.id}.question`)
-        expect(question.options?.length, `${question.id}.options`).toBeGreaterThan(1)
-        question.options.forEach((option, i) => expectText(option, `${question.id}.options[${i}]`))
-        expect(question.options, `${question.id}.answer`).toContain(question.answer)
-      }
-    })
-  })
-})
+// The readings of content/readings/ are validated in test/reading.spec.ts, next to the pages
+// that play them.
