@@ -1,0 +1,59 @@
+{
+  "id": "past-simple",
+  "name": "Past Simple",
+  "nameEs": "Pasado simple",
+  "level": "A1",
+  "theory": "## Cuándo se usa\n\nEl **past simple** cuenta acciones terminadas en un momento concreto del pasado:\n\n- Hechos puntuales: *I bought a car last year.*\n- Series de acciones en un relato: *She opened the door, took her coat and left.*\n- Hábitos del pasado que ya no existen: *We played football every Sunday.*\n\nLa clave es que el momento está **cerrado**: si te interesa el resultado en el presente y no el cuándo, usa el present perfect.\n\n## Cómo se forma\n\n- **Regulares**: infinitivo + **-ed** (*work → worked*). Si acaba en *-e* solo se añade *-d* (*live → lived*); consonante + *y* pasa a *-ied* (*try → tried*).\n- **Irregulares**: forma propia que hay que memorizar (*go → went*, *see → saw*).\n\nLa forma es la misma para todas las personas. En negativa e interrogativa se usa el auxiliar **did** y el verbo principal vuelve al infinitivo: *Did you go?*, *I didn't go.*\n\n## Errores frecuentes\n\n- Marcar el pasado dos veces: *I didn't went* ❌ → *I didn't go* ✅.\n- Usar el past simple con *since* o *for* cuando la acción sigue: ahí toca present perfect.\n- Olvidar que *was* / *were* no llevan *did*: *Did you were there?* ❌ → *Were you there?* ✅.",
+  "structure": {
+    "affirmative": "Sujeto + verbo en pasado (-ed en los regulares, forma propia en los irregulares)",
+    "negative": "Sujeto + did + not + verbo en infinitivo",
+    "interrogative": "Did + sujeto + verbo en infinitivo + ?"
+  },
+  "timeMarkers": [
+    "yesterday",
+    "last night",
+    "last week",
+    "two days ago",
+    "in 2019",
+    "when I was a child",
+    "then",
+    "that morning"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "I visited my grandparents last weekend.",
+      "es": "Visité a mis abuelos el fin de semana pasado."
+    },
+    {
+      "form": "affirmative",
+      "en": "She went to Berlin in 2019.",
+      "es": "Ella fue a Berlín en 2019."
+    },
+    {
+      "form": "affirmative",
+      "en": "They were at home yesterday evening.",
+      "es": "Ellos estaban en casa ayer por la tarde."
+    },
+    {
+      "form": "negative",
+      "en": "We didn't finish the project on time.",
+      "es": "No terminamos el proyecto a tiempo."
+    },
+    {
+      "form": "negative",
+      "en": "He wasn't ready for the exam.",
+      "es": "Él no estaba preparado para el examen."
+    },
+    {
+      "form": "interrogative",
+      "en": "Did you call her yesterday?",
+      "es": "¿La llamaste ayer?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Where did they go after the concert?",
+      "es": "¿Adónde fueron después del concierto?"
+    }
+  ]
+}

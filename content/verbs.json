@@ -1,0 +1,22 @@
+[
+  { "infinitive": "be", "past": "was / were", "participle": "been", "regular": false, "es": "ser, estar" },
+  { "infinitive": "have", "past": "had", "participle": "had", "regular": false, "es": "tener, haber" },
+  { "infinitive": "do", "past": "did", "participle": "done", "regular": false, "es": "hacer" },
+  { "infinitive": "say", "past": "said", "participle": "said", "regular": false, "es": "decir" },
+  { "infinitive": "go", "past": "went", "participle": "gone", "regular": false, "es": "ir" },
+  { "infinitive": "get", "past": "got", "participle": "got", "regular": false, "es": "conseguir, obtener" },
+  { "infinitive": "make", "past": "made", "participle": "made", "regular": false, "es": "hacer, fabricar" },
+  { "infinitive": "know", "past": "knew", "participle": "known", "regular": false, "es": "saber, conocer" },
+  { "infinitive": "think", "past": "thought", "participle": "thought", "regular": false, "es": "pensar" },
+  { "infinitive": "take", "past": "took", "participle": "taken", "regular": false, "es": "coger, llevar" },
+  { "infinitive": "see", "past": "saw", "participle": "seen", "regular": false, "es": "ver" },
+  { "infinitive": "come", "past": "came", "participle": "come", "regular": false, "es": "venir" },
+  { "infinitive": "find", "past": "found", "participle": "found", "regular": false, "es": "encontrar" },
+  { "infinitive": "give", "past": "gave", "participle": "given", "regular": false, "es": "dar" },
+  { "infinitive": "tell", "past": "told", "participle": "told", "regular": false, "es": "contar, decir" },
+  { "infinitive": "want", "past": "wanted", "participle": "wanted", "regular": true, "es": "querer" },
+  { "infinitive": "use", "past": "used", "participle": "used", "regular": true, "es": "usar" },
+  { "infinitive": "work", "past": "worked", "participle": "worked", "regular": true, "es": "trabajar" },
+  { "infinitive": "call", "past": "called", "participle": "called", "regular": true, "es": "llamar" },
+  { "infinitive": "try", "past": "tried", "participle": "tried", "regular": true, "es": "intentar" }
+]

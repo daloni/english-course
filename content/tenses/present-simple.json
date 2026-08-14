@@ -1,0 +1,61 @@
+{
+  "id": "present-simple",
+  "name": "Present Simple",
+  "nameEs": "Presente simple",
+  "level": "A1",
+  "theory": "## Cuándo se usa\n\nEl **present simple** describe lo que es siempre verdad o lo que se repite:\n\n- Hábitos y rutinas: *I work from home every day.*\n- Hechos generales: *Water boils at 100 degrees.*\n- Horarios y calendarios: *The train leaves at seven.*\n- Estados y opiniones con verbos como *be*, *have*, *know*, *want*, *like*.\n\n## Cómo se forma\n\nSe usa el infinitivo sin *to*. La única forma distinta es la **tercera persona del singular** (*he*, *she*, *it*), que añade **-s**:\n\n- Verbos acabados en *-ch*, *-sh*, *-ss*, *-x*, *-o* añaden **-es**: *watches*, *goes*.\n- Verbos acabados en consonante + *y* cambian a **-ies**: *study → studies*.\n\nEn negativa e interrogativa aparece el auxiliar **do / does**, y entonces el verbo principal vuelve al infinitivo: *He doesn't work* (no *doesn't works*).\n\n## Errores frecuentes\n\n- Olvidar la *-s* de la tercera persona: *She live here* ❌ → *She lives here* ✅.\n- Duplicar la marca de tercera persona: *Does she lives here?* ❌ → *Does she live here?* ✅.\n- Usarlo para algo que ocurre justo ahora; para eso está el present continuous.",
+  "structure": {
+    "affirmative": "Sujeto + verbo en infinitivo (+ -s / -es en 3.ª persona del singular)",
+    "negative": "Sujeto + do / does + not + verbo en infinitivo",
+    "interrogative": "Do / Does + sujeto + verbo en infinitivo + ?"
+  },
+  "timeMarkers": [
+    "always",
+    "usually",
+    "often",
+    "sometimes",
+    "rarely",
+    "never",
+    "every day",
+    "every week",
+    "on Mondays",
+    "twice a month"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "I work in a small office.",
+      "es": "Trabajo en una oficina pequeña."
+    },
+    {
+      "form": "affirmative",
+      "en": "She studies English every morning.",
+      "es": "Ella estudia inglés todas las mañanas."
+    },
+    {
+      "form": "affirmative",
+      "en": "The shop opens at nine on Saturdays.",
+      "es": "La tienda abre a las nueve los sábados."
+    },
+    {
+      "form": "negative",
+      "en": "We don't watch television during the week.",
+      "es": "No vemos la televisión entre semana."
+    },
+    {
+      "form": "negative",
+      "en": "He doesn't like coffee.",
+      "es": "A él no le gusta el café."
+    },
+    {
+      "form": "interrogative",
+      "en": "Do you live near the station?",
+      "es": "¿Vives cerca de la estación?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Does your brother speak French?",
+      "es": "¿Tu hermano habla francés?"
+    }
+  ]
+}
