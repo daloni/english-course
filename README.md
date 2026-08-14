@@ -32,6 +32,13 @@ pnpm dev      # http://localhost:3000
 | `pnpm lint`      | ESLint                                          |
 | `pnpm typecheck` | Comprobación de tipos                           |
 
+## Speaking
+
+`/speaking` usa la Web Speech API del navegador, sin servicios externos: escucha la frase
+con `SpeechSynthesis` (acento en-US o en-GB y tres velocidades) y corrige la repetición con
+`SpeechRecognition`, que hoy solo existe en Chrome y Edge y pide permiso para el micrófono.
+En Firefox o Safari la página lo avisa y sigue permitiendo escuchar las frases.
+
 ## Generar contenido con Claude Code
 
 El contenido vive en `content/` como JSON versionado y se escribe con comandos de
@@ -74,8 +81,11 @@ app/
   pages/verbos/           tabla de verbos y ejercicio de conjugación
   pages/frases/           elección de tiempo y ronda de ejercicios en frases
   pages/reading/          listado de lecturas y lectura con glosario y preguntas
+  pages/speaking.vue      escuchar la frase, repetirla al micrófono y comparar
   components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
+  composables/useSpeech.ts  Web Speech API: síntesis de voz y reconocimiento
   utils/check.ts          corrección de las respuestas escritas y tercera persona
+  utils/diff.ts           comparación palabra a palabra de lo que se ha dicho
   utils/content.ts        tipos del contenido y carga de content/*.json
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
 content/
@@ -93,5 +103,7 @@ test/
   verbos.spec.ts          tabla de verbos y ronda completa de conjugación
   frases.spec.ts          cada fichero de content/exercises/ y su tipo de ejercicio
   reading.spec.ts         valida content/readings/ y corrige las preguntas en /reading
+  diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
+  speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
   smoke.spec.ts           test de humo: monta la home
 ```
