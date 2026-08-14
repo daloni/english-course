@@ -70,6 +70,8 @@ app/
   layouts/default.vue     cabecera con la navegación y pie
   pages/index.vue         home con las tarjetas de cada sección
   pages/teoria/           listado de tiempos por nivel y teoría de cada uno
+  pages/verbos/           tabla de verbos y ejercicio de conjugación
+  utils/check.ts          corrección de las respuestas escritas y tercera persona
   utils/content.ts        tipos del contenido y carga de content/*.json
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
 content/
@@ -83,5 +85,7 @@ test/
   content.spec.ts         valida todo el contenido de content/
   merge-content.spec.ts   valida la fusión sin duplicados
   teoria.spec.ts          cada fichero de content/tenses/ tiene su ruta en /teoria
+  check.spec.ts           normalización y corrección de las respuestas
+  verbos.spec.ts          tabla de verbos y ronda completa de conjugación
   smoke.spec.ts           test de humo: monta la home
 ```
