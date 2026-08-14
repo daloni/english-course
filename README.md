@@ -32,6 +32,33 @@ pnpm dev      # http://localhost:3000
 | `pnpm lint`      | ESLint                                          |
 | `pnpm typecheck` | Comprobación de tipos                           |
 
+## Publicación
+
+El sitio es estático: `pnpm generate` recorre los enlaces desde la home y escribe todas las
+páginas en `.output/public`. Si alguna revienta, el comando falla en vez de publicar el sitio
+a medias.
+
+```bash
+pnpm generate
+npx serve .output/public   # comprobarlo en local antes de publicar
+```
+
+`.github/workflows/ci.yml` corre en cada push: lint, typecheck, tests y `pnpm generate`. Si el
+push es a `main`, además publica el resultado en **GitHub Pages**. Para activarlo, una vez, en
+el repositorio: **Settings → Pages → Source: GitHub Actions**.
+
+Como en GitHub Pages el sitio cuelga de `https://<usuario>.github.io/<repo>/`, el workflow pasa
+esa subruta a Nuxt con `NUXT_APP_BASE_URL`; en local no hace falta nada. Para servirlo desde
+otro sitio (Netlify, un `nginx`…) basta con subir `.output/public` tal cual.
+
+## Accesibilidad
+
+Todo se puede hacer con el teclado: la primera tabulación es «Saltar al contenido», los
+ejercicios se responden y se corrigen sin ratón (Enter envía el formulario, que corrige
+primero y pasa al siguiente después) y el foco siempre se ve. Los campos y los botones de
+audio llevan su etiqueta, la corrección se anuncia en una región `aria-live` y los textos en
+inglés van marcados con `lang="en"` para que el lector de pantalla no los lea en español.
+
 ## Speaking
 
 `/speaking` usa la Web Speech API del navegador, sin servicios externos: escucha la frase
@@ -93,6 +120,8 @@ node scripts/merge-content.mjs content/exercises/present-simple.json < patch.jso
 
 ```
 .claude/commands/          comandos de Claude Code que generan el contenido
+.github/workflows/ci.yml   lint, typecheck, tests, generate y despliegue a GitHub Pages
+public/.nojekyll           para que GitHub Pages sirva el directorio _nuxt/
 app/
   app.vue                 raíz: layout + página
   layouts/default.vue     cabecera con la navegación y pie
@@ -130,5 +159,6 @@ test/
   diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
   speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
   progress.spec.ts        cajas Leitner, persistencia serializada y sesión de repaso
+  a11y-seo.spec.ts        título y descripción de cada página y recorrido con teclado
   smoke.spec.ts           test de humo: monta la home
 ```

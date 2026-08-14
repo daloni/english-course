@@ -76,6 +76,7 @@ useSeoMeta({
       <div class="mx-auto w-full max-w-2xl space-y-10">
         <!-- eslint-disable vue/no-v-html -- markdown from content/, versioned here, never user input -->
         <div
+          lang="en"
           class="space-y-4 text-lg [&_em]:italic [&_strong]:font-semibold"
           v-html="text"
         />
@@ -97,7 +98,10 @@ useSeoMeta({
                 :key="word.en"
                 class="flex gap-2"
               >
-                <dt class="font-medium">
+                <dt
+                  lang="en"
+                  class="font-medium"
+                >
                   {{ word.en }}
                 </dt>
                 <dd class="text-muted">
@@ -125,16 +129,19 @@ useSeoMeta({
                   :items="result.question.options.map(option => ({ label: option, value: option }))"
                   :legend="`${i + 1}. ${result.question.question}`"
                   :disabled="submitted"
+                  lang="en"
                   :ui="{ fieldset: 'gap-y-2' }"
                 />
 
                 <UFormField
                   v-else
                   :label="`${i + 1}. ${result.question.question}`"
+                  lang="en"
                 >
                   <UInput
                     v-model="answers[result.question.id]"
                     :disabled="submitted"
+                    lang="en"
                     autocapitalize="off"
                     autocomplete="off"
                     spellcheck="false"

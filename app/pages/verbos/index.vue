@@ -95,6 +95,7 @@ const filtered = computed(() => {
           >
             <th
               scope="row"
+              lang="en"
               class="py-2 pe-4 font-medium whitespace-nowrap"
             >
               {{ verb.infinitive }}
@@ -107,10 +108,16 @@ const filtered = computed(() => {
                 class="ms-2"
               />
             </th>
-            <td class="py-2 pe-4">
+            <td
+              lang="en"
+              class="py-2 pe-4"
+            >
               {{ verb.past }}
             </td>
-            <td class="py-2 pe-4">
+            <td
+              lang="en"
+              class="py-2 pe-4"
+            >
               {{ verb.participle }}
             </td>
             <td class="py-2 text-muted">

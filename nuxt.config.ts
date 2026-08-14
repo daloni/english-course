@@ -12,11 +12,17 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  routeRules: {
-    '/': { prerender: true }
-  },
-
   compatibilityDate: '2026-06-30',
+
+  // El sitio se genera entero desde la home siguiendo los enlaces; si una página revienta,
+  // `pnpm generate` falla en vez de publicar el sitio a medias.
+  nitro: {
+    prerender: {
+      routes: ['/'],
+      crawlLinks: true,
+      failOnError: true
+    }
+  },
 
   eslint: {
     config: {

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-useSeoMeta({ title: 'Inicio' })
+useSeoMeta({
+  title: 'Inicio',
+  description: 'Plataforma personal para aprender inglés por tiempos verbales: teoría, conjugación de verbos, frases, reading con preguntas y speaking, sin cuentas ni instalaciones.'
+})
 </script>
 
 <template>

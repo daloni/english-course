@@ -13,7 +13,10 @@ const items = computed(() => (props.exercise.options ?? []).map(option => ({ lab
       ¿En qué tiempo verbal está esta frase?
     </p>
 
-    <p class="mt-1 text-xl">
+    <p
+      lang="en"
+      class="mt-1 text-xl"
+    >
       {{ exercise.prompt }}
     </p>
 

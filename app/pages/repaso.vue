@@ -142,6 +142,7 @@ useSeoMeta({
                 :items="item.options.map(option => ({ label: option, value: option }))"
                 :legend="item.prompt"
                 :disabled="!!checked"
+                lang="en"
                 :ui="{ fieldset: 'gap-y-2' }"
               />
 
@@ -149,11 +150,13 @@ useSeoMeta({
                 v-else
                 :key="item.id"
                 :label="item.prompt"
+                lang="en"
                 size="xl"
               >
                 <UInput
                   v-model="answer"
                   :disabled="!!checked"
+                  lang="en"
                   autofocus
                   autocapitalize="off"
                   autocomplete="off"

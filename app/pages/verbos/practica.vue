@@ -113,11 +113,17 @@ function submit() {
                 :key="mistake.question.verb.infinitive"
               >
                 <p class="font-medium">
-                  {{ mistake.question.label }} de <em class="italic">{{ mistake.question.verb.infinitive }}</em>
+                  {{ mistake.question.label }} de <em
+                    lang="en"
+                    class="italic"
+                  >{{ mistake.question.verb.infinitive }}</em>
                 </p>
                 <p class="text-muted">
                   Escribiste «{{ mistake.answer }}», la forma correcta es
-                  <strong class="font-semibold">{{ mistake.question.solution }}</strong>.
+                  <strong
+                    lang="en"
+                    class="font-semibold"
+                  >{{ mistake.question.solution }}</strong>.
                 </p>
               </li>
             </ul>
@@ -137,7 +143,10 @@ function submit() {
           </p>
 
           <h2 class="mt-2 text-xl font-semibold">
-            {{ question.label }} de <em class="italic">{{ question.verb.infinitive }}</em>
+            {{ question.label }} de <em
+              lang="en"
+              class="italic"
+            >{{ question.verb.infinitive }}</em>
           </h2>
 
           <p class="mt-1 text-muted">
@@ -152,12 +161,13 @@ function submit() {
               :key="index"
               v-model="answer"
               :disabled="!!checked"
+              lang="en"
               autofocus
               autocapitalize="off"
               autocomplete="off"
               spellcheck="false"
               placeholder="Tu respuesta"
-              aria-label="Tu respuesta"
+              :aria-label="`${question.label} de ${question.verb.infinitive}`"
               class="flex-1"
             />
 

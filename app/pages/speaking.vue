@@ -105,6 +105,7 @@ useSeoMeta({
               icon="i-lucide-volume-2"
               :loading="speaking"
               :disabled="!canSpeak"
+              aria-label="Escuchar la frase en inglés"
               @click="speak(sentence.en)"
             />
 
@@ -114,6 +115,8 @@ useSeoMeta({
               :color="listening ? 'error' : 'primary'"
               variant="subtle"
               :disabled="!canListen"
+              :aria-pressed="listening"
+              aria-label="Repetir la frase al micrófono"
               @click="listening ? stopListening() : listen()"
             />
 

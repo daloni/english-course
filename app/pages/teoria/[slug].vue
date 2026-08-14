@@ -86,7 +86,10 @@ useSeoMeta({
                 >
                   {{ formLabels[form] }}
                 </th>
-                <td class="py-2">
+                <td
+                  lang="en"
+                  class="py-2"
+                >
                   {{ tense.structure[form] }}
                 </td>
               </tr>
@@ -99,7 +102,10 @@ useSeoMeta({
             Marcadores temporales
           </h2>
 
-          <div class="flex flex-wrap gap-2">
+          <div
+            lang="en"
+            class="flex flex-wrap gap-2"
+          >
             <UBadge
               v-for="marker in tense.timeMarkers"
               :key="marker"
@@ -129,7 +135,9 @@ useSeoMeta({
                   v-for="example in group.examples"
                   :key="example.en"
                 >
-                  <p>{{ example.en }}</p>
+                  <p lang="en">
+                    {{ example.en }}
+                  </p>
                   <p class="text-sm text-muted">
                     {{ example.es }}
                   </p>

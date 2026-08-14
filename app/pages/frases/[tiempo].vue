@@ -126,12 +126,18 @@ useSeoMeta({
                 v-for="mistake in mistakes"
                 :key="mistake.exercise.id"
               >
-                <p class="font-medium">
+                <p
+                  lang="en"
+                  class="font-medium"
+                >
                   {{ mistake.exercise.prompt }}
                 </p>
                 <p class="text-muted">
                   Escribiste «{{ mistake.answer }}», la respuesta correcta es
-                  <strong class="font-semibold">{{ mistake.exercise.solution }}</strong>.
+                  <strong
+                    lang="en"
+                    class="font-semibold"
+                  >{{ mistake.exercise.solution }}</strong>.
                 </p>
                 <p class="text-muted">
                   {{ explain(mistake.exercise) }}

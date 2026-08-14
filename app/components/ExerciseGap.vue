@@ -7,13 +7,17 @@ const answer = defineModel<string>({ required: true })
 
 <template>
   <div>
-    <p class="text-xl">
+    <p
+      lang="en"
+      class="text-xl"
+    >
       {{ exercise.prompt }}
     </p>
 
     <UInput
       v-model="answer"
       :disabled="disabled"
+      lang="en"
       autofocus
       autocapitalize="off"
       autocomplete="off"

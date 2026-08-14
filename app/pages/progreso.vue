@@ -211,10 +211,16 @@ useSeoMeta({
                     variant="subtle"
                     color="neutral"
                   />
-                  <span class="font-medium">{{ failure.item.prompt }}</span>
+                  <span
+                    lang="en"
+                    class="font-medium"
+                  >{{ failure.item.prompt }}</span>
                 </p>
                 <p class="mt-1 text-muted">
-                  Respuesta: <strong class="font-semibold">{{ failure.item.solution }}</strong> ·
+                  Respuesta: <strong
+                    lang="en"
+                    class="font-semibold"
+                  >{{ failure.item.solution }}</strong> ·
                   {{ failure.attempt.hits }} aciertos y {{ failure.attempt.misses }} fallos ·
                   {{ boxLabels[failure.attempt.box] }} ·
                   {{ isDue(failure.attempt) ? 'toca hoy' : `vuelve el ${failure.attempt.due}` }}

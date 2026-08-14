@@ -11,13 +11,17 @@ const answer = defineModel<string>({ required: true })
       Pasa la frase a {{ formLabels[exercise.form ?? 'affirmative'].toLowerCase() }}
     </p>
 
-    <p class="mt-1 text-xl">
+    <p
+      lang="en"
+      class="mt-1 text-xl"
+    >
       {{ exercise.prompt }}
     </p>
 
     <UInput
       v-model="answer"
       :disabled="disabled"
+      lang="en"
       autofocus
       autocapitalize="off"
       autocomplete="off"
