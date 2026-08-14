@@ -43,9 +43,28 @@ export interface Exercise {
   solution: string
 }
 
+export interface Question {
+  id: string
+  question: string
+  /** Answer choices; `answer` is one of them. */
+  options: string[]
+  answer: string
+}
+
+export interface Reading {
+  /** Slug, matches the file name: content/readings/<id>.json */
+  id: string
+  title: string
+  level: Level
+  /** The English text to read, in Markdown */
+  text: string
+  questions: Question[]
+}
+
 /** Path -> tense, so tests can check that the file name matches the id. */
 export const tenseFiles = import.meta.glob<Tense>('../../content/tenses/*.json', { eager: true, import: 'default' })
 export const exerciseFiles = import.meta.glob<Exercise[]>('../../content/exercises/*.json', { eager: true, import: 'default' })
+export const readingFiles = import.meta.glob<Reading>('../../content/readings/*.json', { eager: true, import: 'default' })
 
 export const tenses: Tense[] = Object.values(tenseFiles)
   .sort((a, b) => a.level.localeCompare(b.level) || a.name.localeCompare(b.name))
@@ -53,5 +72,8 @@ export const tenses: Tense[] = Object.values(tenseFiles)
 export const verbs = verbsJson as Verb[]
 
 export const exercises: Exercise[] = Object.values(exerciseFiles).flat()
+
+export const readings: Reading[] = Object.values(readingFiles)
+  .sort((a, b) => a.level.localeCompare(b.level) || a.title.localeCompare(b.title))
 
 export const tenseById = (id: string) => tenses.find(tense => tense.id === id)

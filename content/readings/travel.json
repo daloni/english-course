@@ -1,0 +1,48 @@
+{
+  "id": "travel",
+  "title": "A weekend in Lisbon",
+  "level": "A2",
+  "text": "Last spring my sister and I spent three days in Lisbon. We arrived on Friday evening and took the old yellow tram to our hotel in Alfama. The streets there are narrow and steep, so we walked slowly and stopped a lot.\n\nOn Saturday we visited the castle. From the top you can see the whole city and the river. In the afternoon it started to rain, so we went to a small café and ate pastéis de nata, the famous cream cakes of the city.\n\nOn Sunday we took a train to Belém. The tower was full of tourists, but the queue moved fast. We came home tired, with a hundred photos and a plan to go back in summer.",
+  "questions": [
+    {
+      "id": "travel-q1",
+      "question": "How long did the writer stay in Lisbon?",
+      "options": [
+        "One day",
+        "Three days",
+        "Two weeks"
+      ],
+      "answer": "Three days"
+    },
+    {
+      "id": "travel-q2",
+      "question": "How did they travel to their hotel?",
+      "options": [
+        "By tram",
+        "By taxi",
+        "On foot"
+      ],
+      "answer": "By tram"
+    },
+    {
+      "id": "travel-q3",
+      "question": "Why did they go to a café on Saturday afternoon?",
+      "options": [
+        "Because the castle was closed",
+        "Because it began to rain",
+        "Because they were lost"
+      ],
+      "answer": "Because it began to rain"
+    },
+    {
+      "id": "travel-q4",
+      "question": "What does the writer say about the tower in Belém?",
+      "options": [
+        "It was closed that day",
+        "There were few visitors",
+        "The queue was quick"
+      ],
+      "answer": "The queue was quick"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "present-simple-001",
+    "tenseId": "present-simple",
+    "prompt": "She ___ (live) in a small flat near the park.",
+    "solution": "lives"
+  },
+  {
+    "id": "present-simple-002",
+    "tenseId": "present-simple",
+    "prompt": "My parents ___ (not / drink) coffee in the evening.",
+    "solution": "don't drink"
+  },
+  {
+    "id": "present-simple-003",
+    "tenseId": "present-simple",
+    "prompt": "___ (you / work) on Saturdays?",
+    "solution": "Do you work"
+  },
+  {
+    "id": "present-simple-004",
+    "tenseId": "present-simple",
+    "prompt": "The museum ___ (open) at ten every morning.",
+    "solution": "opens"
+  },
+  {
+    "id": "present-simple-005",
+    "tenseId": "present-simple",
+    "prompt": "We usually ___ (have) dinner at nine.",
+    "solution": "have"
+  },
+  {
+    "id": "present-simple-006",
+    "tenseId": "present-simple",
+    "prompt": "He ___ (not / understand) the second exercise.",
+    "solution": "doesn't understand"
+  },
+  {
+    "id": "present-simple-007",
+    "tenseId": "present-simple",
+    "prompt": "___ (your sister / study) medicine?",
+    "solution": "Does your sister study"
+  },
+  {
+    "id": "present-simple-008",
+    "tenseId": "present-simple",
+    "prompt": "Tom ___ (watch) a film every Friday night.",
+    "solution": "watches"
+  },
+  {
+    "id": "present-simple-009",
+    "tenseId": "present-simple",
+    "prompt": "They ___ (not / travel) by plane very often.",
+    "solution": "don't travel"
+  },
+  {
+    "id": "present-simple-010",
+    "tenseId": "present-simple",
+    "prompt": "The train to Madrid ___ (leave) twice a day.",
+    "solution": "leaves"
+  }
+]

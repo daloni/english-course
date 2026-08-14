@@ -32,14 +32,54 @@ pnpm dev      # http://localhost:3000
 | `pnpm lint`      | ESLint                                          |
 | `pnpm typecheck` | Comprobación de tipos                           |
 
+## Generar contenido con Claude Code
+
+El contenido vive en `content/` como JSON versionado y se escribe con comandos de
+[Claude Code](https://claude.com/claude-code) definidos en `.claude/commands/`. Cada comando
+lleva el esquema exacto del fichero que toca, fusiona en vez de sobrescribir y termina
+ejecutando `pnpm test test/content.spec.ts`.
+
+| Comando                    | Qué hace                                                              |
+| -------------------------- | --------------------------------------------------------------------- |
+| `/frases <tiempo> <nivel> <n>` | Añade `<n>` frases con hueco a `content/exercises/<tiempo>.json`  |
+| `/verbo <infinitivo>`      | Añade o completa el verbo en `content/verbs.json`                      |
+| `/reading <tema> <nivel>`  | Escribe un texto con preguntas en `content/readings/<slug>.json`       |
+| `/teoria <tiempo>`         | Redacta o amplía la teoría de `content/tenses/<slug>.json`             |
+
+```bash
+/frases present-simple A2 10   # content/exercises/present-simple.json, ids present-simple-0NN
+/verbo understand              # entrada nueva en content/verbs.json
+/reading travel A2             # content/readings/travel.json
+/teoria past-continuous        # content/tenses/past-continuous.json
+```
+
+Los comandos nunca reescriben un fichero entero: preparan el JSON nuevo y lo pasan por
+`scripts/merge-content.mjs`, que fusiona por `id` (o por `infinitive`). Volver a lanzar el
+mismo comando completa las entradas que ya existen, pero no las duplica.
+
+```bash
+node scripts/merge-content.mjs content/exercises/present-simple.json < patch.json
+```
+
 ## Estructura
 
 ```
+.claude/commands/          comandos de Claude Code que generan el contenido
 app/
   app.vue                 raíz: layout + página
   layouts/default.vue     cabecera con la navegación y pie
   pages/index.vue         home con las tarjetas de cada sección
+  utils/content.ts        tipos del contenido y carga de content/*.json
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
+content/
+  tenses/<slug>.json      teoría, estructura y ejemplos de cada tiempo verbal
+  exercises/<slug>.json   frases con hueco de un tiempo verbal
+  readings/<slug>.json    lectura con preguntas de comprensión
+  verbs.json              lista de verbos con pasado, participio y traducción
+scripts/
+  merge-content.mjs       fusiona JSON en content/ sin duplicar entradas
 test/
+  content.spec.ts         valida todo el contenido de content/
+  merge-content.spec.ts   valida la fusión sin duplicados
   smoke.spec.ts           test de humo: monta la home
 ```
