@@ -99,6 +99,9 @@ describe('parse', () => {
       y: { id: 'y', box: 9, hits: 1, misses: 0, last: today, due: today },
       z: { id: 'z', box: 1, hits: 1, misses: 0, last: 'ayer', due: today },
       w: 'nope',
+      // La fecha tiene la forma buena pero no existe: dejaría el ítem fuera de la cola
+      // para siempre, porque las fechas se comparan como texto.
+      u: { id: 'u', box: 1, hits: 1, misses: 0, last: today, due: '2026-13-45' },
       // The key has to match the id inside, or the item could never be found again.
       v: { ...attempt }
     })

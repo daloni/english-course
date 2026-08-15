@@ -63,7 +63,9 @@ export function useProgress() {
     const link = Object.assign(document.createElement('a'), { href: url, download: `progreso-${day()}.json` })
 
     link.click()
-    URL.revokeObjectURL(url)
+    // Revocar en el tick siguiente: Firefox y Safari arrancan la descarga después del click,
+    // y con la url ya revocada el fichero sale vacío.
+    setTimeout(() => URL.revokeObjectURL(url))
   }
 
   /** Importa un fichero exportado. Lanza si no lo es: quien llama enseña el error. */

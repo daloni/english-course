@@ -70,7 +70,10 @@ export const isDue = (attempt: Attempt, on = day()) => attempt.due <= on
 
 export const serialize = (progress: Progress) => JSON.stringify(progress, null, 2)
 
-const isDate = (value: unknown) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
+/** Una fecha ISO que además existe: «2026-13-45» tiene la forma pero no es ningún día. */
+const isDate = (value: unknown) => typeof value === 'string'
+  && /^\d{4}-\d{2}-\d{2}$/.test(value)
+  && !Number.isNaN(Date.parse(`${value}T00:00:00Z`))
 
 function isAttempt(value: unknown): value is Attempt {
   const attempt = value as Attempt
