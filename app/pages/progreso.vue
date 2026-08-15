@@ -261,7 +261,7 @@ useSeoMeta({
                   type="file"
                   accept="application/json,.json"
                   :aria-invalid="error ? true : undefined"
-                  aria-describedby="importar-progreso-error"
+                  :aria-describedby="error ? 'importar-progreso-error' : undefined"
                   class="mt-1 block text-sm file:mr-3 file:rounded-md file:border-0 file:bg-elevated file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-default"
                   @change="onImport"
                 >

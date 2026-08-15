@@ -62,6 +62,7 @@ export function useSpeech() {
   const error = ref('')
 
   let recognition: Recognition | null = null
+  let utterance: SpeechSynthesisUtterance | null = null
 
   // Both APIs live in the browser: on the server the page renders as unsupported and the
   // flags turn on once it is mounted.
@@ -75,20 +76,27 @@ export function useSpeech() {
       return
     }
 
-    // Only one sentence at a time: a second click restarts it instead of queueing.
+    // Only one sentence at a time: a second click restarts it instead of queueing. The
+    // handlers of the previous one go first, as its `end` is dispatched after this call and
+    // would clear the flag of the sentence that is starting now.
+    if (utterance) {
+      utterance.onend = utterance.onerror = null
+    }
+
     speechSynthesis.cancel()
 
-    const utterance = new SpeechSynthesisUtterance(sentence)
+    const current = new SpeechSynthesisUtterance(sentence)
 
-    utterance.lang = accent.value
-    utterance.rate = rate.value
+    current.lang = accent.value
+    current.rate = rate.value
     // The voices may not be loaded yet; `lang` alone is enough for the browser to pick one.
-    utterance.voice = speechSynthesis.getVoices().find(voice => voice.lang.replace('_', '-') === accent.value) ?? null
-    utterance.onend = () => speaking.value = false
-    utterance.onerror = () => speaking.value = false
+    current.voice = speechSynthesis.getVoices().find(voice => voice.lang.replace('_', '-') === accent.value) ?? null
+    current.onend = () => speaking.value = false
+    current.onerror = () => speaking.value = false
 
+    utterance = current
     speaking.value = true
-    speechSynthesis.speak(utterance)
+    speechSynthesis.speak(current)
   }
 
   function stopSpeaking() {

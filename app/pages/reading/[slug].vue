@@ -30,7 +30,7 @@ const results = computed(() => reading!.questions.map(question => ({
 const hits = computed(() => results.value.filter(result => result.correct).length)
 
 /** «Lisbon / Lisboa» accepts either one, but only the first is shown as the answer. */
-const shownAnswer = (question: Question) => question.answer.split('/')[0]!.trim()
+const shownAnswer = (question: Question) => question.answer.split(/\s+\/\s+/)[0]!.trim()
 
 /** Correcting the whole set also records one attempt per question in the progress. */
 function submit() {

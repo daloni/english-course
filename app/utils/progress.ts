@@ -70,7 +70,14 @@ export const isDue = (attempt: Attempt, on = day()) => attempt.due <= on
 
 export const serialize = (progress: Progress) => JSON.stringify(progress, null, 2)
 
-const isDate = (value: unknown) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
+/**
+ * Una fecha ISO que además existe: «2026-13-45» tiene la forma pero no es ningún día.
+ * No basta con que `Date` la acepte, porque los días de más desbordan al mes siguiente
+ * («2026-02-30» pasa a ser el 2 de marzo); solo vale si el día que sale es el que entró.
+ */
+const isDate = (value: unknown) => typeof value === 'string'
+  && /^\d{4}-\d{2}-\d{2}$/.test(value)
+  && new Date(`${value}T00:00:00Z`).toJSON()?.slice(0, 10) === value
 
 function isAttempt(value: unknown): value is Attempt {
   const attempt = value as Attempt
