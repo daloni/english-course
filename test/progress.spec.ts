@@ -102,9 +102,18 @@ describe('parse', () => {
       // La fecha tiene la forma buena pero no existe: dejaría el ítem fuera de la cola
       // para siempre, porque las fechas se comparan como texto.
       u: { id: 'u', box: 1, hits: 1, misses: 0, last: today, due: '2026-13-45' },
+      // El 30 de febrero tampoco existe, y este `Date` no lo rechaza: lo desborda al 2 de
+      // marzo, así que la fecha guardada no sería la que se importó.
+      t: { id: 't', box: 1, hits: 1, misses: 0, last: today, due: '2026-02-30' },
       // The key has to match the id inside, or the item could never be found again.
       v: { ...attempt }
     })
+
+    expect(Object.keys(parse(json))).toEqual(['x'])
+  })
+
+  it('keeps a leap day, which does exist', () => {
+    const json = JSON.stringify({ x: { ...attempt, last: '2024-02-29', due: '2024-02-29' } })
 
     expect(Object.keys(parse(json))).toEqual(['x'])
   })
