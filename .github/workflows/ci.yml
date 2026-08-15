@@ -47,17 +47,27 @@ jobs:
       - name: Test
         run: pnpm run test
 
+      # Solo main publica, así que solo main toca Pages: en el resto de ramas estos
+      # dos pasos se saltan y la rama se queda en lint, typecheck, test y generate.
       - name: Configure Pages
         id: pages
+        if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
+        with:
+          # Da de alta el sitio de Pages si el repositorio aún no lo tiene, en vez
+          # de fallar con un 404 esperando que alguien lo active a mano.
+          enablement: true
 
       - name: Generate the static site
         run: pnpm run generate
         env:
           # El sitio cuelga de /<repo>/ en GitHub Pages, no de la raíz del dominio.
+          # Fuera de main el paso anterior no corre, `base_path` viene vacío y el
+          # sitio se genera contra la raíz, que es lo que queremos para comprobarlo.
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
 
       - name: Upload the site
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: .output/public
