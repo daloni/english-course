@@ -37,9 +37,12 @@ export function normalize(answer: string): string {
     .replace(/\s+/g, ' ')
 }
 
-/** A solution may list alternatives separated by "/", as in "was / were". */
+/**
+ * A solution may list alternatives separated by " / ", as in "was / were". The spaces are
+ * part of the separator: a slash glued to the text ("9/11") is one answer, not two.
+ */
 export const alternatives = (solution: string) =>
-  solution.split('/').map(normalize).filter(alternative => alternative !== '')
+  solution.split(/\s+\/\s+/).map(normalize).filter(alternative => alternative !== '')
 
 /** True when the answer matches the solution, or any of its alternatives. */
 export function isCorrect(answer: string, solution: string): boolean {
@@ -58,7 +61,9 @@ export function thirdPerson(infinitive: string): string {
     return irregularThirdPerson[verb]
   }
 
-  if (/(ch|sh|ss|x|z|o)$/.test(verb)) {
+  // Sibilants take -es (watches, passes, fixes), and so does consonant + o (goes, does);
+  // vowel + o only takes -s (videos, shampoos).
+  if (/(ch|sh|s|x|z)$|[^aeiou]o$/.test(verb)) {
     return `${verb}es`
   }
 

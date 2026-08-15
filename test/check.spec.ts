@@ -48,6 +48,13 @@ describe('isCorrect', () => {
     expect(isCorrect('was / were', 'was / were')).toBe(true)
   })
 
+  it('does not take a slash glued to the text as a list of alternatives', () => {
+    expect(isCorrect('9', '9/11')).toBe(false)
+    expect(isCorrect('9/11', '9/11')).toBe(true)
+    // The documented format, with spaces around the slash, keeps working.
+    expect(isCorrect('Lisboa', 'Lisbon / Lisboa')).toBe(true)
+  })
+
   it('rejects a wrong or empty answer', () => {
     expect(isCorrect('goed', 'went')).toBe(false)
     expect(isCorrect('', 'went')).toBe(false)
@@ -68,6 +75,9 @@ describe('thirdPerson', () => {
     ['fix', 'fixes'],
     ['go', 'goes'],
     ['do', 'does'],
+    ['focus', 'focuses'],
+    ['video', 'videos'],
+    ['shampoo', 'shampoos'],
     ['be', 'is'],
     ['have', 'has']
   ])('%s → %s', (infinitive, expected) => {
