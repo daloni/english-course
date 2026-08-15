@@ -14,7 +14,9 @@ const kinds = [
 ]
 
 const filtered = computed(() => {
-  const term = normalize(query.value)
+  // Búsqueda literal: `normalize` corrige respuestas del alumno (expande contracciones,
+  // se come el punto final) y aquí solo haría que «can't» no encontrara nada.
+  const term = query.value.trim().toLowerCase()
 
   return verbs.filter(verb =>
     (kind.value === 'all' || (kind.value === 'regular') === verb.regular)
