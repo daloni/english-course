@@ -21,13 +21,15 @@ const contractions: [RegExp, string][] = [
 
 /**
  * Lowercase, single spaces, straight apostrophes and contractions written in full.
- * The final full stop or question mark is dropped: rewriting a whole sentence is about
- * the auxiliary and the word order, not about the punctuation.
+ * The punctuation is dropped: the final full stop or question mark, and the commas and
+ * semicolons inside, so that "Yes, she does" and "Yes she does" are the same answer.
+ * Rewriting a sentence is about the auxiliary and the word order, not about the punctuation.
  */
 export function normalize(answer: string): string {
   const text = answer
     .toLowerCase()
     .replace(/[’‘´`]/g, '\'')
+    .replace(/[,;]/g, ' ')
     .trim()
     .replace(/[.!?]+$/, '')
     .trim()

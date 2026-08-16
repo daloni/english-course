@@ -22,6 +22,14 @@ describe('normalize', () => {
     expect(normalize('we\'ll')).toBe('we will')
   })
 
+  it('ignores the punctuation inside the answer', () => {
+    // «Yes, she does» y «Yes she does» son la misma respuesta: la coma no es el error que
+    // se está corrigiendo.
+    expect(normalize('Yes, she does.')).toBe('yes she does')
+    expect(normalize('Yes she does')).toBe('yes she does')
+    expect(normalize('First, we ate; then we left')).toBe('first we ate then we left')
+  })
+
   it('leaves the ambiguous contractions alone', () => {
     // "he's" is he is or he has, "he'd" is he would or he had: expanding them would
     // accept a wrong answer.
@@ -40,6 +48,11 @@ describe('isCorrect', () => {
     expect(isCorrect('don\'t', 'do not')).toBe(true)
     expect(isCorrect('do not', 'don\'t')).toBe(true)
     expect(isCorrect('doesn\'t go', 'does not go')).toBe(true)
+  })
+
+  it('accepts the answer with or without its commas', () => {
+    expect(isCorrect('Yes, she does', 'Yes she does')).toBe(true)
+    expect(isCorrect('Yes she does', 'Yes, she does')).toBe(true)
   })
 
   it('accepts any of the alternatives of the solution', () => {
