@@ -128,7 +128,9 @@ describe('parse', () => {
 })
 
 describe('load and save', () => {
-  beforeEach(() => localStorage.clear())
+  // Solo el progreso: el localStorage guarda también la sesión, y sin ella el middleware
+  // global mandaría a /login en vez de montar la página.
+  beforeEach(() => localStorage.removeItem(storageKey))
 
   it('survives a reload: what was failed is still due', () => {
     const failed = review(undefined, 'frases:present-simple-001', false, today)
@@ -183,7 +185,7 @@ function refuseToStore() {
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!
 
-  beforeEach(() => localStorage.clear())
+  beforeEach(() => localStorage.removeItem(storageKey))
 
   /** Answers the first sentence of /frases/present-simple wrong, as the learner would. */
   async function fail() {
