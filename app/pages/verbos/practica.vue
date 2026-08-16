@@ -16,47 +16,16 @@ interface Question {
   solution: string
 }
 
-function shuffle<T>(items: T[]): T[] {
-  const copy = [...items]
-
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[copy[i], copy[j]] = [copy[j]!, copy[i]!]
-  }
-
-  return copy
-}
-
 /** Ten different verbs, prioritising forms that have never been practised or are due today. */
 function newQuiz(): Question[] {
-  const pending: Question[] = []
-  const later: Question[] = []
+  const questions = verbs.flatMap(verb => verbForms.map(form => ({
+    id: verbItemId(verb, form),
+    verb,
+    label: form.label,
+    solution: form.of(verb)
+  })))
 
-  for (const verb of verbs) {
-    for (const form of verbForms) {
-      const question = { id: verbItemId(verb, form), verb, label: form.label, solution: form.of(verb) }
-      const attempt = attemptOf(question.id)
-
-      if (!attempt || isDue(attempt)) {
-        pending.push(question)
-      } else {
-        later.push(question)
-      }
-    }
-  }
-
-  const seen = new Set<string>()
-
-  return [...shuffle(pending), ...shuffle(later)]
-    .filter((question) => {
-      if (seen.has(question.verb.infinitive)) {
-        return false
-      }
-
-      seen.add(question.verb.infinitive)
-      return true
-    })
-    .slice(0, total)
+  return pickRound(questions, question => attemptOf(question.id), total, question => question.verb.infinitive)
 }
 
 const quiz = ref<Question[]>([])

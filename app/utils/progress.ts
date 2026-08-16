@@ -70,6 +70,59 @@ export function review(attempt: Attempt | undefined, id: string, correct: boolea
 /** Due for review: its date has arrived. ISO dates compare as plain text. */
 export const isDue = (attempt: Attempt, on = day()) => attempt.due <= on
 
+/** A shuffled copy, Fisher-Yates: the content keeps its file order, the round does not. */
+export function shuffle<T>(items: T[]): T[] {
+  const copy = [...items]
+
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[copy[i], copy[j]] = [copy[j]!, copy[i]!]
+  }
+
+  return copy
+}
+
+/**
+ * A round of at most `size` items, the spaced repetition way: what has never been practised or
+ * is due today goes first, the rest only fills what is left, and each group is shuffled so two
+ * rounds are not the same list. `keyOf` drops repeats inside the round, which is how a verb is
+ * asked at most once even though it has three forms.
+ */
+export function pickRound<T>(
+  items: T[],
+  attemptOf: (item: T) => Attempt | undefined,
+  size: number,
+  keyOf?: (item: T) => string
+): T[] {
+  const pending: T[] = []
+  const later: T[] = []
+
+  for (const item of items) {
+    const attempt = attemptOf(item)
+
+    ;(attempt && !isDue(attempt) ? later : pending).push(item)
+  }
+
+  const round = [...shuffle(pending), ...shuffle(later)]
+
+  if (!keyOf) {
+    return round.slice(0, size)
+  }
+
+  const seen = new Set<string>()
+
+  return round.filter((item) => {
+    const key = keyOf(item)
+
+    if (seen.has(key)) {
+      return false
+    }
+
+    seen.add(key)
+    return true
+  }).slice(0, size)
+}
+
 export const serialize = (progress: Progress) => JSON.stringify(progress, null, 2)
 
 /**

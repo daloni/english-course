@@ -98,8 +98,15 @@ describe('accesibilidad', () => {
 
   it(`/frases/${slug} can be played without a mouse`, async () => {
     const page = await mountSuspended(TensePractice, { route: `/frases/${slug}` })
+    await flushPromises()
 
-    for (const exercise of exercisesOf(slug)) {
+    // The round is drawn at random out of the file, so it is played sentence by sentence:
+    // whichever is on screen, until the score shows up.
+    for (let i = 0; i < exercisesOf(slug).length && !page.text().includes('Resultado:'); i++) {
+      const exercise = exercisesOf(slug).find(candidate => page.text().includes(candidate.prompt))!
+
+      expect(exercise, 'no se reconoce la frase en pantalla').toBeDefined()
+
       if (typeOf(exercise) === 'choice') {
         // The group takes a tab stop and every option announces itself by name; once inside,
         // the space bar fires the click of the <button role="radio">, which is this one.
