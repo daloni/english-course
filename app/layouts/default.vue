@@ -1,5 +1,10 @@
 <script setup lang="ts">
 const items = sections.map(({ label, to, icon }) => ({ label, to, icon }))
+
+function leave() {
+  signOut()
+  return navigateTo('/login')
+}
 </script>
 
 <template>
@@ -20,6 +25,18 @@ const items = sections.map(({ label, to, icon }) => ({ label, to, icon }))
       <UNavigationMenu :items="items" />
 
       <template #right>
+        <!-- La sesión vive en el localStorage, así que el botón solo existe en el navegador:
+             pintarlo en el prerender descuadraría la hidratación. -->
+        <ClientOnly>
+          <UButton
+            label="Salir"
+            icon="i-lucide-log-out"
+            color="neutral"
+            variant="ghost"
+            @click="leave"
+          />
+        </ClientOnly>
+
         <UColorModeButton />
       </template>
 
