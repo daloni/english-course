@@ -6,7 +6,7 @@ useSeo({
 
 const route = useRoute()
 
-// /teoria/<tiempo> enlaza aquí con ?tense=<tiempo>: si ese tiempo tiene frases, se va directo.
+// /teoria/<tense> links here with ?tense=<tense>: if that tense has sentences, go straight in.
 const requested = String(route.query.tense ?? '')
 
 if (requested && exercisesOf(requested).length > 0) {
@@ -15,7 +15,7 @@ if (requested && exercisesOf(requested).length > 0) {
 
 const level = ref<Level | 'all'>('all')
 
-/** Tiempos con frases en content/exercises/, con el nivel que tiene el tiempo en teoría. */
+/** Tenses with sentences in content/exercises/, carrying the level the tense has in theory. */
 const drills = tenses
   .map(tense => ({ tense, exercises: exercisesOf(tense.id) }))
   .filter(drill => drill.exercises.length > 0)
@@ -27,7 +27,7 @@ const levelItems = [
 
 const shown = computed(() => drills.filter(drill => level.value === 'all' || drill.tense.level === level.value))
 
-/** «10 frases · hueco, transformar» para saber qué hay antes de entrar. */
+/** "10 frases · hueco, transformar", to know what is inside before going in. */
 function summary(exercises: Exercise[]) {
   const kinds = exerciseTypes.filter(type => exercises.some(exercise => typeOf(exercise) === type))
 

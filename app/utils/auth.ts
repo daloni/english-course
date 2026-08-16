@@ -1,19 +1,19 @@
-// La puerta de entrada a la web: usuario y contraseña por defecto y una marca de sesión en
-// el localStorage del navegador, con las mismas guardas que el progreso para el prerender y
-// los tests sin DOM.
+// The front door of the site: the credentials it checks against and a session mark in the
+// browser localStorage, with the same guards as progress for the prerender and for tests
+// with no DOM.
 //
-// ponytail: la sesión guardada es una marca simple, sin firmar ni cifrar, y las credenciales
-// viajan en el bundle porque el sitio es estático y no hay servidor donde esconderlas. Quien
-// abra las DevTools puede leerlas y escribir la marca a mano, así que un token falso solo
-// añadiría código sin añadir seguridad. Esto es una puerta, no autenticación: una sesión de
-// verdad necesita un servidor que valide y firme una cookie (Cloudflare Pages Function o
-// Worker), y ese es el camino de subida el día que haga falta.
+// ponytail: the stored session is a plain mark, neither signed nor encrypted, and the
+// credentials travel in the bundle because the site is static and there is no server to hide
+// them in. Anyone opening the DevTools can read them and write the mark by hand, so a fake
+// token would only add code without adding security. This is a gate, not authentication: a
+// real session needs a server that validates and signs a cookie (a Cloudflare Pages Function
+// or a Worker), and that is the upgrade path the day it is needed.
 
-// El nombre completo (y no `storageKey` a secas) porque los ficheros de `app/utils` se
-// autoimportan todos juntos y el progreso ya usa ese nombre.
+// The full name (and not just `storageKey`) because the files in `app/utils` are all
+// autoimported together and progress already uses that name.
 export const authKey = 'ingles:auth'
 
-/** Sin localStorage (prerender o un test sin DOM) no hay sesión: la puerta está cerrada. */
+/** Without localStorage (prerender or a test with no DOM) there is no session: the gate is closed. */
 export function isAuthenticated(): boolean {
   return typeof localStorage !== 'undefined' && localStorage.getItem(authKey) === 'ok'
 }
@@ -26,8 +26,8 @@ export function signIn() {
   try {
     localStorage.setItem(authKey, 'ok')
   } catch {
-    // Sin sitio donde guardar (modo privado de Safari, almacenamiento lleno) la sesión no
-    // persiste: al recargar habrá que volver a entrar.
+    // With nowhere to store it (Safari private mode, full storage) the session does not
+    // persist: on reload you have to sign in again.
   }
 }
 
@@ -39,7 +39,7 @@ export function signOut() {
   localStorage.removeItem(authKey)
 }
 
-/** SHA-256 en hexadecimal con la Web Crypto del navegador, que es nativa y no pide librería. */
+/** SHA-256 in hex with the browser Web Crypto, which is native and needs no library. */
 export async function sha256(value: string): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))
 
@@ -47,9 +47,9 @@ export async function sha256(value: string): Promise<string> {
 }
 
 /**
- * Las credenciales de `runtimeConfig.public`. De la contraseña solo se guarda su SHA-256:
- * no es seguridad (sigue siendo fuerza bruta contra un hash conocido), pero evita que esté
- * literalmente escrita en el bundle.
+ * The credentials from `runtimeConfig.public`. Only the SHA-256 of the password is stored:
+ * it is not security (brute force against a known hash still works), but it keeps it from
+ * being literally written in the bundle.
  */
 export async function checkCredentials(user: string, password: string): Promise<boolean> {
   const { authUser, authPasswordHash } = useRuntimeConfig().public

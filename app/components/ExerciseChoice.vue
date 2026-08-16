@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// Elegir el tiempo correcto: la frase ya está bien escrita, hay que reconocer en qué tiempo está.
+// Pick the right tense: the sentence is already written correctly, the tense it uses is what
+// has to be recognised.
 const props = defineProps<{ exercise: Exercise, disabled?: boolean }>()
 
 const answer = defineModel<string>({ required: true })

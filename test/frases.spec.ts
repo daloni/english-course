@@ -112,8 +112,8 @@ describe.each(slugs)('/frases/%s', (slug) => {
   })
 })
 
-// formOf, explain y el mapa de componentes viven una sola vez en app/utils/explain.ts: los
-// usan las dos pantallas que corrigen frases, /frases/<tiempo> y /repaso.
+// formOf, explain and the component map live in app/utils/explain.ts once and only once: the
+// two screens that correct sentences use them, /frases/<tiempo> and /repaso.
 describe('explain', () => {
   const gap = (prompt: string): Exercise => ({ id: 'x', tenseId: 'present-simple', prompt, solution: 'works' })
 
@@ -136,7 +136,7 @@ describe('explain', () => {
   })
 
   it('leaves no dangling dot when there is nothing to explain', () => {
-    // Las preguntas de reading no drillan ningún tiempo verbal, así que no hay estructura.
+    // Reading questions drill no tense at all, so there is no structure to fall back on.
     const question = items.find(item => item.kind === 'reading')!
 
     expect(explain({ ...question, explanation: undefined })).toBe('')

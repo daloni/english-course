@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// La página de error sustituye a app.vue entera, así que se pinta ella misma dentro del
-// layout: sin esto Nuxt enseña su error por defecto, en inglés y sin cabecera ni navegación.
+// The error page replaces app.vue entirely, so it renders itself inside the layout: without
+// this Nuxt shows its default error, in English and with no header and no navigation.
 import type { NuxtError } from '#app'
 
 const props = defineProps<{ error: NuxtError }>()
@@ -13,7 +13,7 @@ const description = computed(() => notFound.value
   ? 'Esta dirección no existe o el contenido ya no está publicado.'
   : 'Ha habido un error al cargar esta página. Vuelve a intentarlo o sigue desde el principio.')
 
-/** Los enlaces son enlaces de verdad, pero hay que limpiar el error o no se sale de aquí. */
+/** The links are real links, but the error has to be cleared or there is no way out of here. */
 const leave = (to: string) => clearError({ redirect: to })
 
 useSeo({

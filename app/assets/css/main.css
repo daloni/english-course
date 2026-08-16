@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/* Foco visible también en lo que no es un componente de @nuxt/ui: enlaces del markdown de
-   content/, el input de fichero de /progreso y el enlace de «Saltar al contenido». */
+/* Visible focus on what is not a @nuxt/ui component either: links in the markdown from
+   content/, the file input of /progreso and the "Saltar al contenido" link. */
 :focus-visible {
   outline: 2px solid var(--ui-primary);
   outline-offset: 2px;

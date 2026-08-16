@@ -1,10 +1,10 @@
-// Lo que comparten las dos pantallas que corrigen frases, /frases/<tiempo> y /repaso: con qué
-// componente se pregunta cada tipo de ejercicio y qué se lee al fallar.
+// What the two screens that correct sentences share, /frases/<tiempo> and /repaso: which
+// component asks each type of exercise and what is read out after a miss.
 import type { Component } from 'vue'
 import { ExerciseChoice, ExerciseGap, ExerciseTransform } from '#components'
 import { formLabels, tenseById, type Exercise, type ExerciseType, type Form } from './content'
 
-/** Un componente por tipo de ejercicio; el de la frase actual se elige por su `type`. */
+/** One component per exercise type; the one for the current sentence is picked by its `type`. */
 export const exerciseComponents: Record<ExerciseType, Component> = {
   gap: ExerciseGap,
   transform: ExerciseTransform,
@@ -12,9 +12,9 @@ export const exerciseComponents: Record<ExerciseType, Component> = {
 }
 
 /**
- * De qué forma habla el ejercicio, para recordar su estructura tras un fallo: la que declara,
- * y si no la que se ve en la frase.
- * ponytail: heurística sobre el prompt; si alguna frase la despista, añade "form" al JSON.
+ * Which form the exercise speaks in, to recall its structure after a miss: the one it
+ * declares, and failing that the one the sentence shows.
+ * ponytail: heuristic over the prompt; if some sentence throws it off, add "form" to the JSON.
  */
 export function formOf(exercise: Exercise): Form {
   if (exercise.form) {
@@ -29,8 +29,8 @@ export function formOf(exercise: Exercise): Form {
 }
 
 /**
- * El porqué del fallo: la explicación del ejercicio o, si no la trae, la estructura de su
- * tiempo verbal. Las preguntas de reading no drillan ningún tiempo, así que se quedan sin ella.
+ * The why behind the miss: the explanation of the exercise or, when it carries none, the
+ * structure of its tense. Reading questions drill no tense, so they go without one.
  */
 export function explain(exercise: Exercise): string {
   if (exercise.explanation) {
@@ -48,6 +48,6 @@ export function explain(exercise: Exercise): string {
   return `${formLabels[form]}: ${tense.structure[form]}`
 }
 
-/** Lo que se lee al fallar: la solución y el porqué, cuando lo hay. */
+/** What is read out after a miss: the solution and the why, when there is one. */
 export const correction = (exercise: Exercise) =>
   `La respuesta correcta es: ${exercise.solution}. ${explain(exercise)}`.trim()

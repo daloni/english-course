@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Transformar la frase: se reescribe entera en la forma que pide el ejercicio.
+// Transform the sentence: it is rewritten in full into the form the exercise asks for.
 defineProps<{ exercise: Exercise, disabled?: boolean }>()
 
 const answer = defineModel<string>({ required: true })

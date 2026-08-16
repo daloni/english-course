@@ -83,7 +83,7 @@ export interface Reading {
   /** Slug, matches the file name: content/readings/<id>.json */
   id: string
   title: string
-  /** Tema en español: what the list shows next to the English title. */
+  /** Topic in Spanish: what the list shows next to the English title. */
   topic: string
   level: Level
   /** The English text to read, in Markdown */

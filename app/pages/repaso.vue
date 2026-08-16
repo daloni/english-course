@@ -1,9 +1,9 @@
 <script setup lang="ts">
-// La sesión de repaso: solo lo que vence hoy, mezclando frases, verbos y reading.
+// The review session: only what is due today, mixing sentences, verbs and reading.
 const { pending, record } = useProgress()
 
-// La cola se congela al empezar: corregir mueve las cajas, y sin la foto la sesión se
-// encogería bajo los pies según se responde.
+// The queue is frozen when the session starts: correcting moves the boxes, and without the
+// snapshot the session would shrink underfoot as you answer.
 const session = ref<Item[]>([])
 const index = ref(0)
 const answer = ref('')
@@ -14,7 +14,7 @@ const item = computed(() => session.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const done = computed(() => session.value.length > 0 && index.value >= session.value.length)
 
-/** Otra ronda: se vuelve a fotografiar la cola, que ya trae de vuelta lo que se ha fallado. */
+/** Another round: the queue is snapshotted again, already bringing back what was missed. */
 function restart() {
   session.value = pending.value
   index.value = 0
@@ -25,7 +25,7 @@ function restart() {
 
 onMounted(restart)
 
-/** El mismo botón corrige primero y pasa al ejercicio siguiente después. */
+/** The same button corrects first and moves on to the next exercise afterwards. */
 function submit() {
   if (checked.value) {
     index.value += 1
@@ -133,7 +133,7 @@ useSeo({
               class="mt-4"
               @submit.prevent="submit"
             >
-              <!-- Las frases traen su propio tipo de ejercicio; el resto se pregunta en seco. -->
+              <!-- Sentences carry their own exercise type; the rest is asked plainly. -->
               <component
                 :is="exerciseComponents[typeOf(item)]"
                 v-if="item.kind === 'frases'"

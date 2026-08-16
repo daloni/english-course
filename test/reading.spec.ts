@@ -180,7 +180,7 @@ describe('/reading/[slug]', () => {
 
   beforeEach(() => localStorage.clear())
 
-  /** Corrects the reading on screen and hits «Volver a intentarlo». */
+  /** Corrects the reading on screen and hits "Volver a intentarlo". */
   async function correctAndRetry(page: VueWrapper) {
     await page.find('form').trigger('submit')
     await flushPromises()
@@ -202,7 +202,7 @@ describe('/reading/[slug]', () => {
     expect(page.text()).toContain('Puntuación: 0 de')
   })
 
-  // Corregir sin haber respondido mandaría las preguntas a la caja 1 sin haberlas fallado.
+  // Correcting without having answered would send the questions to box 1 without a real miss.
   it('records nothing when nothing was answered', async () => {
     const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
     await flushPromises()
@@ -213,8 +213,8 @@ describe('/reading/[slug]', () => {
     expect(load()).toEqual({})
   })
 
-  // Hacer la lectura dos veces seguidas inflaba los aciertos y movía la caja Leitner dos veces
-  // el mismo día: solo cuenta la primera corrección de la visita.
+  // Doing the reading twice in a row inflated the hits and moved the Leitner box twice on the
+  // same day: only the first correction of the visit counts.
   it('records one attempt per question, however many times it is corrected', async () => {
     const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
     await flushPromises()

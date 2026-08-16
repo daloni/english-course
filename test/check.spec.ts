@@ -23,8 +23,8 @@ describe('normalize', () => {
   })
 
   it('ignores the punctuation inside the answer', () => {
-    // «Yes, she does» y «Yes she does» son la misma respuesta: la coma no es el error que
-    // se está corrigiendo.
+    // "Yes, she does" and "Yes she does" are the same answer: the comma is not the mistake
+    // being corrected.
     expect(normalize('Yes, she does.')).toBe('yes she does')
     expect(normalize('Yes she does')).toBe('yes she does')
     expect(normalize('First, we ate; then we left')).toBe('first we ate then we left')

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// Escuchar la frase, repetirla al micrófono y ver palabra a palabra qué ha salido.
+// Listen to the sentence, repeat it into the microphone and see word by word how it went.
 const { accent, rate, canSpeak, canListen, speaking, listening, transcript, error, speak, stopSpeaking, listen, stopListening } = useSpeech()
 
-/** Las frases son los ejemplos de la teoría: ya están traducidas y ordenadas por nivel. */
+/** The sentences are the theory examples: already translated and sorted by level. */
 const drill = tenses.flatMap(tense => tense.examples.map(example => ({ ...example, tense })))
 
 const speeds = [
@@ -26,8 +26,9 @@ const styles: Record<WordStatus, string> = {
   extra: 'text-warning italic underline decoration-dotted'
 }
 
-// Cambiar de frase corta lo que estaba en marcha: el audio de la anterior y el micrófono,
-// que si no seguiría grabando y compararía lo dicho contra la frase nueva.
+// Switching sentences cuts off whatever was running: the audio of the previous one and the
+// microphone, which would otherwise keep recording and compare what was said against the new
+// sentence.
 function next() {
   stopSpeaking()
   stopListening()

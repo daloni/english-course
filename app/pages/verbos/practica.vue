@@ -9,7 +9,7 @@ const { record } = useProgress()
 const total = 10
 
 interface Question {
-  /** Item.id, para apuntar el intento en el progreso. */
+  /** Item.id, to record the attempt in the progress. */
   id: string
   verb: Verb
   label: string

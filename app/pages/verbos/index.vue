@@ -14,8 +14,8 @@ const kinds = [
 ]
 
 const filtered = computed(() => {
-  // Búsqueda literal: `normalize` corrige respuestas del alumno (expande contracciones,
-  // se come el punto final) y aquí solo haría que «can't» no encontrara nada.
+  // Literal search: `normalize` corrects learner answers (it expands contractions, it eats
+  // the final period) and here it would only make "can't" find nothing.
   const term = query.value.trim().toLowerCase()
 
   return verbs.filter(verb =>
