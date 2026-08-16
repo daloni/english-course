@@ -1,9 +1,11 @@
 name: ci
 
-# On every push and on every pull request: a PR from a fork is validated too, and with it the
-# result of the merge.
+# On pull requests: a PR from a fork is validated too, and with it the result of the merge. On
+# push, only to main: a push to any other branch is already covered by its pull request, so
+# restricting this avoids a duplicate run of the same commit.
 on:
   push:
+    branches: [main]
   pull_request:
 
 # What the GitHub Pages deployment of the `deploy` job needs.
