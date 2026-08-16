@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
@@ -6,6 +6,7 @@ import ReadingIndex from '../app/pages/reading/index.vue'
 import ReadingDetail from '../app/pages/reading/[slug].vue'
 import type { Question, Reading } from '../app/utils/content'
 import { levels, readingFiles, readingMinutes, readings } from '../app/utils/content'
+import { load, readingItemId } from '../app/utils/progress'
 
 // Guards content/readings/ and the pages that play it: a reading with too few questions, a
 // question without a correct answer, or a text that never reaches /reading/<slug> fails here.
@@ -175,6 +176,22 @@ describe.each(readings.map(reading => reading.id))('/reading/%s', (slug) => {
 })
 
 describe('/reading/[slug]', () => {
+  const reading = readings.find(candidate => candidate.id === 'travel')!
+
+  beforeEach(() => localStorage.clear())
+
+  /** Corrects the reading on screen and hits «Volver a intentarlo». */
+  async function correctAndRetry(page: VueWrapper) {
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    const again = page.findAll('button').find(button => button.text().includes('Volver a intentarlo'))
+
+    expect(again, 'no retry button').toBeDefined()
+    await again!.trigger('click')
+    await flushPromises()
+  }
+
   it('counts an unanswered question as a mistake', async () => {
     const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
     await flushPromises()
@@ -183,6 +200,41 @@ describe('/reading/[slug]', () => {
     await flushPromises()
 
     expect(page.text()).toContain('Puntuación: 0 de')
+  })
+
+  // Corregir sin haber respondido mandaría las preguntas a la caja 1 sin haberlas fallado.
+  it('records nothing when nothing was answered', async () => {
+    const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
+    await flushPromises()
+
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(load()).toEqual({})
+  })
+
+  // Hacer la lectura dos veces seguidas inflaba los aciertos y movía la caja Leitner dos veces
+  // el mismo día: solo cuenta la primera corrección de la visita.
+  it('records one attempt per question, however many times it is corrected', async () => {
+    const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
+    await flushPromises()
+
+    await answerAll(page, reading, true)
+    await correctAndRetry(page)
+
+    await answerAll(page, reading, false)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain(`Puntuación: 0 de ${reading.questions.length}`)
+
+    const stored = load()
+
+    expect(Object.keys(stored)).toHaveLength(reading.questions.length)
+
+    for (const question of reading.questions) {
+      expect(stored[readingItemId(reading, question)], question.id).toMatchObject({ hits: 1, misses: 0, box: 2 })
+    }
   })
 
   it('404s on a reading that does not exist', async () => {
