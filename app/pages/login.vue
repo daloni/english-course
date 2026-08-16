@@ -7,6 +7,7 @@ const state = reactive({ user: '', password: '' })
 const token = ref('')
 const error = ref('')
 const widget = ref<HTMLElement>()
+const turnstileUnavailable = ref(false)
 
 /** What the Turnstile widget leaves on `window` once it finishes loading. */
 interface Turnstile {
@@ -14,6 +15,7 @@ interface Turnstile {
     'sitekey': string
     'callback': (token: string) => void
     'expired-callback': () => void
+    'error-callback': () => void
   }) => void
 }
 
@@ -47,6 +49,14 @@ useHead({
  * nothing breaks.
  */
 let rendered = false
+let fallbackTimer: ReturnType<typeof setTimeout> | undefined
+
+function clearFallbackTimer() {
+  if (fallbackTimer !== undefined) {
+    clearTimeout(fallbackTimer)
+    fallbackTimer = undefined
+  }
+}
 
 function renderTurnstile() {
   const turnstile = (window as { turnstile?: Turnstile }).turnstile
@@ -56,11 +66,14 @@ function renderTurnstile() {
   }
 
   rendered = true
+  turnstileUnavailable.value = false
+  clearFallbackTimer()
   turnstile.render(widget.value, {
     'sitekey': turnstileSiteKey,
     'callback': (value: string) => token.value = value,
     // Tokens expire after five minutes: with no token, the button goes back to disabled.
-    'expired-callback': () => token.value = ''
+    'expired-callback': () => token.value = '',
+    'error-callback': () => token.value = ''
   })
 }
 
@@ -72,8 +85,18 @@ if (import.meta.client) {
 // instead of looking in onMounted, when it does not exist yet.
 watch(widget, renderTurnstile)
 
+onMounted(() => {
+  fallbackTimer = setTimeout(() => {
+    if (!rendered) {
+      turnstileUnavailable.value = true
+    }
+  }, 5000)
+})
+
+onBeforeUnmount(clearFallbackTimer)
+
 async function submit() {
-  if (!token.value) {
+  if (!token.value && !turnstileUnavailable.value) {
     return
   }
 
@@ -148,17 +171,25 @@ useSeoMeta({ robots: 'noindex, nofollow' })
           </ClientOnly>
 
           <p
-            v-if="!token"
+            v-if="!token && !turnstileUnavailable"
             class="text-sm text-muted"
           >
             Marca la casilla del captcha para poder entrar.
+          </p>
+
+          <p
+            v-else-if="turnstileUnavailable"
+            class="text-sm text-muted"
+            aria-live="polite"
+          >
+            El captcha no se ha podido cargar. Puedes entrar sin él.
           </p>
 
           <UButton
             type="submit"
             label="Entrar"
             icon="i-lucide-log-in"
-            :disabled="!token"
+            :disabled="!token && !turnstileUnavailable"
           />
         </UForm>
 

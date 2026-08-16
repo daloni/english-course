@@ -16,6 +16,7 @@ class FakeRecognition {
   onerror: ((event: { error: string }) => void) | null = null
   onend: (() => void) | null = null
   running = false
+  pendingTranscript = ''
 
   constructor() {
     FakeRecognition.last = this
@@ -27,11 +28,18 @@ class FakeRecognition {
 
   stop() {
     this.running = false
-    this.onend?.()
+    queueMicrotask(() => {
+      if (this.pendingTranscript) {
+        this.say(this.pendingTranscript)
+      }
+
+      this.onend?.()
+    })
   }
 
   abort() {
-    this.stop()
+    this.running = false
+    queueMicrotask(() => this.onend?.())
   }
 
   say(transcript: string) {
@@ -117,10 +125,7 @@ describe('/speaking', () => {
 
     expect(recognition.running).toBe(true)
 
-    recognition.say(tenses[0]!.examples[0]!.en)
-    await flushPromises()
-
-    expect(page.text()).toContain('Frase completa, palabra por palabra.')
+    recognition.pendingTranscript = tenses[0]!.examples[0]!.en
 
     const next = page.findAll('button').find(button => button.text().includes('Otra frase'))!
 
@@ -131,6 +136,28 @@ describe('/speaking', () => {
     // recording: otherwise whatever is said now would be compared against the new sentence.
     expect(page.text()).not.toContain('Frase completa, palabra por palabra.')
     expect(recognition.running).toBe(false)
+  })
+
+  it('keeps the new microphone session on after cancelling and restarting quickly', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const mic = page.find('[aria-label="Repetir la frase al micrófono"]')
+
+    await mic.trigger('click')
+    const first = FakeRecognition.last!
+    const next = page.findAll('button').find(button => button.text().includes('Otra frase'))!.element
+
+    next.dispatchEvent(new MouseEvent('click'))
+    await mic.trigger('click')
+    const second = FakeRecognition.last!
+
+    expect(first.running).toBe(false)
+    expect(second).not.toBe(first)
+    expect(second.running).toBe(true)
+    expect(page.text()).toContain('Escuchando…')
   })
 
   it('keeps the button sounding when a sentence is played right after another', async () => {

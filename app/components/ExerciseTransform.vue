@@ -8,7 +8,7 @@ const answer = defineModel<string>({ required: true })
 <template>
   <div>
     <p class="text-sm text-muted">
-      Pasa la frase a {{ formLabels[exercise.form ?? 'affirmative'].toLowerCase() }}
+      Pasa la frase a {{ formLabels[formOf(exercise)].toLowerCase() }}
     </p>
 
     <p

@@ -74,7 +74,7 @@ describe('content/readings', () => {
 })
 
 /** Answers every question of the reading, right or wrong, the way each type is answered. */
-async function answerAll(page: VueWrapper, reading: Reading, correct: boolean) {
+async function answerAll(page: VueWrapper, reading: Reading, correct: boolean, writtenAnswer = shownAnswer) {
   const items = page.findAll('form ol > li')
   expect(items).toHaveLength(reading.questions.length)
 
@@ -88,7 +88,7 @@ async function answerAll(page: VueWrapper, reading: Reading, correct: boolean) {
       expect(radio, `no radio for "${wanted}"`).toBeDefined()
       await radio!.trigger('click')
     } else {
-      await item.find('input').setValue(correct ? shownAnswer(question) : 'nope')
+      await item.find('input').setValue(correct ? writtenAnswer(question) : 'nope')
     }
   }
 
@@ -235,6 +235,17 @@ describe('/reading/[slug]', () => {
     for (const question of reading.questions) {
       expect(stored[readingItemId(reading, question)], question.id).toMatchObject({ hits: 1, misses: 0, box: 2 })
     }
+  })
+
+  it('accepts a written answer without accents', async () => {
+    const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
+    await flushPromises()
+
+    await answerAll(page, reading, true, question => question.id === 'travel-q6' ? 'Pasteis de nata' : shownAnswer(question))
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain(`Puntuación: ${reading.questions.length} de ${reading.questions.length}`)
   })
 
   it('404s on a reading that does not exist', async () => {

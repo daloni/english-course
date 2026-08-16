@@ -128,6 +128,17 @@ describe('explain', () => {
     expect(formOf({ ...gap('She works here.'), form: 'negative' })).toBe('negative')
   })
 
+  it('uses the same inferred form in the transform exercise', async () => {
+    const page = await mountSuspended(ExerciseTransform, {
+      props: {
+        exercise: { ...gap('___ (you / work) here?'), type: 'transform' },
+        modelValue: ''
+      }
+    })
+
+    expect(page.text()).toContain('interrogativa')
+  })
+
   it('falls back to the structure of the tense when the exercise has no explanation', () => {
     const structure = tenseById('present-simple')!.structure
 
