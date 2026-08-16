@@ -17,9 +17,29 @@ pero es una puerta de cliente: lo que se cuenta en [Acceso](#acceso).
 ## Puesta en marcha
 
 ```bash
+cp .env.example .env   # la configuración; sin ella el build se para
 pnpm install
-pnpm dev      # http://localhost:3000
+pnpm dev               # http://localhost:3000
 ```
+
+## Configuración
+
+Todo lo configurable vive en el `.env`, nunca escrito en el código: `nuxt.config.ts` declara
+las claves vacías y Nuxt las rellena desde las variables `NUXT_PUBLIC_*`. `.env.example` trae
+los valores de desarrollo y arranca el proyecto tal cual.
+
+| Variable | Qué es | Valor de desarrollo |
+| --- | --- | --- |
+| `NUXT_PUBLIC_SITE_URL` | La URL pública del sitio, para el `<link rel="canonical">` y el `og:url` | `http://localhost:3000` |
+| `NUXT_PUBLIC_SITE_NAME` | El nombre del sitio, en el `<title>` de cada página y en las tarjetas al compartir | `Aprender inglés` |
+| `NUXT_PUBLIC_SITE_DESCRIPTION` | La descripción de la home y su tarjeta social | la del curso |
+| `NUXT_PUBLIC_AUTH_USER` | El usuario de la pantalla de acceso | `alumno` |
+| `NUXT_PUBLIC_AUTH_PASSWORD_HASH` | El **SHA-256 en hexadecimal** de la contraseña | el de `ingles2026` |
+| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | La sitekey de Turnstile | `1x00000000000000000000AA`, la de pruebas de Cloudflare, que siempre pasa |
+
+Si falta alguna, el build se para nombrándola en vez de publicar un sitio sin canonical y con
+el login imposible. Lo que venga por entorno gana sobre el fichero, que es como el workflow
+pasa la `NUXT_PUBLIC_SITE_URL` de GitHub Pages.
 
 ## Comandos
 
@@ -72,20 +92,16 @@ middleware global manda ahí cualquier ruta mientras no haya sesión, que se gua
 `localStorage` (clave `ingles:auth`) y sobrevive a recargar. El botón **Salir** de la cabecera
 la cierra.
 
-Credenciales por defecto:
+Credenciales de `.env.example`:
 
 | | |
 | --- | --- |
 | Usuario | `alumno` |
 | Contraseña | `ingles2026` |
 
-Se cambian por entorno, sin tocar el código:
-
-| Variable | Qué es | Por defecto |
-| --- | --- | --- |
-| `NUXT_PUBLIC_AUTH_USER` | El usuario | `alumno` |
-| `NUXT_PUBLIC_AUTH_PASSWORD_HASH` | El **SHA-256 en hexadecimal** de la contraseña | el de `ingles2026` |
-| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | La sitekey de Turnstile | `1x00000000000000000000AA`, la de pruebas de Cloudflare, que siempre pasa |
+Se cambian en el `.env`, sin tocar el código: `NUXT_PUBLIC_AUTH_USER`,
+`NUXT_PUBLIC_AUTH_PASSWORD_HASH` y `NUXT_PUBLIC_TURNSTILE_SITE_KEY`, las tres de
+[Configuración](#configuración).
 
 ```bash
 # El hash de una contraseña nueva, para NUXT_PUBLIC_AUTH_PASSWORD_HASH
@@ -93,8 +109,8 @@ node -e "console.log(require('node:crypto').createHash('sha256').update('la nuev
 ```
 
 Para cambiarlas en el sitio publicado se añaden como `env` del paso `Generate the static site`
-de `.github/workflows/ci.yml`, que es quien genera el sitio; en local no hace falta nada,
-funciona con los valores por defecto y sin cuenta de Cloudflare.
+de `.github/workflows/ci.yml`, que es quien genera el sitio; en local basta con el `.env`, que
+funciona con los valores de `.env.example` y sin cuenta de Cloudflare.
 
 **El límite, escrito:** el sitio es estático, así que todo esto ocurre en el navegador.
 
@@ -194,6 +210,7 @@ node scripts/merge-content.mjs content/exercises/present-simple.json < patch.jso
 ```
 .claude/commands/          comandos de Claude Code que generan el contenido
 .github/workflows/ci.yml   lint, typecheck, tests, generate y despliegue a GitHub Pages
+.env.example               las variables de configuración, con sus valores de desarrollo
 public/.nojekyll           para que GitHub Pages sirva el directorio _nuxt/
 app/
   app.vue                 raíz: layout + página, canonical y og:url de cada ruta
