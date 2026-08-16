@@ -13,30 +13,48 @@
 // autoimported together and progress already uses that name.
 export const authKey = 'ingles:auth'
 
-/** Without localStorage (prerender or a test with no DOM) there is no session: the gate is closed. */
+// Reaching localStorage is what throws when the browser blocks the storage of the site
+// (SecurityError), so even the `typeof` guard for the prerender goes inside the try: outside
+// it, the exception would take down the global middleware and with it the whole navigation.
+
+/** Without localStorage (prerender, blocked storage, a test with no DOM) the gate is closed. */
 export function isAuthenticated(): boolean {
-  return typeof localStorage !== 'undefined' && localStorage.getItem(authKey) === 'ok'
+  try {
+    return typeof localStorage !== 'undefined' && localStorage.getItem(authKey) === 'ok'
+  } catch {
+    return false
+  }
 }
 
-export function signIn() {
-  if (typeof localStorage === 'undefined') {
-    return
-  }
-
+/**
+ * Opens the session and says whether it could be stored. With nowhere to store it (Safari
+ * private mode, blocked or full storage) there is no session at all: the next navigation
+ * would go straight back to /login, so the caller has to explain it instead of carrying on.
+ */
+export function signIn(): boolean {
   try {
+    if (typeof localStorage === 'undefined') {
+      return false
+    }
+
     localStorage.setItem(authKey, 'ok')
+
+    return true
   } catch {
-    // With nowhere to store it (Safari private mode, full storage) the session does not
-    // persist: on reload you have to sign in again.
+    return false
   }
 }
 
 export function signOut() {
-  if (typeof localStorage === 'undefined') {
-    return
-  }
+  try {
+    if (typeof localStorage === 'undefined') {
+      return
+    }
 
-  localStorage.removeItem(authKey)
+    localStorage.removeItem(authKey)
+  } catch {
+    // With the storage blocked there is no mark to remove: leaving is still leaving.
+  }
 }
 
 /** SHA-256 in hex with the browser Web Crypto, which is native and needs no library. */

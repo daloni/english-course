@@ -58,6 +58,21 @@ beforeEach(() => {
   turnstileErrorCallback = undefined
 })
 
+/**
+ * A browser blocking the storage of the site: every Storage operation throws SecurityError,
+ * not only writing. It is undone when the test ends, whatever happens, or the session the
+ * rest of the tests open in `test/setup.ts` would never be stored.
+ */
+function blockStorage(...methods: ('getItem' | 'setItem' | 'removeItem')[]) {
+  for (const method of methods) {
+    const spy = vi.spyOn(localStorage, method).mockImplementation(() => {
+      throw new DOMException('the storage of this site is blocked', 'SecurityError')
+    })
+
+    onTestFinished(() => spy.mockRestore())
+  }
+}
+
 describe('la sesión', () => {
   it('empieza cerrada, se abre al entrar y se cierra al salir', () => {
     expect(isAuthenticated()).toBe(false)
@@ -76,6 +91,28 @@ describe('la sesión', () => {
     localStorage.setItem(authKey, 'no')
 
     expect(isAuthenticated()).toBe(false)
+  })
+
+  // A browser that blocks the storage of the site throws on every Storage call, reads
+  // included. Nothing of this can bubble up: the middleware runs on every navigation.
+  it('se queda cerrada, sin romper nada, con el almacenamiento bloqueado', () => {
+    signIn()
+    blockStorage('getItem')
+
+    expect(isAuthenticated()).toBe(false)
+    expect(() => visit('/frases')).not.toThrow()
+    expect(navigateTo).toHaveBeenCalledWith({ path: '/login', query: { redirect: '/frases' } })
+  })
+
+  it('no falla al entrar ni al salir con el almacenamiento bloqueado', () => {
+    blockStorage('setItem', 'removeItem')
+
+    expect(signIn()).toBe(false)
+    expect(() => signOut()).not.toThrow()
+  })
+
+  it('avisa de que ha podido guardarse cuando sí puede', () => {
+    expect(signIn()).toBe(true)
   })
 })
 
@@ -221,6 +258,23 @@ describe('/login', () => {
 
     await vi.waitFor(() => expect(page.find('[aria-live="polite"]').text()).toContain('no son correctos'))
     expect(isAuthenticated()).toBe(false)
+    expect(navigateTo).not.toHaveBeenCalled()
+  })
+
+  // Navigating with the session unstored would bounce back to /login on the next route,
+  // with nothing said about why: the screen stays put and explains it instead.
+  it('no navega y explica el motivo si no puede guardar la sesión', async () => {
+    fakeTurnstile()
+    const page = await mountSuspended(Login, { route: '/login' })
+    await flushPromises()
+    navigateTo.mockClear()
+    blockStorage('setItem')
+
+    await page.findAll('input')[0]!.setValue(user)
+    await page.findAll('input')[1]!.setValue(password)
+    await page.find('form').trigger('submit')
+
+    await vi.waitFor(() => expect(page.find('[aria-live="polite"]').text()).toContain('almacenamiento'))
     expect(navigateTo).not.toHaveBeenCalled()
   })
 
