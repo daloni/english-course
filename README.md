@@ -179,10 +179,12 @@ Safari), la sesión sigue funcionando igual: lo que se corrija simplemente no pe
 bloquea del todo y ni siquiera deja leerlo, el progreso arranca vacío en cada visita, pero la
 web no se queda en blanco: la lectura degrada a un progreso vacío en vez de romper la página.
 
-Al importar, se descartan los intentos que la propia web no puede haber exportado: sin id,
-con aciertos o fallos que no sean números enteros y positivos, con una fecha que no exista o
-con un repaso anterior al día en que se practicó. Si el fichero no tiene ningún intento
-válido, la importación se rechaza entera.
+Al importar, el fichero se fusiona con el progreso de este navegador por id: se conserva el
+intento practicado más recientemente y, si empatan las fechas, el que acumule más respuestas.
+Importar el mismo fichero dos veces no suma los contadores. Se descartan los intentos que la
+propia web no puede haber exportado: sin id, con aciertos o fallos que no sean números enteros
+y positivos, con una fecha que no exista o con un repaso anterior al día en que se practicó.
+Si el fichero no tiene ningún intento válido, la importación se rechaza entera.
 
 El speaking no cuenta para el progreso: su corrección es un porcentaje de palabras, no un
 acierto o un fallo.

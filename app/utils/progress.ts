@@ -99,6 +99,23 @@ function isAttempt(value: unknown): value is Attempt {
     && attempt.due >= attempt.last
 }
 
+/** Combines progress without adding answer counters from the same attempt twice. */
+export function merge(current: Progress, imported: Progress): Progress {
+  const merged = { ...current }
+
+  for (const [id, attempt] of Object.entries(imported)) {
+    const existing = merged[id]
+    const answers = attempt.hits + attempt.misses
+    const existingAnswers = existing ? existing.hits + existing.misses : -1
+
+    if (!existing || attempt.last > existing.last || (attempt.last === existing.last && answers > existingAnswers)) {
+      merged[id] = attempt
+    }
+  }
+
+  return merged
+}
+
 /**
  * Reads a stored or imported progress. The file is chosen by whoever uses the site, so it is
  * checked in full: if it is not an object of attempts it is rejected; individual corrupt
@@ -113,7 +130,7 @@ export function parse(json: string): Progress {
 
   const entries = Object.entries(data).filter(([id, attempt]) => isAttempt(attempt) && attempt.id === id)
 
-  if (entries.length === 0 && Object.keys(data).length > 0) {
+  if (entries.length === 0) {
     throw new Error('El fichero no tiene ningún intento válido')
   }
 
