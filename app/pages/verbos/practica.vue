@@ -112,109 +112,117 @@ function submit() {
 
     <UPageSection>
       <div class="mx-auto w-full max-w-xl">
-        <template v-if="done">
-          <h2 class="text-xl font-semibold">
-            Resultado: {{ hits }} de {{ results.length }}
-          </h2>
+        <ClientOnly>
+          <template #fallback>
+            <p class="text-sm text-muted">
+              Cargando la práctica…
+            </p>
+          </template>
 
-          <p class="mt-2 text-muted">
-            {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }} y
-            {{ mistakes.length }} {{ mistakes.length === 1 ? 'error' : 'errores' }}.
-          </p>
+          <template v-if="done">
+            <h2 class="text-xl font-semibold">
+              Resultado: {{ hits }} de {{ results.length }}
+            </h2>
 
-          <div
-            v-if="mistakes.length > 0"
-            class="mt-8"
-          >
-            <h3 class="mb-3 font-medium">
-              Para repasar
-            </h3>
+            <p class="mt-2 text-muted">
+              {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }} y
+              {{ mistakes.length }} {{ mistakes.length === 1 ? 'error' : 'errores' }}.
+            </p>
 
-            <ul class="space-y-3 text-sm">
-              <li
-                v-for="mistake in mistakes"
-                :key="mistake.question.verb.infinitive"
-              >
-                <p class="font-medium">
-                  {{ mistake.question.label }} de <em
-                    lang="en"
-                    class="italic"
-                  >{{ mistake.question.verb.infinitive }}</em>
-                </p>
-                <p class="text-muted">
-                  Escribiste «{{ mistake.answer }}», la forma correcta es
-                  <strong
-                    lang="en"
-                    class="font-semibold"
-                  >{{ mistake.question.solution }}</strong>.
-                </p>
-              </li>
-            </ul>
-          </div>
+            <div
+              v-if="mistakes.length > 0"
+              class="mt-8"
+            >
+              <h3 class="mb-3 font-medium">
+                Para repasar
+              </h3>
 
-          <UButton
-            label="Otra ronda"
-            icon="i-lucide-rotate-ccw"
-            class="mt-8"
-            @click="restart"
-          />
-        </template>
-
-        <template v-else-if="question">
-          <p class="text-sm text-muted">
-            Pregunta {{ index + 1 }} de {{ quiz.length }} · {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
-          </p>
-
-          <h2 class="mt-2 text-xl font-semibold">
-            {{ question.label }} de <em
-              lang="en"
-              class="italic"
-            >{{ question.verb.infinitive }}</em>
-          </h2>
-
-          <p class="mt-1 text-muted">
-            {{ question.verb.es }}
-          </p>
-
-          <form
-            class="mt-6 flex items-start gap-3"
-            @submit.prevent="submit"
-          >
-            <UInput
-              :key="index"
-              v-model="answer"
-              :disabled="!!checked"
-              lang="en"
-              autofocus
-              autocapitalize="off"
-              autocomplete="off"
-              spellcheck="false"
-              placeholder="Tu respuesta"
-              :aria-label="`${question.label} de ${question.verb.infinitive}`"
-              class="flex-1"
-            />
+              <ul class="space-y-3 text-sm">
+                <li
+                  v-for="mistake in mistakes"
+                  :key="mistake.question.verb.infinitive"
+                >
+                  <p class="font-medium">
+                    {{ mistake.question.label }} de <em
+                      lang="en"
+                      class="italic"
+                    >{{ mistake.question.verb.infinitive }}</em>
+                  </p>
+                  <p class="text-muted">
+                    Escribiste «{{ mistake.answer }}», la forma correcta es
+                    <strong
+                      lang="en"
+                      class="font-semibold"
+                    >{{ mistake.question.solution }}</strong>.
+                  </p>
+                </li>
+              </ul>
+            </div>
 
             <UButton
-              type="submit"
-              :label="checked ? 'Siguiente' : 'Comprobar'"
-              :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+              label="Otra ronda"
+              icon="i-lucide-rotate-ccw"
+              class="mt-8"
+              @click="restart"
             />
-          </form>
+          </template>
 
-          <div
-            class="mt-6"
-            aria-live="polite"
-          >
-            <UAlert
-              v-if="checked"
-              :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-              :description="checked.correct ? `${question.verb.infinitive} → ${checked.solution}` : `La forma correcta es: ${checked.solution}`"
-              :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
-              :color="checked.correct ? 'success' : 'error'"
-              variant="subtle"
-            />
-          </div>
-        </template>
+          <template v-else-if="question">
+            <p class="text-sm text-muted">
+              Pregunta {{ index + 1 }} de {{ quiz.length }} · {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
+            </p>
+
+            <h2 class="mt-2 text-xl font-semibold">
+              {{ question.label }} de <em
+                lang="en"
+                class="italic"
+              >{{ question.verb.infinitive }}</em>
+            </h2>
+
+            <p class="mt-1 text-muted">
+              {{ question.verb.es }}
+            </p>
+
+            <form
+              class="mt-6 flex items-start gap-3"
+              @submit.prevent="submit"
+            >
+              <UInput
+                :key="index"
+                v-model="answer"
+                :disabled="!!checked"
+                lang="en"
+                autofocus
+                autocapitalize="off"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Tu respuesta"
+                :aria-label="`${question.label} de ${question.verb.infinitive}`"
+                class="flex-1"
+              />
+
+              <UButton
+                type="submit"
+                :label="checked ? 'Siguiente' : 'Comprobar'"
+                :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+              />
+            </form>
+
+            <div
+              class="mt-6"
+              aria-live="polite"
+            >
+              <UAlert
+                v-if="checked"
+                :title="checked.correct ? '¡Correcto!' : 'No es esa'"
+                :description="checked.correct ? `${question.verb.infinitive} → ${checked.solution}` : `La forma correcta es: ${checked.solution}`"
+                :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
+                :color="checked.correct ? 'success' : 'error'"
+                variant="subtle"
+              />
+            </div>
+          </template>
+        </ClientOnly>
       </div>
     </UPageSection>
   </UPage>

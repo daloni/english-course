@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import TeoriaIndex from '../app/pages/teoria/index.vue'
 import TensePage from '../app/pages/teoria/[slug].vue'
-import { forms, tenseById, tenseFiles } from '../app/utils/content'
+import { exercisesOf, forms, tenseById, tenseFiles } from '../app/utils/content'
 
 // Every file in content/tenses/ must be reachable: listed on /teoria and rendered
 // at /teoria/<slug>. Adding a tense with /teoria and forgetting to ship it fails here.
@@ -40,5 +40,13 @@ describe('/teoria', () => {
     for (const example of tense.examples) {
       expect(html).toContain(example.en)
     }
+  })
+
+  it('links directly to the sentence practice of a tense', async () => {
+    const slug = slugs.find(candidate => exercisesOf(candidate).length > 0)!
+    const page = await mountSuspended(TensePage, { route: `/teoria/${slug}` })
+
+    expect(page.find(`a[href="/frases/${slug}"]`).exists()).toBe(true)
+    expect(page.html()).not.toContain('/frases?tense=')
   })
 })

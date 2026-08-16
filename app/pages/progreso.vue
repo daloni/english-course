@@ -4,6 +4,7 @@
 const { attempts, pending, failed, statsOf, exportFile, importFile, reset } = useProgress()
 
 const error = ref('')
+const resetModalOpen = ref(false)
 
 const total = computed(() => statsOf(items))
 
@@ -34,9 +35,12 @@ async function onImport(event: Event) {
 }
 
 function onReset() {
-  if (confirm('Se borrará todo el progreso guardado en este navegador. ¿Seguro?')) {
-    reset()
-  }
+  resetModalOpen.value = true
+}
+
+function confirmReset(close: () => void) {
+  reset()
+  close()
 }
 
 useSeo({
@@ -277,14 +281,35 @@ useSeo({
                 </p>
               </div>
 
-              <UButton
-                label="Reiniciar"
-                icon="i-lucide-trash-2"
-                color="error"
-                variant="subtle"
-                :disabled="attempts.length === 0"
-                @click="onReset"
-              />
+              <UModal
+                v-model:open="resetModalOpen"
+                :portal="false"
+                title="¿Reiniciar progreso?"
+                description="Se borrará todo el progreso guardado en este navegador. Esta acción no se puede deshacer."
+              >
+                <UButton
+                  label="Reiniciar"
+                  icon="i-lucide-trash-2"
+                  color="error"
+                  variant="subtle"
+                  :disabled="attempts.length === 0"
+                  @click="onReset"
+                />
+
+                <template #footer="{ close }">
+                  <UButton
+                    label="Cancelar"
+                    color="neutral"
+                    variant="outline"
+                    @click="close"
+                  />
+                  <UButton
+                    label="Sí, reiniciar"
+                    color="error"
+                    @click="confirmReset(close)"
+                  />
+                </template>
+              </UModal>
             </div>
           </section>
         </ClientOnly>

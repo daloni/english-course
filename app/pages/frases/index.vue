@@ -4,15 +4,6 @@ useSeo({
   description: 'Ejercicios de tiempos verbales aplicados a frases: rellenar el hueco, transformar la frase y reconocer el tiempo, con corrección al instante.'
 })
 
-const route = useRoute()
-
-// /teoria/<tense> links here with ?tense=<tense>: if that tense has sentences, go straight in.
-const requested = String(route.query.tense ?? '')
-
-if (requested && exercisesOf(requested).length > 0) {
-  await navigateTo(`/frases/${requested}`, { replace: true })
-}
-
 const level = ref<Level | 'all'>('all')
 
 /** Tenses with sentences in content/exercises/, carrying the level the tense has in theory. */

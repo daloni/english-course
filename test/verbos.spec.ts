@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
@@ -53,6 +54,12 @@ function solutionOf(heading: string) {
 
 describe('/verbos/practica', () => {
   beforeEach(() => localStorage.removeItem(storageKey))
+
+  it('declares loading content for the prerender before the quiz mounts', () => {
+    const source = readFileSync('app/pages/verbos/practica.vue', 'utf8')
+
+    expect(source).toMatch(/<ClientOnly>[\s\S]*<template #fallback>[\s\S]*Cargando la práctica…[\s\S]*<\/ClientOnly>/)
+  })
 
   it('corrects ten conjugations and shows the final score', async () => {
     const page = await mountSuspended(Practica)

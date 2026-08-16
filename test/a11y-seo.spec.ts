@@ -71,6 +71,18 @@ describe('SEO', () => {
     expect(content('og:locale')).toBe('es_ES')
     expect(content('twitter:card')).toBe('summary')
   })
+
+  it('ships the default social image and login robots rule', () => {
+    const app = readFileSync('app/app.vue', 'utf8')
+    const robots = readFileSync('public/robots.txt', 'utf8')
+    const image = readFileSync('public/og-image.svg', 'utf8')
+
+    expect(app).toContain('ogImage:')
+    expect(app).toContain('siteUrl.replace')
+    expect(app).toContain('og-image.svg')
+    expect(robots).toContain('Disallow: /login')
+    expect(image).toContain('width="1200" height="630"')
+  })
 })
 
 describe('accesibilidad', () => {

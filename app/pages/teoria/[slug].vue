@@ -36,7 +36,7 @@ useSeo({
         />
         <UButton
           v-if="hasExercises"
-          :to="`/frases?tense=${tense.id}`"
+          :to="`/frases/${tense.id}`"
           label="Practicar con frases"
           icon="i-lucide-message-square-text"
           color="neutral"
