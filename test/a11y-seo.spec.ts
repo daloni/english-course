@@ -7,18 +7,17 @@ import DefaultLayout from '../app/layouts/default.vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
 import TenseTheory from '../app/pages/teoria/[slug].vue'
 import VerbPractice from '../app/pages/verbos/practica.vue'
-import { siteName } from '../app/composables/useSeo'
 import { exerciseFiles, exercisesOf, tenseById, typeOf } from '../app/utils/content'
 
 const slug = Object.keys(exerciseFiles)[0]!.split('/').pop()!.replace('.json', '')
 
-// Vitest corre desde la raíz del repo.
+// Vitest runs from the root of the repo.
 const pagesDir = 'app/pages'
 const pages = readdirSync(pagesDir, { recursive: true }).map(String).filter(name => name.endsWith('.vue'))
 
 /**
- * El nombre accesible de un control: lo que anuncia un lector de pantalla al llegar a él. Sin
- * nombre, el campo se lee como «cuadro de edición» y no se sabe qué hay que escribir.
+ * The accessible name of a control: what a screen reader announces on reaching it. Without a
+ * name, the field is read out as "edit box" and there is no telling what to type in it.
  */
 function accessibleName(page: VueWrapper, input: Element): string {
   const label = input.getAttribute('aria-label')
@@ -33,8 +32,8 @@ function accessibleName(page: VueWrapper, input: Element): string {
   return tag?.exists() ? tag.text() : ''
 }
 
-// Cada página se presenta con su propio título y su propia descripción: añadir una nueva y
-// olvidarse del useSeo falla aquí.
+// Every page introduces itself with its own title and its own description: adding a new one
+// and forgetting the useSeo fails here.
 describe('SEO', () => {
   it.each(pages)('/%s declares its own title and description', (name) => {
     const source = readFileSync(`${pagesDir}/${name}`, 'utf8')
@@ -45,21 +44,25 @@ describe('SEO', () => {
     expect(meta).toMatch(/\bdescription:/)
   })
 
-  // Lo que se ve al compartir el enlace es lo de la página, no lo de la home: sin esto
-  // WhatsApp, Slack o Twitter enseñan siempre la tarjeta del sitio entero.
+  // What shows up when the link is shared belongs to the page, not to the home: without this
+  // WhatsApp, Slack or Twitter always show the card of the whole site.
   it('gives the page its own social card, not the one of the home', async () => {
     const tense = tenseById('past-simple')!
 
     await mountSuspended(TenseTheory, { route: `/teoria/${tense.id}` })
     await flushPromises()
-    // El head se aplica al DOM en un tick aparte del montaje.
+    // The head is applied to the DOM on a tick of its own, apart from the mount.
     await new Promise(resolve => setTimeout(resolve))
 
     const content = (property: string) =>
       document.head.querySelector(`meta[property="${property}"], meta[name="${property}"]`)?.getAttribute('content')
 
-    // El <title> lleva el titleTemplate de app.vue, que no monta en un test de página; la
-    // tarjeta social tiene que enseñar ese mismo título, con el nombre del sitio incluido.
+    // The <title> carries the titleTemplate from app.vue, which does not mount in a page
+    // test; the social card has to show that same title, site name included. The name comes
+    // from the .env, like everywhere else.
+    const { siteName } = useRuntimeConfig().public
+
+    expect(siteName, 'NUXT_PUBLIC_SITE_NAME sin valor').not.toBe('')
     expect(document.title).toBe(tense.name)
     expect(content('og:title')).toBe(`${tense.name} · ${siteName}`)
     expect(content('og:description')).toBe(content('description'))
@@ -83,8 +86,8 @@ describe('accesibilidad', () => {
 
     for (const exercise of exercisesOf(slug)) {
       if (typeOf(exercise) === 'choice') {
-        // El grupo entra en el tabulador y cada opción se anuncia con su nombre; ya dentro,
-        // la barra espaciadora dispara el click del <button role="radio">, que es este.
+        // The group takes a tab stop and every option announces itself by name; once inside,
+        // the space bar fires the click of the <button role="radio">, which is this one.
         const radio = page.findAll('[role="radio"]').find(candidate => candidate.attributes('value') === exercise.solution)!
 
         expect(page.find('[role="radiogroup"]').attributes('tabindex')).toBe('0')
@@ -97,7 +100,7 @@ describe('accesibilidad', () => {
         await input.setValue(exercise.solution)
       }
 
-      // Enviar el formulario es lo que hace Enter desde el campo o desde el botón.
+      // Submitting the form is what Enter does from the field or from the button.
       await page.find('form').trigger('submit')
       await flushPromises()
       expect(page.text()).toMatch(/¡Correcto!|No es esa/)

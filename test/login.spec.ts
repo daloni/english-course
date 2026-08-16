@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { RouteLocationNormalized } from 'vue-router'
@@ -7,14 +7,24 @@ import DefaultLayout from '../app/layouts/default.vue'
 import middleware from '../app/middleware/auth.global'
 import { authKey, checkCredentials, isAuthenticated, sha256, signIn, signOut } from '../app/utils/auth'
 
-const user = 'alumno'
-const password = 'ingles2026'
+const user = 'usuario-de-prueba'
+const password = 'contrasena-de-prueba'
 
 const { navigateTo } = vi.hoisted(() => ({ navigateTo: vi.fn() }))
 
 mockNuxtImport('navigateTo', () => navigateTo)
 
-/** Lo que hace el middleware global al entrar en una ruta, sin montar el router entero. */
+// The gate is checked against credentials of this test, not against the ones the site is
+// configured with: changing the password of the site cannot break the tests of the door. The
+// hash is computed here, the same SHA-256 the .env carries, for a password that lives nowhere
+// else.
+const config = () => useRuntimeConfig().public
+
+beforeAll(async () => {
+  Object.assign(config(), { authUser: user, authPasswordHash: await sha256(password) })
+})
+
+/** What the global middleware does on entering a route, without mounting the whole router. */
 const visit = (path: string) =>
   (middleware as (to: RouteLocationNormalized, from: RouteLocationNormalized) => unknown)(
     { path, fullPath: path } as RouteLocationNormalized,
@@ -22,8 +32,8 @@ const visit = (path: string) =>
   )
 
 /**
- * El widget de Turnstile no existe en Vitest: se sustituye por uno que devuelve el token en
- * cuanto se pinta, que es lo que hace el de verdad al resolverse el captcha.
+ * The Turnstile widget does not exist in Vitest: it is replaced by one that hands back the
+ * token as soon as it renders, which is what the real one does once the captcha resolves.
  */
 function fakeTurnstile(token = 'turnstile-token') {
   Object.assign(window, {
@@ -45,7 +55,7 @@ describe('la sesión', () => {
 
     signIn()
     expect(localStorage.getItem(authKey)).toBe('ok')
-    // Sobrevive a recargar: lo que se lee es el localStorage, no un estado en memoria.
+    // It survives a reload: what is read is localStorage, not some state in memory.
     expect(isAuthenticated()).toBe(true)
 
     signOut()
@@ -61,7 +71,7 @@ describe('la sesión', () => {
 })
 
 describe('las credenciales', () => {
-  it('acepta el usuario y la contraseña por defecto', async () => {
+  it('acepta el usuario y la contraseña configurados', async () => {
     await expect(checkCredentials(user, password)).resolves.toBe(true)
   })
 
@@ -71,9 +81,13 @@ describe('las credenciales', () => {
     await expect(checkCredentials('', '')).resolves.toBe(false)
   })
 
-  // La contraseña no está escrita en claro en el repo: lo que se compara es su hash.
+  // The password is never written in the clear, neither here nor in the .env: what is
+  // configured and what is compared is its digest. The known vector pins the digest itself.
   it('compares the password against its SHA-256', async () => {
-    await expect(sha256(password)).resolves.toBe('6bbd88e8c327bb10d12f274a514e1c87024f4971fa724bdcd752271f2873b953')
+    expect(config().authPasswordHash).not.toContain(password)
+    await expect(sha256(password)).resolves.toBe(config().authPasswordHash)
+    await expect(sha256('abc')).resolves
+      .toBe('ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad')
   })
 })
 
@@ -100,8 +114,8 @@ describe('el middleware', () => {
 
 describe('/login', () => {
   it('no deja enviar el formulario hasta que Turnstile devuelve token', async () => {
-    // Sin `window.turnstile` (un navegador que no carga el script, o este mismo test) la
-    // página tiene que montar igual, solo que sin widget.
+    // Without `window.turnstile` (a browser that does not load the script, or this very test)
+    // the page has to mount all the same, only with no widget.
     const page = await mountSuspended(Login)
 
     expect(page.find('button[type="submit"]').attributes('disabled')).toBeDefined()
@@ -121,7 +135,7 @@ describe('/login', () => {
     await page.findAll('input')[0]!.setValue(user)
     await page.findAll('input')[1]!.setValue(password)
     await page.find('form').trigger('submit')
-    // El hash de la contraseña se calcula fuera del bucle de eventos: se espera al resultado.
+    // The password hash is computed off the event loop: the result has to be waited for.
     await vi.waitFor(() => expect(navigateTo).toHaveBeenCalledWith('/frases'))
 
     expect(isAuthenticated()).toBe(true)
@@ -143,7 +157,7 @@ describe('/login', () => {
     fakeTurnstile()
     const page = await mountSuspended(Login, { route: '/login' })
     await flushPromises()
-    // Montar la página ya ha navegado a /login: lo que se mire después es del formulario.
+    // Mounting the page has already navigated to /login: what is looked at next is the form.
     navigateTo.mockClear()
 
     await page.findAll('input')[0]!.setValue(user)
