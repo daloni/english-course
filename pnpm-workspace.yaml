@@ -4,3 +4,15 @@ allowBuilds:
   esbuild: false
   unrs-resolver: false
   vue-demi: false
+
+# Two transitive dependencies carry advisories that `pnpm update` cannot resolve on its own,
+# so they are pinned here and nowhere else. Both are build tooling: nothing of this reaches
+# the generated site.
+overrides:
+  # postcss asks for nanoid ^3.3.16 and pnpm keeps resolving 3.3.16, which is the version
+  # with the advisory. 3.3.18 is inside the range that postcss already declares.
+  nanoid@3: ^3.3.18
+  # fontless (@nuxt/fonts) asks for esbuild ^0.27.0 and the fix only exists from 0.28.1 on:
+  # no version inside its range is patched. 0.28.2 is what the rest of the tree already
+  # uses, so this deduplicates esbuild instead of adding another copy of it.
+  esbuild@^0.27.0: ^0.28.2

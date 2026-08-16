@@ -48,6 +48,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # The lockfile is what is installed, so an advisory that gets in through it is checked
+      # here. High and critical stop the build; the rest is reported without failing it.
+      - name: Audit the dependencies
+        run: pnpm audit --audit-level high
+
       - name: Lint
         run: pnpm run lint
 
