@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
@@ -159,16 +159,26 @@ describe('load and save', () => {
   // Con el almacenamiento lleno, o en el modo privado de Safari, setItem lanza. Se guarda en
   // cada respuesta, así que dejar subir la excepción dejaría la ronda muerta a medias.
   it('does not throw when the browser refuses to store the progress', () => {
-    const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
-      throw new DOMException('exceeded the quota', 'QuotaExceededError')
-    })
+    const setItem = refuseToStore()
 
     expect(() => save({ x: review(undefined, 'x', true, today) })).not.toThrow()
     expect(setItem).toHaveBeenCalled()
-
-    setItem.mockRestore()
   })
 })
+
+/**
+ * El almacenamiento lleno, o el modo privado de Safari: setItem lanza en cada respuesta.
+ * Se deshace al terminar el test, pase lo que pase, o el resto se quedaría sin guardar.
+ */
+function refuseToStore() {
+  const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
+    throw new DOMException('exceeded the quota', 'QuotaExceededError')
+  })
+
+  onTestFinished(() => setItem.mockRestore())
+
+  return setItem
+}
 
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!
@@ -252,6 +262,25 @@ describe('practising', () => {
 
     expect(page.text()).toContain('Repaso terminado: 1 de 1')
     expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(false)
+  })
+
+  // Guardar es lo único que puede fallar por causas ajenas, y se guarda en cada respuesta.
+  it('corrects and carries on when the progress cannot be stored', async () => {
+    refuseToStore()
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    await flushPromises()
+
+    await page.find('input').setValue(exercise.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('¡Correcto!')
+
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('Frase 2 de')
   })
 
   // La misma corrección que /frases: sin explanation, la estructura del tiempo verbal.
