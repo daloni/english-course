@@ -138,7 +138,7 @@ describe('/speaking', () => {
     expect(recognition.running).toBe(false)
   })
 
-  it('keeps the new microphone session on after cancelling and restarting quickly', async () => {
+  it('keeps the new microphone session on when the mic is pressed again quickly', async () => {
     supportSpeech()
 
     const page = await mountSuspended(SpeakingPage)
@@ -148,9 +148,9 @@ describe('/speaking', () => {
 
     await mic.trigger('click')
     const first = FakeRecognition.last!
-    const next = page.findAll('button').find(button => button.text().includes('Otra frase'))!.element
 
-    next.dispatchEvent(new MouseEvent('click'))
+    // Simulate the stale end event that made the old UI look idle while recognition was alive.
+    first.onend?.()
     await mic.trigger('click')
     const second = FakeRecognition.last!
 
