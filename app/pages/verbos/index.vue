@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({
+useSeo({
   title: 'Verbos',
   description: 'Tabla de verbos en inglés con su pasado simple, participio y traducción, con buscador y filtro de regulares e irregulares.'
 })

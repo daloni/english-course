@@ -38,7 +38,7 @@ function onReset() {
   }
 }
 
-useSeoMeta({
+useSeo({
   title: 'Progreso',
   description: 'Tu avance por tiempo verbal y sección, con lo que has fallado y lo que toca repasar hoy. Se guarda en este navegador y puedes exportarlo a JSON.'
 })

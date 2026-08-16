@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({
+useSeo({
   title: 'Reading',
   description: 'Lecturas cortas en inglés con glosario de vocabulario y preguntas de comprensión corregidas al instante.'
 })
