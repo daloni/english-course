@@ -122,6 +122,31 @@ describe('parse', () => {
     expect(Object.keys(parse(json))).toEqual(['x'])
   })
 
+  // No progress exported by the site can hold these, and they would show up on /progreso as
+  // negative or fractional statistics, or as an item due before it was ever practised.
+  it('drops impossible counters, empty ids and a review due before the practice', () => {
+    const json = JSON.stringify({
+      'x': attempt,
+      'a': { ...attempt, id: 'a', hits: -4 },
+      'b': { ...attempt, id: 'b', misses: -1 },
+      'c': { ...attempt, id: 'c', hits: 1.5 },
+      'd': { ...attempt, id: 'd', misses: Number.NaN },
+      'e': { ...attempt, id: 'e', hits: Number.POSITIVE_INFINITY },
+      'f': { ...attempt, id: 'f', due: '2026-08-13' },
+      '': { ...attempt, id: '' }
+    })
+
+    expect(Object.keys(parse(json))).toEqual(['x'])
+  })
+
+  it('keeps zeroed counters and a review due the same day', () => {
+    const json = JSON.stringify({
+      x: { ...attempt, hits: 0, misses: 0, due: attempt.last }
+    })
+
+    expect(Object.keys(parse(json))).toEqual(['x'])
+  })
+
   it('keeps a leap day, which does exist', () => {
     const json = JSON.stringify({ x: { ...attempt, last: '2024-02-29', due: '2024-02-29' } })
 
@@ -174,6 +199,20 @@ describe('load and save', () => {
 
     expect(() => save({ x: review(undefined, 'x', true, today) })).not.toThrow()
     expect(setItem).toHaveBeenCalled()
+  })
+
+  // A browser that blocks the storage of the site throws on reading too, and `load` runs in
+  // the `onMounted` of every page that shows progress: it degrades to an empty progress
+  // instead of leaving them all blank.
+  it('starts empty when the browser blocks reading the storage', () => {
+    const getItem = vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
+      throw new DOMException('the storage of this site is blocked', 'SecurityError')
+    })
+
+    onTestFinished(() => getItem.mockRestore())
+
+    expect(load()).toEqual({})
+    expect(getItem).toHaveBeenCalled()
   })
 })
 

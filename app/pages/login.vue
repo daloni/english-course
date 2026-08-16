@@ -126,8 +126,14 @@ async function submit() {
     return
   }
 
+  // Without somewhere to store the mark there is no session: navigating would only bounce
+  // back to /login on the next route, with nothing said about why.
+  if (!signIn()) {
+    error.value = 'Este navegador no deja guardar la sesión. Permite el almacenamiento del sitio y vuelve a intentarlo.'
+    return
+  }
+
   error.value = ''
-  signIn()
   await navigateTo(target.value)
 }
 

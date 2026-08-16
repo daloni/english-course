@@ -1,13 +1,16 @@
 import { readFileSync, readdirSync } from 'node:fs'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import DefaultLayout from '../app/layouts/default.vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
+import Progreso from '../app/pages/progreso.vue'
+import Repaso from '../app/pages/repaso.vue'
 import TenseTheory from '../app/pages/teoria/[slug].vue'
 import VerbPractice from '../app/pages/verbos/practica.vue'
 import { exerciseFiles, exercisesOf, tenseById, typeOf } from '../app/utils/content'
+import { day, items, review, save, storageKey } from '../app/utils/progress'
 
 const slug = Object.keys(exerciseFiles)[0]!.split('/').pop()!.replace('.json', '')
 
@@ -140,5 +143,59 @@ describe('accesibilidad', () => {
     await page.find('form').trigger('submit')
     await flushPromises()
     expect(page.text()).toContain('Pregunta 2 de')
+  })
+})
+
+// The document is Spanish, so `lang="en"` is what tells a screen reader to switch voices.
+// Marking Spanish text with it makes the reader pronounce it as if it were English.
+describe('el idioma del contenido', () => {
+  const verb = items.find(item => item.kind === 'verbos')!
+  // Reading questions with options are asked in a radio group; the rest, in a plain field.
+  const reading = items.find(item => item.kind === 'reading' && !item.options)!
+
+  /** What the page announces as English: the text of every element marked with `lang="en"`. */
+  const inEnglish = (page: VueWrapper) => page.findAll('[lang="en"]').map(node => node.text())
+
+  /** Leaves a single item pending for today, which is what /repaso and /progreso show. */
+  const pend = (id: string) => save({ [id]: review(undefined, id, false, day()) })
+
+  beforeEach(() => localStorage.removeItem(storageKey))
+
+  it('deja en español la estructura de /teoria y en inglés sus marcadores', async () => {
+    const tense = tenseById('past-simple')!
+    const page = await mountSuspended(TenseTheory, { route: `/teoria/${tense.id}` })
+    await flushPromises()
+
+    expect(page.text()).toContain(tense.structure.affirmative)
+    expect(inEnglish(page).some(text => text.includes(tense.structure.affirmative))).toBe(false)
+    expect(inEnglish(page).some(text => text.includes(tense.timeMarkers[0]!))).toBe(true)
+  })
+
+  it('deja en español el enunciado de un verbo en /repaso y en inglés el de un reading', async () => {
+    pend(verb.id)
+
+    const verbs = await mountSuspended(Repaso)
+    await flushPromises()
+
+    expect(verbs.text()).toContain(verb.prompt)
+    expect(inEnglish(verbs).some(text => text.includes(verb.prompt))).toBe(false)
+
+    pend(reading.id)
+
+    const questions = await mountSuspended(Repaso)
+    await flushPromises()
+
+    expect(inEnglish(questions).some(text => text.includes(reading.prompt))).toBe(true)
+  })
+
+  it('deja en español el enunciado fallado de un verbo en /progreso, y su respuesta en inglés', async () => {
+    pend(verb.id)
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    expect(page.text()).toContain(verb.prompt)
+    expect(inEnglish(page).some(text => text.includes(verb.prompt))).toBe(false)
+    expect(inEnglish(page)).toContain(verb.solution)
   })
 })

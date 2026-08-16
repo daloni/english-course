@@ -154,11 +154,13 @@ useSeo({
                 :ui="{ fieldset: 'gap-y-2' }"
               />
 
+              <!-- The label is the prompt, and only the verbs ask it in Spanish ("Pasado
+                   simple de…"): the answer typed in is English either way. -->
               <UFormField
                 v-else
                 :key="item.id"
                 :label="item.prompt"
-                lang="en"
+                :lang="item.kind === 'verbos' ? undefined : 'en'"
                 size="xl"
               >
                 <UInput

@@ -93,6 +93,10 @@ middleware global manda ahí cualquier ruta mientras no haya sesión, que se gua
 `localStorage` (clave `ingles:auth`) y sobrevive a recargar. El botón **Salir** de la cabecera
 la cierra.
 
+Si el navegador bloquea el almacenamiento del sitio no hay dónde guardar la sesión, así que
+`/login` no navega: se queda en pantalla y lo explica, en vez de mandarte a una página que
+volvería a pedirte entrar sin decir por qué.
+
 Credenciales de `.env.example`:
 
 | | |
@@ -171,7 +175,14 @@ lectura en esa visita: volver a intentarla no cuenta dos veces. Una pregunta en 
 como fallo de la ronda, pero no se guarda como intento.
 
 Si el navegador no deja escribir en `localStorage` (almacenamiento lleno, modo privado de
-Safari), la sesión sigue funcionando igual: lo que se corrija simplemente no persiste.
+Safari), la sesión sigue funcionando igual: lo que se corrija simplemente no persiste. Si lo
+bloquea del todo y ni siquiera deja leerlo, el progreso arranca vacío en cada visita, pero la
+web no se queda en blanco: la lectura degrada a un progreso vacío en vez de romper la página.
+
+Al importar, se descartan los intentos que la propia web no puede haber exportado: sin id,
+con aciertos o fallos que no sean números enteros y positivos, con una fecha que no exista o
+con un repaso anterior al día en que se practicó. Si el fichero no tiene ningún intento
+válido, la importación se rechaza entera.
 
 El speaking no cuenta para el progreso: su corrección es un porcentaje de palabras, no un
 acierto o un fallo.

@@ -82,14 +82,21 @@ const isDate = (value: unknown) => typeof value === 'string'
   && /^\d{4}-\d{2}-\d{2}$/.test(value)
   && new Date(`${value}T00:00:00Z`).toJSON()?.slice(0, 10) === value
 
+/** Answers that were counted: a whole number of them, and never below zero. */
+const isCount = (value: unknown) => Number.isInteger(value) && (value as number) >= 0
+
 function isAttempt(value: unknown): value is Attempt {
   const attempt = value as Attempt
 
   return typeof value === 'object' && value !== null
-    && typeof attempt.id === 'string'
+    // An empty id names no exercise: it could never be found back.
+    && typeof attempt.id === 'string' && attempt.id !== ''
     && (boxes as readonly unknown[]).includes(attempt.box)
-    && Number.isFinite(attempt.hits) && Number.isFinite(attempt.misses)
+    && isCount(attempt.hits) && isCount(attempt.misses)
     && isDate(attempt.last) && isDate(attempt.due)
+    // The review always comes after the practice, so no attempt exported here can be due
+    // before the day it was last answered. ISO dates compare as plain text.
+    && attempt.due >= attempt.last
 }
 
 /**
@@ -113,15 +120,14 @@ export function parse(json: string): Progress {
   return Object.fromEntries(entries) as Progress
 }
 
-/** Without localStorage (SSR or a test with no DOM) progress is simply empty. */
+/** Without a readable localStorage (SSR, blocked storage, a test with no DOM) progress is empty. */
 export function load(): Progress {
-  if (typeof localStorage === 'undefined') {
-    return {}
-  }
-
-  const stored = localStorage.getItem(storageKey)
-
   try {
+    // Reading the storage is what throws when the browser blocks it (SecurityError), so it
+    // goes inside the try along with the parsing: this runs in `onMounted` on every page
+    // that shows progress, and an exception here would leave them all blank.
+    const stored = typeof localStorage === 'undefined' ? null : localStorage.getItem(storageKey)
+
     return stored ? parse(stored) : {}
   } catch {
     // An unreadable progress cannot leave the site stuck: start from scratch.
@@ -130,16 +136,17 @@ export function load(): Progress {
 }
 
 /**
- * Saving is the only thing that can fail for outside reasons: full storage or Safari private
- * mode make `setItem` throw. It runs on every answer, so letting the exception bubble up
- * would bring the correction down; the session stays in memory and does not persist.
+ * Saving is the only thing that can fail for outside reasons: full storage, Safari private
+ * mode or a browser blocking the storage make it throw. It runs on every answer, so letting
+ * the exception bubble up would bring the correction down; the session stays in memory and
+ * does not persist.
  */
 export function save(progress: Progress) {
-  if (typeof localStorage === 'undefined') {
-    return
-  }
-
   try {
+    if (typeof localStorage === 'undefined') {
+      return
+    }
+
     localStorage.setItem(storageKey, serialize(progress))
   } catch {
     // With nowhere to store it, the progress of this session is lost on reload.
