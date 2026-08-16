@@ -1,11 +1,9 @@
 <script setup lang="ts">
-const description = 'Plataforma personal para aprender inglés: teoría de los tiempos verbales, verbos, frases, reading y speaking.'
-
-// El sitio se publica bajo una subruta en GitHub Pages, así que el icono cuelga de la base.
-const { app, public: { siteUrl } } = useRuntimeConfig()
+// The site is published under a subpath on GitHub Pages, so the icon hangs off the base.
+const { app, public: { siteUrl, siteName, siteDescription: description } } = useRuntimeConfig()
 const route = useRoute()
 
-/** La URL pública de la página que se está viendo, sin barra final: canonical y og:url. */
+/** The public URL of the page being viewed, without a trailing slash: canonical and og:url. */
 const url = computed(() => `${siteUrl.replace(/\/$/, '')}${route.path.replace(/\/$/, '')}`)
 
 useHead({
