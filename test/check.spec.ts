@@ -7,6 +7,11 @@ describe('normalize', () => {
     expect(normalize('HAS GONE')).toBe('has gone')
   })
 
+  it('ignores accents', () => {
+    expect(normalize('Pastéis de nata')).toBe('pasteis de nata')
+    expect(isCorrect('Pasteis de nata', 'Pastéis de nata')).toBe(true)
+  })
+
   it('collapses the extra spaces inside the answer', () => {
     expect(normalize('has   gone')).toBe('has gone')
   })

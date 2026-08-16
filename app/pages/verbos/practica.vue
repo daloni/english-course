@@ -4,7 +4,7 @@ useSeo({
   description: 'Ejercicio de conjugación: escribe el pasado simple, el participio o la tercera persona del verbo y comprueba la respuesta al instante.'
 })
 
-const { record } = useProgress()
+const { record, attemptOf } = useProgress()
 
 const total = 10
 
@@ -27,13 +27,36 @@ function shuffle<T>(items: T[]): T[] {
   return copy
 }
 
-/** Ten different verbs, each asked for one of the forms the progress knows about. */
+/** Ten different verbs, prioritising forms that have never been practised or are due today. */
 function newQuiz(): Question[] {
-  return shuffle(verbs).slice(0, total).map((verb) => {
-    const form = verbForms[Math.floor(Math.random() * verbForms.length)]!
+  const pending: Question[] = []
+  const later: Question[] = []
 
-    return { id: verbItemId(verb, form), verb, label: form.label, solution: form.of(verb) }
-  })
+  for (const verb of verbs) {
+    for (const form of verbForms) {
+      const question = { id: verbItemId(verb, form), verb, label: form.label, solution: form.of(verb) }
+      const attempt = attemptOf(question.id)
+
+      if (!attempt || isDue(attempt)) {
+        pending.push(question)
+      } else {
+        later.push(question)
+      }
+    }
+  }
+
+  const seen = new Set<string>()
+
+  return [...shuffle(pending), ...shuffle(later)]
+    .filter((question) => {
+      if (seen.has(question.verb.infinitive)) {
+        return false
+      }
+
+      seen.add(question.verb.infinitive)
+      return true
+    })
+    .slice(0, total)
 }
 
 const quiz = ref<Question[]>([])

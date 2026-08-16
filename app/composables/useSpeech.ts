@@ -64,6 +64,16 @@ export function useSpeech() {
   let recognition: Recognition | null = null
   let utterance: SpeechSynthesisUtterance | null = null
 
+  function detachRecognition() {
+    if (!recognition) {
+      return
+    }
+
+    recognition.onresult = null
+    recognition.onerror = null
+    recognition.onend = null
+  }
+
   // Both APIs live in the browser: on the server the page renders as unsupported and the
   // flags turn on once it is mounted.
   onMounted(() => {
@@ -106,6 +116,15 @@ export function useSpeech() {
     }
   }
 
+  function cancelListening() {
+    detachRecognition()
+    recognition?.abort()
+    recognition = null
+    listening.value = false
+    transcript.value = ''
+    error.value = ''
+  }
+
   /** Records one repetition: it stops on its own when the learner goes quiet. */
   function listen() {
     const Recognizer = recognitionCtor()
@@ -114,9 +133,7 @@ export function useSpeech() {
       return
     }
 
-    recognition?.abort()
-    transcript.value = ''
-    error.value = ''
+    cancelListening()
 
     const recognizer = new Recognizer()
 
@@ -153,7 +170,7 @@ export function useSpeech() {
   }
 
   onBeforeUnmount(() => {
-    recognition?.abort()
+    cancelListening()
     stopSpeaking()
   })
 
@@ -169,6 +186,7 @@ export function useSpeech() {
     speak,
     stopSpeaking,
     listen,
-    stopListening
+    stopListening,
+    cancelListening
   }
 }

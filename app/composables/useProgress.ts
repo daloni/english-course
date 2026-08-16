@@ -20,10 +20,14 @@ export function useProgress() {
     progress.value = load()
   })
 
-  /** Corrects an exercise and saves: every answer moves its Leitner box. */
+  /** Corrects an exercise and saves its updated Leitner attempt. */
   function record(id: string, correct: boolean) {
     progress.value = { ...progress.value, [id]: review(progress.value[id], id, correct) }
     save(progress.value)
+  }
+
+  function attemptOf(id: string) {
+    return progress.value[id]
   }
 
   const attempts = computed(() => Object.values(progress.value))
@@ -84,6 +88,7 @@ export function useProgress() {
     pending,
     failed,
     record,
+    attemptOf,
     statsOf,
     exportFile,
     importFile,

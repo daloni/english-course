@@ -1,10 +1,11 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import VerbosIndex from '../app/pages/verbos/index.vue'
 import Practica from '../app/pages/verbos/practica.vue'
 import { thirdPerson } from '../app/utils/check'
 import { verbs } from '../app/utils/content'
+import { addDays, day, review, save, storageKey, verbForms, verbItemId } from '../app/utils/progress'
 
 describe('/verbos', () => {
   it('lists every verb with its forms', async () => {
@@ -51,6 +52,8 @@ function solutionOf(heading: string) {
 }
 
 describe('/verbos/practica', () => {
+  beforeEach(() => localStorage.removeItem(storageKey))
+
   it('corrects ten conjugations and shows the final score', async () => {
     const page = await mountSuspended(Practica)
     await flushPromises()
@@ -89,5 +92,41 @@ describe('/verbos/practica', () => {
 
     expect(page.text()).toContain('Pregunta 1 de 10')
     expect(page.text()).not.toContain('No es esa')
+  })
+
+  it('starts with a verb that is due and does not repeat verbs', async () => {
+    const today = day()
+    const target = verbs[0]!
+    const targetId = verbItemId(target, verbForms[0]!)
+    const future = addDays(today, 1)
+    const later = Object.fromEntries(verbs.flatMap(() => verbForms)
+      .map((form, index) => {
+        const verb = verbs[Math.floor(index / verbForms.length)]!
+        const id = verbItemId(verb, form)
+
+        return [id, review(undefined, id, true, future)]
+      })
+      .filter(([id]) => id !== targetId))
+
+    save({ ...later, [targetId]: review(undefined, targetId, false, today) })
+
+    const page = await mountSuspended(Practica)
+    await flushPromises()
+
+    const infinitives: string[] = []
+
+    for (let i = 0; i < 10; i++) {
+      const heading = page.find('h2').text()
+      infinitives.push(heading.split(' de ')[1]!.trim())
+
+      await page.find('input').setValue(solutionOf(heading))
+      await page.find('form').trigger('submit')
+      await flushPromises()
+      await page.find('form').trigger('submit')
+      await flushPromises()
+    }
+
+    expect(infinitives).toContain(target.infinitive)
+    expect(new Set(infinitives).size).toBe(10)
   })
 })

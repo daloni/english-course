@@ -28,6 +28,7 @@ const contractions: [RegExp, string][] = [
 export function normalize(answer: string): string {
   const text = answer
     .toLowerCase()
+    .normalize('NFD').replace(/\p{Diacritic}/gu, '')
     .replace(/[’‘´`]/g, '\'')
     .replace(/[,;]/g, ' ')
     .trim()

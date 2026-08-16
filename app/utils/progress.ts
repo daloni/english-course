@@ -48,12 +48,14 @@ export function addDays(from: string, days: number): string {
 }
 
 /**
- * A corrected attempt, the Leitner way: a hit moves up a box and pushes the review further
- * away, a miss always sends it back to box 1, which is due the same day. A new item starts
- * in box 1, so the first good answer leaves it in box 2.
+ * A corrected attempt, the Leitner way: a hit moves up at most one box per day and pushes the
+ * review further away, a miss always sends it back to box 1, which is due the same day. A new
+ * item starts in box 1, so the first good answer leaves it in box 2.
  */
 export function review(attempt: Attempt | undefined, id: string, correct: boolean, on = day()): Attempt {
-  const box = (correct ? Math.min(boxes.length, (attempt?.box ?? 1) + 1) : 1) as Box
+  const box = (correct
+    ? Math.min(boxes.length, attempt?.last === on ? attempt.box : (attempt?.box ?? 1) + 1)
+    : 1) as Box
 
   return {
     id,

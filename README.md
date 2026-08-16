@@ -87,7 +87,8 @@ falta nada. Para servirlo desde otro sitio (Netlify, un `nginx`…) basta con su
 ## Acceso
 
 `/login` pide usuario y contraseña y no deja enviar el formulario hasta que el captcha de
-[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) devuelve un token. Un
+[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) devuelve un token. Si el
+widget no carga en cinco segundos, lo avisa y permite enviar el formulario sin captcha. Un
 middleware global manda ahí cualquier ruta mientras no haya sesión, que se guarda en
 `localStorage` (clave `ingles:auth`) y sobrevive a recargar. El botón **Salir** de la cabecera
 la cierra.
@@ -155,8 +156,8 @@ sola clave, `ingles:progress`) con sus aciertos, sus fallos y una caja Leitner d
 | 2    | a los 2 días   |
 | 3    | a los 7 días   |
 
-Acertar sube de caja y aleja el repaso; fallar devuelve el ejercicio a la caja 1, así que
-sigue en la cola de hoy aunque se recargue la página. `/progreso` resume lo practicado por
+Acertar sube como máximo una caja al día y aleja el repaso; fallar devuelve el ejercicio a la
+caja 1, así que sigue en la cola de hoy aunque se recargue la página. `/progreso` resume lo practicado por
 tiempo verbal y por sección, lista lo que más se falla y deja exportar el progreso a JSON,
 importarlo o reiniciarlo. El botón **Repasar hoy** abre `/repaso`, una sesión con lo que
 vence hoy y solo con eso, mezclando frases, verbos y preguntas de reading.

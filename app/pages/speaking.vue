@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Listen to the sentence, repeat it into the microphone and see word by word how it went.
-const { accent, rate, canSpeak, canListen, speaking, listening, transcript, error, speak, stopSpeaking, listen, stopListening } = useSpeech()
+const { accent, rate, canSpeak, canListen, speaking, listening, transcript, error, speak, stopSpeaking, listen, stopListening, cancelListening } = useSpeech()
 
 /** The sentences are the theory examples: already translated and sorted by level. */
 const drill = tenses.flatMap(tense => tense.examples.map(example => ({ ...example, tense })))
@@ -31,10 +31,8 @@ const styles: Record<WordStatus, string> = {
 // sentence.
 function next() {
   stopSpeaking()
-  stopListening()
+  cancelListening()
   index.value += 1
-  transcript.value = ''
-  error.value = ''
 }
 
 useSeo({

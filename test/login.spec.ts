@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { RouteLocationNormalized } from 'vue-router'
@@ -125,6 +125,30 @@ describe('/login', () => {
     await flushPromises()
 
     expect(withWidget.find('button[type="submit"]').attributes('disabled')).toBeUndefined()
+  })
+
+  it('permite entrar si Turnstile no carga en cinco segundos', async () => {
+    vi.useFakeTimers()
+    const page = await mountSuspended(Login)
+
+    onTestFinished(() => {
+      page.unmount()
+      vi.useRealTimers()
+    })
+
+    expect(page.find('button[type="submit"]').attributes('disabled')).toBeDefined()
+
+    await vi.advanceTimersByTimeAsync(5000)
+
+    expect(page.text()).toContain('El captcha no se ha podido cargar')
+    expect(page.find('button[type="submit"]').attributes('disabled')).toBeUndefined()
+
+    await page.findAll('input')[0]!.setValue(user)
+    await page.findAll('input')[1]!.setValue(password)
+    await page.find('form').trigger('submit')
+    await vi.waitFor(() => expect(navigateTo).toHaveBeenCalledWith('/'))
+
+    expect(isAuthenticated()).toBe(true)
   })
 
   it('entra con las credenciales correctas y vuelve a donde se iba', async () => {

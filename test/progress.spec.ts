@@ -40,16 +40,25 @@ describe('review', () => {
 
   it('promotes one box at a time and stops at the third', () => {
     const first = review(undefined, 'x', true, today)
-    const second = review(first, 'x', true, today)
-    const third = review(second, 'x', true, today)
+    const second = review(first, 'x', true, addDays(today, 2))
+    const third = review(second, 'x', true, addDays(today, 7))
 
     expect([first.box, second.box, third.box]).toEqual([2, 3, 3])
-    expect(second.due).toBe(addDays(today, 7))
+    expect(second.due).toBe(addDays(addDays(today, 2), 7))
     expect(third.hits).toBe(3)
   })
 
+  it('promotes only once per day and keeps counting the hits', () => {
+    const first = review(undefined, 'x', true, today)
+    const second = review(first, 'x', true, today)
+    const third = review(second, 'x', true, addDays(today, 1))
+
+    expect(second).toMatchObject({ box: 2, hits: 2, due: addDays(today, 2) })
+    expect(third).toMatchObject({ box: 3, hits: 3 })
+  })
+
   it('sends a failed item back to the first box, due the same day', () => {
-    const mastered = review(review(undefined, 'x', true, today), 'x', true, today)
+    const mastered = review(review(undefined, 'x', true, today), 'x', true, addDays(today, 2))
     const failed = review(mastered, 'x', false, today)
 
     expect(mastered.box).toBe(3)
@@ -207,7 +216,7 @@ describe('practising', () => {
     expect(isDue(stored)).toBe(true)
   })
 
-  it('opens the review session with the pending items only', async () => {
+  it('keeps a correctly reviewed item pending on the same day', async () => {
     await fail()
 
     const page = await mountSuspended(Repaso)
@@ -221,12 +230,12 @@ describe('practising', () => {
     await page.find('form').trigger('submit')
     await flushPromises()
 
-    expect(load()[frasesItemId(exercise)]!.box).toBe(2)
+    expect(load()[frasesItemId(exercise)]!.box).toBe(1)
 
-    const empty = await mountSuspended(Repaso)
+    const stillPending = await mountSuspended(Repaso)
     await flushPromises()
 
-    expect(empty.text()).toContain('Hoy no toca repasar nada')
+    expect(stillPending.text()).toContain('Ejercicio 1 de 1')
   })
 
   // A miss sends the exercise back to today's queue, and until now the only way to get back
@@ -259,11 +268,11 @@ describe('practising', () => {
     expect(page.text()).toContain('Ejercicio 1 de 1')
     expect(page.text()).toContain(exercise.prompt)
 
-    // Getting it right takes it out of the queue: nothing left to review, so no other round.
+    // A right answer on the same day keeps the item in box 1, so another round remains useful.
     await play(true)
 
     expect(page.text()).toContain('Repaso terminado: 1 de 1')
-    expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(false)
+    expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(true)
   })
 
   // Saving is the only thing that can fail for outside reasons, and it saves on every answer.
