@@ -8,10 +8,10 @@ permissions:
   pages: write
   id-token: write
 
-# Un despliegue a la vez, sin cancelar el que ya está publicando.
+# Una ejecución por rama: main no se cancela a mitad de despliegue, el resto sí.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   ci:
@@ -47,35 +47,33 @@ jobs:
       - name: Test
         run: pnpm run test
 
-      # Solo main publica, así que solo main toca Pages: en el resto de ramas estos
-      # dos pasos se saltan y la rama se queda en lint, typecheck, test y generate.
+      # Solo main publica, y solo si el repositorio tiene Pages activado: el
+      # GITHUB_TOKEN no puede darlo de alta, así que sin Pages estos pasos se saltan
+      # y la rama se queda en lint, typecheck, test y generate, en verde.
       - name: Configure Pages
         id: pages
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
         uses: actions/configure-pages@v5
-        with:
-          # Da de alta el sitio de Pages si el repositorio aún no lo tiene, en vez
-          # de fallar con un 404 esperando que alguien lo active a mano.
-          enablement: true
 
       - name: Generate the static site
         run: pnpm run generate
         env:
           # El sitio cuelga de /<repo>/ en GitHub Pages, no de la raíz del dominio.
-          # Fuera de main el paso anterior no corre, `base_path` viene vacío y el
-          # sitio se genera contra la raíz, que es lo que queremos para comprobarlo.
+          # Cuando el paso anterior se salta, `base_path` viene vacío y el sitio se
+          # genera contra la raíz, que es lo que queremos para comprobarlo sin publicar.
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
 
       - name: Upload the site
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
         uses: actions/upload-pages-artifact@v4
         with:
           path: .output/public
 
-  # Solo la rama principal publica; el resto se queda en lint, test y generate.
+  # Solo la rama principal publica, y solo con Pages activado: sin artefacto que
+  # desplegar el job fallaría, así que se salta igual que los pasos de Pages.
   deploy:
     needs: ci
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
 
     runs-on: ubuntu-latest
 

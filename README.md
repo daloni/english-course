@@ -44,8 +44,17 @@ npx serve .output/public   # comprobarlo en local antes de publicar
 ```
 
 `.github/workflows/ci.yml` corre en cada push: lint, typecheck, tests y `pnpm generate`. Si el
-push es a `main`, además publica el resultado en **GitHub Pages**, dando de alta el sitio la
-primera vez si hace falta; no hay que activarlo a mano en **Settings → Pages**.
+push es a `main` **y el repositorio tiene GitHub Pages activado**, además publica el resultado.
+El workflow no puede dar de alta el sitio por su cuenta, así que hay que activarlo una vez a
+mano:
+
+1. El repositorio tiene que ser **público** (Pages en repositorios privados requiere un plan de
+   pago).
+2. **Settings → Pages → Source: GitHub Actions**.
+
+Hasta que eso esté hecho la CI valida pero no publica: los pasos de Pages y el job `deploy` se
+saltan y el push queda en verde. En cuanto se active, el workflow empieza a publicar solo, sin
+tocar nada más.
 
 Como en GitHub Pages el sitio cuelga de `https://<usuario>.github.io/<repo>/`, el workflow pasa
 esa subruta a Nuxt con `NUXT_APP_BASE_URL`; en local no hace falta nada. Para servirlo desde
