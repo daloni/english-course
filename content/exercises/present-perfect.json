@@ -1,0 +1,75 @@
+[
+  {
+    "id": "present-perfect-001",
+    "tenseId": "present-perfect",
+    "prompt": "We ___ (live) in this town since 2015.",
+    "solution": "have lived"
+  },
+  {
+    "id": "present-perfect-002",
+    "tenseId": "present-perfect",
+    "prompt": "She ___ (just / finish) her English course.",
+    "solution": "has just finished"
+  },
+  {
+    "id": "present-perfect-003",
+    "tenseId": "present-perfect",
+    "prompt": "They ___ (not / visit) the new museum yet.",
+    "solution": "haven't visited"
+  },
+  {
+    "id": "present-perfect-004",
+    "tenseId": "present-perfect",
+    "prompt": "I ___ (not / see) that series before.",
+    "solution": "haven't seen"
+  },
+  {
+    "id": "present-perfect-005",
+    "tenseId": "present-perfect",
+    "prompt": "___ (you / ever / try) Thai food?",
+    "solution": "Have you ever tried"
+  },
+  {
+    "id": "present-perfect-006",
+    "tenseId": "present-perfect",
+    "prompt": "How long ___ (he / work) for this company?",
+    "solution": "has he worked"
+  },
+  {
+    "id": "present-perfect-007",
+    "tenseId": "present-perfect",
+    "prompt": "My sister ___ (lose) her keys, so she can't get into the flat.",
+    "solution": "has lost"
+  },
+  {
+    "id": "present-perfect-008",
+    "tenseId": "present-perfect",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Tom has washed the car this morning.",
+    "solution": "Tom hasn't washed the car this morning.",
+    "explanation": "El not va detrás del auxiliar, y el participio no cambia: hasn't washed."
+  },
+  {
+    "id": "present-perfect-009",
+    "tenseId": "present-perfect",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They have booked the tickets.",
+    "solution": "Have they booked the tickets?",
+    "explanation": "La pregunta invierte el auxiliar y el sujeto: Have they booked...?"
+  },
+  {
+    "id": "present-perfect-010",
+    "tenseId": "present-perfect",
+    "type": "choice",
+    "prompt": "I have known Sarah since university.",
+    "options": [
+      "Present Perfect",
+      "Past Simple",
+      "Present Simple"
+    ],
+    "solution": "Present Perfect",
+    "explanation": "since marca algo que empezó en el pasado y sigue ahora: present perfect."
+  }
+]

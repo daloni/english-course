@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({
+useSeo({
   title: 'Practicar conjugación',
   description: 'Ejercicio de conjugación: escribe el pasado simple, el participio o la tercera persona del verbo y comprueba la respuesta al instante.'
 })

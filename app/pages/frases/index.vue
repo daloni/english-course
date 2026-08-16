@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({
+useSeo({
   title: 'Frases',
   description: 'Ejercicios de tiempos verbales aplicados a frases: rellenar el hueco, transformar la frase y reconocer el tiempo, con corrección al instante.'
 })

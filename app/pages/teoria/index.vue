@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({
+useSeo({
   title: 'Teoría',
   description: 'Los tiempos verbales del inglés explicados en español: cuándo se usa cada uno, cómo se forma y ejemplos.'
 })

@@ -1,10 +1,11 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
 import Progreso from '../app/pages/progreso.vue'
 import Repaso from '../app/pages/repaso.vue'
-import { exercisesOf } from '../app/utils/content'
+import { exercisesOf, formLabels, tenseById } from '../app/utils/content'
+import { formOf } from '../app/utils/explain'
 import {
   addDays,
   frasesItemId,
@@ -154,7 +155,30 @@ describe('load and save', () => {
 
     expect(load()).toEqual({})
   })
+
+  // Con el almacenamiento lleno, o en el modo privado de Safari, setItem lanza. Se guarda en
+  // cada respuesta, así que dejar subir la excepción dejaría la ronda muerta a medias.
+  it('does not throw when the browser refuses to store the progress', () => {
+    const setItem = refuseToStore()
+
+    expect(() => save({ x: review(undefined, 'x', true, today) })).not.toThrow()
+    expect(setItem).toHaveBeenCalled()
+  })
 })
+
+/**
+ * El almacenamiento lleno, o el modo privado de Safari: setItem lanza en cada respuesta.
+ * Se deshace al terminar el test, pase lo que pase, o el resto se quedaría sin guardar.
+ */
+function refuseToStore() {
+  const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
+    throw new DOMException('exceeded the quota', 'QuotaExceededError')
+  })
+
+  onTestFinished(() => setItem.mockRestore())
+
+  return setItem
+}
 
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!
@@ -201,6 +225,81 @@ describe('practising', () => {
     await flushPromises()
 
     expect(empty.text()).toContain('Hoy no toca repasar nada')
+  })
+
+  // Un fallo devuelve el ejercicio a la cola de hoy, y hasta ahora la única forma de volver a
+  // él era recargar la página a mano.
+  it('starts another round with what is still pending, and only then', async () => {
+    await fail()
+
+    const page = await mountSuspended(Repaso)
+    await flushPromises()
+
+    /** Falla o acierta el ejercicio en pantalla y pasa al siguiente. */
+    async function play(correct: boolean) {
+      await page.find('input').setValue(correct ? exercise.solution : 'nope')
+      await page.find('form').trigger('submit')
+      await flushPromises()
+      await page.find('form').trigger('submit')
+      await flushPromises()
+    }
+
+    await play(false)
+
+    expect(page.text()).toContain('Repaso terminado: 0 de 1')
+
+    const again = page.findAll('button').find(button => button.text().includes('Otra ronda'))
+
+    expect(again, 'no hay botón de otra ronda').toBeDefined()
+    await again!.trigger('click')
+    await flushPromises()
+
+    expect(page.text()).toContain('Ejercicio 1 de 1')
+    expect(page.text()).toContain(exercise.prompt)
+
+    // Acertarlo lo saca de la cola: ya no queda nada que repasar, así que no hay otra ronda.
+    await play(true)
+
+    expect(page.text()).toContain('Repaso terminado: 1 de 1')
+    expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(false)
+  })
+
+  // Guardar es lo único que puede fallar por causas ajenas, y se guarda en cada respuesta.
+  it('corrects and carries on when the progress cannot be stored', async () => {
+    refuseToStore()
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    await flushPromises()
+
+    await page.find('input').setValue(exercise.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('¡Correcto!')
+
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('Frase 2 de')
+  })
+
+  // La misma corrección que /frases: sin explanation, la estructura del tiempo verbal.
+  it('explains a mistake the way /frases does', async () => {
+    await fail()
+
+    const page = await mountSuspended(Repaso)
+    await flushPromises()
+
+    await page.find('input').setValue('nope')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    const structure = tenseById('present-simple')!.structure[formOf(exercise)]
+
+    expect(exercise.explanation, 'la frase de prueba ya trae explicación').toBeUndefined()
+    expect(page.text()).toContain(`La respuesta correcta es: ${exercise.solution}. ${formLabels[formOf(exercise)]}: ${structure}`)
+    // Sin explicación se veía la solución y un punto suelto detrás.
+    expect(page.text()).not.toContain(`${exercise.solution}. .`)
   })
 
   it('shows on /progreso what has been practised', async () => {

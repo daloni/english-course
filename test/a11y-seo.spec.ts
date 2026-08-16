@@ -5,8 +5,10 @@ import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import DefaultLayout from '../app/layouts/default.vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
+import TenseTheory from '../app/pages/teoria/[slug].vue'
 import VerbPractice from '../app/pages/verbos/practica.vue'
-import { exerciseFiles, exercisesOf, typeOf } from '../app/utils/content'
+import { siteName } from '../app/composables/useSeo'
+import { exerciseFiles, exercisesOf, tenseById, typeOf } from '../app/utils/content'
 
 const slug = Object.keys(exerciseFiles)[0]!.split('/').pop()!.replace('.json', '')
 
@@ -32,15 +34,39 @@ function accessibleName(page: VueWrapper, input: Element): string {
 }
 
 // Cada página se presenta con su propio título y su propia descripción: añadir una nueva y
-// olvidarse del useSeoMeta falla aquí.
+// olvidarse del useSeo falla aquí.
 describe('SEO', () => {
   it.each(pages)('/%s declares its own title and description', (name) => {
     const source = readFileSync(`${pagesDir}/${name}`, 'utf8')
-    const meta = source.match(/useSeoMeta\(\{[\s\S]*?\n\}\)/)?.[0] ?? ''
+    const meta = source.match(/\buseSeo\(\{[\s\S]*?\n\}\)/)?.[0] ?? ''
 
-    expect(meta, 'no useSeoMeta').not.toBe('')
+    expect(meta, 'no useSeo').not.toBe('')
     expect(meta).toMatch(/\btitle:/)
     expect(meta).toMatch(/\bdescription:/)
+  })
+
+  // Lo que se ve al compartir el enlace es lo de la página, no lo de la home: sin esto
+  // WhatsApp, Slack o Twitter enseñan siempre la tarjeta del sitio entero.
+  it('gives the page its own social card, not the one of the home', async () => {
+    const tense = tenseById('past-simple')!
+
+    await mountSuspended(TenseTheory, { route: `/teoria/${tense.id}` })
+    await flushPromises()
+    // El head se aplica al DOM en un tick aparte del montaje.
+    await new Promise(resolve => setTimeout(resolve))
+
+    const content = (property: string) =>
+      document.head.querySelector(`meta[property="${property}"], meta[name="${property}"]`)?.getAttribute('content')
+
+    // El <title> lleva el titleTemplate de app.vue, que no monta en un test de página; la
+    // tarjeta social tiene que enseñar ese mismo título, con el nombre del sitio incluido.
+    expect(document.title).toBe(tense.name)
+    expect(content('og:title')).toBe(`${tense.name} · ${siteName}`)
+    expect(content('og:description')).toBe(content('description'))
+    expect(content('og:description')).toContain(tense.nameEs)
+    expect(content('og:type')).toBe('website')
+    expect(content('og:locale')).toBe('es_ES')
+    expect(content('twitter:card')).toBe('summary')
   })
 })
 

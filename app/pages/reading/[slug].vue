@@ -15,6 +15,7 @@ const text = marked.parse(reading.text, { async: false })
 
 const answers = ref<Record<string, string>>({})
 const submitted = ref(false)
+const recorded = ref(false)
 
 /**
  * The whole set is corrected at once, when the form is sent. A written answer goes through
@@ -32,11 +33,24 @@ const hits = computed(() => results.value.filter(result => result.correct).lengt
 /** «Lisbon / Lisboa» accepts either one, but only the first is shown as the answer. */
 const shownAnswer = (question: Question) => question.answer.split(/\s+\/\s+/)[0]!.trim()
 
-/** Correcting the whole set also records one attempt per question in the progress. */
+/**
+ * Correcting the whole set also records one attempt per question in the progress, but only
+ * the first time it is corrected in this visit: doing the reading again right away would
+ * count twice and move the Leitner box twice on the same day. A question left blank is a
+ * mistake of the round, not an attempt: it is not recorded at all.
+ */
 function submit() {
   submitted.value = true
 
-  for (const result of results.value) {
+  const answered = results.value.filter(result => result.given.trim() !== '')
+
+  if (recorded.value || answered.length === 0) {
+    return
+  }
+
+  recorded.value = true
+
+  for (const result of answered) {
     record(readingItemId(reading!, result.question), result.correct)
   }
 }
@@ -46,7 +60,7 @@ function retry() {
   submitted.value = false
 }
 
-useSeoMeta({
+useSeo({
   title: reading.title,
   description: `${reading.title}: lectura de nivel ${reading.level} sobre ${reading.topic.toLowerCase()}, con glosario y ${reading.questions.length} preguntas de comprensión.`
 })

@@ -36,7 +36,7 @@ function next() {
   error.value = ''
 }
 
-useSeoMeta({
+useSeo({
   title: 'Speaking',
   description: 'Escucha la frase en inglés, repítela en voz alta y comprueba palabra a palabra qué has pronunciado bien, con el reconocimiento de voz del navegador.'
 })

@@ -43,8 +43,9 @@ pnpm generate
 npx serve .output/public   # comprobarlo en local antes de publicar
 ```
 
-`.github/workflows/ci.yml` corre en cada push: lint, typecheck, tests y `pnpm generate`. Si el
-push es a `main` **y el repositorio tiene GitHub Pages activado**, además publica el resultado.
+`.github/workflows/ci.yml` corre en cada push y en cada pull request: lint, typecheck, tests y
+`pnpm generate`. Si el push es a `main` **y el repositorio tiene GitHub Pages activado**, además
+publica el resultado.
 El workflow no puede dar de alta el sitio por su cuenta, así que hay que activarlo una vez a
 mano:
 
@@ -57,8 +58,10 @@ saltan y el push queda en verde. En cuanto se active, el workflow empieza a publ
 tocar nada más.
 
 Como en GitHub Pages el sitio cuelga de `https://<usuario>.github.io/<repo>/`, el workflow pasa
-esa subruta a Nuxt con `NUXT_APP_BASE_URL`; en local no hace falta nada. Para servirlo desde
-otro sitio (Netlify, un `nginx`…) basta con subir `.output/public` tal cual.
+esa subruta a Nuxt con `NUXT_APP_BASE_URL` y la URL pública completa con `NUXT_PUBLIC_SITE_URL`,
+que es la que llevan el `<link rel="canonical">` y el `og:url` de cada página; en local no hace
+falta nada. Para servirlo desde otro sitio (Netlify, un `nginx`…) basta con subir
+`.output/public` tal cual, pasando `NUXT_PUBLIC_SITE_URL` con el dominio nuevo.
 
 ## Accesibilidad
 
@@ -91,6 +94,17 @@ sigue en la cola de hoy aunque se recargue la página. `/progreso` resume lo pra
 tiempo verbal y por sección, lista lo que más se falla y deja exportar el progreso a JSON,
 importarlo o reiniciarlo. El botón **Repasar hoy** abre `/repaso`, una sesión con lo que
 vence hoy y solo con eso, mezclando frases, verbos y preguntas de reading.
+
+La cola de `/repaso` se congela al empezar la sesión, para que no se encoja según se responde;
+al terminarla, **Otra ronda** vuelve a fotografiarla y arranca otra con lo que se ha fallado,
+sin recargar la página. Si ya no queda nada pendiente, el botón no aparece.
+
+En `/reading` la corrección apunta un intento por pregunta la primera vez que se corrige la
+lectura en esa visita: volver a intentarla no cuenta dos veces. Una pregunta en blanco cuenta
+como fallo de la ronda, pero no se guarda como intento.
+
+Si el navegador no deja escribir en `localStorage` (almacenamiento lleno, modo privado de
+Safari), la sesión sigue funcionando igual: lo que se corrija simplemente no persiste.
 
 El speaking no cuenta para el progreso: su corrección es un porcentaje de palabras, no un
 acierto o un fallo.
@@ -132,7 +146,8 @@ node scripts/merge-content.mjs content/exercises/present-simple.json < patch.jso
 .github/workflows/ci.yml   lint, typecheck, tests, generate y despliegue a GitHub Pages
 public/.nojekyll           para que GitHub Pages sirva el directorio _nuxt/
 app/
-  app.vue                 raíz: layout + página
+  app.vue                 raíz: layout + página, canonical y og:url de cada ruta
+  error.vue               página de error propia, en español y dentro del layout
   layouts/default.vue     cabecera con la navegación y pie
   pages/index.vue         home con las tarjetas de cada sección
   pages/teoria/           listado de tiempos por nivel y teoría de cada uno
@@ -145,10 +160,12 @@ app/
   components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
   composables/useSpeech.ts  Web Speech API: síntesis de voz y reconocimiento
   composables/useProgress.ts  el progreso del navegador: apuntar, resumir y exportar
+  composables/useSeo.ts   título, descripción y tarjeta social de cada página
   utils/check.ts          corrección de las respuestas escritas y tercera persona
   utils/diff.ts           comparación palabra a palabra de lo que se ha dicho
   utils/progress.ts       cajas Leitner, guardado en localStorage e ítems repasables
   utils/content.ts        tipos del contenido y carga de content/*.json
+  utils/explain.ts        componente y explicación de cada tipo de ejercicio
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
 content/
   tenses/<slug>.json      teoría, estructura y ejemplos de cada tiempo verbal
@@ -168,6 +185,7 @@ test/
   diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
   speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
   progress.spec.ts        cajas Leitner, persistencia serializada y sesión de repaso
-  a11y-seo.spec.ts        título y descripción de cada página y recorrido con teclado
+  a11y-seo.spec.ts        SEO propio de cada página y recorrido con teclado
+  error.spec.ts           la página de error explica el 404 y deja volver
   smoke.spec.ts           test de humo: monta la home
 ```

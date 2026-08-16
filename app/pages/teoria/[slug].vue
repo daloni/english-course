@@ -17,7 +17,7 @@ const examplesByForm = forms
 
 const hasExercises = exercises.some(exercise => exercise.tenseId === tense.id)
 
-useSeoMeta({
+useSeo({
   title: tense.name,
   description: `${tense.name} (${tense.nameEs}), nivel ${tense.level}: cuándo se usa, cómo se forma, marcadores temporales y ejemplos.`
 })

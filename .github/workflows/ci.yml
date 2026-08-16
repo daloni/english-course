@@ -1,6 +1,10 @@
 name: ci
 
-on: push
+# En cada push y en cada pull request: un PR desde un fork también se valida, y con él el
+# resultado del merge.
+on:
+  push:
+  pull_request:
 
 # Lo que necesita el despliegue a GitHub Pages del job `deploy`.
 permissions:
@@ -36,7 +40,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
         run: pnpm run lint
@@ -62,6 +66,9 @@ jobs:
           # Cuando el paso anterior se salta, `base_path` viene vacío y el sitio se
           # genera contra la raíz, que es lo que queremos para comprobarlo sin publicar.
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
+          # La URL pública, para el canonical y el og:url. Sin Pages activado el paso anterior
+          # se salta y `base_url` viene vacío: se compone la que tendrá el sitio al activarlo.
+          NUXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
 
       - name: Upload the site
         if: github.ref == 'refs/heads/main' && github.event.repository.has_pages

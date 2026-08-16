@@ -126,9 +126,20 @@ export function load(): Progress {
   }
 }
 
+/**
+ * Guardar es lo único que puede fallar por causas ajenas: el almacenamiento lleno o el modo
+ * privado de Safari hacen que `setItem` lance. Se apunta en cada respuesta, así que dejar
+ * subir la excepción tumbaría la corrección; la sesión sigue en memoria y no persiste.
+ */
 export function save(progress: Progress) {
-  if (typeof localStorage !== 'undefined') {
+  if (typeof localStorage === 'undefined') {
+    return
+  }
+
+  try {
     localStorage.setItem(storageKey, serialize(progress))
+  } catch {
+    // Sin sitio donde guardar, el progreso de esta sesión se pierde al recargar.
   }
 }
 
