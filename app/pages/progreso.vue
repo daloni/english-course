@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// Lo practicado en este navegador: qué se domina, qué se falla y qué toca repasar hoy.
+// What has been practised in this browser: what is mastered, what is missed and what is due
+// for review today.
 const { attempts, pending, failed, statsOf, exportFile, importFile, reset } = useProgress()
 
 const error = ref('')
@@ -28,7 +29,7 @@ async function onImport(event: Event) {
     error.value = failure instanceof Error ? failure.message : 'No se ha podido leer el fichero'
   }
 
-  // Se limpia el input para poder volver a importar el mismo fichero.
+  // The input is cleared so the same file can be imported again.
   input.value = ''
 }
 
@@ -247,7 +248,7 @@ useSeo({
                 @click="exportFile"
               />
 
-              <!-- Un input de fichero nativo, con su <label>: no hace falta nada más. -->
+              <!-- A native file input, with its <label>: nothing else is needed. -->
               <div>
                 <label
                   for="importar-progreso"

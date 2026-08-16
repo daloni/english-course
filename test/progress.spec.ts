@@ -100,11 +100,11 @@ describe('parse', () => {
       y: { id: 'y', box: 9, hits: 1, misses: 0, last: today, due: today },
       z: { id: 'z', box: 1, hits: 1, misses: 0, last: 'ayer', due: today },
       w: 'nope',
-      // La fecha tiene la forma buena pero no existe: dejaría el ítem fuera de la cola
-      // para siempre, porque las fechas se comparan como texto.
+      // The date has the right shape but does not exist: it would keep the item out of the
+      // queue forever, because dates are compared as text.
       u: { id: 'u', box: 1, hits: 1, misses: 0, last: today, due: '2026-13-45' },
-      // El 30 de febrero tampoco existe, y este `Date` no lo rechaza: lo desborda al 2 de
-      // marzo, así que la fecha guardada no sería la que se importó.
+      // February 30th does not exist either, and `Date` does not reject it: it overflows to
+      // March 2nd, so the stored date would not be the one that was imported.
       t: { id: 't', box: 1, hits: 1, misses: 0, last: today, due: '2026-02-30' },
       // The key has to match the id inside, or the item could never be found again.
       v: { ...attempt }
@@ -128,8 +128,8 @@ describe('parse', () => {
 })
 
 describe('load and save', () => {
-  // Solo el progreso: el localStorage guarda también la sesión, y sin ella el middleware
-  // global mandaría a /login en vez de montar la página.
+  // Progress only: localStorage also holds the session, and without it the global middleware
+  // would send you to /login instead of mounting the page.
   beforeEach(() => localStorage.removeItem(storageKey))
 
   it('survives a reload: what was failed is still due', () => {
@@ -158,8 +158,8 @@ describe('load and save', () => {
     expect(load()).toEqual({})
   })
 
-  // Con el almacenamiento lleno, o en el modo privado de Safari, setItem lanza. Se guarda en
-  // cada respuesta, así que dejar subir la excepción dejaría la ronda muerta a medias.
+  // With full storage, or in Safari private mode, setItem throws. It saves on every answer,
+  // so letting the exception bubble up would leave the round dead halfway through.
   it('does not throw when the browser refuses to store the progress', () => {
     const setItem = refuseToStore()
 
@@ -169,8 +169,8 @@ describe('load and save', () => {
 })
 
 /**
- * El almacenamiento lleno, o el modo privado de Safari: setItem lanza en cada respuesta.
- * Se deshace al terminar el test, pase lo que pase, o el resto se quedaría sin guardar.
+ * Full storage, or Safari private mode: setItem throws on every answer. It is undone when the
+ * test ends, whatever happens, or the rest would be left unable to save.
  */
 function refuseToStore() {
   const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
@@ -229,15 +229,15 @@ describe('practising', () => {
     expect(empty.text()).toContain('Hoy no toca repasar nada')
   })
 
-  // Un fallo devuelve el ejercicio a la cola de hoy, y hasta ahora la única forma de volver a
-  // él era recargar la página a mano.
+  // A miss sends the exercise back to today's queue, and until now the only way to get back
+  // to it was reloading the page by hand.
   it('starts another round with what is still pending, and only then', async () => {
     await fail()
 
     const page = await mountSuspended(Repaso)
     await flushPromises()
 
-    /** Falla o acierta el ejercicio en pantalla y pasa al siguiente. */
+    /** Answers the exercise on screen right or wrong and moves on to the next one. */
     async function play(correct: boolean) {
       await page.find('input').setValue(correct ? exercise.solution : 'nope')
       await page.find('form').trigger('submit')
@@ -259,14 +259,14 @@ describe('practising', () => {
     expect(page.text()).toContain('Ejercicio 1 de 1')
     expect(page.text()).toContain(exercise.prompt)
 
-    // Acertarlo lo saca de la cola: ya no queda nada que repasar, así que no hay otra ronda.
+    // Getting it right takes it out of the queue: nothing left to review, so no other round.
     await play(true)
 
     expect(page.text()).toContain('Repaso terminado: 1 de 1')
     expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(false)
   })
 
-  // Guardar es lo único que puede fallar por causas ajenas, y se guarda en cada respuesta.
+  // Saving is the only thing that can fail for outside reasons, and it saves on every answer.
   it('corrects and carries on when the progress cannot be stored', async () => {
     refuseToStore()
 
@@ -285,7 +285,7 @@ describe('practising', () => {
     expect(page.text()).toContain('Frase 2 de')
   })
 
-  // La misma corrección que /frases: sin explanation, la estructura del tiempo verbal.
+  // The same correction as /frases: with no explanation, the structure of the tense.
   it('explains a mistake the way /frases does', async () => {
     await fail()
 
@@ -300,7 +300,7 @@ describe('practising', () => {
 
     expect(exercise.explanation, 'la frase de prueba ya trae explicación').toBeUndefined()
     expect(page.text()).toContain(`La respuesta correcta es: ${exercise.solution}. ${formLabels[formOf(exercise)]}: ${structure}`)
-    // Sin explicación se veía la solución y un punto suelto detrás.
+    // With no explanation, the solution showed up with a stray period trailing behind.
     expect(page.text()).not.toContain(`${exercise.solution}. .`)
   })
 
@@ -314,7 +314,7 @@ describe('practising', () => {
     expect(page.text()).toContain('Repasar hoy (1)')
     expect(page.text()).toContain(exercise.prompt)
     expect(page.text()).toContain(exercise.solution)
-    // Practicados / aciertos / fallos / aprendidos / para hoy: un ejercicio, un fallo, y hoy toca.
+    // Practised / hits / misses / mastered / due: one exercise, one miss, and it is due today.
     const row = page.findAll('tbody tr').find(candidate => candidate.text().startsWith('Present Simple'))!
 
     expect(row.text()).toBe(`Present Simple1 / ${itemsOfTense('present-simple').length}0101`)

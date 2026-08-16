@@ -26,7 +26,7 @@ function restart() {
   results.value = []
 }
 
-/** El mismo botón hace las dos cosas: primero corrige, después pasa a la frase siguiente. */
+/** The same button does both things: it corrects first, then moves on to the next sentence. */
 function submit() {
   if (checked.value) {
     index.value += 1

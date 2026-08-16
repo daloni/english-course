@@ -1,18 +1,18 @@
-/** El nombre del sitio: lo que cierra el <title> de cada página y sus tarjetas al compartir. */
-export const siteName = 'Aprender inglés'
-
 /**
- * El SEO de una página: su título y su descripción, también en la tarjeta que enseñan
- * WhatsApp, Slack o Twitter al compartir el enlace. Sin esto todas las páginas heredan el
- * og:title de la home y comparten la home mires donde mires.
+ * The SEO of a page: its title and its description, also in the card WhatsApp, Slack or
+ * Twitter show when the link is shared. Without this every page inherits the og:title of the
+ * home and shares the home wherever you look.
  *
- * El og:url y el canonical van en app.vue, que es quien conoce la ruta actual.
+ * The og:url and the canonical live in app.vue, which is the one that knows the current route.
  */
 export function useSeo(page: { title: string, description: string }) {
+  const { siteName } = useRuntimeConfig().public
+
   useSeoMeta({
     title: page.title,
     description: page.description,
-    // El <title> lleva el titleTemplate de app.vue; el og:title no, así que se compone aquí.
+    // The <title> gets the titleTemplate from app.vue; the og:title does not, so it is
+    // composed here.
     ogTitle: `${page.title} · ${siteName}`,
     ogDescription: page.description,
     ogType: 'website',

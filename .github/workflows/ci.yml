@@ -1,18 +1,18 @@
 name: ci
 
-# En cada push y en cada pull request: un PR desde un fork también se valida, y con él el
-# resultado del merge.
+# On every push and on every pull request: a PR from a fork is validated too, and with it the
+# result of the merge.
 on:
   push:
   pull_request:
 
-# Lo que necesita el despliegue a GitHub Pages del job `deploy`.
+# What the GitHub Pages deployment of the `deploy` job needs.
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Una ejecución por rama: main no se cancela a mitad de despliegue, el resto sí.
+# One run per branch: main is not cancelled halfway through a deployment, the rest are.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
@@ -29,6 +29,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      # The configuration comes from the .env, and without it the build stops on purpose. The
+      # development values are enough here, so a PR from a fork validates without secrets.
+      # `pnpm install` already runs `nuxt prepare`, which reads it: this goes first.
+      - name: Set up the environment
+        run: cp .env.example .env
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6
@@ -51,9 +57,9 @@ jobs:
       - name: Test
         run: pnpm run test
 
-      # Solo main publica, y solo si el repositorio tiene Pages activado: el
-      # GITHUB_TOKEN no puede darlo de alta, así que sin Pages estos pasos se saltan
-      # y la rama se queda en lint, typecheck, test y generate, en verde.
+      # Only main publishes, and only if the repository has Pages enabled: the GITHUB_TOKEN
+      # cannot enable it, so without Pages these steps are skipped and the branch stays on
+      # lint, typecheck, test and generate, all green.
       - name: Configure Pages
         id: pages
         if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
@@ -62,12 +68,14 @@ jobs:
       - name: Generate the static site
         run: pnpm run generate
         env:
-          # El sitio cuelga de /<repo>/ en GitHub Pages, no de la raíz del dominio.
-          # Cuando el paso anterior se salta, `base_path` viene vacío y el sitio se
-          # genera contra la raíz, que es lo que queremos para comprobarlo sin publicar.
+          # The site hangs off /<repo>/ on GitHub Pages, not off the root of the domain.
+          # When the previous step is skipped, `base_path` comes empty and the site is
+          # generated against the root, which is what we want to check it without publishing.
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
-          # La URL pública, para el canonical y el og:url. Sin Pages activado el paso anterior
-          # se salta y `base_url` viene vacío: se compone la que tendrá el sitio al activarlo.
+          # The public URL, for the canonical and the og:url. It wins over the .env, which
+          # dotenv does not use to overwrite what is already in the environment. Without Pages
+          # enabled the previous step is skipped and `base_url` comes empty: the URL the site
+          # will have once it is enabled is composed here.
           NUXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
 
       - name: Upload the site
@@ -76,8 +84,8 @@ jobs:
         with:
           path: .output/public
 
-  # Solo la rama principal publica, y solo con Pages activado: sin artefacto que
-  # desplegar el job fallaría, así que se salta igual que los pasos de Pages.
+  # Only the main branch publishes, and only with Pages enabled: with no artifact to deploy
+  # the job would fail, so it is skipped just like the Pages steps.
   deploy:
     needs: ci
     if: github.ref == 'refs/heads/main' && github.event.repository.has_pages

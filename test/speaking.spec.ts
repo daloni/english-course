@@ -4,7 +4,7 @@ import { flushPromises } from '@vue/test-utils'
 import SpeakingPage from '../app/pages/speaking.vue'
 import { tenses } from '../app/utils/content'
 
-/** El reconocedor del navegador, lo justo para saber si sigue grabando y qué se ha dicho. */
+/** The browser recogniser, just enough to know whether it is still recording and what was said. */
 class FakeRecognition {
   static last: FakeRecognition | null = null
 
@@ -49,7 +49,7 @@ class FakeUtterance {
   constructor(public text: string) {}
 }
 
-/** Como el navegador: cancelar despacha el `end` de lo que sonaba, y lo hace asíncrono. */
+/** Like the browser: cancelling dispatches the `end` of whatever was playing, asynchronously. */
 const fakeSynthesis = {
   spoken: [] as FakeUtterance[],
   getVoices: () => [],
@@ -127,8 +127,8 @@ describe('/speaking', () => {
     await next.trigger('click')
     await flushPromises()
 
-    // Lo dicho para la frase anterior no se arrastra, y el micrófono deja de grabar: si no,
-    // lo que se diga ahora se compararía contra la frase nueva.
+    // What was said for the previous sentence does not carry over, and the microphone stops
+    // recording: otherwise whatever is said now would be compared against the new sentence.
     expect(page.text()).not.toContain('Frase completa, palabra por palabra.')
     expect(recognition.running).toBe(false)
   })
@@ -142,8 +142,9 @@ describe('/speaking', () => {
     const listen = page.find('[aria-label="Escuchar la frase en inglés"]').element
     const next = page.findAll('button').find(button => button.text().includes('Otra frase'))!.element
 
-    // Sin esperar entre clics, que es lo que pasa al pulsar seguido: el `end` de la primera
-    // locución llega cuando la segunda ya ha empezado, y no puede apagarle el flag.
+    // Without waiting between clicks, which is what happens when pressing repeatedly: the
+    // `end` of the first utterance arrives once the second has already started, and it must
+    // not turn its flag off.
     listen.dispatchEvent(new MouseEvent('click'))
     next.dispatchEvent(new MouseEvent('click'))
     listen.dispatchEvent(new MouseEvent('click'))

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// La pantalla de acceso: usuario, contraseña y el captcha de Cloudflare Turnstile.
+// The sign-in screen: user, password and the Cloudflare Turnstile captcha.
 const { turnstileSiteKey } = useRuntimeConfig().public
 const route = useRoute()
 
@@ -8,7 +8,7 @@ const token = ref('')
 const error = ref('')
 const widget = ref<HTMLElement>()
 
-/** Lo que el widget de Turnstile deja en `window` cuando termina de cargarse. */
+/** What the Turnstile widget leaves on `window` once it finishes loading. */
 interface Turnstile {
   render: (element: HTMLElement, options: {
     'sitekey': string
@@ -17,9 +17,9 @@ interface Turnstile {
   }) => void
 }
 
-// A dónde se vuelve tras entrar: solo una ruta interna. Sin la comprobación, un enlace con
-// ?redirect=https://… convertiría el login en un open redirect hacia donde quisiera quien
-// mandara el enlace. `//` fuera también, que es una URL sin esquema (//evil.com).
+// Where to go back to after signing in: internal routes only. Without the check, a link with
+// ?redirect=https://... would turn the login into an open redirect towards wherever whoever
+// sent the link wanted. `//` is out too, which is a scheme-relative URL (//evil.com).
 const target = computed(() => {
   const redirect = route.query.redirect
 
@@ -28,10 +28,10 @@ const target = computed(() => {
     : '/'
 })
 
-// ponytail: el token del captcha no se valida. La validación de verdad es una llamada de
-// servidor a servidor a /turnstile/v0/siteverify con la secret key, y este sitio es estático:
-// no hay dónde esconderla. Aquí el techo es que sin token no se puede enviar el formulario,
-// que frena bots triviales; el día que haya servidor, la comprobación va ahí.
+// ponytail: the captcha token is not validated. Real validation is a server-to-server call
+// to /turnstile/v0/siteverify with the secret key, and this site is static: there is nowhere
+// to hide it. The ceiling here is that without a token the form cannot be submitted, which
+// stops trivial bots; the day there is a server, the check goes there.
 useHead({
   script: [{
     src: 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad',
@@ -41,9 +41,10 @@ useHead({
 })
 
 /**
- * El widget se pinta a mano porque el script es `async`: puede llegar antes o después de que
- * el hueco exista, así que se intenta desde los dos lados y solo entra el primero. En un
- * entorno sin `window.turnstile` (los tests) simplemente no aparece, y no se rompe nada.
+ * The widget is rendered by hand because the script is `async`: it can arrive before or after
+ * its slot exists, so it is attempted from both sides and only the first one gets through. In
+ * an environment with no `window.turnstile` (the tests) it simply does not show up, and
+ * nothing breaks.
  */
 let rendered = false
 
@@ -58,7 +59,7 @@ function renderTurnstile() {
   turnstile.render(widget.value, {
     'sitekey': turnstileSiteKey,
     'callback': (value: string) => token.value = value,
-    // Los tokens caducan a los cinco minutos: sin token, el botón vuelve a estar apagado.
+    // Tokens expire after five minutes: with no token, the button goes back to disabled.
     'expired-callback': () => token.value = ''
   })
 }
@@ -67,8 +68,8 @@ if (import.meta.client) {
   Object.assign(window, { onTurnstileLoad: renderTurnstile })
 }
 
-// El hueco está dentro de <ClientOnly>, que lo pinta un render después de montar: se espera
-// a tenerlo en vez de mirarlo en onMounted, cuando todavía no existe.
+// The slot lives inside <ClientOnly>, which renders it one render after mounting: wait for it
+// instead of looking in onMounted, when it does not exist yet.
 watch(widget, renderTurnstile)
 
 async function submit() {
@@ -91,7 +92,7 @@ useSeo({
   description: 'Pantalla de acceso a la plataforma para aprender inglés: usuario, contraseña y captcha.'
 })
 
-// Una pantalla de acceso no pinta nada en Google.
+// A sign-in screen has no business in Google.
 useSeoMeta({ robots: 'noindex, nofollow' })
 </script>
 
@@ -138,7 +139,7 @@ useSeoMeta({ robots: 'noindex, nofollow' })
             />
           </UFormField>
 
-          <!-- El widget es puro navegador: en el prerender no tiene nada que pintar. -->
+          <!-- The widget is browser only: during the prerender it has nothing to render. -->
           <ClientOnly>
             <div
               ref="widget"

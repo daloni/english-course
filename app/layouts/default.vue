@@ -9,7 +9,7 @@ function leave() {
 
 <template>
   <div>
-    <!-- Primer tabulador de la página: saltar la navegación y llegar al contenido. -->
+    <!-- First tab stop of the page: skip the navigation and land on the content. -->
     <a
       href="#contenido"
       class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-default focus:px-4 focus:py-2 focus:font-medium focus:ring-2 focus:ring-primary"
@@ -25,8 +25,8 @@ function leave() {
       <UNavigationMenu :items="items" />
 
       <template #right>
-        <!-- La sesión vive en el localStorage, así que el botón solo existe en el navegador:
-             pintarlo en el prerender descuadraría la hidratación. -->
+        <!-- The session lives in localStorage, so the button only exists in the browser:
+             rendering it during the prerender would throw hydration off. -->
         <ClientOnly>
           <UButton
             label="Salir"

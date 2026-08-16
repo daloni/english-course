@@ -3,8 +3,8 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import ErrorPage from '../app/error.vue'
 import { sections } from '../app/utils/sections'
 
-// Los createError() de /teoria/<slug>, /frases/<tiempo> y /reading/<slug> caen aquí: sin esta
-// página se veía el error por defecto de Nuxt, en inglés y sin forma de volver.
+// The createError() calls of /teoria/<slug>, /frases/<tiempo> and /reading/<slug> land here:
+// without this page the default Nuxt error showed up, in English and with no way back.
 
 describe('app/error.vue', () => {
   it('explains a 404 in Spanish, with the way back and the sections', async () => {

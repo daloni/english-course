@@ -1,7 +1,8 @@
 export default defineNuxtRouteMiddleware((to) => {
-  // Durante el prerender no hay navegador ni sesión: si el middleware redirige aquí, cada
-  // página se genera como un redirect a /login, el crawler no encuentra enlaces que seguir
-  // y `failOnError` tumba el build. La puerta es solo de cliente, a propósito.
+  // During the prerender there is no browser and no session: if the middleware redirected
+  // here, every page would be generated as a redirect to /login, the crawler would find no
+  // links to follow and `failOnError` would bring the build down. The gate is client only,
+  // on purpose.
   if (import.meta.server || to.path === '/login' || isAuthenticated()) {
     return
   }

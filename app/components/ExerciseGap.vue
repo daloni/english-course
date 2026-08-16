@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Rellenar el hueco: la frase lleva un ___ y solo se escribe lo que va dentro.
+// Fill in the gap: the sentence carries a ___ and only what goes inside it is typed.
 defineProps<{ exercise: Exercise, disabled?: boolean }>()
 
 const answer = defineModel<string>({ required: true })
