@@ -86,10 +86,9 @@ useSeo({
                 >
                   {{ formLabels[form] }}
                 </th>
-                <td
-                  lang="en"
-                  class="py-2"
-                >
+                <!-- The structure is written in Spanish ("Sujeto + verbo en pasado"): only
+                     the time markers and the examples below are English. -->
+                <td class="py-2">
                   {{ tense.structure[form] }}
                 </td>
               </tr>

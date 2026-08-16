@@ -216,8 +216,10 @@ useSeo({
                     variant="subtle"
                     color="neutral"
                   />
+                  <!-- The prompt of a verb is Spanish ("Participio de «go»"); the sentences
+                       and the reading questions are English, and so is every solution. -->
                   <span
-                    lang="en"
+                    :lang="failure.item.kind === 'verbos' ? undefined : 'en'"
                     class="font-medium"
                   >{{ failure.item.prompt }}</span>
                 </p>
