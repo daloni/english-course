@@ -95,6 +95,13 @@ describe('exercises', () => {
     expect(duplicates(exercises.map(exercise => exercise.id))).toEqual([])
   })
 
+  // Un tiempo con teoría pero sin frases no se lista en /frases y esconde el botón de
+  // practicar en /teoria/<slug>: los tiempos de partida tienen que traer las suyas.
+  it('drills every seed tense', () => {
+    expect([...new Set(exercises.map(exercise => exercise.tenseId))])
+      .toEqual(expect.arrayContaining(['past-simple', 'present-perfect', 'present-simple']))
+  })
+
   it('always has a solution and a known tense', () => {
     const ids = tenses.map(tense => tense.id)
 
