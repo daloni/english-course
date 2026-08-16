@@ -328,6 +328,36 @@ describe('practising', () => {
 
     expect(row.text()).toBe(`Present Simple1 / ${itemsOfTense('present-simple').length}0101`)
   })
+
+  it('only resets progress after confirmation', async () => {
+    const attempt = review(undefined, 'x', false, today)
+
+    save({ x: attempt })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    const resetButton = page.findAll('button').find(button => button.text().trim() === 'Reiniciar')!
+
+    await resetButton.trigger('click')
+    await flushPromises()
+
+    expect(page.text()).toContain('¿Reiniciar progreso?')
+
+    const cancel = page.findAll('button').find(button => button.text().trim() === 'Cancelar')!
+
+    await cancel.trigger('click')
+    await flushPromises()
+    expect(load()).toEqual({ x: attempt })
+
+    await resetButton.trigger('click')
+    await flushPromises()
+
+    const confirm = page.findAll('button').find(button => button.text().trim() === 'Sí, reiniciar')!
+
+    await confirm.trigger('click')
+    expect(load()).toEqual({})
+  })
 })
 
 describe('items', () => {

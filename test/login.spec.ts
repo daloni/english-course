@@ -11,6 +11,7 @@ const user = 'usuario-de-prueba'
 const password = 'contrasena-de-prueba'
 
 const { navigateTo } = vi.hoisted(() => ({ navigateTo: vi.fn() }))
+let turnstileErrorCallback: (() => void) | undefined
 
 mockNuxtImport('navigateTo', () => navigateTo)
 
@@ -38,7 +39,13 @@ const visit = (path: string) =>
 function fakeTurnstile(token = 'turnstile-token') {
   Object.assign(window, {
     turnstile: {
-      render: (_element: HTMLElement, options: { callback: (token: string) => void }) => options.callback(token)
+      render: (_element: HTMLElement, options: {
+        'callback': (token: string) => void
+        'error-callback': () => void
+      }) => {
+        turnstileErrorCallback = options['error-callback']
+        options.callback(token)
+      }
     }
   })
 }
@@ -47,6 +54,8 @@ beforeEach(() => {
   localStorage.clear()
   navigateTo.mockClear()
   Reflect.deleteProperty(window, 'turnstile')
+  Reflect.deleteProperty(window, 'onTurnstileLoad')
+  turnstileErrorCallback = undefined
 })
 
 describe('la sesión', () => {
@@ -113,6 +122,28 @@ describe('el middleware', () => {
 })
 
 describe('/login', () => {
+  it('removes the Turnstile callback when unmounted', async () => {
+    const page = await mountSuspended(Login)
+
+    expect((window as Window & { onTurnstileLoad?: unknown }).onTurnstileLoad).toEqual(expect.any(Function))
+
+    page.unmount()
+
+    expect((window as Window & { onTurnstileLoad?: unknown }).onTurnstileLoad).toBeUndefined()
+  })
+
+  it('explains a Turnstile error instead of asking to check a checkbox', async () => {
+    fakeTurnstile()
+    const page = await mountSuspended(Login)
+    await flushPromises()
+
+    turnstileErrorCallback?.()
+    await flushPromises()
+
+    expect(page.text()).toContain('El captcha ha fallado')
+    expect(page.text()).not.toContain('Marca la casilla del captcha')
+  })
+
   it('no deja enviar el formulario hasta que Turnstile devuelve token', async () => {
     // Without `window.turnstile` (a browser that does not load the script, or this very test)
     // the page has to mount all the same, only with no widget.

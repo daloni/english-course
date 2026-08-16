@@ -8,6 +8,7 @@ const token = ref('')
 const error = ref('')
 const widget = ref<HTMLElement>()
 const turnstileUnavailable = ref(false)
+const turnstileError = ref(false)
 
 /** What the Turnstile widget leaves on `window` once it finishes loading. */
 interface Turnstile {
@@ -67,13 +68,23 @@ function renderTurnstile() {
 
   rendered = true
   turnstileUnavailable.value = false
+  turnstileError.value = false
   clearFallbackTimer()
   turnstile.render(widget.value, {
     'sitekey': turnstileSiteKey,
-    'callback': (value: string) => token.value = value,
+    'callback': (value: string) => {
+      token.value = value
+      turnstileError.value = false
+    },
     // Tokens expire after five minutes: with no token, the button goes back to disabled.
-    'expired-callback': () => token.value = '',
-    'error-callback': () => token.value = ''
+    'expired-callback': () => {
+      token.value = ''
+      turnstileError.value = false
+    },
+    'error-callback': () => {
+      token.value = ''
+      turnstileError.value = true
+    }
   })
 }
 
@@ -93,7 +104,17 @@ onMounted(() => {
   }, 5000)
 })
 
-onBeforeUnmount(clearFallbackTimer)
+onBeforeUnmount(() => {
+  clearFallbackTimer()
+
+  if (import.meta.client) {
+    const currentWindow = window as Window & { onTurnstileLoad?: typeof renderTurnstile }
+
+    if (currentWindow.onTurnstileLoad === renderTurnstile) {
+      Reflect.deleteProperty(currentWindow, 'onTurnstileLoad')
+    }
+  }
+})
 
 async function submit() {
   if (!token.value && !turnstileUnavailable.value) {
@@ -171,7 +192,15 @@ useSeoMeta({ robots: 'noindex, nofollow' })
           </ClientOnly>
 
           <p
-            v-if="!token && !turnstileUnavailable"
+            v-if="turnstileError"
+            class="text-sm text-error"
+            aria-live="polite"
+          >
+            El captcha ha fallado. Inténtalo de nuevo.
+          </p>
+
+          <p
+            v-else-if="!token && !turnstileUnavailable"
             class="text-sm text-muted"
           >
             Marca la casilla del captcha para poder entrar.

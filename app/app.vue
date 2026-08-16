@@ -22,6 +22,7 @@ useSeoMeta({
   ogType: 'website',
   ogLocale: 'es_ES',
   ogUrl: url,
+  ogImage: `${siteUrl.replace(/\/$/, '')}/og-image.svg`,
   twitterCard: 'summary'
 })
 </script>

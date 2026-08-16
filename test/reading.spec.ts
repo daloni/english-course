@@ -73,12 +73,19 @@ describe('content/readings', () => {
   })
 })
 
-/** Answers every question of the reading, right or wrong, the way each type is answered. */
-async function answerAll(page: VueWrapper, reading: Reading, correct: boolean, writtenAnswer = shownAnswer) {
+/** Answers a range of questions of the reading, right or wrong, the way each type is answered. */
+async function answerRange(
+  page: VueWrapper,
+  reading: Reading,
+  correct: boolean,
+  start: number,
+  end: number,
+  writtenAnswer = shownAnswer
+) {
   const items = page.findAll('form ol > li')
-  expect(items).toHaveLength(reading.questions.length)
 
-  for (const [i, question] of reading.questions.entries()) {
+  for (let i = start; i < end; i++) {
+    const question = reading.questions[i]!
     const item = items[i]!
 
     if (question.options) {
@@ -93,6 +100,13 @@ async function answerAll(page: VueWrapper, reading: Reading, correct: boolean, w
   }
 
   await flushPromises()
+}
+
+/** Answers every question of the reading, right or wrong, the way each type is answered. */
+async function answerAll(page: VueWrapper, reading: Reading, correct: boolean, writtenAnswer = shownAnswer) {
+  const items = page.findAll('form ol > li')
+  expect(items).toHaveLength(reading.questions.length)
+  await answerRange(page, reading, correct, 0, reading.questions.length, writtenAnswer)
 }
 
 describe('/reading', () => {
@@ -234,6 +248,28 @@ describe('/reading/[slug]', () => {
 
     for (const question of reading.questions) {
       expect(stored[readingItemId(reading, question)], question.id).toMatchObject({ hits: 1, misses: 0, box: 2 })
+    }
+  })
+
+  it('records the unanswered questions when a later round fills them', async () => {
+    const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
+    await flushPromises()
+
+    await answerRange(page, reading, true, 0, 3)
+    await correctAndRetry(page)
+
+    expect(Object.keys(load())).toHaveLength(3)
+
+    await answerRange(page, reading, true, 3, reading.questions.length)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    const stored = load()
+
+    expect(Object.keys(stored)).toHaveLength(reading.questions.length)
+
+    for (const question of reading.questions) {
+      expect(stored[readingItemId(reading, question)], question.id).toMatchObject({ hits: 1, misses: 0 })
     }
   })
 

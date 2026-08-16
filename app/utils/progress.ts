@@ -54,7 +54,7 @@ export function addDays(from: string, days: number): string {
  */
 export function review(attempt: Attempt | undefined, id: string, correct: boolean, on = day()): Attempt {
   const box = (correct
-    ? Math.min(boxes.length, attempt?.last === on ? attempt.box : (attempt?.box ?? 1) + 1)
+    ? Math.min(Math.max(...boxes), attempt?.last === on ? attempt.box : (attempt?.box ?? 1) + 1)
     : 1) as Box
 
   return {

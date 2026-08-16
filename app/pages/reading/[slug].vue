@@ -15,7 +15,7 @@ const text = marked.parse(reading.text, { async: false })
 
 const answers = ref<Record<string, string>>({})
 const submitted = ref(false)
-const recorded = ref(false)
+const recorded = new Set<string>()
 
 /**
  * The whole set is corrected at once, when the form is sent. A written answer goes through
@@ -35,8 +35,8 @@ const shownAnswer = (question: Question) => question.answer.split(/\s+\/\s+/)[0]
 
 /**
  * Correcting the whole set also records one attempt per question in the progress, but only
- * the first time it is corrected in this visit: doing the reading again right away would
- * count twice and move the Leitner box twice on the same day. A question left blank is a
+ * the first time each question is corrected in this visit: doing the reading again right away
+ * would count twice and move the Leitner box twice on the same day. A question left blank is a
  * mistake of the round, not an attempt: it is not recorded at all.
  */
 function submit() {
@@ -44,14 +44,19 @@ function submit() {
 
   const answered = results.value.filter(result => result.given.trim() !== '')
 
-  if (recorded.value || answered.length === 0) {
+  if (answered.length === 0) {
     return
   }
 
-  recorded.value = true
-
   for (const result of answered) {
-    record(readingItemId(reading!, result.question), result.correct)
+    const id = readingItemId(reading!, result.question)
+
+    if (recorded.has(id)) {
+      continue
+    }
+
+    recorded.add(id)
+    record(id, result.correct)
   }
 }
 
