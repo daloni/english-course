@@ -9,6 +9,8 @@ import ExerciseGap from '../app/components/ExerciseGap.vue'
 import ExerciseTransform from '../app/components/ExerciseTransform.vue'
 import type { Exercise, ExerciseType } from '../app/utils/content'
 import { exerciseFiles, exerciseTypes, exercisesOf, tenseById, typeOf } from '../app/utils/content'
+import { correction, exerciseComponents, explain, formOf } from '../app/utils/explain'
+import { items } from '../app/utils/progress'
 
 // Every file in content/exercises/ must be playable at /frases/<slug>, and every exercise type
 // must be rendered by its own component: adding frases with /frases and forgetting the UI
@@ -107,6 +109,39 @@ describe.each(slugs)('/frases/%s', (slug) => {
     const hits = Math.ceil(drill.length / 2)
     expect(page.text()).toContain(`Resultado: ${hits} de ${drill.length}`)
     expect(page.findAll('ul li')).toHaveLength(drill.length - hits)
+  })
+})
+
+// formOf, explain y el mapa de componentes viven una sola vez en app/utils/explain.ts: los
+// usan las dos pantallas que corrigen frases, /frases/<tiempo> y /repaso.
+describe('explain', () => {
+  const gap = (prompt: string): Exercise => ({ id: 'x', tenseId: 'present-simple', prompt, solution: 'works' })
+
+  it('renders every type of exercise with its own component', () => {
+    expect(exerciseComponents).toEqual(componentByType)
+  })
+
+  it('reads the form of the sentence when the exercise does not declare one', () => {
+    expect(formOf(gap('She ___ (work) here.'))).toBe('affirmative')
+    expect(formOf(gap('They ___ (not / work) here.'))).toBe('negative')
+    expect(formOf(gap('___ (you / work) here?'))).toBe('interrogative')
+    expect(formOf({ ...gap('She works here.'), form: 'negative' })).toBe('negative')
+  })
+
+  it('falls back to the structure of the tense when the exercise has no explanation', () => {
+    const structure = tenseById('present-simple')!.structure
+
+    expect(explain(gap('She ___ (work) here.'))).toBe(`Afirmativa: ${structure.affirmative}`)
+    expect(explain({ ...gap('She ___ (work) here.'), explanation: 'Tercera persona: -s.' })).toBe('Tercera persona: -s.')
+  })
+
+  it('leaves no dangling dot when there is nothing to explain', () => {
+    // Las preguntas de reading no drillan ningún tiempo verbal, así que no hay estructura.
+    const question = items.find(item => item.kind === 'reading')!
+
+    expect(explain({ ...question, explanation: undefined })).toBe('')
+    expect(correction({ ...question, explanation: undefined }))
+      .toBe(`La respuesta correcta es: ${question.solution}.`)
   })
 })
 

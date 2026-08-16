@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// Un componente por tipo de ejercicio; el de la frase actual se elige por su `type`.
-import { ExerciseChoice, ExerciseGap, ExerciseTransform } from '#components'
-
 const { record } = useProgress()
 
 const route = useRoute()
@@ -10,12 +7,6 @@ const drill = tense ? exercisesOf(tense.id) : []
 
 if (!tense || drill.length === 0) {
   throw createError({ statusCode: 404, message: 'No hay frases de este tiempo verbal', fatal: true })
-}
-
-const components: Record<ExerciseType, Component> = {
-  gap: ExerciseGap,
-  transform: ExerciseTransform,
-  choice: ExerciseChoice
 }
 
 const index = ref(0)
@@ -27,30 +18,6 @@ const exercise = computed(() => drill[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => index.value >= drill.length)
-
-/**
- * De qué forma habla el ejercicio, para recordar su estructura tras un fallo: la que declara,
- * y si no la que se ve en la frase.
- * ponytail: heurística sobre el prompt; si alguna frase la despista, añade "form" al JSON.
- */
-function formOf(exercise: Exercise): Form {
-  if (exercise.form) {
-    return exercise.form
-  }
-
-  if (/\bnot\s*\//.test(exercise.prompt)) {
-    return 'negative'
-  }
-
-  return exercise.prompt.trim().endsWith('?') ? 'interrogative' : 'affirmative'
-}
-
-/** El porqué del fallo: la explicación de la frase o, si no la trae, la estructura del tiempo. */
-function explain(exercise: Exercise): string {
-  const form = formOf(exercise)
-
-  return exercise.explanation ?? `${formLabels[form]}: ${tense!.structure[form]}`
-}
 
 function restart() {
   index.value = 0
@@ -79,7 +46,7 @@ function submit() {
   checked.value = { correct, exercise: exercise.value }
 }
 
-useSeoMeta({
+useSeo({
   title: `Frases de ${tense.name}`,
   description: `Ejercicios de ${tense.name} (${tense.nameEs}) en frases: rellena el hueco, transforma la frase y reconoce el tiempo, con corrección y explicación.`
 })
@@ -164,7 +131,7 @@ useSeoMeta({
             @submit.prevent="submit"
           >
             <component
-              :is="components[typeOf(exercise)]"
+              :is="exerciseComponents[typeOf(exercise)]"
               :key="exercise.id"
               v-model="answer"
               :exercise="exercise"
@@ -186,7 +153,7 @@ useSeoMeta({
             <UAlert
               v-if="checked"
               :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-              :description="checked.correct ? checked.exercise.solution : `La respuesta correcta es: ${checked.exercise.solution}. ${explain(checked.exercise)}`"
+              :description="checked.correct ? checked.exercise.solution : correction(checked.exercise)"
               :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
               :color="checked.correct ? 'success' : 'error'"
               variant="subtle"

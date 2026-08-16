@@ -1,14 +1,6 @@
 <script setup lang="ts">
 // La sesión de repaso: solo lo que vence hoy, mezclando frases, verbos y reading.
-import { ExerciseChoice, ExerciseGap, ExerciseTransform } from '#components'
-
 const { pending, record } = useProgress()
-
-const components: Record<ExerciseType, Component> = {
-  gap: ExerciseGap,
-  transform: ExerciseTransform,
-  choice: ExerciseChoice
-}
 
 // La cola se congela al empezar: corregir mueve las cajas, y sin la foto la sesión se
 // encogería bajo los pies según se responde.
@@ -22,9 +14,16 @@ const item = computed(() => session.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const done = computed(() => session.value.length > 0 && index.value >= session.value.length)
 
-onMounted(() => {
+/** Otra ronda: se vuelve a fotografiar la cola, que ya trae de vuelta lo que se ha fallado. */
+function restart() {
   session.value = pending.value
-})
+  index.value = 0
+  answer.value = ''
+  checked.value = null
+  results.value = []
+}
+
+onMounted(restart)
 
 /** El mismo botón corrige primero y pasa al ejercicio siguiente después. */
 function submit() {
@@ -46,7 +45,7 @@ function submit() {
   checked.value = { correct, item: item.value }
 }
 
-useSeoMeta({
+useSeo({
   title: 'Repaso de hoy',
   description: 'Sesión de repaso espaciado con los ejercicios de frases, verbos y reading que hoy te toca volver a ver.'
 })
@@ -106,12 +105,21 @@ useSeoMeta({
               Lo acertado sube de caja y tardará más en volver; lo fallado sigue en la cola de hoy.
             </p>
 
-            <UButton
-              to="/progreso"
-              label="Ver el progreso"
-              icon="i-lucide-trending-up"
-              class="mt-8"
-            />
+            <div class="mt-8 flex flex-wrap gap-3">
+              <UButton
+                v-if="pending.length > 0"
+                label="Otra ronda"
+                icon="i-lucide-rotate-ccw"
+                @click="restart"
+              />
+
+              <UButton
+                to="/progreso"
+                label="Ver el progreso"
+                icon="i-lucide-trending-up"
+                :color="pending.length > 0 ? 'neutral' : 'primary'"
+              />
+            </div>
           </template>
 
           <template v-else-if="item">
@@ -127,7 +135,7 @@ useSeoMeta({
             >
               <!-- Las frases traen su propio tipo de ejercicio; el resto se pregunta en seco. -->
               <component
-                :is="components[typeOf(item)]"
+                :is="exerciseComponents[typeOf(item)]"
                 v-if="item.kind === 'frases'"
                 :key="item.id"
                 v-model="answer"
@@ -181,7 +189,7 @@ useSeoMeta({
               <UAlert
                 v-if="checked"
                 :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-                :description="checked.correct ? checked.item.solution : `La respuesta correcta es: ${checked.item.solution}. ${checked.item.explanation ?? ''}`"
+                :description="checked.correct ? checked.item.solution : correction(checked.item)"
                 :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
                 :color="checked.correct ? 'success' : 'error'"
                 variant="subtle"
