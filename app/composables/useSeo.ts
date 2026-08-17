@@ -17,6 +17,6 @@ export function useSeo(page: { title: string, description: string }) {
     ogDescription: page.description,
     ogType: 'website',
     ogLocale: 'es_ES',
-    twitterCard: 'summary'
+    twitterCard: 'summary_large_image'
   })
 }
