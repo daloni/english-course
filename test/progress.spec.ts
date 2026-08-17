@@ -15,6 +15,7 @@ import {
   itemById,
   itemsOfTense,
   load,
+  merge,
   parse,
   pickRound,
   review,
@@ -148,8 +149,8 @@ describe('parse', () => {
     expect(parse(serialize({ x: attempt }))).toEqual({ x: attempt })
   })
 
-  it('accepts an empty progress', () => {
-    expect(parse('{}')).toEqual({})
+  it('rejects an empty progress', () => {
+    expect(() => parse('{}')).toThrow('El fichero no tiene ningún intento válido')
   })
 
   it('drops the entries that are not attempts', () => {
@@ -207,6 +208,30 @@ describe('parse', () => {
     expect(() => parse('null')).toThrow()
     expect(() => parse(JSON.stringify({ x: 'nope' }))).toThrow()
     expect(() => parse('not json')).toThrow()
+  })
+})
+
+describe('merge', () => {
+  const current: Attempt = { id: 'x', box: 1, hits: 1, misses: 0, last: today, due: today }
+
+  it('keeps current attempts and adds imported ids', () => {
+    const imported: Attempt = { id: 'y', box: 2, hits: 1, misses: 0, last: today, due: '2026-08-16' }
+
+    expect(merge({ x: current }, { y: imported })).toEqual({ x: current, y: imported })
+  })
+
+  it('chooses the latest attempt and breaks equal dates by total answers', () => {
+    const newer: Attempt = { ...current, box: 2, hits: 2, last: '2026-08-15', due: '2026-08-17' }
+    const moreAnswers: Attempt = { ...current, hits: 2, misses: 1 }
+
+    expect(merge({ x: current }, { x: newer }).x).toEqual(newer)
+    expect(merge({ x: current }, { x: moreAnswers }).x).toEqual(moreAnswers)
+  })
+
+  it('is idempotent when importing the same progress twice', () => {
+    const imported = { x: { ...current, hits: 2, last: '2026-08-15', due: '2026-08-17' } }
+
+    expect(merge(merge({}, imported), imported)).toEqual(imported)
   })
 })
 
@@ -422,6 +447,45 @@ describe('practising', () => {
     const row = page.findAll('tbody tr').find(candidate => candidate.text().startsWith('Present Simple'))!
 
     expect(row.text()).toBe(`Present Simple1 / ${itemsOfTense('present-simple').length}0101`)
+  })
+
+  it('reports imported attempts and keeps existing progress', async () => {
+    const existing = review(undefined, 'x', false, today)
+    const imported = review(undefined, 'y', true, today)
+
+    save({ x: existing })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    const input = page.find<HTMLInputElement>('input[type="file"]')
+    const file = new File([serialize({ y: imported })], 'progress.json', { type: 'application/json' })
+
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await flushPromises()
+
+    expect(page.text()).toContain('Importados 1 intentos, 1 nuevos')
+    expect(load()).toEqual({ x: existing, y: imported })
+  })
+
+  it('rejects an empty import without changing saved progress', async () => {
+    const existing = review(undefined, 'x', false, today)
+
+    save({ x: existing })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    const input = page.find<HTMLInputElement>('input[type="file"]')
+    const file = new File(['{}'], 'empty.json', { type: 'application/json' })
+
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await flushPromises()
+
+    expect(page.text()).toContain('El fichero no tiene ningún intento válido')
+    expect(load()).toEqual({ x: existing })
   })
 
   it('only resets progress after confirmation', async () => {

@@ -4,6 +4,7 @@
 const { attempts, pending, failed, statsOf, exportFile, importFile, reset } = useProgress()
 
 const error = ref('')
+const importMessage = ref('')
 const resetModalOpen = ref(false)
 
 const total = computed(() => statsOf(items))
@@ -23,9 +24,12 @@ async function onImport(event: Event) {
   }
 
   error.value = ''
+  importMessage.value = ''
 
   try {
-    await importFile(file)
+    const result = await importFile(file)
+
+    importMessage.value = `Importados ${result.imported} intentos, ${result.added} nuevos`
   } catch (failure) {
     error.value = failure instanceof Error ? failure.message : 'No se ha podido leer el fichero'
   }
@@ -268,7 +272,7 @@ useSeo({
                   type="file"
                   accept="application/json,.json"
                   :aria-invalid="error ? true : undefined"
-                  :aria-describedby="error ? 'importar-progreso-error' : undefined"
+                  :aria-describedby="error ? 'importar-progreso-error' : importMessage ? 'importar-progreso-message' : undefined"
                   class="mt-1 block text-sm file:mr-3 file:rounded-md file:border-0 file:bg-elevated file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-default"
                   @change="onImport"
                 >
@@ -280,6 +284,15 @@ useSeo({
                   class="mt-1 text-sm text-error"
                 >
                   {{ error }}
+                </p>
+
+                <p
+                  v-if="importMessage"
+                  id="importar-progreso-message"
+                  role="status"
+                  class="mt-1 text-sm text-muted"
+                >
+                  {{ importMessage }}
                 </p>
               </div>
 

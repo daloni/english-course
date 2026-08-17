@@ -74,8 +74,16 @@ export function useProgress() {
 
   /** Imports an exported file. Throws if it is not one: the caller shows the error. */
   async function importFile(file: File) {
-    progress.value = parse(await file.text())
+    const imported = parse(await file.text())
+    const current = progress.value
+
+    progress.value = merge(current, imported)
     save(progress.value)
+
+    return {
+      imported: Object.keys(imported).length,
+      added: Object.keys(imported).filter(id => !Object.hasOwn(current, id)).length
+    }
   }
 
   function reset() {
