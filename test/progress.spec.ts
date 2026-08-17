@@ -8,6 +8,7 @@ import { exercisesOf, formLabels, tenseById } from '../app/utils/content'
 import { formOf } from '../app/utils/explain'
 import {
   addDays,
+  day,
   frasesItemId,
   isDue,
   items,
@@ -15,6 +16,7 @@ import {
   itemsOfTense,
   load,
   parse,
+  pickRound,
   review,
   save,
   serialize,
@@ -89,6 +91,53 @@ describe('addDays', () => {
     expect(addDays('2026-12-28', 7)).toBe('2027-01-04')
     // Spring forward in Europe: a day is still a day.
     expect(addDays('2027-03-27', 2)).toBe('2027-03-29')
+  })
+})
+
+describe('pickRound', () => {
+  const numbers = Array.from({ length: 18 }, (_, index) => index)
+  /** Practised today and not due again until the day after tomorrow. */
+  const reviewed = (id: number) => review(undefined, String(id), true, day())
+
+  it('cuts the round to the size asked for, with no repeats inside it', () => {
+    const round = pickRound(numbers, () => undefined, 10)
+
+    expect(round).toHaveLength(10)
+    expect(new Set(round).size).toBe(10)
+    expect(round.every(number => numbers.includes(number))).toBe(true)
+  })
+
+  it('takes everything when there is less than a round', () => {
+    expect(pickRound([1, 2, 3], () => undefined, 10).sort()).toEqual([1, 2, 3])
+  })
+
+  it('puts what is due today before what is not, and fills up with the rest', () => {
+    // Everything is reviewed except number 7, which is the only pending one.
+    const round = pickRound(numbers, number => (number === 7 ? undefined : reviewed(number)), 10)
+
+    expect(round[0]).toBe(7)
+    expect(round).toHaveLength(10)
+    expect(new Set(round).size).toBe(10)
+  })
+
+  it('brings back today what was missed today', () => {
+    const missed = review(undefined, '3', false, day())
+
+    expect(isDue(missed)).toBe(true)
+    expect(pickRound(numbers, number => (number === 3 ? missed : reviewed(number)), 10)[0]).toBe(3)
+  })
+
+  it('draws a different round each time', () => {
+    const rounds = Array.from({ length: 10 }, () => pickRound(numbers, () => undefined, 10).join())
+
+    expect(new Set(rounds).size, 'diez rondas idénticas').toBeGreaterThan(1)
+  })
+
+  it('keeps one item per key when asked to', () => {
+    const round = pickRound(numbers, () => undefined, 10, number => String(number % 4))
+
+    expect(round).toHaveLength(4)
+    expect(new Set(round.map(number => number % 4)).size).toBe(4)
   })
 })
 
@@ -233,7 +282,14 @@ function refuseToStore() {
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!
 
-  beforeEach(() => localStorage.removeItem(storageKey))
+  beforeEach(() => {
+    localStorage.removeItem(storageKey)
+    // The round is drawn at random. Pinned at the top of its range, `Math.random` makes every
+    // swap of the shuffle a swap with itself, so the round comes out in file order and the
+    // first sentence on screen is the first of the file, which is the one these tests answer.
+    vi.spyOn(Math, 'random').mockReturnValue(0.999_999)
+    onTestFinished(() => vi.restoreAllMocks())
+  })
 
   /** Answers the first sentence of /frases/present-simple wrong, as the learner would. */
   async function fail() {

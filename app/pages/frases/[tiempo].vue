@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { record } = useProgress()
+const { record, attemptOf } = useProgress()
 
 const route = useRoute()
 const tense = tenseById(String(route.params.tiempo))
@@ -9,22 +9,32 @@ if (!tense || drill.length === 0) {
   throw createError({ statusCode: 404, message: 'No hay frases de este tiempo verbal', fatal: true })
 }
 
+/** Sentences per round, or the whole tense when it has fewer. */
+const size = 10
+
+const round = ref<Exercise[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, exercise: Exercise } | null>(null)
 const results = ref<{ exercise: Exercise, answer: string, correct: boolean }[]>([])
 
-const exercise = computed(() => drill[index.value])
+const exercise = computed(() => round.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const mistakes = computed(() => results.value.filter(result => !result.correct))
-const done = computed(() => index.value >= drill.length)
+const done = computed(() => round.value.length > 0 && index.value >= round.value.length)
 
+/** Another round means another draw: what is due today first, and never the same list twice. */
 function restart() {
+  round.value = pickRound(drill, item => attemptOf(frasesItemId(item)), size)
   index.value = 0
   answer.value = ''
   checked.value = null
   results.value = []
 }
+
+// The round depends on the progress and on chance, so it is drawn in the browser: building it
+// during the prerender too would ship a different sentence than the one the page hydrates with.
+onMounted(restart)
 
 /** The same button does both things: it corrects first, then moves on to the next sentence. */
 function submit() {
@@ -56,7 +66,7 @@ useSeo({
   <UPage>
     <UPageHero
       :title="`Frases de ${tense!.name}`"
-      :description="`${drill.length} frases de ${tense!.nameEs.toLowerCase()}, con corrección al instante.`"
+      :description="`${drill.length} frases de ${tense!.nameEs.toLowerCase()}: cada ronda saca ${Math.min(size, drill.length)}, con corrección al instante.`"
     >
       <template #links>
         <UButton
@@ -70,96 +80,104 @@ useSeo({
 
     <UPageSection>
       <div class="mx-auto w-full max-w-xl">
-        <template v-if="done">
-          <h2 class="text-xl font-semibold">
-            Resultado: {{ hits }} de {{ results.length }}
-          </h2>
+        <ClientOnly>
+          <template #fallback>
+            <p class="text-sm text-muted">
+              Cargando la ronda…
+            </p>
+          </template>
 
-          <p class="mt-2 text-muted">
-            {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }} y
-            {{ mistakes.length }} {{ mistakes.length === 1 ? 'error' : 'errores' }}.
-          </p>
+          <template v-if="done">
+            <h2 class="text-xl font-semibold">
+              Resultado: {{ hits }} de {{ results.length }}
+            </h2>
 
-          <div
-            v-if="mistakes.length > 0"
-            class="mt-8"
-          >
-            <h3 class="mb-3 font-medium">
-              Para repasar
-            </h3>
+            <p class="mt-2 text-muted">
+              {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }} y
+              {{ mistakes.length }} {{ mistakes.length === 1 ? 'error' : 'errores' }}.
+            </p>
 
-            <ul class="space-y-4 text-sm">
-              <li
-                v-for="mistake in mistakes"
-                :key="mistake.exercise.id"
-              >
-                <p
-                  lang="en"
-                  class="font-medium"
+            <div
+              v-if="mistakes.length > 0"
+              class="mt-8"
+            >
+              <h3 class="mb-3 font-medium">
+                Para repasar
+              </h3>
+
+              <ul class="space-y-4 text-sm">
+                <li
+                  v-for="mistake in mistakes"
+                  :key="mistake.exercise.id"
                 >
-                  {{ mistake.exercise.prompt }}
-                </p>
-                <p class="text-muted">
-                  Escribiste «{{ mistake.answer }}», la respuesta correcta es
-                  <strong
+                  <p
                     lang="en"
-                    class="font-semibold"
-                  >{{ mistake.exercise.solution }}</strong>.
-                </p>
-                <p class="text-muted">
-                  {{ explain(mistake.exercise) }}
-                </p>
-              </li>
-            </ul>
-          </div>
-
-          <UButton
-            label="Otra ronda"
-            icon="i-lucide-rotate-ccw"
-            class="mt-8"
-            @click="restart"
-          />
-        </template>
-
-        <template v-else-if="exercise">
-          <p class="text-sm text-muted">
-            Frase {{ index + 1 }} de {{ drill.length }} · {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
-          </p>
-
-          <form
-            class="mt-4"
-            @submit.prevent="submit"
-          >
-            <component
-              :is="exerciseComponents[typeOf(exercise)]"
-              :key="exercise.id"
-              v-model="answer"
-              :exercise="exercise"
-              :disabled="!!checked"
-            />
+                    class="font-medium"
+                  >
+                    {{ mistake.exercise.prompt }}
+                  </p>
+                  <p class="text-muted">
+                    Escribiste «{{ mistake.answer }}», la respuesta correcta es
+                    <strong
+                      lang="en"
+                      class="font-semibold"
+                    >{{ mistake.exercise.solution }}</strong>.
+                  </p>
+                  <p class="text-muted">
+                    {{ explain(mistake.exercise) }}
+                  </p>
+                </li>
+              </ul>
+            </div>
 
             <UButton
-              type="submit"
-              :label="checked ? 'Siguiente' : 'Comprobar'"
-              :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
-              class="mt-6"
+              label="Otra ronda"
+              icon="i-lucide-rotate-ccw"
+              class="mt-8"
+              @click="restart"
             />
-          </form>
+          </template>
 
-          <div
-            class="mt-6"
-            aria-live="polite"
-          >
-            <UAlert
-              v-if="checked"
-              :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-              :description="checked.correct ? checked.exercise.solution : correction(checked.exercise)"
-              :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
-              :color="checked.correct ? 'success' : 'error'"
-              variant="subtle"
-            />
-          </div>
-        </template>
+          <template v-else-if="exercise">
+            <p class="text-sm text-muted">
+              Frase {{ index + 1 }} de {{ round.length }} · {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
+            </p>
+
+            <form
+              class="mt-4"
+              @submit.prevent="submit"
+            >
+              <component
+                :is="exerciseComponents[typeOf(exercise)]"
+                :key="exercise.id"
+                v-model="answer"
+                :exercise="exercise"
+                :disabled="!!checked"
+              />
+
+              <UButton
+                type="submit"
+                :label="checked ? 'Siguiente' : 'Comprobar'"
+                :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                class="mt-6"
+              />
+            </form>
+
+            <div
+              class="mt-6"
+              aria-live="polite"
+            >
+              <UAlert
+                v-if="checked"
+                :title="checked.correct ? '¡Correcto!' : 'No es esa'"
+                :description="checked.correct ? checked.exercise.solution : correction(checked.exercise)"
+                :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
+                :color="checked.correct ? 'success' : 'error'"
+                variant="subtle"
+              />
+            </div>
+          </template>
+        </ClientOnly>
       </div>
     </UPageSection>
   </UPage>

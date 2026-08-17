@@ -166,6 +166,12 @@ tiempo verbal y por sección, lista lo que más se falla y deja exportar el prog
 importarlo o reiniciarlo. El botón **Repasar hoy** abre `/repaso`, una sesión con lo que
 vence hoy y solo con eso, mezclando frases, verbos y preguntas de reading.
 
+Las rondas se sortean con ese progreso: `/frases/<tiempo>` y `/verbos/practica` sacan 10
+ejercicios (todos, si el tiempo verbal tiene menos), primero lo que no se ha practicado nunca o
+vence hoy y luego, solo para rellenar, lo ya aprendido. **Otra ronda** vuelve a sortear, así que
+dos rondas seguidas no son la misma lista y lo fallado hoy reaparece en la siguiente. Como
+dependen del progreso y del azar, se arman en el navegador: el HTML prerenderizado no las trae.
+
 La cola de `/repaso` se congela al empezar la sesión, para que no se encoja según se responde;
 al terminarla, **Otra ronda** vuelve a fotografiarla y arranca otra con lo que se ha fallado,
 sin recargar la página. Si ya no queda nada pendiente, el botón no aparece.
@@ -232,7 +238,7 @@ app/
   pages/login.vue         pantalla de acceso: usuario, contraseña y captcha
   pages/teoria/           listado de tiempos por nivel y teoría de cada uno
   pages/verbos/           tabla de verbos y ejercicio de conjugación
-  pages/frases/           elección de tiempo y ronda de ejercicios en frases
+  pages/frases/           elección de tiempo y ronda sorteada de 10 frases
   pages/reading/          listado de lecturas y lectura con glosario y preguntas
   pages/speaking.vue      escuchar la frase, repetirla al micrófono y comparar
   pages/progreso.vue      resumen de lo practicado, fallos y exportar / importar

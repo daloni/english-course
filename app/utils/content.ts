@@ -116,7 +116,7 @@ export const readingById = (id: string) => readings.find(reading => reading.id =
 export const readingMinutes = (reading: Reading) =>
   Math.max(1, Math.round(reading.text.trim().split(/\s+/).length / 150))
 
-/** Exercises of a tense, in file order: the drill is always the same, no shuffling. */
+/** Exercises of a tense, in file order: the round is drawn from them with `pickRound`. */
 export const exercisesOf = (tenseId: string) => exercises.filter(exercise => exercise.tenseId === tenseId)
 
 export const typeOf = (exercise: Exercise): ExerciseType => exercise.type ?? 'gap'
