@@ -1,0 +1,55 @@
+[
+  {
+    "id": "dQw4w9WgXcQ:18000",
+    "videoId": "dQw4w9WgXcQ",
+    "startMs": 18000,
+    "endMs": 21500,
+    "text": "We're no strangers to love",
+    "level": "A2",
+    "channel": "Rick Astley",
+    "exercises": [
+      {
+        "id": "be",
+        "tenseId": "present-simple",
+        "prompt": "We ___ no strangers to love",
+        "solution": "are",
+        "explanation": "El presente simple de «be» con «we». En la canción se oye contraído: «We're»."
+      }
+    ]
+  },
+  {
+    "id": "dQw4w9WgXcQ:21500",
+    "videoId": "dQw4w9WgXcQ",
+    "startMs": 21500,
+    "endMs": 25000,
+    "text": "You know the rules and so do I",
+    "level": "A2",
+    "channel": "Rick Astley",
+    "exercises": [
+      {
+        "id": "know",
+        "tenseId": "present-simple",
+        "prompt": "You ___ the rules and so do I",
+        "solution": "know"
+      }
+    ]
+  },
+  {
+    "id": "dQw4w9WgXcQ:43000",
+    "videoId": "dQw4w9WgXcQ",
+    "startMs": 43000,
+    "endMs": 46000,
+    "text": "Never gonna give you up",
+    "level": "B1",
+    "channel": "Rick Astley",
+    "exercises": [
+      {
+        "id": "give-up",
+        "tenseId": "",
+        "prompt": "Never gonna ___",
+        "solution": "give you up",
+        "explanation": "«Give up» es abandonar. Es separable, así que el objeto va en medio: give you up, no give up you."
+      }
+    ]
+  }
+]

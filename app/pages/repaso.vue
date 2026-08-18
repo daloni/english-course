@@ -1,6 +1,7 @@
 <script setup lang="ts">
-// The review session: only what is due today, mixing sentences, verbs and reading.
+// The review session: only what is due today, mixing sentences, verbs, reading and clips.
 const { pending, record } = useProgress()
+const { isPlayable, markUnavailable } = useClips()
 
 // The queue is frozen when the session starts: correcting moves the boxes, and without the
 // snapshot the session would shrink underfoot as you answer.
@@ -16,7 +17,7 @@ const done = computed(() => session.value.length > 0 && index.value >= session.v
 
 /** Another round: the queue is snapshotted again, already bringing back what was missed. */
 function restart() {
-  session.value = pending.value
+  session.value = pending.value.filter(item => !item.clip || isPlayable(item.clip))
   index.value = 0
   answer.value = ''
   checked.value = null
@@ -43,6 +44,18 @@ function submit() {
   record(item.value.id, correct)
   results.value.push({ item: item.value, answer: answer.value, correct })
   checked.value = { correct, item: item.value }
+}
+
+/** A dead embed takes what is left of its video out of the session instead of blocking it. */
+function onUnavailable(videoId: string) {
+  markUnavailable(videoId)
+
+  session.value = [
+    ...session.value.slice(0, index.value),
+    ...session.value.slice(index.value).filter(item => item.clip?.videoId !== videoId)
+  ]
+  answer.value = ''
+  checked.value = null
 }
 
 useSeo({
@@ -129,14 +142,25 @@ useSeo({
               {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
             </p>
 
+            <!-- A clip is heard before it is answered: the line is only in the video. -->
+            <ClipPlayer
+              v-if="item.clip"
+              :key="item.clip.id"
+              :video-id="item.clip.videoId"
+              :start-ms="item.clip.startMs"
+              :end-ms="item.clip.endMs"
+              class="mt-4"
+              @unavailable="onUnavailable"
+            />
+
             <form
               class="mt-4"
               @submit.prevent="submit"
             >
-              <!-- Sentences carry their own exercise type; the rest is asked plainly. -->
+              <!-- Sentences and clips carry their own exercise type; the rest is asked plainly. -->
               <component
                 :is="exerciseComponents[typeOf(item)]"
-                v-if="item.kind === 'frases'"
+                v-if="item.kind === 'frases' || item.kind === 'clips'"
                 :key="item.id"
                 v-model="answer"
                 :exercise="item"

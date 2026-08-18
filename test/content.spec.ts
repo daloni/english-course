@@ -172,3 +172,6 @@ describe('exercises', () => {
 
 // The readings of content/readings/ are validated in test/reading.spec.ts, next to the pages
 // that play them.
+
+// The clips of content/clips/ are validated in test/clips.spec.ts, next to the pages that
+// play them.
