@@ -1,7 +1,8 @@
 # Aprender inglés
 
 Plataforma web personal para aprender inglés centrada en los tiempos verbales:
-teoría, conjugación de verbos, frases, reading con preguntas y speaking.
+teoría, conjugación de verbos, frases, reading con preguntas, speaking y clips
+de vídeo real.
 
 Sin backend y sin base de datos: una sola app Nuxt 4 con
 [@nuxt/ui](https://ui.nuxt.com), el contenido versionado como ficheros en el
@@ -95,9 +96,28 @@ con `SpeechSynthesis` (acento en-US o en-GB y tres velocidades) y corrige la rep
 `SpeechRecognition`, que hoy solo existe en Chrome y Edge y pide permiso para el micrófono.
 En Firefox o Safari la página lo avisa y sigue permitiendo escuchar las frases.
 
+## Clips
+
+`/clips` practica con inglés real: unos segundos de un vídeo de YouTube, lo que se dice en
+ellos y un hueco encima. `/clips/practica` saca una ronda de 10, nunca dos del mismo clip.
+
+**Aquí no se aloja vídeo.** De cada clip se guardan el `videoId`, el trozo (`startMs` a
+`endMs`) y la frase transcrita; lo reproduce el iframe oficial de YouTube contra el navegador
+del usuario. Es la vía de YouGlish o Playphrase, y el corolario es firme: cualquier idea que
+implique descargar, cortar o servir vídeo queda fuera.
+
+El hueco es un ejercicio `gap` de los de siempre, así que lo corrige el mismo
+`isCorrect()` que el resto del sitio y `test/clips.spec.ts` comprueba la invariante de la que
+todo depende: `prompt` con la solución puesta **es** la frase del clip.
+
+Un vídeo se puede borrar, hacerse privado o perder el permiso de embebido. Cuando el
+reproductor lo detecta, el `videoId` se apunta en `ingles:clips-unavailable` y sus clips
+dejan de salir en las rondas —también en `/repaso`— para que un embed muerto no atasque la
+sesión. Esa lista no es progreso y no viaja en la exportación: es un hecho sobre el vídeo.
+
 ## Progreso y repaso espaciado
 
-Cada respuesta de `/frases`, `/verbos/practica` y `/reading` se apunta en `localStorage` (una
+Cada respuesta de `/frases`, `/verbos/practica`, `/reading` y `/clips/practica` se apunta en `localStorage` (una
 sola clave, `ingles:progress`) con sus aciertos, sus fallos y una caja Leitner de tres:
 
 | Caja | Cuándo vuelve  |
@@ -190,22 +210,28 @@ app/
   pages/frases/           elección de tiempo y ronda sorteada de 10 frases
   pages/reading/          listado de lecturas y lectura con glosario y preguntas
   pages/speaking.vue      escuchar la frase, repetirla al micrófono y comparar
+  pages/clips/            listado de clips y ronda sorteada con el vídeo delante
   pages/progreso.vue      resumen de lo practicado, fallos y exportar / importar
   pages/repaso.vue        sesión de repaso con lo que vence hoy
   components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
+  components/ClipPlayer.vue  iframe de YouTube acotado al trozo del clip, en bucle
   composables/useSpeech.ts  Web Speech API: síntesis de voz y reconocimiento
   composables/useProgress.ts  el progreso del navegador: apuntar, resumir y exportar
   composables/useSeo.ts   título, descripción y tarjeta social de cada página
+  composables/useClips.ts   los vídeos que ya no se pueden reproducir
+  composables/useYouTubePlayer.ts  carga única de la IFrame Player API
   utils/check.ts          corrección de las respuestas escritas y tercera persona
   utils/diff.ts           comparación palabra a palabra de lo que se ha dicho
   utils/progress.ts       cajas Leitner, guardado en localStorage e ítems repasables
   utils/content.ts        tipos del contenido y carga de content/*.json
   utils/explain.ts        componente y explicación de cada tipo de ejercicio
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
+  utils/unavailable.ts    lista de vídeos caídos, guardada aparte del progreso
 content/
   tenses/<slug>.json      teoría, estructura y ejemplos de cada tiempo verbal
   exercises/<slug>.json   ejercicios en frases: hueco, transformar y elegir el tiempo
   readings/<slug>.json    lectura con glosario y preguntas de comprensión
+  clips/<fuente>.json     clips de vídeo con su frase y sus huecos
   verbs.json              lista de verbos con pasado, participio y traducción
 scripts/
   merge-content.mjs       fusiona JSON en content/ sin duplicar entradas
@@ -217,6 +243,7 @@ test/
   verbos.spec.ts          tabla de verbos y ronda completa de conjugación
   frases.spec.ts          cada fichero de content/exercises/ y su tipo de ejercicio
   reading.spec.ts         valida content/readings/ y corrige las preguntas en /reading
+  clips.spec.ts           valida content/clips/ y juega una ronda en /clips/practica
   diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
   speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
   progress.spec.ts        cajas Leitner, persistencia serializada y sesión de repaso

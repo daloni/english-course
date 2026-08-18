@@ -578,7 +578,7 @@ describe('items', () => {
     const ids = items.map(item => item.id)
 
     expect(new Set(ids).size).toBe(ids.length)
-    expect(new Set(items.map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading']))
+    expect(new Set(items.map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading', 'clips']))
   })
 
   it('finds back the exercise of a stored attempt', () => {

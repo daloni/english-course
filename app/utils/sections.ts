@@ -25,6 +25,12 @@ export const sections = [
     description: 'Lecturas cortas con preguntas de comprensión.'
   },
   {
+    label: 'Clips',
+    to: '/clips',
+    icon: 'i-lucide-clapperboard',
+    description: 'Inglés real en trozos de vídeo: escucha la frase y rellena el hueco.'
+  },
+  {
     label: 'Speaking',
     to: '/speaking',
     icon: 'i-lucide-mic',
