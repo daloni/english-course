@@ -1,0 +1,85 @@
+{
+  "id": "be-going-to",
+  "name": "Be going to",
+  "nameEs": "Futuro con going to",
+  "level": "A2",
+  "theory": "## Cuándo se usa\n\n**Be going to** habla del futuro que ya está decidido o que se ve venir:\n\n- Planes e intenciones tomados antes de hablar: *We are going to move to Valencia in June.*\n- Predicciones con una prueba delante: *Look at those clouds. It is going to rain.*\n- Algo que está a punto de pasar: *Careful, the glass is going to fall.*\n\n## Cómo se forma\n\n**am / is / are + going to + infinitivo**: *I am going to travel*, *she is going to travel*, *they are going to travel*.\n\n- Negativa: *not* detrás del verbo *be* (*I'm not going to travel*, *he isn't going to travel*).\n- Interrogativa: *be* delante del sujeto (*Are you going to travel?*).\n- Cuando el verbo que sigue es *go*, sale **going to go**: *I am going to go to the dentist.* Es correcto, aunque en el habla se suele usar el present continuous: *I am going to the dentist.*\n\n## Going to o will\n\n- Plan **ya decidido** antes de hablar: **going to**. *I am going to buy a new laptop, I saved the money last month.*\n- Decisión **del momento**, promesa u ofrecimiento: **will**. *My laptop is broken? OK, I'll buy a new one.*\n- Predicción con prueba visible: **going to**. *She is going to have a baby.*\n- Predicción como opinión (*I think*, *probably*): **will**. *I think she will like the present.*\n\n## Errores frecuentes\n\n- Olvidar el verbo *be*: *I going to call her* ❌ → *I am going to call her* ✅.\n- Olvidar el *to*: *We are going travel* ❌ → *We are going to travel* ✅.\n- Conjugar el verbo que sigue: *He is going to works* ❌ → *He is going to work* ✅.\n- Evitar *going to go* por miedo a repetir: *I am going to the dentist tomorrow* y *I am going to go to the dentist tomorrow* son las dos correctas.",
+  "structure": {
+    "affirmative": "Sujeto + am / is / are + going to + verbo en infinitivo",
+    "negative": "Sujeto + am / is / are + not + going to + verbo en infinitivo",
+    "interrogative": "Am / Is / Are + sujeto + going to + verbo en infinitivo + ?"
+  },
+  "timeMarkers": [
+    "tomorrow",
+    "next weekend",
+    "next summer",
+    "tonight",
+    "this evening",
+    "in two weeks",
+    "soon",
+    "the plan is",
+    "we have decided"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "We are going to move to Valencia in June.",
+      "es": "Nos vamos a mudar a Valencia en junio."
+    },
+    {
+      "form": "affirmative",
+      "en": "Look at those clouds. It is going to rain.",
+      "es": "Mira esas nubes. Va a llover."
+    },
+    {
+      "form": "affirmative",
+      "en": "I am going to study Italian next summer.",
+      "es": "Voy a estudiar italiano el verano que viene."
+    },
+    {
+      "form": "affirmative",
+      "en": "She is going to go to the dentist tomorrow.",
+      "es": "Ella va a ir al dentista mañana."
+    },
+    {
+      "form": "negative",
+      "en": "I am not going to buy that car.",
+      "es": "No voy a comprar ese coche."
+    },
+    {
+      "form": "negative",
+      "en": "He is not going to come to the party tonight.",
+      "es": "Él no va a venir a la fiesta esta noche."
+    },
+    {
+      "form": "negative",
+      "en": "They are not going to sell the house this year.",
+      "es": "No van a vender la casa este año."
+    },
+    {
+      "form": "negative",
+      "en": "We are not going to wait any longer.",
+      "es": "No vamos a esperar más."
+    },
+    {
+      "form": "interrogative",
+      "en": "Are you going to book the tickets tonight?",
+      "es": "¿Vas a reservar las entradas esta noche?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Is she going to look for a new job?",
+      "es": "¿Va ella a buscar un trabajo nuevo?"
+    },
+    {
+      "form": "interrogative",
+      "en": "What are they going to do next weekend?",
+      "es": "¿Qué van a hacer el fin de semana que viene?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Am I going to need my passport?",
+      "es": "¿Voy a necesitar el pasaporte?"
+    }
+  ]
+}

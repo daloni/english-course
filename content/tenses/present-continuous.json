@@ -1,0 +1,86 @@
+{
+  "id": "present-continuous",
+  "name": "Present Continuous",
+  "nameEs": "Presente continuo",
+  "level": "A1",
+  "theory": "## Cuándo se usa\n\nEl **present continuous** cuenta lo que está pasando ahora mismo o lo que es temporal:\n\n- Acciones en curso: *She is reading in the garden.*\n- Situaciones temporales: *I am working from home this week.*\n- Planes ya cerrados con fecha: *We are flying to Rome on Friday.*\n- Cambios en marcha: *The city is growing very fast.*\n\n## Cómo se forma\n\n**am / is / are + verbo en -ing**: *I am*, *he / she / it is*, *you / we / they are*.\n\nReglas de la *-ing*:\n\n- Verbo acabado en *-e* muda: se cae la *-e* (*make → making*, *write → writing*).\n- Una sílaba acabada en vocal + consonante: se dobla la consonante (*run → running*, *sit → sitting*).\n- Verbo acabado en *-ie*: pasa a *-ying* (*lie → lying*, *die → dying*).\n\nLa negativa añade *not* detrás del verbo *be* (*isn't working*) y la interrogativa pone *be* delante del sujeto (*Are you working?*): el auxiliar *do* no aparece nunca.\n\n## Verbos que no admiten continuo\n\nLos **verbos de estado** describen algo que no se hace, se tiene: *know*, *want*, *like*, *need*, *believe*, *belong*, *understand*. Van en present simple aunque hablemos de ahora:\n\n- *I am wanting a coffee* ❌ → *I want a coffee* ✅.\n- *She is knowing the answer* ❌ → *She knows the answer* ✅.\n\n## Present simple o present continuous\n\n- Rutina o hecho general: **present simple**. *I take the bus every morning.*\n- Ahora mismo o algo temporal: **present continuous**. *I am taking the bus right now.*\n\nLos marcadores lo cantan: *always*, *every day*, *on Mondays* piden present simple; *now*, *at the moment*, *today*, *this week* piden present continuous.\n\n## Errores frecuentes\n\n- Olvidar el verbo *be*: *She working now* ❌ → *She is working now* ✅.\n- Meter el auxiliar *do*: *Do you working?* ❌ → *Are you working?* ✅.\n- Usar continuo con verbos de estado: *I am liking this song* ❌ → *I like this song* ✅.\n- No doblar la consonante: *runing* ❌ → *running* ✅.",
+  "structure": {
+    "affirmative": "Sujeto + am / is / are + verbo en -ing",
+    "negative": "Sujeto + am / is / are + not + verbo en -ing",
+    "interrogative": "Am / Is / Are + sujeto + verbo en -ing + ?"
+  },
+  "timeMarkers": [
+    "now",
+    "right now",
+    "at the moment",
+    "today",
+    "this week",
+    "this morning",
+    "currently",
+    "at present",
+    "these days",
+    "tonight"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "I am working from home this week.",
+      "es": "Esta semana trabajo desde casa."
+    },
+    {
+      "form": "affirmative",
+      "en": "She is reading a magazine at the moment.",
+      "es": "Ella está leyendo una revista en este momento."
+    },
+    {
+      "form": "affirmative",
+      "en": "They are running to catch the bus.",
+      "es": "Están corriendo para coger el autobús."
+    },
+    {
+      "form": "affirmative",
+      "en": "We are flying to Rome on Friday.",
+      "es": "Volamos a Roma el viernes."
+    },
+    {
+      "form": "negative",
+      "en": "I am not listening to the radio now.",
+      "es": "Ahora no estoy escuchando la radio."
+    },
+    {
+      "form": "negative",
+      "en": "He is not studying tonight.",
+      "es": "Él no está estudiando esta noche."
+    },
+    {
+      "form": "negative",
+      "en": "The children are not sleeping yet.",
+      "es": "Los niños todavía no están durmiendo."
+    },
+    {
+      "form": "negative",
+      "en": "We are not having dinner right now.",
+      "es": "Ahora mismo no estamos cenando."
+    },
+    {
+      "form": "interrogative",
+      "en": "Are you waiting for the doctor?",
+      "es": "¿Estás esperando al médico?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Is she writing an email at the moment?",
+      "es": "¿Está ella escribiendo un correo en este momento?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Are they making too much noise?",
+      "es": "¿Están haciendo demasiado ruido?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Am I speaking too fast?",
+      "es": "¿Estoy hablando demasiado rápido?"
+    }
+  ]
+}

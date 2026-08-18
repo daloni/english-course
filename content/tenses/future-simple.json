@@ -1,0 +1,86 @@
+{
+  "id": "future-simple",
+  "name": "Future Simple",
+  "nameEs": "Futuro con will",
+  "level": "A2",
+  "theory": "## Cuándo se usa\n\nEl **future simple** con *will* habla del futuro sin plan previo:\n\n- Decisiones del momento: *It's cold. I'll close the window.*\n- Predicciones y opiniones sobre el futuro: *I think it will rain tomorrow.*\n- Promesas: *I will call you tonight.*\n- Ofrecimientos y peticiones: *I'll help you with the boxes.*, *Will you open the door?*\n\n## Cómo se forma\n\n**will + infinitivo** sin *to*, igual en todas las personas: *I will go*, *she will go*.\n\n- Contracción afirmativa: **'ll** (*I'll*, *she'll*, *they'll*).\n- Negativa: **will not**, contraído **won't** (*He won't come*).\n- Interrogativa: *will* delante del sujeto (*Will you come?*).\n\nEl verbo principal nunca cambia: *She will works* ❌ → *She will work* ✅.\n\n## Will o going to\n\n- Decisión tomada **en ese instante** o predicción sin pruebas: **will**. *The bag is heavy. I'll carry it.*\n- Plan **decidido antes** de hablar o predicción con prueba delante: **going to**. *I'm going to carry it, that's why I brought the trolley.*\n\nCon *I think*, *I hope*, *probably*, *maybe* y *I'm sure* casi siempre toca *will*, porque son opiniones sobre el futuro, no planes.\n\n## Errores frecuentes\n\n- Poner *to* detrás de *will*: *I will to call you* ❌ → *I will call you* ✅.\n- Marcar la tercera persona: *He will comes* ❌ → *He will come* ✅.\n- Doblar el auxiliar en negativa: *He doesn't will come* ❌ → *He won't come* ✅.\n- Usar *will* para un plan ya cerrado con fecha y billetes: ahí toca *going to* o present continuous.",
+  "structure": {
+    "affirmative": "Sujeto + will + verbo en infinitivo (sin to)",
+    "negative": "Sujeto + will + not (won't) + verbo en infinitivo",
+    "interrogative": "Will + sujeto + verbo en infinitivo + ?"
+  },
+  "timeMarkers": [
+    "tomorrow",
+    "next week",
+    "next year",
+    "in an hour",
+    "in ten years",
+    "soon",
+    "later",
+    "tonight",
+    "I think",
+    "probably"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "I will call you tomorrow morning.",
+      "es": "Te llamaré mañana por la mañana."
+    },
+    {
+      "form": "affirmative",
+      "en": "I think it will rain later.",
+      "es": "Creo que lloverá más tarde."
+    },
+    {
+      "form": "affirmative",
+      "en": "She will be twenty next month.",
+      "es": "Ella cumplirá veinte el mes que viene."
+    },
+    {
+      "form": "affirmative",
+      "en": "That bag looks heavy. I will carry it for you.",
+      "es": "Esa bolsa parece pesada. Te la llevo yo."
+    },
+    {
+      "form": "negative",
+      "en": "I will not tell anyone your secret.",
+      "es": "No le contaré tu secreto a nadie."
+    },
+    {
+      "form": "negative",
+      "en": "He will not be at the office tomorrow.",
+      "es": "Él no estará en la oficina mañana."
+    },
+    {
+      "form": "negative",
+      "en": "They will not finish the report tonight.",
+      "es": "No terminarán el informe esta noche."
+    },
+    {
+      "form": "negative",
+      "en": "We will not need a car in the city.",
+      "es": "No necesitaremos coche en la ciudad."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will you help me with these boxes?",
+      "es": "¿Me ayudas con estas cajas?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Will the shop be open on Sunday?",
+      "es": "¿Estará abierta la tienda el domingo?"
+    },
+    {
+      "form": "interrogative",
+      "en": "When will they arrive?",
+      "es": "¿Cuándo llegarán?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Will it snow next week?",
+      "es": "¿Nevará la semana que viene?"
+    }
+  ]
+}
