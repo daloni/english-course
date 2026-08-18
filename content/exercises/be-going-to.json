@@ -1,0 +1,92 @@
+[
+  {
+    "id": "be-going-to-001",
+    "tenseId": "be-going-to",
+    "prompt": "We ___ (move) to Valencia in June; we signed the contract last week.",
+    "solution": "are going to move",
+    "explanation": "El plan estaba decidido antes de hablar, así que toca going to y no will."
+  },
+  {
+    "id": "be-going-to-002",
+    "tenseId": "be-going-to",
+    "prompt": "Look at those clouds! It ___ (rain) in a minute.",
+    "solution": "is going to rain",
+    "explanation": "Hay una prueba delante (las nubes): predicción con going to."
+  },
+  {
+    "id": "be-going-to-003",
+    "tenseId": "be-going-to",
+    "prompt": "I ___ (not / buy) that car; I decided yesterday.",
+    "solution": "am not going to buy"
+  },
+  {
+    "id": "be-going-to-004",
+    "tenseId": "be-going-to",
+    "prompt": "___ (you / book) the tickets tonight, as we planned?",
+    "solution": "Are you going to book",
+    "explanation": "as we planned señala un plan ya cerrado: be delante del sujeto + going to."
+  },
+  {
+    "id": "be-going-to-005",
+    "tenseId": "be-going-to",
+    "prompt": "She ___ (go) to the dentist tomorrow; she made the appointment last week.",
+    "solution": "is going to go",
+    "explanation": "going to go es correcto: going to es la estructura y go, el verbo."
+  },
+  {
+    "id": "be-going-to-006",
+    "tenseId": "be-going-to",
+    "prompt": "They ___ (not / sell) the house this year; they changed their plans in January.",
+    "solution": "are not going to sell"
+  },
+  {
+    "id": "be-going-to-007",
+    "tenseId": "be-going-to",
+    "prompt": "I have the recipe and the ingredients: I ___ (cook) a paella on Sunday.",
+    "solution": "am going to cook"
+  },
+  {
+    "id": "be-going-to-008",
+    "tenseId": "be-going-to",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "He is going to study Italian next summer.",
+    "solution": "He is not going to study Italian next summer.",
+    "explanation": "El not va detrás del verbo be: is not going to study."
+  },
+  {
+    "id": "be-going-to-009",
+    "tenseId": "be-going-to",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They are going to visit their cousins next weekend.",
+    "solution": "Are they going to visit their cousins next weekend?",
+    "explanation": "El verbo be pasa delante del sujeto y going to no se toca."
+  },
+  {
+    "id": "be-going-to-010",
+    "tenseId": "be-going-to",
+    "type": "choice",
+    "prompt": "We are going to paint the kitchen this weekend; we bought the paint yesterday.",
+    "options": [
+      "Be going to",
+      "Future Simple",
+      "Present Simple"
+    ],
+    "solution": "Be going to",
+    "explanation": "La pintura ya está comprada: el plan viene de antes, así que going to."
+  },
+  {
+    "id": "be-going-to-011",
+    "tenseId": "be-going-to",
+    "type": "choice",
+    "prompt": "Careful! You are going to drop those glasses.",
+    "options": [
+      "Be going to",
+      "Future Simple",
+      "Present Continuous"
+    ],
+    "solution": "Be going to",
+    "explanation": "Predicción con la prueba delante de los ojos: going to, no will."
+  }
+]

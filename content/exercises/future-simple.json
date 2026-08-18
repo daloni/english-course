@@ -1,0 +1,94 @@
+[
+  {
+    "id": "future-simple-001",
+    "tenseId": "future-simple",
+    "prompt": "That bag looks heavy. I ___ (carry) it for you.",
+    "solution": "will carry",
+    "explanation": "Es una decisión tomada en ese instante, así que toca will y no going to."
+  },
+  {
+    "id": "future-simple-002",
+    "tenseId": "future-simple",
+    "prompt": "I think it ___ (rain) tomorrow afternoon.",
+    "solution": "will rain",
+    "explanation": "I think introduce una predicción sin pruebas: will."
+  },
+  {
+    "id": "future-simple-003",
+    "tenseId": "future-simple",
+    "prompt": "Don't worry, I ___ (not / tell) anyone your secret.",
+    "solution": "will not tell",
+    "explanation": "Una promesa se hace con will; la negativa es will not, contraída won't."
+  },
+  {
+    "id": "future-simple-004",
+    "tenseId": "future-simple",
+    "prompt": "___ (you / help) me with these boxes, please?",
+    "solution": "Will you help",
+    "explanation": "Las peticiones y ofrecimientos van con will delante del sujeto."
+  },
+  {
+    "id": "future-simple-005",
+    "tenseId": "future-simple",
+    "prompt": "She ___ (be) twenty-five next month.",
+    "solution": "will be"
+  },
+  {
+    "id": "future-simple-006",
+    "tenseId": "future-simple",
+    "prompt": "They probably ___ (not / finish) the report tonight.",
+    "solution": "will not finish",
+    "explanation": "probably acompaña a una opinión sobre el futuro: will not finish."
+  },
+  {
+    "id": "future-simple-007",
+    "tenseId": "future-simple",
+    "prompt": "The phone is ringing. I ___ (answer) it.",
+    "solution": "will answer",
+    "explanation": "Decisión del momento, sin plan previo: will answer."
+  },
+  {
+    "id": "future-simple-008",
+    "tenseId": "future-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "He will come to the meeting.",
+    "solution": "He will not come to the meeting.",
+    "explanation": "will not, contraído won't; el verbo se queda en infinitivo: won't come."
+  },
+  {
+    "id": "future-simple-009",
+    "tenseId": "future-simple",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They will arrive before dinner.",
+    "solution": "Will they arrive before dinner?",
+    "explanation": "Will pasa delante del sujeto y el verbo no cambia: Will they arrive?"
+  },
+  {
+    "id": "future-simple-010",
+    "tenseId": "future-simple",
+    "type": "choice",
+    "prompt": "I am sure you will pass the exam next week.",
+    "options": [
+      "Future Simple",
+      "Be going to",
+      "Present Continuous"
+    ],
+    "solution": "Future Simple",
+    "explanation": "I am sure marca una opinión sobre el futuro, no un plan: will, no going to."
+  },
+  {
+    "id": "future-simple-011",
+    "tenseId": "future-simple",
+    "type": "choice",
+    "prompt": "Someone is at the door. I will open it.",
+    "options": [
+      "Future Simple",
+      "Be going to",
+      "Present Simple"
+    ],
+    "solution": "Future Simple",
+    "explanation": "La decisión se toma en ese momento, y eso pide will."
+  }
+]

@@ -1,0 +1,93 @@
+[
+  {
+    "id": "past-perfect-001",
+    "tenseId": "past-perfect",
+    "prompt": "When we got to the cinema, the film ___ (already / start).",
+    "solution": "had already started",
+    "explanation": "La película empezó antes de que llegáramos: lo anterior va en past perfect."
+  },
+  {
+    "id": "past-perfect-002",
+    "tenseId": "past-perfect",
+    "prompt": "He was exhausted because he ___ (work) all night on the presentation.",
+    "solution": "had worked",
+    "explanation": "El cansancio se explica por algo anterior a ese momento pasado: had worked."
+  },
+  {
+    "id": "past-perfect-003",
+    "tenseId": "past-perfect",
+    "prompt": "They ___ (not / book) a table, so they had to wait for almost an hour.",
+    "solution": "had not booked"
+  },
+  {
+    "id": "past-perfect-004",
+    "tenseId": "past-perfect",
+    "prompt": "___ (you / visit) Paris before that trip with your parents?",
+    "solution": "Had you visited",
+    "explanation": "Had pasa delante del sujeto y el verbo se queda en participio."
+  },
+  {
+    "id": "past-perfect-005",
+    "tenseId": "past-perfect",
+    "prompt": "By the time the police arrived, the thief ___ (escape) through the window.",
+    "solution": "had escaped",
+    "explanation": "by the time marca el momento pasado que sirve de referencia."
+  },
+  {
+    "id": "past-perfect-006",
+    "tenseId": "past-perfect",
+    "prompt": "She ___ (not / study) German until she moved to Berlin in 2019.",
+    "solution": "had not studied"
+  },
+  {
+    "id": "past-perfect-007",
+    "tenseId": "past-perfect",
+    "prompt": "After the guests ___ (leave), we spent an hour tidying up the flat.",
+    "solution": "had left",
+    "explanation": "After ordena los hechos: lo que ocurrió primero va en past perfect."
+  },
+  {
+    "id": "past-perfect-008",
+    "tenseId": "past-perfect",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "I had seen that film before last night.",
+    "solution": "I had not seen that film before last night.",
+    "explanation": "El not va entre had y el participio: had not seen, contraído hadn't seen."
+  },
+  {
+    "id": "past-perfect-009",
+    "tenseId": "past-perfect",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "The train had left when she got to the station.",
+    "solution": "Had the train left when she got to the station?",
+    "explanation": "Had delante del sujeto; el participio no cambia: Had the train left?"
+  },
+  {
+    "id": "past-perfect-010",
+    "tenseId": "past-perfect",
+    "type": "choice",
+    "prompt": "It was the first time she had travelled alone.",
+    "options": [
+      "Past Perfect",
+      "Past Simple",
+      "Present Perfect"
+    ],
+    "solution": "Past Perfect",
+    "explanation": "La experiencia se cuenta hasta un momento del pasado, no hasta hoy: past perfect."
+  },
+  {
+    "id": "past-perfect-011",
+    "tenseId": "past-perfect",
+    "type": "choice",
+    "prompt": "Nobody had told him about the change of plan.",
+    "options": [
+      "Past Perfect",
+      "Past Simple",
+      "Present Perfect"
+    ],
+    "solution": "Past Perfect",
+    "explanation": "had + participio: algo anterior a otro momento pasado del relato."
+  }
+]
