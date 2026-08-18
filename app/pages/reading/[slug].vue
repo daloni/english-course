@@ -93,7 +93,7 @@ useSeo({
 
     <UPageSection>
       <div class="mx-auto w-full max-w-2xl space-y-10">
-        <!-- eslint-disable vue/no-v-html -- markdown from content/, versioned here, never user input -->
+        <!-- eslint-disable vue/no-v-html -- raw HTML is rejected by test/reading.spec.ts -->
         <div
           lang="en"
           class="space-y-4 text-lg [&_em]:italic [&_strong]:font-semibold"

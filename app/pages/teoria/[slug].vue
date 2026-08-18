@@ -46,7 +46,7 @@ useSeo({
 
     <UPageSection>
       <div class="space-y-12">
-        <!-- eslint-disable vue/no-v-html -- markdown from content/, versioned here, never user input -->
+        <!-- eslint-disable vue/no-v-html -- raw HTML is rejected by test/content.spec.ts -->
         <div
           class="space-y-4 [&_em]:italic [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_li]:my-1 [&_strong]:font-semibold [&_ul]:list-disc [&_ul]:ps-6"
           v-html="theory"

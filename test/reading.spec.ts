@@ -18,6 +18,12 @@ function expectText(value: unknown, label: string) {
   expect((value as string).trim(), `${label} must not be empty`).not.toBe('')
 }
 
+const rawHtmlTag = /<\/?[A-Za-z][A-Za-z0-9:-]*(?:\s+[^<>]*)?\s*\/?>/
+
+function expectNoRawHtml(value: unknown, label: string) {
+  expect(value as string, `${label} must not contain raw HTML tags; use Markdown instead`).not.toMatch(rawHtmlTag)
+}
+
 const duplicates = (values: string[]) => values.filter((value, i) => values.indexOf(value) !== i)
 
 /** What the page shows as the answer: the first of the "a / b" alternatives. */
@@ -40,6 +46,7 @@ describe('content/readings', () => {
       expectText(reading.title, 'title')
       expectText(reading.topic, 'topic')
       expectText(reading.text, 'text')
+      expectNoRawHtml(reading.text, `${path}.text`)
       expect(levels).toContain(reading.level)
     })
 
