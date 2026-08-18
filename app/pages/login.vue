@@ -83,6 +83,7 @@ function renderTurnstile() {
     },
     'error-callback': () => {
       token.value = ''
+      turnstileUnavailable.value = true
       turnstileError.value = true
     }
   })
@@ -202,7 +203,7 @@ useSeoMeta({ robots: 'noindex, nofollow' })
             class="text-sm text-error"
             aria-live="polite"
           >
-            El captcha ha fallado. Inténtalo de nuevo.
+            El captcha ha fallado. Puedes entrar sin él.
           </p>
 
           <p

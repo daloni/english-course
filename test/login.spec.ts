@@ -178,7 +178,26 @@ describe('/login', () => {
     await flushPromises()
 
     expect(page.text()).toContain('El captcha ha fallado')
+    expect(page.text()).toContain('Puedes entrar sin él')
     expect(page.text()).not.toContain('Marca la casilla del captcha')
+    expect(page.find('button[type="submit"]').attributes('disabled')).toBeUndefined()
+  })
+
+  it('permite completar el login tras un error de Turnstile', async () => {
+    fakeTurnstile()
+    const page = await mountSuspended(Login)
+    await flushPromises()
+
+    expect(turnstileErrorCallback).toEqual(expect.any(Function))
+    turnstileErrorCallback!()
+    await flushPromises()
+
+    await page.findAll('input')[0]!.setValue(user)
+    await page.findAll('input')[1]!.setValue(password)
+    await page.find('form').trigger('submit')
+    await vi.waitFor(() => expect(navigateTo).toHaveBeenCalledWith('/'))
+
+    expect(isAuthenticated()).toBe(true)
   })
 
   it('no deja enviar el formulario hasta que Turnstile devuelve token', async () => {
