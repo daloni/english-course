@@ -1,0 +1,93 @@
+[
+  {
+    "id": "present-continuous-001",
+    "tenseId": "present-continuous",
+    "prompt": "Be quiet! The baby ___ (sleep) upstairs at the moment.",
+    "solution": "is sleeping",
+    "explanation": "at the moment: la acción está en curso ahora, así que toca present continuous."
+  },
+  {
+    "id": "present-continuous-002",
+    "tenseId": "present-continuous",
+    "prompt": "Right now I ___ (not / work); I am watching a film.",
+    "solution": "am not working",
+    "explanation": "La negativa añade not al verbo be: am not working, nunca don't working."
+  },
+  {
+    "id": "present-continuous-003",
+    "tenseId": "present-continuous",
+    "prompt": "___ (you / listen) to me right now?",
+    "solution": "Are you listening"
+  },
+  {
+    "id": "present-continuous-004",
+    "tenseId": "present-continuous",
+    "prompt": "Look! The cat ___ (lie) on my keyboard again.",
+    "solution": "is lying",
+    "explanation": "Los verbos acabados en -ie cambian a -ying: lie → lying."
+  },
+  {
+    "id": "present-continuous-005",
+    "tenseId": "present-continuous",
+    "prompt": "She ___ (write) an email to her boss at the moment.",
+    "solution": "is writing",
+    "explanation": "Se cae la -e final antes de -ing: write → writing."
+  },
+  {
+    "id": "present-continuous-006",
+    "tenseId": "present-continuous",
+    "prompt": "The children ___ (not / play) outside at the moment because it is raining.",
+    "solution": "are not playing"
+  },
+  {
+    "id": "present-continuous-007",
+    "tenseId": "present-continuous",
+    "prompt": "This week Tom ___ (run) in the park every morning to train for the race.",
+    "solution": "is running",
+    "explanation": "this week marca algo temporal, y run dobla la consonante: running."
+  },
+  {
+    "id": "present-continuous-008",
+    "tenseId": "present-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "They are having dinner in the kitchen.",
+    "solution": "They are not having dinner in the kitchen.",
+    "explanation": "El not va detrás del verbo be: are not having. El auxiliar do no aparece."
+  },
+  {
+    "id": "present-continuous-009",
+    "tenseId": "present-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "He is waiting for the bus.",
+    "solution": "Is he waiting for the bus?",
+    "explanation": "El verbo be pasa delante del sujeto: Is he waiting?, no Does he waiting?"
+  },
+  {
+    "id": "present-continuous-010",
+    "tenseId": "present-continuous",
+    "type": "choice",
+    "prompt": "Sam is watching a film in his room right now.",
+    "options": [
+      "Present Continuous",
+      "Present Simple",
+      "Past Simple"
+    ],
+    "solution": "Present Continuous",
+    "explanation": "right now señala una acción en curso: present continuous, no la rutina del present simple."
+  },
+  {
+    "id": "present-continuous-011",
+    "tenseId": "present-continuous",
+    "type": "choice",
+    "prompt": "My sister is studying medicine this year.",
+    "options": [
+      "Present Continuous",
+      "Present Simple",
+      "Present Perfect"
+    ],
+    "solution": "Present Continuous",
+    "explanation": "this year describe una situación temporal, y eso pide present continuous."
+  }
+]

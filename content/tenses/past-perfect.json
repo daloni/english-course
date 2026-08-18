@@ -1,0 +1,86 @@
+{
+  "id": "past-perfect",
+  "name": "Past Perfect",
+  "nameEs": "Pluscuamperfecto",
+  "level": "B1",
+  "theory": "## Cuándo se usa\n\nEl **past perfect** cuenta lo que pasó **antes de otro momento del pasado**. Es el pasado del pasado:\n\n- Dos hechos pasados, uno anterior al otro: *When we arrived, the film had already started.*\n- Explicar la causa de algo pasado: *He was tired because he had worked all night.*\n- Con *before* y *after* para ordenar: *She had finished the report before the meeting started.*\n- Experiencias hasta un punto del pasado: *It was the first time I had flown alone.*\n\n## Cómo se forma\n\n**had + participio pasado**, igual en todas las personas (*I had*, *she had*, *they had*). El participio es la tercera columna de la lista de verbos: *-ed* en los regulares (*worked*), propio en los irregulares (*seen*, *gone*, *written*).\n\n- Contracción: **'d** (*I'd finished*).\n- Negativa: **had not**, contraído **hadn't** (*They hadn't arrived*).\n- Interrogativa: *had* delante del sujeto (*Had you seen it before?*).\n\nPalabras que suelen acompañarlo: *before*, *after*, *when*, *by the time*, *already*, *just*, *never*, *yet*.\n\n## Past perfect o past simple\n\n- Si los hechos se cuentan **en orden**, basta el past simple: *I finished dinner and went out.*\n- Si uno es **anterior** al momento del que hablas, ese va en past perfect: *When I went out, I had already finished dinner.*\n- Con *after* y *before* el orden ya está claro y el past simple también vale; el past perfect deja aún más claro qué fue primero.\n\n## Errores frecuentes\n\n- Conjugar *had* según la persona: *She hads finished* ❌ → *She had finished* ✅.\n- Usar el pasado simple en vez del participio: *I had went* ❌ → *I had gone* ✅.\n- Poner los dos verbos en past perfect: *When I had arrived, the train had left* ❌ → *When I arrived, the train had left* ✅.\n- Usarlo sin un segundo momento pasado de referencia: para un hecho pasado suelto toca past simple.",
+  "structure": {
+    "affirmative": "Sujeto + had + participio pasado",
+    "negative": "Sujeto + had + not + participio pasado",
+    "interrogative": "Had + sujeto + participio pasado + ?"
+  },
+  "timeMarkers": [
+    "before",
+    "after",
+    "when",
+    "by the time",
+    "already",
+    "just",
+    "never",
+    "until then",
+    "as soon as",
+    "it was the first time"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "When we arrived, the film had already started.",
+      "es": "Cuando llegamos, la película ya había empezado."
+    },
+    {
+      "form": "affirmative",
+      "en": "He was tired because he had worked all night.",
+      "es": "Estaba cansado porque había trabajado toda la noche."
+    },
+    {
+      "form": "affirmative",
+      "en": "She had finished the report before the meeting started.",
+      "es": "Ella había terminado el informe antes de que empezara la reunión."
+    },
+    {
+      "form": "affirmative",
+      "en": "By the time the police came, the thief had escaped.",
+      "es": "Para cuando llegó la policía, el ladrón había escapado."
+    },
+    {
+      "form": "negative",
+      "en": "I had not seen that film before last night.",
+      "es": "No había visto esa película antes de anoche."
+    },
+    {
+      "form": "negative",
+      "en": "They had not booked a table, so they waited an hour.",
+      "es": "No habían reservado mesa, así que esperaron una hora."
+    },
+    {
+      "form": "negative",
+      "en": "We had not met before that summer.",
+      "es": "No nos habíamos conocido antes de aquel verano."
+    },
+    {
+      "form": "negative",
+      "en": "She had not studied German until she moved to Berlin.",
+      "es": "Ella no había estudiado alemán hasta que se mudó a Berlín."
+    },
+    {
+      "form": "interrogative",
+      "en": "Had you visited Paris before that trip?",
+      "es": "¿Habías visitado París antes de aquel viaje?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Had the train left when you got to the station?",
+      "es": "¿Había salido el tren cuando llegaste a la estación?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Why had they sold the house before the summer?",
+      "es": "¿Por qué habían vendido la casa antes del verano?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Had she ever flown alone before that day?",
+      "es": "¿Había volado ella sola alguna vez antes de aquel día?"
+    }
+  ]
+}

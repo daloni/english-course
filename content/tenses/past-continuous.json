@@ -1,0 +1,86 @@
+{
+  "id": "past-continuous",
+  "name": "Past Continuous",
+  "nameEs": "Pasado continuo",
+  "level": "A2",
+  "theory": "## Cuándo se usa\n\nEl **past continuous** describe una acción que **estaba en curso** en un momento del pasado:\n\n- La acción larga que otra más corta interrumpe: *I was cooking when the phone rang.*\n- Dos acciones en paralelo: *She was studying while her brother was watching television.*\n- El decorado de un relato: *It was raining and the streets were empty.*\n- Un momento concreto del pasado: *At nine o'clock we were still driving.*\n\n## Cómo se forma\n\n**was / were + verbo en -ing**: *I / he / she / it was*, *you / we / they were*. Las reglas de la *-ing* son las del present continuous (*make → making*, *run → running*, *lie → lying*).\n\nEn negativa se añade *not* al verbo *be* (*wasn't working*, *weren't working*) y en interrogativa *be* va delante del sujeto (*Were you working?*). El auxiliar *did* no aparece.\n\n## When o while\n\n- *when* + **past simple**: la acción corta que interrumpe. *When the alarm rang, I was sleeping.*\n- *while* + **past continuous**: la acción larga de fondo. *While I was sleeping, the alarm rang.*\n\n## Past simple o past continuous\n\n- Acción terminada, un hecho cerrado: **past simple**. *I read a book last night.*\n- Acción en curso, sin decir si terminó: **past continuous**. *I was reading a book last night.*\n\nEn un relato, el past continuous pone el fondo y el past simple cuenta lo que pasa: *We were having dinner when someone knocked at the door.*\n\n## Errores frecuentes\n\n- Confundir *was* y *were*: *They was waiting* ❌ → *They were waiting* ✅.\n- Meter el auxiliar *did*: *Did you were working?* ❌ → *Were you working?* ✅.\n- Usar continuo con verbos de estado: *I was knowing the answer* ❌ → *I knew the answer* ✅.\n- Poner las dos acciones en continuo cuando una interrumpe: *I was cooking when the phone was ringing* ❌ → *...when the phone rang* ✅.",
+  "structure": {
+    "affirmative": "Sujeto + was / were + verbo en -ing",
+    "negative": "Sujeto + was / were + not + verbo en -ing",
+    "interrogative": "Was / Were + sujeto + verbo en -ing + ?"
+  },
+  "timeMarkers": [
+    "while",
+    "when",
+    "as",
+    "at that moment",
+    "yesterday at eight",
+    "all morning",
+    "all night",
+    "last night at ten",
+    "this time yesterday",
+    "during the storm"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "I was cooking when the phone rang.",
+      "es": "Estaba cocinando cuando sonó el teléfono."
+    },
+    {
+      "form": "affirmative",
+      "en": "They were waiting at the station all morning.",
+      "es": "Estuvieron esperando en la estación toda la mañana."
+    },
+    {
+      "form": "affirmative",
+      "en": "While she was driving, it started to snow.",
+      "es": "Mientras ella conducía, empezó a nevar."
+    },
+    {
+      "form": "affirmative",
+      "en": "This time yesterday we were flying to Lisbon.",
+      "es": "Ayer a esta hora estábamos volando a Lisboa."
+    },
+    {
+      "form": "negative",
+      "en": "I was not sleeping when you called.",
+      "es": "No estaba durmiendo cuando llamaste."
+    },
+    {
+      "form": "negative",
+      "en": "He was not listening during the meeting.",
+      "es": "Él no estaba escuchando durante la reunión."
+    },
+    {
+      "form": "negative",
+      "en": "We were not living here last summer.",
+      "es": "No estábamos viviendo aquí el verano pasado."
+    },
+    {
+      "form": "negative",
+      "en": "The children were not playing outside at that moment.",
+      "es": "Los niños no estaban jugando fuera en ese momento."
+    },
+    {
+      "form": "interrogative",
+      "en": "Were you working when the lights went out?",
+      "es": "¿Estabas trabajando cuando se fue la luz?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Was it raining when you left the office?",
+      "es": "¿Estaba lloviendo cuando saliste de la oficina?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Were they arguing about the money again?",
+      "es": "¿Estaban discutiendo otra vez por el dinero?"
+    },
+    {
+      "form": "interrogative",
+      "en": "What was she reading all night?",
+      "es": "¿Qué estaba leyendo ella toda la noche?"
+    }
+  ]
+}

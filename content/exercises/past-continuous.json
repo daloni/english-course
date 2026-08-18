@@ -1,0 +1,91 @@
+[
+  {
+    "id": "past-continuous-001",
+    "tenseId": "past-continuous",
+    "prompt": "I ___ (cook) dinner when the phone rang.",
+    "solution": "was cooking",
+    "explanation": "La acción larga que otra interrumpe va en past continuous; la corta (rang), en past simple."
+  },
+  {
+    "id": "past-continuous-002",
+    "tenseId": "past-continuous",
+    "prompt": "While we ___ (drive) home, it started to snow.",
+    "solution": "were driving",
+    "explanation": "while introduce la acción de fondo, siempre en past continuous."
+  },
+  {
+    "id": "past-continuous-003",
+    "tenseId": "past-continuous",
+    "prompt": "She ___ (not / sleep) when I called her last night.",
+    "solution": "was not sleeping"
+  },
+  {
+    "id": "past-continuous-004",
+    "tenseId": "past-continuous",
+    "prompt": "___ (you / work) at eight yesterday evening?",
+    "solution": "Were you working",
+    "explanation": "Was / Were pasa delante del sujeto: el auxiliar did no aparece."
+  },
+  {
+    "id": "past-continuous-005",
+    "tenseId": "past-continuous",
+    "prompt": "This time yesterday they ___ (fly) to Lisbon.",
+    "solution": "were flying"
+  },
+  {
+    "id": "past-continuous-006",
+    "tenseId": "past-continuous",
+    "prompt": "We ___ (not / listen) while the teacher was explaining the exercise.",
+    "solution": "were not listening"
+  },
+  {
+    "id": "past-continuous-007",
+    "tenseId": "past-continuous",
+    "prompt": "The dog was barking and the neighbours ___ (shout) at that moment.",
+    "solution": "were shouting"
+  },
+  {
+    "id": "past-continuous-008",
+    "tenseId": "past-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "He was reading in the garden all afternoon.",
+    "solution": "He was not reading in the garden all afternoon.",
+    "explanation": "El not va detrás de was / were: was not reading, sin auxiliar did."
+  },
+  {
+    "id": "past-continuous-009",
+    "tenseId": "past-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They were arguing about money again.",
+    "solution": "Were they arguing about money again?",
+    "explanation": "Were delante del sujeto: Were they arguing?, no Did they were arguing?"
+  },
+  {
+    "id": "past-continuous-010",
+    "tenseId": "past-continuous",
+    "type": "choice",
+    "prompt": "At ten o'clock last night I was still working on the report.",
+    "options": [
+      "Past Continuous",
+      "Past Simple",
+      "Present Continuous"
+    ],
+    "solution": "Past Continuous",
+    "explanation": "La acción estaba en curso en un momento concreto del pasado: past continuous."
+  },
+  {
+    "id": "past-continuous-011",
+    "tenseId": "past-continuous",
+    "type": "choice",
+    "prompt": "While she was cooking, her husband was setting the table.",
+    "options": [
+      "Past Continuous",
+      "Past Simple",
+      "Present Perfect"
+    ],
+    "solution": "Past Continuous",
+    "explanation": "Dos acciones largas en paralelo con while: las dos en past continuous."
+  }
+]
