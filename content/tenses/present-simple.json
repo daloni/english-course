@@ -56,6 +56,31 @@
       "form": "interrogative",
       "en": "Does your brother speak French?",
       "es": "¿Tu hermano habla francés?"
+    },
+    {
+      "form": "affirmative",
+      "en": "My brother watches a film twice a month.",
+      "es": "Mi hermano ve una película dos veces al mes."
+    },
+    {
+      "form": "negative",
+      "en": "The bus doesn't stop here on Mondays.",
+      "es": "El autobús no para aquí los lunes."
+    },
+    {
+      "form": "negative",
+      "en": "My parents don't usually eat out.",
+      "es": "Mis padres no suelen comer fuera."
+    },
+    {
+      "form": "interrogative",
+      "en": "Does she always finish work at six?",
+      "es": "¿Termina ella siempre de trabajar a las seis?"
+    },
+    {
+      "form": "interrogative",
+      "en": "How often do you go to the gym?",
+      "es": "¿Con qué frecuencia vas al gimnasio?"
     }
   ]
 }

@@ -56,6 +56,31 @@
       "form": "interrogative",
       "en": "How long has she worked here?",
       "es": "¿Cuánto tiempo lleva ella trabajando aquí?"
+    },
+    {
+      "form": "affirmative",
+      "en": "We have known each other since 2020.",
+      "es": "Nos conocemos desde 2020."
+    },
+    {
+      "form": "negative",
+      "en": "I haven't seen my cousins this week.",
+      "es": "No he visto a mis primos esta semana."
+    },
+    {
+      "form": "negative",
+      "en": "We haven't had a holiday for three years.",
+      "es": "No hemos tenido vacaciones en tres años."
+    },
+    {
+      "form": "interrogative",
+      "en": "Has he already sent the report?",
+      "es": "¿Ya ha enviado él el informe?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Have they finished the project yet?",
+      "es": "¿Han terminado ya el proyecto?"
     }
   ]
 }

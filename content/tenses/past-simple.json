@@ -54,6 +54,31 @@
       "form": "interrogative",
       "en": "Where did they go after the concert?",
       "es": "¿Adónde fueron después del concierto?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I saw her at the bus stop two days ago.",
+      "es": "La vi en la parada del autobús hace dos días."
+    },
+    {
+      "form": "negative",
+      "en": "They didn't watch the match last night.",
+      "es": "Ellos no vieron el partido anoche."
+    },
+    {
+      "form": "negative",
+      "en": "I wasn't at home that morning.",
+      "es": "Yo no estaba en casa esa mañana."
+    },
+    {
+      "form": "interrogative",
+      "en": "Were you nervous before the exam?",
+      "es": "¿Estabas nervioso antes del examen?"
+    },
+    {
+      "form": "interrogative",
+      "en": "When did you buy that jacket?",
+      "es": "¿Cuándo compraste esa chaqueta?"
     }
   ]
 }
