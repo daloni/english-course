@@ -190,6 +190,8 @@ intento practicado más recientemente y, si empatan las fechas, el que acumule m
 Importar el mismo fichero dos veces no suma los contadores. Se descartan los intentos que la
 propia web no puede haber exportado: sin id, con aciertos o fallos que no sean números enteros
 y positivos, con una fecha que no exista o con un repaso anterior al día en que se practicó.
+También se descartan los intentos fechados después de mañana, para no importar relojes del
+dispositivo adelantados; se admite mañana por las diferencias de zona horaria entre dispositivos.
 Si el fichero no tiene ningún intento válido, la importación se rechaza entera.
 
 El speaking no cuenta para el progreso: su corrección es un porcentaje de palabras, no un
