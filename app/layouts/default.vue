@@ -1,10 +1,5 @@
 <script setup lang="ts">
 const items = sections.map(({ label, to, icon }) => ({ label, to, icon }))
-
-function leave() {
-  signOut()
-  return navigateTo('/login')
-}
 </script>
 
 <template>
@@ -25,18 +20,6 @@ function leave() {
       <UNavigationMenu :items="items" />
 
       <template #right>
-        <!-- The session lives in localStorage, so the button only exists in the browser:
-             rendering it during the prerender would throw hydration off. -->
-        <ClientOnly>
-          <UButton
-            label="Salir"
-            icon="i-lucide-log-out"
-            color="neutral"
-            variant="ghost"
-            @click="leave"
-          />
-        </ClientOnly>
-
         <UColorModeButton />
       </template>
 

@@ -75,9 +75,8 @@ describe('SEO', () => {
     expect(content('twitter:card')).toBe('summary_large_image')
   })
 
-  it('ships the default social image and login robots rule', () => {
+  it('ships the default social image', () => {
     const app = readFileSync('app/app.vue', 'utf8')
-    const robots = readFileSync('public/robots.txt', 'utf8')
     const image = readFileSync('public/og-image.png')
 
     expect(app).toContain('ogImage:')
@@ -88,7 +87,6 @@ describe('SEO', () => {
     expect(app).toContain('ogImageAlt: description')
     expect(app).toContain('ogSiteName: siteName')
     expect(app).toContain('twitterCard: \'summary_large_image\'')
-    expect(robots).toContain('Disallow: /login')
     expect(image.subarray(0, 8)).toEqual(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
     expect(image.readUInt32BE(16)).toBe(1200)
     expect(image.readUInt32BE(20)).toBe(630)

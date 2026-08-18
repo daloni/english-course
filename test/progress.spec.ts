@@ -261,8 +261,8 @@ describe('merge', () => {
 })
 
 describe('load and save', () => {
-  // Progress only: localStorage also holds the session, and without it the global middleware
-  // would send you to /login instead of mounting the page.
+  // Only the progress key: clearing the whole localStorage would wipe unrelated state
+  // (the colour mode, for one) that other tests in this run rely on.
   beforeEach(() => localStorage.removeItem(storageKey))
 
   it('survives a reload: what was failed is still due', () => {
