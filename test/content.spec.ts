@@ -66,6 +66,20 @@ describe('tenses', () => {
         expectText(example.es, `examples[${i}].es`)
       })
     })
+
+    // Two per form is the floor /teoria asks for: without this, a tense written with a single
+    // affirmative example would still ship green.
+    it('has at least two examples of every form', () => {
+      for (const form of forms) {
+        expect(tense.examples.filter(example => example.form === form).length, `examples of ${form}`)
+          .toBeGreaterThanOrEqual(2)
+      }
+    })
+
+    // /teoria/<slug> keys the list by `en`: a repeat is a duplicate key warning in Vue.
+    it('has no repeated English example', () => {
+      expect(duplicates(tense.examples.map(example => example.en))).toEqual([])
+    })
   })
 })
 
