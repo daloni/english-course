@@ -150,6 +150,8 @@ function isAttempt(value: unknown): value is Attempt {
     // The review always comes after the practice, so no attempt exported here can be due
     // before the day it was last answered. ISO dates compare as plain text.
     && attempt.due >= attempt.last
+    // A device with a different timezone can be one local day behind the exporter.
+    && attempt.last <= addDays(day(), 1)
 }
 
 /** Combines progress without adding answer counters from the same attempt twice. */

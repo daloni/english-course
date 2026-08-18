@@ -203,6 +203,31 @@ describe('parse', () => {
     expect(Object.keys(parse(json))).toEqual(['x'])
   })
 
+  it('keeps attempts up to tomorrow and drops later dates', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(`${today}T12:00:00Z`))
+    onTestFinished(() => vi.useRealTimers())
+
+    const json = JSON.stringify({
+      today: { ...attempt, id: 'today', last: today, due: today },
+      yesterday: { ...attempt, id: 'yesterday', last: addDays(today, -1), due: today },
+      tomorrow: { ...attempt, id: 'tomorrow', last: addDays(today, 1), due: addDays(today, 2) },
+      future: { ...attempt, id: 'future', last: addDays(today, 2), due: addDays(today, 3) }
+    })
+
+    expect(Object.keys(parse(json))).toEqual(['today', 'yesterday', 'tomorrow'])
+  })
+
+  it('rejects a file containing only attempts dated after tomorrow', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(`${today}T12:00:00Z`))
+    onTestFinished(() => vi.useRealTimers())
+
+    const future = { ...attempt, last: addDays(today, 2), due: addDays(today, 3) }
+
+    expect(() => parse(JSON.stringify({ x: future }))).toThrow('El fichero no tiene ningún intento válido')
+  })
+
   it('rejects what is not an exported progress', () => {
     expect(() => parse('[]')).toThrow()
     expect(() => parse('null')).toThrow()
@@ -467,6 +492,35 @@ describe('practising', () => {
 
     expect(page.text()).toContain('Importados 1 intentos, 1 nuevos')
     expect(load()).toEqual({ x: existing, y: imported })
+  })
+
+  it('ignores a future import and keeps the exercise in /repaso', async () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(`${today}T12:00:00Z`))
+    onTestFinished(() => vi.useRealTimers())
+
+    const id = frasesItemId(exercise)
+    const existing = review(undefined, id, false, today)
+    const future = { ...existing, last: addDays(today, 2), due: addDays(today, 2) }
+
+    save({ [id]: existing })
+
+    const progress = await mountSuspended(Progreso)
+    await flushPromises()
+
+    const input = progress.find<HTMLInputElement>('input[type="file"]')
+    const file = new File([serialize({ [id]: future })], 'future.json', { type: 'application/json' })
+
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await flushPromises()
+
+    expect(load()).toEqual({ [id]: existing })
+
+    const reviewPage = await mountSuspended(Repaso)
+    await flushPromises()
+
+    expect(reviewPage.text()).toContain(exercise.prompt)
   })
 
   it('rejects an empty import without changing saved progress', async () => {
