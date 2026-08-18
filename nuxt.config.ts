@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-// Without its variables the site ships with no canonical and a login nobody can pass, so the
-// build stops here naming what is missing instead of publishing something unusable.
-const missing = ['SITE_URL', 'SITE_NAME', 'SITE_DESCRIPTION', 'AUTH_USER', 'AUTH_PASSWORD_HASH', 'TURNSTILE_SITE_KEY']
+// Without its variables the site ships with no canonical, so the build stops here naming what
+// is missing instead of publishing something unusable.
+const missing = ['SITE_URL', 'SITE_NAME', 'SITE_DESCRIPTION']
   .map(name => `NUXT_PUBLIC_${name}`).filter(key => !process.env[key])
 
 if (missing.length > 0) {
@@ -37,16 +37,11 @@ export default defineNuxtConfig({
 
   // Everything configurable lives in the .env, never written here: Nuxt fills these keys from
   // the matching NUXT_PUBLIC_* variables, so dev, build and generate all read the same source.
-  // The login credentials end up in the bundle: the site is static and there is no server to
-  // hide them in. They are configurable defaults, not secrets.
   runtimeConfig: {
     public: {
       siteUrl: '',
       siteName: '',
-      siteDescription: '',
-      authUser: '',
-      authPasswordHash: '',
-      turnstileSiteKey: ''
+      siteDescription: ''
     }
   },
 
@@ -56,9 +51,7 @@ export default defineNuxtConfig({
   // `pnpm generate` fails instead of publishing half a site.
   nitro: {
     prerender: {
-      // Nothing links to /login, so the crawler never reaches it on its own: without listing
-      // it here it would not be generated and GitHub Pages would answer a 404.
-      routes: ['/', '/login'],
+      routes: ['/'],
       crawlLinks: true,
       failOnError: true
     }

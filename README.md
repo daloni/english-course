@@ -6,8 +6,7 @@ teoría, conjugación de verbos, frases, reading con preguntas y speaking.
 Sin backend y sin base de datos: una sola app Nuxt 4 con
 [@nuxt/ui](https://ui.nuxt.com), el contenido versionado como ficheros en el
 repo, el progreso en `localStorage` y el speaking con la Web Speech API del
-navegador. Delante hay una pantalla de acceso con usuario, contraseña y captcha,
-pero es una puerta de cliente: lo que se cuenta en [Acceso](#acceso).
+navegador. El sitio es público: no hay usuarios ni pantalla de acceso.
 
 ## Requisitos
 
@@ -33,13 +32,10 @@ los valores de desarrollo y arranca el proyecto tal cual.
 | `NUXT_PUBLIC_SITE_URL` | La URL pública del sitio, para el `<link rel="canonical">` y el `og:url` | `http://localhost:3000` |
 | `NUXT_PUBLIC_SITE_NAME` | El nombre del sitio, en el `<title>` de cada página y en las tarjetas al compartir | `Aprender inglés` |
 | `NUXT_PUBLIC_SITE_DESCRIPTION` | La descripción de la home y su tarjeta social | la del curso |
-| `NUXT_PUBLIC_AUTH_USER` | El usuario de la pantalla de acceso | `alumno` |
-| `NUXT_PUBLIC_AUTH_PASSWORD_HASH` | El **SHA-256 en hexadecimal** de la contraseña | el de `ingles2026` |
-| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | La sitekey de Turnstile | `1x00000000000000000000AA`, la de pruebas de Cloudflare, que siempre pasa |
 
-Si falta alguna, el build se para nombrándola en vez de publicar un sitio sin canonical y con
-el login imposible. Lo que venga por entorno gana sobre el fichero, que es como el workflow
-pasa la `NUXT_PUBLIC_SITE_URL` de GitHub Pages.
+Si falta alguna, el build se para nombrándola en vez de publicar un sitio sin canonical. Lo
+que venga por entorno gana sobre el fichero, que es como el workflow pasa la
+`NUXT_PUBLIC_SITE_URL` de GitHub Pages.
 
 ## Comandos
 
@@ -83,56 +79,6 @@ esa subruta a Nuxt con `NUXT_APP_BASE_URL` y la URL pública completa con `NUXT_
 que es la que llevan el `<link rel="canonical">` y el `og:url` de cada página; en local no hace
 falta nada. Para servirlo desde otro sitio (Netlify, un `nginx`…) basta con subir
 `.output/public` tal cual, pasando `NUXT_PUBLIC_SITE_URL` con el dominio nuevo.
-
-## Acceso
-
-`/login` pide usuario y contraseña y no deja enviar el formulario hasta que el captcha de
-[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) devuelve un token. Si el
-widget no carga en cinco segundos, lo avisa y permite enviar el formulario sin captcha. Un
-middleware global manda ahí cualquier ruta mientras no haya sesión, que se guarda en
-`localStorage` (clave `ingles:auth`) y sobrevive a recargar. El botón **Salir** de la cabecera
-la cierra.
-
-Si el navegador bloquea el almacenamiento del sitio no hay dónde guardar la sesión, así que
-`/login` no navega: se queda en pantalla y lo explica, en vez de mandarte a una página que
-volvería a pedirte entrar sin decir por qué.
-
-Credenciales de `.env.example`:
-
-| | |
-| --- | --- |
-| Usuario | `alumno` |
-| Contraseña | `ingles2026` |
-
-Se cambian en el `.env`, sin tocar el código: `NUXT_PUBLIC_AUTH_USER`,
-`NUXT_PUBLIC_AUTH_PASSWORD_HASH` y `NUXT_PUBLIC_TURNSTILE_SITE_KEY`, las tres de
-[Configuración](#configuración).
-
-```bash
-# El hash de una contraseña nueva, para NUXT_PUBLIC_AUTH_PASSWORD_HASH
-node -e "console.log(require('node:crypto').createHash('sha256').update('la nueva').digest('hex'))"
-```
-
-Para cambiarlas en el sitio publicado se añaden como `env` del paso `Generate the static site`
-de `.github/workflows/ci.yml`, que es quien genera el sitio; en local basta con el `.env`, que
-funciona con los valores de `.env.example` y sin cuenta de Cloudflare.
-
-**El límite, escrito:** el sitio es estático, así que todo esto ocurre en el navegador.
-
-- Las credenciales viajan en el bundle JS y quien abra las DevTools las ve; de la contraseña
-  solo va el SHA-256, que evita tenerla escrita en claro pero no aguanta un ataque de fuerza
-  bruta. Aunque las variables se pasen como *secret*, acaban en el bundle: son valores por
-  defecto configurables, no secretos.
-- El token del captcha no se valida: la comprobación de verdad es una llamada de servidor a
-  servidor a `siteverify` con la *secret key*, y aquí no hay servidor donde esconderla. Frena
-  bots triviales y nada más.
-- El HTML de `/teoria`, `/frases`… está prerenderizado, así que pedir la URL directamente
-  sigue devolviéndolo.
-
-Es una puerta para que la web no esté abierta de par en par, no autenticación, y el contenido
-de `content/` es material de estudio público. Para un muro de verdad hace falta hosting con
-función de servidor (Cloudflare Pages Functions o un Worker) que valide el token del captcha y
-firme una cookie de sesión.
 
 ## Accesibilidad
 
@@ -237,9 +183,8 @@ public/.nojekyll           para que GitHub Pages sirva el directorio _nuxt/
 app/
   app.vue                 raíz: layout + página, canonical y og:url de cada ruta
   error.vue               página de error propia, en español y dentro del layout
-  layouts/default.vue     cabecera con la navegación, el botón de salir y pie
+  layouts/default.vue     cabecera con la navegación y pie
   pages/index.vue         home con las tarjetas de cada sección
-  pages/login.vue         pantalla de acceso: usuario, contraseña y captcha
   pages/teoria/           listado de tiempos por nivel y teoría de cada uno
   pages/verbos/           tabla de verbos y ejercicio de conjugación
   pages/frases/           elección de tiempo y ronda sorteada de 10 frases
@@ -257,8 +202,6 @@ app/
   utils/content.ts        tipos del contenido y carga de content/*.json
   utils/explain.ts        componente y explicación de cada tipo de ejercicio
   utils/sections.ts       secciones del sitio (navegación y tarjetas)
-  utils/auth.ts           la sesión del navegador y las credenciales de la puerta
-  middleware/auth.global.ts  manda a /login mientras no haya sesión
 content/
   tenses/<slug>.json      teoría, estructura y ejemplos de cada tiempo verbal
   exercises/<slug>.json   ejercicios en frases: hueco, transformar y elegir el tiempo
@@ -280,6 +223,4 @@ test/
   a11y-seo.spec.ts        SEO propio de cada página y recorrido con teclado
   error.spec.ts           la página de error explica el 404 y deja volver
   smoke.spec.ts           test de humo: monta la home
-  login.spec.ts           la puerta: middleware, credenciales, captcha y salir
-  setup.ts                abre la sesión antes de cada test, que si no todo va a /login
 ```

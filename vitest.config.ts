@@ -10,7 +10,6 @@ if (existsSync('.env')) {
 
 export default defineVitestConfig({
   test: {
-    environment: 'nuxt',
-    setupFiles: ['test/setup.ts']
+    environment: 'nuxt'
   }
 })
