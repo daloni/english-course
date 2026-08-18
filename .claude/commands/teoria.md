@@ -1,25 +1,28 @@
 ---
-description: Redacta o amplía la teoría de un tiempo verbal en content/tenses/
-argument-hint: <tiempo>
+description: Writes or extends the theory of a tense in content/tenses/
+argument-hint: <tense>
 allowed-tools: Read, Write, Bash(node scripts/merge-content.mjs:*), Bash(pnpm test:*)
 ---
 
-Redacta la teoría del tiempo verbal **$1** en `content/tenses/$1.json` (slug en minúsculas y
-con guiones: `present-perfect`). Si el fichero ya existe, **amplía** lo que hay en vez de
-reescribirlo de cero.
+Write the theory of the tense **$1** in `content/tenses/$1.json` (slug in lowercase and with
+hyphens: `present-perfect`). If the file already exists, **extend** what is there instead of
+rewriting it from scratch.
 
-## Pasos
+The theory is written **in Spanish**, with the examples in English and their translation: this is
+a platform for Spanish speakers.
 
-1. Lee `content/tenses/$1.json` si existe, y `content/tenses/present-simple.json` como
-   referencia de tono y formato.
-2. Escribe el objeto en `/tmp/teoria.json`: si el fichero ya existía, incluye solo los campos
-   que cambian (normalmente `theory`, o `examples` para añadir ejemplos).
-3. Fusiona: `node scripts/merge-content.mjs content/tenses/$1.json < /tmp/teoria.json`
-4. Ejecuta `pnpm test test/content.spec.ts`. Si falla, corrige el JSON y repite.
+## Steps
 
-## Esquema
+1. Read `content/tenses/$1.json` if it exists, and `content/tenses/present-simple.json` as a
+   reference for tone and format.
+2. Write the object into `/tmp/teoria.json`: if the file was already there, include only the
+   fields that change (usually `theory`, or `examples` to add examples).
+3. Merge: `node scripts/merge-content.mjs content/tenses/$1.json < /tmp/teoria.json`
+4. Run `pnpm test test/content.spec.ts`. If it fails, fix the JSON and repeat.
 
-`content/tenses/<slug>.json` es un **objeto**:
+## Schema
+
+`content/tenses/<slug>.json` is an **object**:
 
 ```json
 {
@@ -40,23 +43,20 @@ reescribirlo de cero.
 }
 ```
 
-- `id`: el slug, **igual al nombre del fichero** sin `.json`. El test lo comprueba.
-- `name` / `nameEs`: nombre en inglés y en español.
-- `level`: uno de `A1`, `A2`, `B1`, `B2`, `C1`.
-- `theory`: Markdown en español con estos apartados como mínimo: `## Cuándo se usa`,
-  `## Cómo se forma` y `## Errores frecuentes`. Los ejemplos en inglés van en *cursiva*, y las
-  correcciones con ❌ / ✅. Los saltos de línea van escapados como `\n` dentro del JSON.
-- `structure`: las tres formas, descritas en español. Las tres son obligatorias.
-- `timeMarkers`: al menos 5 marcadores temporales típicos, en inglés.
-- `examples`: al menos 2 de cada `form` (`affirmative`, `negative`, `interrogative`), con `en`
-  y `es`.
+- `id`: the slug, **the same as the file name** without `.json`. The test checks it.
+- `name` / `nameEs`: the name in English and in Spanish.
+- `level`: one of `A1`, `A2`, `B1`, `B2`, `C1`.
+- `theory`: Markdown in Spanish with at least these headings: `## Cuándo se usa`,
+  `## Cómo se forma` and `## Errores frecuentes`. The English examples go in *italics*, and the
+  corrections with ❌ / ✅. Line breaks are escaped as `\n` inside the JSON.
+- `structure`: the three forms, described in Spanish. All three are required.
+- `timeMarkers`: at least 5 typical time markers, in English.
+- `examples`: at least 2 of each `form` (`affirmative`, `negative`, `interrogative`), with `en`
+  and `es`.
 
-## Reglas
+## Rules
 
-- Teoría en español, ejemplos en inglés con su traducción: es una plataforma para
-  hispanohablantes.
-- Al fusionar, los campos de texto (`theory`, `structure`...) se sustituyen por el valor nuevo,
-  y las listas (`examples`, `timeMarkers`) se añaden sin duplicar: un ejemplo idéntico a uno
-  que ya estaba no se repite.
-- Si el tiempo verbal es nuevo, rellena todos los campos: un objeto incompleto deja
-  `pnpm test` en rojo.
+- On merge, the text fields (`theory`, `structure`...) are replaced by the new value, and the
+  lists (`examples`, `timeMarkers`) are appended without duplicating: an example identical to one
+  already there is not repeated.
+- If the tense is new, fill in every field: an incomplete object leaves `pnpm test` red.

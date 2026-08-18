@@ -1,26 +1,29 @@
 ---
-description: Genera frases con hueco para un tiempo verbal en content/exercises/
-argument-hint: <tiempo> <nivel> <n>
+description: Generates gap-fill sentences for a tense in content/exercises/
+argument-hint: <tense> <level> <n>
 allowed-tools: Read, Write, Glob, Bash(node scripts/merge-content.mjs:*), Bash(pnpm test:*)
 ---
 
-Genera **$3** frases con hueco de nivel **$2** para el tiempo verbal **$1** y añádelas a
+Generate **$3** gap-fill sentences of level **$2** for the tense **$1** and add them to
 `content/exercises/$1.json`.
 
-## Pasos
+The sentences are in English; whatever is written in Spanish —the `explanation`— stays in
+Spanish: it is what the learner reads.
 
-1. Lee `content/tenses/$1.json` para ajustarte a la estructura, los time markers y los
-   ejemplos de ese tiempo. Si el fichero no existe, para y dilo: el `tenseId` tiene que
-   ser un tiempo que exista (`/teoria` lo crea).
-2. Lee `content/exercises/$1.json` si ya existe, para no repetir frases ni ids.
-3. Escribe las frases nuevas en `/tmp/frases.json` con el esquema de abajo.
-4. Fusiona sin sobrescribir el fichero:
+## Steps
+
+1. Read `content/tenses/$1.json` to keep to the structure, the time markers and the examples of
+   that tense. If the file does not exist, stop and say so: the `tenseId` has to be a tense that
+   exists (`/teoria` creates it).
+2. Read `content/exercises/$1.json` if it is already there, so as not to repeat sentences or ids.
+3. Write the new sentences into `/tmp/frases.json` with the schema below.
+4. Merge without overwriting the file:
    `node scripts/merge-content.mjs content/exercises/$1.json < /tmp/frases.json`
-5. Ejecuta `pnpm test test/content.spec.ts`. Si falla, corrige el JSON y repite.
+5. Run `pnpm test test/content.spec.ts`. If it fails, fix the JSON and repeat.
 
-## Esquema
+## Schema
 
-`content/exercises/<tiempo>.json` es un **array** de objetos:
+`content/exercises/<tense>.json` is an **array** of objects:
 
 ```json
 [
@@ -33,21 +36,21 @@ Genera **$3** frases con hueco de nivel **$2** para el tiempo verbal **$1** y a�
 ]
 ```
 
-- `id`: `<tiempo>-<nnn>` con tres dígitos. **Único en todo `content/exercises/`**: continúa
-  la numeración a partir del id más alto que ya haya en el fichero (si el último es
-  `present-simple-012`, la siguiente frase es `present-simple-013`).
-- `tenseId`: exactamente `$1`.
-- `prompt`: la frase en inglés con **un solo hueco** marcado con `___` y, entre paréntesis,
-  el infinitivo del verbo que hay que conjugar: `They ___ (not / work) on Sundays.`
-- `solution`: solo lo que va en el hueco (`lives`, `didn't go`, `have you seen`), no la frase
-  entera.
-- No hay campo de nivel: **$2** decide el vocabulario y la longitud de la frase (A1-A2 frases
-  cortas y cotidianas, B1+ frases más largas, con subordinadas o phrasal verbs).
+- `id`: `<tense>-<nnn>` with three digits. **Unique across all of `content/exercises/`**: carry
+  on the numbering from the highest id already in the file (if the last one is
+  `present-simple-012`, the next sentence is `present-simple-013`).
+- `tenseId`: exactly `$1`.
+- `prompt`: the English sentence with **a single gap** marked with `___` and, in brackets, the
+  infinitive of the verb to conjugate: `They ___ (not / work) on Sundays.`
+- `solution`: only what goes in the gap (`lives`, `didn't go`, `have you seen`), not the whole
+  sentence.
+- There is no level field: **$2** decides the vocabulary and the length of the sentence (A1-A2
+  short, everyday sentences; B1+ longer ones, with subordinate clauses or phrasal verbs).
 
-### Otros tipos de ejercicio
+### The other exercise types
 
-Sin `type` la frase es de hueco. Los otros dos tipos van en el mismo fichero y usan `prompt`
-para la frase **entera**, sin `___`:
+With no `type` the sentence is a gap-fill. The other two types live in the same file and use
+`prompt` for the **whole** sentence, with no `___`:
 
 ```json
 [
@@ -72,18 +75,18 @@ para la frase **entera**, sin `___`:
 ]
 ```
 
-- `transform`: `form` es la forma a la que hay que pasar la frase (`negative` o
-  `interrogative`) y `solution` es la frase entera reescrita.
-- `choice`: `options` son los tiempos verbales entre los que elegir (uno de ellos es
-  `solution`, y es el nombre del tiempo **$1**); los otros deben ser plausibles.
-- `explanation`: una línea en español con el porqué, que se muestra al fallar. Opcional en las
-  frases de hueco, donde si falta se enseña la estructura del tiempo.
+- `transform`: `form` is the form the sentence has to be turned into (`negative` or
+  `interrogative`) and `solution` is the whole sentence rewritten.
+- `choice`: `options` are the tenses to pick from (one of them is `solution`, and it is the name
+  of the tense **$1**); the others have to be plausible.
+- `explanation`: one line **in Spanish** with the why, shown after a miss. Optional on the
+  gap-fill sentences, where the structure of the tense is shown when it is missing.
 
-## Reglas
+## Rules
 
-- Vocabulario y verbos variados: no diez frases con el mismo verbo ni todas afirmativas.
-  Reparte entre afirmativa, negativa e interrogativa.
-- Cada frase debe tener una única solución correcta: incluye el time marker o el contexto que
-  obliga a usar ese tiempo (*yesterday*, *every day*, *since 2010*...).
-- Si una frase que ibas a escribir ya está en el fichero, sustitúyela por otra distinta.
-- Nunca reescribas ni borres entradas existentes: el script de fusión se encarga de añadir.
+- Varied vocabulary and verbs: not ten sentences with the same verb, nor all of them
+  affirmative. Spread them across affirmative, negative and interrogative.
+- Every sentence must have a single correct solution: include the time marker or the context
+  that forces that tense (*yesterday*, *every day*, *since 2010*...).
+- If a sentence you were about to write is already in the file, replace it with a different one.
+- Never rewrite or delete existing entries: the merge script takes care of adding.

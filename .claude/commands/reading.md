@@ -1,23 +1,26 @@
 ---
-description: Genera un texto de lectura con preguntas en content/readings/
-argument-hint: <tema> <nivel>
+description: Generates a reading text with questions in content/readings/
+argument-hint: <topic> <level>
 allowed-tools: Read, Write, Glob, Bash(node scripts/merge-content.mjs:*), Bash(pnpm test:*)
 ---
 
-Escribe una lectura sobre **$1** de nivel **$2** en `content/readings/<slug>.json`, donde
-`<slug>` es **$1** en minúsculas y con guiones (`city life` → `city-life.json`).
+Write a reading about **$1** of level **$2** in `content/readings/<slug>.json`, where `<slug>` is
+**$1** in lowercase and with hyphens (`city life` → `city-life.json`).
 
-## Pasos
+The text and the questions are in English; the `topic` and the `explanation` of each question are
+in Spanish, because that is what the learner reads around the exercise.
 
-1. Lee `content/readings/<slug>.json` si ya existe: mantén el texto y las preguntas que haya
-   y añade solo preguntas nuevas (o amplía el texto si lo pide el usuario).
-2. Escribe la lectura en `/tmp/reading.json` con el esquema de abajo.
-3. Fusiona: `node scripts/merge-content.mjs content/readings/<slug>.json < /tmp/reading.json`
-4. Ejecuta `pnpm test test/reading.spec.ts`. Si falla, corrige el JSON y repite.
+## Steps
 
-## Esquema
+1. Read `content/readings/<slug>.json` if it is already there: keep the text and the questions it
+   has and add only new questions (or extend the text if the user asks for it).
+2. Write the reading into `/tmp/reading.json` with the schema below.
+3. Merge: `node scripts/merge-content.mjs content/readings/<slug>.json < /tmp/reading.json`
+4. Run `pnpm test test/reading.spec.ts`. If it fails, fix the JSON and repeat.
 
-`content/readings/<slug>.json` es un **objeto**:
+## Schema
+
+`content/readings/<slug>.json` is an **object**:
 
 ```json
 {
@@ -47,32 +50,32 @@ Escribe una lectura sobre **$1** de nivel **$2** en `content/readings/<slug>.jso
 }
 ```
 
-- `id`: el slug, **igual al nombre del fichero** sin `.json`. El test lo comprueba.
-- `title`: título en inglés.
-- `topic`: el tema **en español**, tal como sale en el listado de `/reading` (`travel` →
-  `Viajes`). Aquí: **$1** traducido y en mayúscula inicial.
-- `level`: uno de `A1`, `A2`, `B1`, `B2`, `C1`. Aquí: **$2**.
-- `text`: el texto en inglés, en Markdown, con los párrafos separados por `\n\n`. Longitud
-  orientativa: 120-150 palabras en A1-A2, 200-300 en B1-B2, 350+ en C1.
-- `glossary`: entre 5 y 10 palabras clave del texto con su traducción (`en`, `es`). Solo
-  vocabulario que aparezca en el texto y que cueste al nivel **$2**.
-- `questions`: entre 4 y 6 preguntas de comprensión, en inglés, **nunca menos de 3**.
-  - `id`: `<slug>-q<n>`, **único**; si el fichero ya existe, continúa la numeración.
-  - `options`: 3 opciones (4 a partir de B1) si la pregunta es de opción múltiple. Los
-    distractores tienen que ser plausibles y estar relacionados con el texto, no rellenos
-    absurdos. **Omite `options`** para una pregunta de respuesta corta, que se escribe.
-  - `answer`: con `options`, **una de sus cadenas, copiada literalmente**; el test falla si no
-    coincide. Sin `options`, la respuesta escrita, con las variantes válidas separadas por
-    `/` (`"Lisbon / Lisboa"`): mayúsculas y contracciones ya las perdona la corrección.
-  - `explanation`: **obligatoria**, en español: por qué esa es la respuesta, citando el
-    fragmento del texto que lo dice. Se muestra al corregir, se acierte o no.
-  - Deja al menos una pregunta de respuesta corta: se contestan escribiendo, así que la
-    respuesta tiene que ser una o dos palabras que salgan del texto, no una frase larga.
+- `id`: the slug, **the same as the file name** without `.json`. The test checks it.
+- `title`: the title, in English.
+- `topic`: the topic **in Spanish**, as it shows in the `/reading` list (`travel` → `Viajes`).
+  Here: **$1** translated, capitalised.
+- `level`: one of `A1`, `A2`, `B1`, `B2`, `C1`. Here: **$2**.
+- `text`: the text in English, in Markdown, with the paragraphs separated by `\n\n`. Rough
+  length: 120-150 words at A1-A2, 200-300 at B1-B2, 350+ at C1.
+- `glossary`: between 5 and 10 key words of the text with their translation (`en`, `es`). Only
+  vocabulary that appears in the text and that is hard at level **$2**.
+- `questions`: between 4 and 6 comprehension questions, in English, **never fewer than 3**.
+  - `id`: `<slug>-q<n>`, **unique**; if the file already exists, carry on the numbering.
+  - `options`: 3 options (4 from B1 on) if the question is multiple choice. The distractors have
+    to be plausible and related to the text, not absurd filler. **Omit `options`** for a
+    short-answer question, which is typed in.
+  - `answer`: with `options`, **one of its strings, copied literally**; the test fails if it does
+    not match. Without `options`, the written answer, with the valid variants separated by `/`
+    (`"Lisbon / Lisboa"`): capitals and contractions are already forgiven by the correction.
+  - `explanation`: **required**, in Spanish: why that is the answer, quoting the fragment of the
+    text that says it. It is shown when correcting, hit or miss.
+  - Leave at least one short-answer question: they are answered by typing, so the answer has to
+    be one or two words taken from the text, not a long sentence.
 
-## Reglas
+## Rules
 
-- La respuesta a cada pregunta tiene que poder deducirse del texto, sin conocimientos previos.
-- Ajusta el inglés al nivel: en A1-A2, present y past simple, frases cortas y vocabulario
-  frecuente; nada de idioms ni condicionales.
-- Al fusionar, el texto nuevo sustituye al anterior y las preguntas se añaden por `id`: si
-  vuelves a lanzar el comando con las mismas preguntas, el fichero no cambia.
+- The answer to every question has to be deducible from the text, with no prior knowledge.
+- Fit the English to the level: at A1-A2, present and past simple, short sentences and frequent
+  vocabulary; no idioms and no conditionals.
+- On merge, the new text replaces the previous one and the questions are added by `id`: running
+  the command again with the same questions leaves the file unchanged.
