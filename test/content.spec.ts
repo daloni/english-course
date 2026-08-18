@@ -12,6 +12,12 @@ function expectText(value: unknown, label: string) {
   expect((value as string).trim(), `${label} must not be empty`).not.toBe('')
 }
 
+const rawHtmlTag = /<\/?[A-Za-z][A-Za-z0-9:-]*(?:\s+[^<>]*)?\s*\/?>/
+
+function expectNoRawHtml(value: unknown, label: string) {
+  expect(value as string, `${label} must not contain raw HTML tags; use Markdown instead`).not.toMatch(rawHtmlTag)
+}
+
 const duplicates = (values: string[]) => values.filter((value, i) => values.indexOf(value) !== i)
 
 describe('tenses', () => {
@@ -36,6 +42,7 @@ describe('tenses', () => {
       expectText(tense.name, 'name')
       expectText(tense.nameEs, 'nameEs')
       expectText(tense.theory, 'theory')
+      expectNoRawHtml(tense.theory, `${path}.theory`)
       expect(levels).toContain(tense.level)
     })
 
@@ -59,6 +66,16 @@ describe('tenses', () => {
         expectText(example.es, `examples[${i}].es`)
       })
     })
+  })
+})
+
+describe('Markdown content', () => {
+  it.each(['<script>alert(1)</script>', '<img src=x onerror=alert(1)>', '<b>bold</b>'])('rejects raw HTML: %s', (value) => {
+    expect(value).toMatch(rawHtmlTag)
+  })
+
+  it('allows less-than comparisons', () => {
+    expect('5 < 10').not.toMatch(rawHtmlTag)
   })
 })
 
