@@ -1,21 +1,22 @@
 ---
-description: Añade o completa un verbo en content/verbs.json
-argument-hint: <infinitivo>
+description: Adds or completes a verb in content/verbs.json
+argument-hint: <infinitive>
 allowed-tools: Read, Write, Bash(node scripts/merge-content.mjs:*), Bash(pnpm test:*)
 ---
 
-Añade el verbo **$1** a `content/verbs.json`, o completa su entrada si ya está.
+Add the verb **$1** to `content/verbs.json`, or complete its entry if it is already there.
 
-## Pasos
+## Steps
 
-1. Lee `content/verbs.json` y busca `$1`. Si ya existe y está completo, dilo y no toques nada.
-2. Escribe la entrada en `/tmp/verbo.json` (un array de un elemento) con el esquema de abajo.
-3. Fusiona: `node scripts/merge-content.mjs content/verbs.json < /tmp/verbo.json`
-4. Ejecuta `pnpm test test/content.spec.ts`. Si falla, corrige el JSON y repite.
+1. Read `content/verbs.json` and look for `$1`. If it exists and is complete, say so and touch
+   nothing.
+2. Write the entry into `/tmp/verbo.json` (an array of one element) with the schema below.
+3. Merge: `node scripts/merge-content.mjs content/verbs.json < /tmp/verbo.json`
+4. Run `pnpm test test/content.spec.ts`. If it fails, fix the JSON and repeat.
 
-## Esquema
+## Schema
 
-`content/verbs.json` es un **array** de objetos:
+`content/verbs.json` is an **array** of objects:
 
 ```json
 [
@@ -23,16 +24,17 @@ Añade el verbo **$1** a `content/verbs.json`, o completa su entrada si ya está
 ]
 ```
 
-- `infinitive`: el verbo en minúsculas y sin `to`. Es la clave: **no puede repetirse**.
-- `past`: pasado simple. Si hay dos formas, sepáralas con ` / ` (`was / were`).
-- `participle`: participio pasado.
-- `regular`: `true` solo si `past` y `participle` son la misma forma en `-ed`. El test lo
-  comprueba, así que un verbo irregular marcado como regular deja el build en rojo.
-- `es`: traducción al español, separando acepciones con coma (`saber, conocer`).
+- `infinitive`: the verb in lowercase and without `to`. It is the key: **it cannot repeat**.
+- `past`: past simple. If there are two forms, separate them with ` / ` (`was / were`).
+- `participle`: past participle.
+- `regular`: `true` only if `past` and `participle` are the same `-ed` form. The test checks it,
+  so an irregular verb marked as regular leaves the build red.
+- `es`: the Spanish translation, separating senses with a comma (`saber, conocer`). This field is
+  in Spanish: it is what the learner reads.
 
-## Reglas
+## Rules
 
-- El script fusiona por `infinitive`: si el verbo ya está, solo se rellenan los campos que
-  falten y el resto de la lista se queda igual. Nunca reescribas el fichero entero a mano.
-- Ortografía británica en las formas irregulares dobles (`got`, no `gotten`), coherente con
-  el resto de la lista.
+- The script merges by `infinitive`: if the verb is already there, only the missing fields are
+  filled in and the rest of the list stays as it was. Never rewrite the whole file by hand.
+- British spelling on the doubled irregular forms (`got`, not `gotten`), consistent with the rest
+  of the list.

@@ -1,307 +1,310 @@
 # Aprender inglés
 
-Plataforma web personal para aprender inglés centrada en los tiempos verbales:
-teoría, conjugación de verbos, frases, reading con preguntas, speaking y clips
-de vídeo real.
+Personal web platform for learning English, built around the tenses: theory, verb
+conjugation, sentences, reading with questions, speaking and clips of real video.
 
-Sin backend y sin base de datos: una sola app Nuxt 4 con
-[@nuxt/ui](https://ui.nuxt.com), el contenido versionado como ficheros en el
-repo, el progreso en `localStorage` y el speaking con la Web Speech API del
-navegador. El sitio es público: no hay usuarios ni pantalla de acceso.
+No backend and no database: a single Nuxt 4 app with [@nuxt/ui](https://ui.nuxt.com), the
+content versioned as files in the repo, the progress in `localStorage` and the speaking on the
+browser's Web Speech API. The site is public: there are no accounts and no login screen.
 
-## Requisitos
+The interface and the content are in Spanish, because that is who the course is for. Everything
+else — code, comments and this documentation — is in English.
+
+## Requirements
 
 - Node 22+
 - pnpm
 
-## Puesta en marcha
+## Getting started
 
 ```bash
-cp .env.example .env   # la configuración; sin ella el build se para
+cp .env.example .env   # the configuration; without it the build stops
 pnpm install
 pnpm dev               # http://localhost:3000
 ```
 
-## Configuración
+## Configuration
 
-Todo lo configurable vive en el `.env`, nunca escrito en el código: `nuxt.config.ts` declara
-las claves vacías y Nuxt las rellena desde las variables `NUXT_PUBLIC_*`. `.env.example` trae
-los valores de desarrollo y arranca el proyecto tal cual.
+Everything configurable lives in the `.env`, never written in the code: `nuxt.config.ts`
+declares the keys empty and Nuxt fills them from the matching `NUXT_PUBLIC_*` variables.
+`.env.example` carries the development values and starts the project as is.
 
-| Variable | Qué es | Valor de desarrollo |
+| Variable | What it is | Development value |
 | --- | --- | --- |
-| `NUXT_PUBLIC_SITE_URL` | La URL pública del sitio, para el `<link rel="canonical">` y el `og:url` | `http://localhost:3000` |
-| `NUXT_PUBLIC_SITE_NAME` | El nombre del sitio, en el `<title>` de cada página y en las tarjetas al compartir | `Aprender inglés` |
-| `NUXT_PUBLIC_SITE_DESCRIPTION` | La descripción de la home y su tarjeta social | la del curso |
+| `NUXT_PUBLIC_SITE_URL` | The public URL of the site, for the `<link rel="canonical">` and the `og:url` | `http://localhost:3000` |
+| `NUXT_PUBLIC_SITE_NAME` | The name of the site, in the `<title>` of every page and in the share cards | `Aprender inglés` |
+| `NUXT_PUBLIC_SITE_DESCRIPTION` | The description of the home and its social card | the one of the course |
 
-Si falta alguna, el build se para nombrándola en vez de publicar un sitio sin canonical. Lo
-que venga por entorno gana sobre el fichero, que es como el workflow pasa la
-`NUXT_PUBLIC_SITE_URL` de GitHub Pages.
+If any of them is missing the build stops naming it instead of publishing a site with no
+canonical. What comes from the environment wins over the file, which is how the workflow passes
+the `NUXT_PUBLIC_SITE_URL` of GitHub Pages.
 
-## Comandos
+## Commands
 
-| Comando          | Qué hace                                        |
+| Command          | What it does                                    |
 | ---------------- | ----------------------------------------------- |
-| `pnpm dev`       | Servidor de desarrollo en `http://localhost:3000` |
-| `pnpm build`     | Compila la app para producción                  |
-| `pnpm generate`  | Genera el sitio estático en `.output/public`    |
-| `pnpm preview`   | Sirve la build de producción                    |
-| `pnpm test`      | Tests con Vitest                                |
+| `pnpm dev`       | Development server on `http://localhost:3000`   |
+| `pnpm build`     | Builds the app for production                   |
+| `pnpm generate`  | Generates the static site in `.output/public`   |
+| `pnpm preview`   | Serves the production build                     |
+| `pnpm test`      | Tests with Vitest                               |
 | `pnpm lint`      | ESLint                                          |
-| `pnpm typecheck` | Comprobación de tipos                           |
+| `pnpm typecheck` | Type checking                                   |
 
-## Publicación
+## Publishing
 
-El sitio es estático: `pnpm generate` recorre los enlaces desde la home y escribe todas las
-páginas en `.output/public`. Si alguna revienta, el comando falla en vez de publicar el sitio
-a medias.
+The site is static: `pnpm generate` follows the links from the home and writes every page into
+`.output/public`. If one of them blows up the command fails instead of publishing half a site.
 
 ```bash
 pnpm generate
-npx serve .output/public   # comprobarlo en local antes de publicar
+npx serve .output/public   # check it locally before publishing
 ```
 
-`.github/workflows/ci.yml` corre en cada push y en cada pull request: lint, typecheck, tests y
-`pnpm generate`. Si el push es a `main` **y el repositorio tiene GitHub Pages activado**, además
-publica el resultado.
-El workflow no puede dar de alta el sitio por su cuenta, así que hay que activarlo una vez a
-mano:
+`.github/workflows/ci.yml` runs on every push and every pull request: lint, typecheck, tests and
+`pnpm generate`. If the push is to `main` **and the repository has GitHub Pages enabled**, it
+also publishes the result. The workflow cannot enable the site on its own, so that has to be
+done once by hand:
 
-1. El repositorio tiene que ser **público** (Pages en repositorios privados requiere un plan de
-   pago).
+1. The repository has to be **public** (Pages on private repositories requires a paid plan).
 2. **Settings → Pages → Source: GitHub Actions**.
 
-Hasta que eso esté hecho la CI valida pero no publica: los pasos de Pages y el job `deploy` se
-saltan y el push queda en verde. En cuanto se active, el workflow empieza a publicar solo, sin
-tocar nada más.
+Until that is done the CI validates but does not publish: the Pages steps and the `deploy` job
+are skipped and the push stays green. As soon as it is enabled the workflow starts publishing on
+its own, with nothing else to change.
 
-Como en GitHub Pages el sitio cuelga de `https://<usuario>.github.io/<repo>/`, el workflow pasa
-esa subruta a Nuxt con `NUXT_APP_BASE_URL` y la URL pública completa con `NUXT_PUBLIC_SITE_URL`,
-que es la que llevan el `<link rel="canonical">` y el `og:url` de cada página; en local no hace
-falta nada. Para servirlo desde otro sitio (Netlify, un `nginx`…) basta con subir
-`.output/public` tal cual, pasando `NUXT_PUBLIC_SITE_URL` con el dominio nuevo.
+Since on GitHub Pages the site hangs off `https://<user>.github.io/<repo>/`, the workflow passes
+that subpath to Nuxt with `NUXT_APP_BASE_URL` and the full public URL with `NUXT_PUBLIC_SITE_URL`,
+which is the one the `<link rel="canonical">` and the `og:url` of every page carry; locally
+nothing is needed. To serve it from somewhere else (Netlify, an `nginx`…) it is enough to upload
+`.output/public` as it is, passing `NUXT_PUBLIC_SITE_URL` with the new domain.
 
-## App instalable
+## Installable app
 
-El sitio es una PWA: se puede instalar en el móvil o en el escritorio desde el propio navegador
-—Chrome ofrece «Instalar» cuando la página se sirve por HTTPS, o desde `localhost` para probarlo—
-y una vez instalada arranca al instante y **funciona sin conexión**.
+The site is a PWA: it can be installed on a phone or a desktop from the browser itself — Chrome
+offers "Install" when the page is served over HTTPS, or from `localhost` to try it — and once
+installed it starts instantly and **works with no connection**.
 
-Sin red siguen funcionando la teoría, los verbos, las frases, el reading, `/progreso` y `/repaso`:
-el contenido de `content/` se compila dentro del bundle, así que no hay nada que pedir. **No**
-funcionan los clips, que necesitan el iframe de YouTube, ni el speaking, que necesita la Web Speech
-API; las dos avisan en vez de romperse.
+Offline, the theory, the verbs, the sentences, the reading, `/progreso` and `/repaso` keep
+working: the content of `content/` is compiled into the bundle, so there is nothing to fetch.
+What does **not** work are the clips, which need the YouTube iframe, and the speaking, which
+needs the Web Speech API; both say so instead of breaking.
 
-El service worker precachea cada página prerenderizada con su propio HTML, así que cualquier URL
-abre offline, no solo la home. Como en GitHub Pages el sitio cuelga de `/<repo>/`, el `scope` y el
-`start_url` del manifest salen del mismo `NUXT_APP_BASE_URL` que usa el build: si se quedaran en
-`/`, el service worker no controlaría el sitio y la instalación no se ofrecería —y en `localhost`
-no se notaría—. `test/pwa.spec.ts` vigila esa parte y que los iconos que el manifest declara
-existan de verdad.
+The service worker precaches every prerendered page with its own HTML, so any URL opens offline,
+not only the home. Since on GitHub Pages the site hangs off `/<repo>/`, the `scope` and the
+`start_url` of the manifest come from the same `NUXT_APP_BASE_URL` the build uses: left at `/`,
+the service worker would not control the site and the install would never be offered — and on
+`localhost` it would not show. `test/pwa.spec.ts` guards that, and that the icons the manifest
+declares are really there.
 
-Instalada, la app pide además almacenamiento persistente (`app/plugins/persist.client.ts`): el
-progreso vive solo en este navegador y sin esa petición un navegador con el disco lleno puede
-descartarlo.
+Installed, the app also asks for persistent storage (`app/plugins/persist.client.ts`): the
+progress lives only in this browser, and without that request a browser running out of disk can
+discard it.
 
-## Accesibilidad
+## Accessibility
 
-Todo se puede hacer con el teclado: la primera tabulación es «Saltar al contenido», los
-ejercicios se responden y se corrigen sin ratón (Enter envía el formulario, que corrige
-primero y pasa al siguiente después) y el foco siempre se ve. Los campos y los botones de
-audio llevan su etiqueta, la corrección se anuncia en una región `aria-live` y los textos en
-inglés van marcados con `lang="en"` para que el lector de pantalla no los lea en español.
+Everything can be done with the keyboard: the first tab is "Saltar al contenido", the exercises
+are answered and corrected without a mouse (Enter submits the form, which corrects first and
+moves on afterwards) and the focus is always visible. The fields and the audio buttons carry
+their label, the correction is announced in an `aria-live` region, and the English texts are
+marked with `lang="en"` so the screen reader does not read them in Spanish.
 
 ## Speaking
 
-`/speaking` usa la Web Speech API del navegador, sin servicios externos: escucha la frase
-con `SpeechSynthesis` (acento en-US o en-GB y tres velocidades) y corrige la repetición con
-`SpeechRecognition`, que hoy solo existe en Chrome y Edge y pide permiso para el micrófono.
-En Firefox o Safari la página lo avisa y sigue permitiendo escuchar las frases.
+`/speaking` uses the browser's Web Speech API, with no external services: it reads the sentence
+out with `SpeechSynthesis` (en-US or en-GB accent and three speeds) and corrects the repetition
+with `SpeechRecognition`, which today only exists in Chrome and Edge and asks for microphone
+permission. On Firefox or Safari the page says so and still lets you listen to the sentences.
 
 ## Clips
 
-`/clips` practica con inglés real: unos segundos de un vídeo de YouTube, lo que se dice en
-ellos y un hueco encima. `/clips/practica` saca una ronda de 10, nunca dos del mismo clip.
+`/clips` practises with real English: a few seconds of a YouTube video, what is said in them and
+a gap on top. `/clips/practica` draws a round of 10, never two from the same clip.
 
-**Aquí no se aloja vídeo.** De cada clip se guardan el `videoId`, el trozo (`startMs` a
-`endMs`) y la frase transcrita; lo reproduce el iframe oficial de YouTube contra el navegador
-del usuario. Es la vía de YouGlish o Playphrase, y el corolario es firme: cualquier idea que
-implique descargar, cortar o servir vídeo queda fuera.
+**No video is hosted here.** Of every clip what is stored is the `videoId`, the window (`startMs`
+to `endMs`) and the transcribed sentence; the official YouTube iframe plays it against the user's
+browser. It is the way of YouGlish or Playphrase, and the corollary is firm: any idea that means
+downloading, cutting or serving video is out.
 
-El hueco es un ejercicio `gap` de los de siempre, así que lo corrige el mismo
-`isCorrect()` que el resto del sitio y `test/clips.spec.ts` comprueba la invariante de la que
-todo depende: `prompt` con la solución puesta **es** la frase del clip.
+The gap is an ordinary `gap` exercise, so the same `isCorrect()` as the rest of the site corrects
+it, and `test/clips.spec.ts` checks the invariant everything rests on: the `prompt` with the
+solution in it **is** the sentence of the clip.
 
-Un vídeo se puede borrar, hacerse privado o perder el permiso de embebido. Cuando el
-reproductor lo detecta, el `videoId` se apunta en `ingles:clips-unavailable` y sus clips
-dejan de salir en las rondas —también en `/repaso`— para que un embed muerto no atasque la
-sesión. Esa lista no es progreso y no viaja en la exportación: es un hecho sobre el vídeo.
+A video can be deleted, made private or lose its embedding permission. When the player finds out,
+the `videoId` is recorded in `ingles:clips-unavailable` and its clips stop coming up in the rounds
+— in `/repaso` too — so a dead embed cannot stall the session. That list is not progress and does
+not travel in the export: it is a fact about the video.
 
-## Progreso y repaso espaciado
+## Progress and spaced repetition
 
-Cada respuesta de `/frases`, `/verbos/practica`, `/reading` y `/clips/practica` se apunta en `localStorage` (una
-sola clave, `ingles:progress`) con sus aciertos, sus fallos y una caja Leitner de tres:
+Every answer in `/frases`, `/verbos/practica`, `/reading` and `/clips/practica` is recorded in
+`localStorage` (a single key, `ingles:progress`) with its hits, its misses and a Leitner box of
+three:
 
-| Caja | Cuándo vuelve  |
-| ---- | -------------- |
-| 1    | el mismo día   |
-| 2    | a los 2 días   |
-| 3    | a los 7 días   |
+| Box | When it comes back |
+| --- | ------------------ |
+| 1   | the same day       |
+| 2   | in 2 days          |
+| 3   | in 7 days          |
 
-Acertar sube como máximo una caja al día y aleja el repaso; fallar devuelve el ejercicio a la
-caja 1, así que sigue en la cola de hoy aunque se recargue la página. `/progreso` resume lo practicado por
-tiempo verbal y por sección, lista lo que más se falla y deja exportar el progreso a JSON,
-importarlo o reiniciarlo. El botón **Repasar hoy** abre `/repaso`, una sesión con lo que
-vence hoy y solo con eso, mezclando frases, verbos y preguntas de reading.
+A hit moves up at most one box a day and pushes the review further away; a miss sends the
+exercise back to box 1, so it stays in today's queue even if the page is reloaded. `/progreso`
+sums up what has been practised by tense and by section, lists what is missed most and lets you
+export the progress to JSON, import it or reset it. The **Repasar hoy** button opens `/repaso`, a
+session with what is due today and only that, mixing sentences, verbs and reading questions.
 
-Las rondas se sortean con ese progreso: `/frases/<tiempo>` y `/verbos/practica` sacan 10
-ejercicios (todos, si el tiempo verbal tiene menos), primero lo que no se ha practicado nunca o
-vence hoy y luego, solo para rellenar, lo ya aprendido. **Otra ronda** vuelve a sortear, así que
-dos rondas seguidas no son la misma lista y lo fallado hoy reaparece en la siguiente. Como
-dependen del progreso y del azar, se arman en el navegador: el HTML prerenderizado no las trae.
+The rounds are drawn from that progress: `/frases/<tense>` and `/verbos/practica` take 10
+exercises (all of them, if the tense has fewer), first what has never been practised or is due
+today and then, only to fill up, what is already learned. **Otra ronda** draws again, so two
+rounds in a row are not the same list and what was missed today comes back in the next one. Since
+they depend on the progress and on chance, they are built in the browser: the prerendered HTML
+does not carry them.
 
-La cola de `/repaso` se congela al empezar la sesión, para que no se encoja según se responde;
-al terminarla, **Otra ronda** vuelve a fotografiarla y arranca otra con lo que se ha fallado,
-sin recargar la página. Si ya no queda nada pendiente, el botón no aparece.
+The queue of `/repaso` is frozen when the session starts, so it does not shrink as you answer;
+when it ends, **Otra ronda** snapshots it again and starts another one with what was missed,
+without reloading the page. If nothing is left pending, the button does not show.
 
-En `/reading` la corrección apunta un intento por pregunta la primera vez que se corrige la
-lectura en esa visita: volver a intentarla no cuenta dos veces. Una pregunta en blanco cuenta
-como fallo de la ronda, pero no se guarda como intento.
+In `/reading` the correction records one attempt per question the first time the reading is
+corrected in that visit: trying it again does not count twice. A blank question counts as a miss
+of the round, but is not stored as an attempt.
 
-Si el navegador no deja escribir en `localStorage` (almacenamiento lleno, modo privado de
-Safari), la sesión sigue funcionando igual: lo que se corrija simplemente no persiste. Si lo
-bloquea del todo y ni siquiera deja leerlo, el progreso arranca vacío en cada visita, pero la
-web no se queda en blanco: la lectura degrada a un progreso vacío en vez de romper la página.
+If the browser does not let the site write to `localStorage` (storage full, Safari private mode),
+the session keeps working all the same: what is corrected simply does not persist. If it blocks
+it entirely and does not even allow reading it, the progress starts empty on every visit, but the
+site does not go blank: the read degrades to an empty progress instead of breaking the page.
 
-Al importar, el fichero se fusiona con el progreso de este navegador por id: se conserva el
-intento practicado más recientemente y, si empatan las fechas, el que acumule más respuestas.
-Importar el mismo fichero dos veces no suma los contadores. Se descartan los intentos que la
-propia web no puede haber exportado: sin id, con aciertos o fallos que no sean números enteros
-y positivos, con una fecha que no exista o con un repaso anterior al día en que se practicó.
-También se descartan los intentos fechados después de mañana, para no importar relojes del
-dispositivo adelantados; se admite mañana por las diferencias de zona horaria entre dispositivos.
-Si el fichero no tiene ningún intento válido, la importación se rechaza entera.
+On import, the file is merged with the progress of this browser by id: the most recently
+practised attempt is kept and, if the dates tie, the one with more answers. Importing the same
+file twice does not add the counters up. Attempts the site itself could not have exported are
+dropped: with no id, with hits or misses that are not whole positive numbers, with a date that
+does not exist, or with a review earlier than the day it was practised. Attempts dated after
+tomorrow are dropped too, so as not to import a device clock running ahead; tomorrow is allowed
+because of timezone differences between devices. If the file has no valid attempt at all, the
+import is rejected whole.
 
-El speaking no cuenta para el progreso: su corrección es un porcentaje de palabras, no un
-acierto o un fallo.
+The speaking does not count towards the progress: its correction is a percentage of words, not a
+hit or a miss.
 
-## Generar contenido con Claude Code
+## Generating content with Claude Code
 
-El contenido vive en `content/` como JSON versionado y se escribe con comandos de
-[Claude Code](https://claude.com/claude-code) definidos en `.claude/commands/`. Cada comando
-lleva el esquema exacto del fichero que toca, fusiona en vez de sobrescribir y termina
-ejecutando el test que valida ese contenido (`pnpm test test/content.spec.ts`, o
-`test/reading.spec.ts` en el caso de `/reading`).
+The content lives in `content/` as versioned JSON and is written with
+[Claude Code](https://claude.com/claude-code) commands defined in `.claude/commands/`. Every
+command carries the exact schema of the file it touches, merges instead of overwriting, and ends
+by running the test that validates that content (`pnpm test test/content.spec.ts`, or
+`test/reading.spec.ts` in the case of `/reading`).
 
-| Comando                    | Qué hace                                                              |
+What the commands write is still Spanish — it is the language of the course. What is in English
+is the instructions they are given.
+
+| Command                    | What it does                                                          |
 | -------------------------- | --------------------------------------------------------------------- |
-| `/frases <tiempo> <nivel> <n>` | Añade `<n>` frases (hueco, transformar o elegir el tiempo) a `content/exercises/<tiempo>.json` |
-| `/verbo <infinitivo>`      | Añade o completa el verbo en `content/verbs.json`                      |
-| `/reading <tema> <nivel>`  | Escribe un texto con preguntas en `content/readings/<slug>.json`       |
-| `/teoria <tiempo>`         | Redacta o amplía la teoría de `content/tenses/<slug>.json`             |
-| `/clips [fichero]`         | Convierte frases ingeridas en clips con hueco en `content/clips/<fuente>.json` |
+| `/frases <tense> <level> <n>` | Adds `<n>` sentences (gap, transform or pick the tense) to `content/exercises/<tense>.json` |
+| `/verbo <infinitive>`      | Adds or completes the verb in `content/verbs.json`                     |
+| `/reading <topic> <level>` | Writes a text with questions in `content/readings/<slug>.json`         |
+| `/teoria <tense>`          | Writes or extends the theory of `content/tenses/<slug>.json`           |
+| `/clips [file]`            | Turns ingested sentences into clips with gaps in `content/clips/<source>.json` |
 
-### Ingerir clips
+### Ingesting clips
 
-`/clips` no sale a internet: reparte huecos sobre frases que ya están en `data/candidates/`, y
-eso lo llena la ingesta:
+`/clips` does not go out to the internet: it spreads gaps over sentences that are already in
+`data/candidates/`, and that is what the ingest fills:
 
 ```bash
-node scripts/ingest.mjs                 # todas las fuentes de data/sources.json
-node scripts/ingest.mjs easy-english    # una
+node scripts/ingest.mjs                 # every source in data/sources.json
+node scripts/ingest.mjs easy-english    # one
 node scripts/ingest.mjs easy-english --limit 3
 ```
 
-Necesita [yt-dlp](https://github.com/yt-dlp/yt-dlp) en el PATH y **una máquina con IP
-residencial**: YouTube bloquea los endpoints de player y de subtítulos desde IPs de datacenter,
-así que en un servidor el descubrimiento funciona y la extracción falla con *"Sign in to confirm
-you're not a bot"*. Si ves ese error no depures el script: estás en la máquina equivocada. La
-reproducción no se ve afectada, la hace el navegador de quien estudia.
+It needs [yt-dlp](https://github.com/yt-dlp/yt-dlp) in the PATH and **a machine on a home
+connection**: YouTube blocks the player and subtitle endpoints from datacenter IPs, so on a
+server discovery works and extraction fails with *"Sign in to confirm you're not a bot"*. If you
+see that error do not debug the script: you are on the wrong machine. Playback is not affected,
+it is done by the browser of whoever is studying.
 
-Descarga metadatos y la pista de subtítulos, nunca vídeo. Descarta lo que no se pueda reproducir
-embebido —restringido por edad, embed desactivado, sin subtítulos en inglés— y corta la pista en
-frases: las que duran entre 1,5 y 12 segundos y tienen entre 4 y 25 palabras. Un vídeo de media
-hora deja unas cuantas decenas. `data/candidates/` es desechable y no se versiona; lo que se
-versiona es lo que `/clips` publica en `content/clips/`.
+It downloads metadata and the subtitle track, never video. It drops whatever cannot be played
+embedded — age-restricted, embedding disabled, no English subtitles — and cuts the track into
+sentences: the ones lasting between 1.5 and 12 seconds and holding between 4 and 25 words. Half
+an hour of video leaves a few dozen. `data/candidates/` is throwaway and is not versioned; what
+is versioned is what `/clips` publishes in `content/clips/`.
 
 ```bash
 /frases present-simple A2 10   # content/exercises/present-simple.json, ids present-simple-0NN
-/verbo understand              # entrada nueva en content/verbs.json
+/verbo understand              # a new entry in content/verbs.json
 /reading travel A2             # content/readings/travel.json
 /teoria past-continuous        # content/tenses/past-continuous.json
 ```
 
-Los comandos nunca reescriben un fichero entero: preparan el JSON nuevo y lo pasan por
-`scripts/merge-content.mjs`, que fusiona por `id` (o por `infinitive`). Volver a lanzar el
-mismo comando completa las entradas que ya existen, pero no las duplica.
+The commands never rewrite a whole file: they prepare the new JSON and pass it through
+`scripts/merge-content.mjs`, which merges by `id` (or by `infinitive`). Running the same command
+again completes the entries that already exist, but does not duplicate them.
 
 ```bash
 node scripts/merge-content.mjs content/exercises/present-simple.json < patch.json
 ```
 
-## Estructura
+## Structure
 
 ```
-.claude/commands/          comandos de Claude Code que generan el contenido
-.github/workflows/ci.yml   lint, typecheck, tests, generate y despliegue a GitHub Pages
-.env.example               las variables de configuración, con sus valores de desarrollo
-public/.nojekyll           para que GitHub Pages sirva el directorio _nuxt/
-public/icon*.png|svg       iconos de la app instalable, generados desde icon.svg
+.claude/commands/          Claude Code commands that generate the content
+.github/workflows/ci.yml   lint, typecheck, tests, generate and deploy to GitHub Pages
+.env.example               the configuration variables, with their development values
+public/.nojekyll           so GitHub Pages serves the _nuxt/ directory
+public/icon*.png|svg       icons of the installable app, generated from icon.svg
 app/
-  app.vue                 raíz: layout + página, canonical y og:url de cada ruta
-  error.vue               página de error propia, en español y dentro del layout
-  layouts/default.vue     cabecera con la navegación y pie
-  pages/index.vue         home con las tarjetas de cada sección
-  pages/teoria/           listado de tiempos por nivel y teoría de cada uno
-  pages/verbos/           tabla de verbos y ejercicio de conjugación
-  pages/frases/           elección de tiempo y ronda sorteada de 10 frases
-  pages/reading/          listado de lecturas y lectura con glosario y preguntas
-  pages/speaking.vue      escuchar la frase, repetirla al micrófono y comparar
-  pages/clips/            listado de clips y ronda sorteada con el vídeo delante
-  pages/progreso.vue      resumen de lo practicado, fallos y exportar / importar
-  pages/repaso.vue        sesión de repaso con lo que vence hoy
-  plugins/persist.client.ts  pide almacenamiento persistente al navegador
-  components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
-  components/ClipPlayer.vue  iframe de YouTube acotado al trozo del clip, en bucle
-  composables/useSpeech.ts  Web Speech API: síntesis de voz y reconocimiento
-  composables/useProgress.ts  el progreso del navegador: apuntar, resumir y exportar
-  composables/useSeo.ts   título, descripción y tarjeta social de cada página
-  composables/useClips.ts   los vídeos que ya no se pueden reproducir
-  composables/useYouTubePlayer.ts  carga única de la IFrame Player API
-  utils/check.ts          corrección de las respuestas escritas y tercera persona
-  utils/diff.ts           comparación palabra a palabra de lo que se ha dicho
-  utils/progress.ts       cajas Leitner, guardado en localStorage e ítems repasables
-  utils/content.ts        tipos del contenido y carga de content/*.json
-  utils/explain.ts        componente y explicación de cada tipo de ejercicio
-  utils/sections.ts       secciones del sitio (navegación y tarjetas)
-  utils/unavailable.ts    lista de vídeos caídos, guardada aparte del progreso
+  app.vue                 root: layout + page, canonical and og:url of every route
+  error.vue               error page of its own, in Spanish and inside the layout
+  layouts/default.vue     header with the navigation, and footer
+  pages/index.vue         home with the cards of every section
+  pages/teoria/           tenses listed by level, and the theory of each one
+  pages/verbos/           table of verbs and conjugation drill
+  pages/frases/           tense picker and a drawn round of 10 sentences
+  pages/reading/          list of readings, and a reading with glossary and questions
+  pages/speaking.vue      listen to the sentence, repeat it into the mic and compare
+  pages/clips/            list of clips and a drawn round with the video first
+  pages/progreso.vue      summary of what was practised, misses, and export / import
+  pages/repaso.vue        review session with what is due today
+  plugins/persist.client.ts  asks the browser for persistent storage
+  components/Exercise*.vue  one component per exercise type of content/exercises/
+  components/ClipPlayer.vue  YouTube iframe bounded to the clip window, looping
+  composables/useSpeech.ts  Web Speech API: speech synthesis and recognition
+  composables/useProgress.ts  the progress of the browser: record, sum up and export
+  composables/useSeo.ts   title, description and social card of every page
+  composables/useClips.ts   the videos that can no longer be played
+  composables/useYouTubePlayer.ts  single load of the IFrame Player API
+  utils/check.ts          correction of the written answers, and third person
+  utils/diff.ts           word-by-word comparison of what was said
+  utils/progress.ts       Leitner boxes, localStorage persistence and reviewable items
+  utils/content.ts        types of the content and loading of content/*.json
+  utils/explain.ts        component and explanation of every exercise type
+  utils/sections.ts       sections of the site (navigation and cards)
+  utils/unavailable.ts    list of dead videos, stored apart from the progress
 content/
-  tenses/<slug>.json      teoría, estructura y ejemplos de cada tiempo verbal
-  exercises/<slug>.json   ejercicios en frases: hueco, transformar y elegir el tiempo
-  readings/<slug>.json    lectura con glosario y preguntas de comprensión
-  clips/<fuente>.json     clips de vídeo con su frase y sus huecos
-  verbs.json              lista de verbos con pasado, participio y traducción
+  tenses/<slug>.json      theory, structure and examples of every tense
+  exercises/<slug>.json   sentence exercises: gap, transform and pick the tense
+  readings/<slug>.json    reading with glossary and comprehension questions
+  clips/<source>.json     video clips with their sentence and their gaps
+  verbs.json              list of verbs with past, participle and translation
 data/
-  sources.json            catálogo de canales de YouTube para la ingesta
+  sources.json            catalogue of YouTube channels for the ingest
 scripts/
-  merge-content.mjs       fusiona JSON en content/ sin duplicar entradas
-  ingest.mjs              saca frases con sus tiempos de los subtítulos de un canal
-  subtitles.mjs           parseo de pistas json3 y corte en frases
+  merge-content.mjs       merges JSON into content/ without duplicating entries
+  ingest.mjs              pulls timed sentences out of the subtitles of a channel
+  subtitles.mjs           parsing of json3 tracks and cutting into sentences
 test/
-  content.spec.ts         valida los tiempos, verbos y ejercicios de content/
-  merge-content.spec.ts   valida la fusión sin duplicados
-  teoria.spec.ts          cada fichero de content/tenses/ tiene su ruta en /teoria
-  check.spec.ts           normalización y corrección de las respuestas
-  verbos.spec.ts          tabla de verbos y ronda completa de conjugación
-  frases.spec.ts          cada fichero de content/exercises/ y su tipo de ejercicio
-  reading.spec.ts         valida content/readings/ y corrige las preguntas en /reading
-  clips.spec.ts           valida content/clips/ y juega una ronda en /clips/practica
-  subtitles.spec.ts       parseo de subtítulos y corte en frases aprovechables
-  pwa.spec.ts             el manifest declara iconos que existen y el scope del base
-  diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
-  speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
-  progress.spec.ts        cajas Leitner, persistencia serializada y sesión de repaso
-  a11y-seo.spec.ts        SEO propio de cada página y recorrido con teclado
-  error.spec.ts           la página de error explica el 404 y deja volver
-  smoke.spec.ts           test de humo: monta la home
+  content.spec.ts         validates the tenses, verbs and exercises of content/
+  merge-content.spec.ts   validates the merge without duplicates
+  teoria.spec.ts          every file of content/tenses/ has its route in /teoria
+  check.spec.ts           normalization and correction of the answers
+  verbos.spec.ts          table of verbs and a full conjugation round
+  frases.spec.ts          every file of content/exercises/ and its exercise type
+  reading.spec.ts         validates content/readings/ and corrects the questions in /reading
+  clips.spec.ts           validates content/clips/ and plays a round in /clips/practica
+  subtitles.spec.ts       subtitle parsing and cutting into usable sentences
+  pwa.spec.ts             the manifest declares icons that exist, and the scope of the base
+  diff.spec.ts            word-by-word comparison: hit, omission and extra
+  speaking.spec.ts        /speaking says so when the browser cannot recognise speech
+  progress.spec.ts        Leitner boxes, serialized persistence and review session
+  a11y-seo.spec.ts        SEO of each page and a keyboard walkthrough
+  error.spec.ts           the error page explains the 404 and lets you go back
+  smoke.spec.ts           smoke test: mounts the home
 ```

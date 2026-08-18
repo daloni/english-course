@@ -1,36 +1,37 @@
 ---
-description: Convierte frases ingeridas de un vídeo en clips con hueco en content/clips/
-argument-hint: [fichero de data/candidates/ | --all]
+description: Turns ingested sentences into clips with gaps in content/clips/
+argument-hint: [file from data/candidates/ | --all]
 allowed-tools: Read, Write, Glob, Bash(node scripts/merge-content.mjs:*), Bash(pnpm test:*)
 ---
 
-Convierte las frases de `data/candidates/` en clips publicables de `content/clips/<fuente>.json`.
-Sin `$ARGUMENTS`, coge el primer fichero por orden alfabético; con `--all`, los recorre todos.
+Turn the sentences in `data/candidates/` into publishable clips in
+`content/clips/<source>.json`. With no `$ARGUMENTS`, take the first file in alphabetical order;
+with `--all`, walk them all.
 
-Antes hace falta ingerir: `node scripts/ingest.mjs <fuente>`, y eso **solo funciona en una
-máquina con IP residencial** (YouTube bloquea player y subtítulos desde IPs de datacenter). Si
-`data/candidates/` está vacío, dilo y para: no inventes clips.
+The ingest has to run first: `node scripts/ingest.mjs <source>`, and that **only works on a
+machine with a home connection** (YouTube blocks the player and subtitle endpoints from datacenter
+IPs). If `data/candidates/` is empty, say so and stop: do not invent clips.
 
-## Pasos
+## Steps
 
-1. Lee el fichero de `data/candidates/`. Trae `videoId`, `source`, `channel`, `title` y una lista
-   de frases con `startMs`, `endMs` y `text`.
-2. Descarta las frases que no valen (regla de descarte, abajo). **Ser estricto aquí es lo
-   correcto**: una tarjeta confusa hace más daño que una tarjeta de menos. Es normal quedarse
-   con menos de la mitad.
-3. Escribe los clips que sobrevivan en `/tmp/clips.json`, con el esquema de abajo.
-4. Fusiona sin sobrescribir lo que ya hay:
+1. Read the file from `data/candidates/`. It carries `videoId`, `source`, `channel`, `title` and a
+   list of sentences with `startMs`, `endMs` and `text`.
+2. Drop the sentences that are not worth it (the discard rule, below). **Being strict here is the
+   right call**: a confusing card does more harm than one card fewer. Keeping less than half is
+   normal.
+3. Write the surviving clips into `/tmp/clips.json`, with the schema below.
+4. Merge without overwriting what is already there:
    `node scripts/merge-content.mjs content/clips/<source>.json < /tmp/clips.json`
-5. Ejecuta `pnpm test test/clips.spec.ts`. Si falla, corrige el JSON y repite.
-6. Borra el fichero de `data/candidates/` que acabas de procesar y reporta: cuántas frases
-   entraron, cuántas se descartaron y por qué, y cuántos ficheros quedan pendientes.
+5. Run `pnpm test test/clips.spec.ts`. If it fails, fix the JSON and repeat.
+6. Delete the file from `data/candidates/` you have just processed and report: how many sentences
+   went in, how many were dropped and why, and how many files are left.
 
-Trabaja fichero a fichero, escribiendo y borrando en cada vuelta: si la sesión se corta, lo ya
-hecho queda guardado y la siguiente invocación retoma sola.
+Work file by file, writing and deleting on each pass: if the session is cut short, what is
+already done stays saved and the next run picks up on its own.
 
-## Esquema
+## Schema
 
-`content/clips/<fuente>.json` es un **array** de clips:
+`content/clips/<source>.json` is an **array** of clips:
 
 ```json
 [
@@ -61,63 +62,63 @@ hecho queda guardado y la siguiente invocación retoma sola.
 ]
 ```
 
-- `id` es **siempre** `` `${videoId}:${startMs}` ``. No lo inventes: es lo que hace que volver a
-  ingerir la misma fuente no rompa el repaso ya guardado.
-- `startMs`, `endMs` y `text` se copian **sin tocar** del candidato. Son las coordenadas del
-  clip: si las alteras, el vídeo deja de cuadrar con la frase.
-- `channel` se copia del candidato; el nombre del fichero es el `source`.
+- `id` is **always** `` `${videoId}:${startMs}` ``. Do not invent it: it is what keeps a second
+  ingest of the same source from breaking the review history already stored.
+- `startMs`, `endMs` and `text` are copied **untouched** from the candidate. They are the
+  coordinates of the clip: alter them and the video no longer matches the sentence.
+- `channel` is copied from the candidate; the file name is the `source`.
 
-### `prompt` y `solution`
+### `prompt` and `solution`
 
-El `prompt` es la frase **con el hueco ya puesto**: `___` donde va la respuesta. No calcules
-posiciones de caracteres, no hay `charStart` que rellenar.
+The `prompt` is the sentence **with the gap already in it**: `___` where the answer goes. Do not
+work out character positions; there is no `charStart` to fill in.
 
-La invariante que valida `test/clips.spec.ts`: **el `prompt` con la `solution` dentro tiene que
-ser la frase del clip**, comparados con `normalize()` (`app/utils/check.ts`). Eso perdona las
-mayúsculas, la puntuación final y las contracciones —`We're` ↔ `We are`—, y nada más.
+The invariant `test/clips.spec.ts` validates: **the `prompt` with the `solution` in it has to be
+the sentence of the clip**, compared through `normalize()` (`app/utils/check.ts`). That forgives
+capitals, the final punctuation and contractions —`We're` ↔ `We are`— and nothing else.
 
-- El hueco del verbo lleva los auxiliares: en *"I have been waiting"*, la solución es
-  `"have been waiting"`, no `"waiting"`.
-- Si el texto trae una contracción, puedes poner la forma plena: `"I've been meaning"` con hueco
-  `"I ___ to call you back"` y solución `"have been meaning"` pasa la validación.
-- Un solo `___` por ejercicio.
-- `id` del ejercicio: corto y descriptivo (`verb`, `mean-to`), único dentro del clip.
+- The verb gap takes the auxiliaries with it: in *"I have been waiting"*, the solution is
+  `"have been waiting"`, not `"waiting"`.
+- If the text carries a contraction, the full form is fine: `"I've been meaning"` with the gap
+  `"I ___ to call you back"` and the solution `"have been meaning"` passes validation.
+- One single `___` per exercise.
+- The exercise `id`: short and descriptive (`verb`, `mean-to`), unique within the clip.
 
 ### `tenseId`
 
-El tiempo verbal que practica el hueco, y **tiene que existir** en `content/tenses/`. Si el
-tiempo del verbo no está creado todavía, usa `/teoria <tiempo>` para crearlo primero o elige
-otro hueco de la misma frase.
+The tense the gap drills, and it **has to exist** in `content/tenses/`. If the tense of the verb
+has not been created yet, use `/teoria <tense>` to create it first, or pick another gap in the
+same sentence.
 
-Para expresiones —phrasal verbs, idioms, colocaciones fijas— pon `tenseId: ""`: no practican
-ningún tiempo, como las preguntas de reading. En esas, `explanation` lleva el significado **en
-español y en contexto**, no una traducción literal.
+For expressions —phrasal verbs, idioms, fixed collocations— use `tenseId: ""`: they drill no
+tense, like the reading questions. In those, `explanation` carries the meaning **in Spanish and in
+context**, not a literal translation.
 
 ### `level`
 
-El nivel de quien podría **entender la frase al oírla**, no el del verbo aislado. Uno de
-`A1`, `A2`, `B1`, `B2`, `C1`.
+The level of somebody who could **understand the sentence on hearing it**, not that of the verb on
+its own. One of `A1`, `A2`, `B1`, `B2`, `C1`.
 
-| Nivel | Criterio | Ejemplo |
+| Level | Criterion | Example |
 |---|---|---|
-| A1 | Presente e imperativo, vocabulario básico | *"Where do you live?"* |
-| A2 | Pasado simple y futuro, rutinas | *"I went to the shop yesterday."* |
-| B1 | Perfectos, condicional, phrasal verbs comunes | *"I've already sorted it out."* |
-| B2 | Modales matizados, pasiva, idioms transparentes | *"It should have been dealt with by now."* |
-| C1 | Idioms opacos, registro coloquial denso, ironía | *"Don't give me that — you're winding me up."* |
+| A1 | Present and imperative, basic vocabulary | *"Where do you live?"* |
+| A2 | Past simple and future, routines | *"I went to the shop yesterday."* |
+| B1 | Perfect tenses, conditional, common phrasal verbs | *"I've already sorted it out."* |
+| B2 | Nuanced modals, passive, transparent idioms | *"It should have been dealt with by now."* |
+| C1 | Opaque idioms, dense colloquial register, irony | *"Don't give me that — you're winding me up."* |
 
-### La regla de descarte
+### The discard rule
 
-Fuera cualquier frase que no se entienda sin haber visto lo anterior:
+Out goes any sentence that cannot be understood without having seen what came before:
 
-- depende de un pronombre sin referente: *"He said he'd do it then."*
-- es un fragmento cortado a mitad: *"...and that's why we"*
-- es puro relleno: *"Yeah. Right. Okay."*
-- no tiene ningún verbo conjugado ni expresión que merezca un hueco
+- it leans on a pronoun with no referent: *"He said he'd do it then."*
+- it is a fragment cut in half: *"...and that's why we"*
+- it is pure filler: *"Yeah. Right. Okay."*
+- it has no conjugated verb and no expression worth a gap
 
-## Consistencia
+## Consistency
 
-La rúbrica de arriba es el criterio, no una sugerencia. No la relajes ni la extiendas sobre la
-marcha entre ficheros: la razón de que esté escrita es que un etiquetado conversacional deriva de
-un lote al siguiente. Si te encuentras un caso que no cubre, resuélvelo como puedas, **anótalo en
-el reporte final** y que decida el usuario si toca cambiar la rúbrica.
+The rubric above is the criterion, not a suggestion. Do not relax it or extend it on the fly
+between files: the reason it is written down is that conversational tagging drifts from one batch
+to the next. If you hit a case it does not cover, resolve it as best you can, **note it in the
+final report** and let the user decide whether the rubric needs changing.

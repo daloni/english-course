@@ -2,31 +2,31 @@
   {
     "id": "easy-english",
     "url": "https://www.youtube.com/@EasyEnglishVideos/videos",
-    "note": "Entrevistas de calle en UK. Inglés espontáneo, no guionizado y con acentos variados: la mejor fuente para expresiones del día a día."
+    "note": "Street interviews in the UK. Spontaneous, unscripted English with a range of accents: the best source for everyday expressions."
   },
   {
     "id": "bbc-learning",
     "url": "https://www.youtube.com/@BBCLearningEnglish/videos",
-    "note": "Inglés claro y subtítulos cuidados. Es de donde sale el material de A2-B1."
+    "note": "Clear English and careful subtitles. This is where the A2-B1 material comes from."
   },
   {
     "id": "ted-ed",
     "url": "https://www.youtube.com/@TEDEd/videos",
-    "note": "Divulgación con subtítulos escritos a mano. Vocabulario más rico, ritmo más lento."
+    "note": "Explainers with hand-written subtitles. Richer vocabulary, slower pace."
   },
   {
     "id": "friends",
     "url": "https://www.youtube.com/@friends/videos",
-    "note": "Canal oficial de Warner. Publica recopilaciones de ~20 min, así que un solo vídeo rinde cientos de frases ya cronometradas por su pista de subtítulos."
+    "note": "Warner's official channel. It publishes ~20 min compilations, so a single video yields hundreds of sentences already timed by its own subtitle track."
   },
   {
     "id": "the-office",
     "url": "https://www.youtube.com/@TheOffice/videos",
-    "note": "Oficial, con vídeos de ~28 min de media."
+    "note": "Official, with videos averaging ~28 min."
   },
   {
     "id": "movieclips",
     "url": "https://www.youtube.com/@MOVIECLIPS/videos",
-    "note": "Fuente secundaria: buena parte del catálogo está restringido por edad y por tanto no es reproducible embebido. El filtro de la ingesta lo descarta, pero espera un ratio de descarte alto aquí."
+    "note": "Secondary source: a good share of the catalogue is age-restricted and therefore not playable embedded. The ingest filter drops those, but expect a high rejection rate here."
   }
 ]

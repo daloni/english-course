@@ -44,7 +44,7 @@ function preflight() {
   const version = ytDlp(['--version'])
 
   if (!version) {
-    console.error('yt-dlp no está instalado o no está en el PATH.')
+    console.error('yt-dlp is not installed, or not in the PATH.')
     console.error('  brew install yt-dlp    |    pipx install yt-dlp')
     process.exit(1)
   }
@@ -60,8 +60,8 @@ function loadSources() {
   const one = sources.find(source => source.id === wanted)
 
   if (!one) {
-    console.error(`Fuente desconocida: ${wanted}`)
-    console.error(`Disponibles: ${sources.map(source => source.id).join(', ')}`)
+    console.error(`Unknown source: ${wanted}`)
+    console.error(`Available: ${sources.map(source => source.id).join(', ')}`)
     process.exit(1)
   }
 
@@ -112,13 +112,13 @@ function fetchMeta(videoId) {
  * at all, so a clip from one is a dead card: better to find that out here than in a round.
  */
 function rejectReason(meta) {
-  if (meta.playable_in_embed !== true) return 'no permite embed'
-  if (meta.age_limit > 0) return `restringido por edad (${meta.age_limit}+)`
+  if (meta.playable_in_embed !== true) return 'embedding is disabled'
+  if (meta.age_limit > 0) return `age-restricted (${meta.age_limit}+)`
 
   const manual = Object.keys(meta.subtitles ?? {}).some(lang => lang.startsWith('en'))
   const auto = Object.keys(meta.automatic_captions ?? {}).some(lang => lang === 'en')
 
-  if (!manual && !auto) return 'sin subtítulos en inglés'
+  if (!manual && !auto) return 'no English subtitles'
 
   return null
 }
@@ -185,7 +185,7 @@ function main() {
       const meta = fetchMeta(videoId)
 
       if (!meta) {
-        console.log(`  ${videoId}  ✗ metadatos ilegibles`)
+        console.log(`  ${videoId}  ✗ unreadable metadata`)
         continue
       }
 
@@ -199,14 +199,14 @@ function main() {
       const raw = fetchSubtitles(videoId, meta)
 
       if (!raw) {
-        console.log(`  ${videoId}  ✗ no se pudieron bajar los subtítulos`)
+        console.log(`  ${videoId}  ✗ could not download the subtitles`)
         continue
       }
 
       const sentences = segmentSentences(parseJson3(raw))
 
       if (sentences.length === 0) {
-        console.log(`  ${videoId}  ✗ ninguna frase aprovechable`)
+        console.log(`  ${videoId}  ✗ no usable sentence`)
         continue
       }
 
@@ -215,15 +215,15 @@ function main() {
       accepted++
       files += written
       total += sentences.length
-      console.log(`  ${videoId}  ✓ ${sentences.length} frases → ${written} fichero(s)  ${meta.title.slice(0, 50)}`)
+      console.log(`  ${videoId}  ✓ ${sentences.length} sentences → ${written} file(s)  ${meta.title.slice(0, 50)}`)
     }
   }
 
   // The raw tracks are only an intermediate step: what matters is in data/candidates/.
   rmSync(rawDir, { recursive: true, force: true })
 
-  console.log(`\n${total} frases en ${files} ficheros nuevos en data/candidates/`)
-  if (files > 0) console.log('Siguiente paso: /clips')
+  console.log(`\n${total} sentences in ${files} new files in data/candidates/`)
+  if (files > 0) console.log('Next step: /clips')
 }
 
 main()
