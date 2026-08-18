@@ -180,6 +180,7 @@ describe('/login', () => {
     expect(page.text()).toContain('El captcha ha fallado')
     expect(page.text()).toContain('Puedes entrar sin él')
     expect(page.text()).not.toContain('Marca la casilla del captcha')
+    expect(page.find('button[type="submit"]').attributes('disabled')).toBeUndefined()
   })
 
   it('permite completar el login tras un error de Turnstile', async () => {
