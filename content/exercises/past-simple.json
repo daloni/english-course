@@ -58,5 +58,35 @@
     "options": ["Past Simple", "Present Perfect", "Present Continuous"],
     "solution": "Past Simple",
     "explanation": "when I was a child sitúa la acción en un pasado terminado: Past Simple."
+  },
+  {
+    "id": "past-simple-009",
+    "tenseId": "past-simple",
+    "prompt": "They ___ (not / be) at home when I called.",
+    "solution": "weren't"
+  },
+  {
+    "id": "past-simple-010",
+    "tenseId": "past-simple",
+    "prompt": "___ (she / study) medicine when she was younger?",
+    "solution": "Did she study"
+  },
+  {
+    "id": "past-simple-011",
+    "tenseId": "past-simple",
+    "type": "transform",
+    "form": "affirmative",
+    "prompt": "Did you find the keys that morning?",
+    "solution": "You found the keys that morning.",
+    "explanation": "En afirmativa desaparece did y el pasado lo marca el verbo: found."
+  },
+  {
+    "id": "past-simple-012",
+    "tenseId": "past-simple",
+    "type": "choice",
+    "prompt": "We have lived in this town since 2015.",
+    "options": ["Present Perfect", "Past Simple", "Present Simple"],
+    "solution": "Present Perfect",
+    "explanation": "since abre un periodo que sigue abierto: eso pide present perfect, no past simple."
   }
 ]

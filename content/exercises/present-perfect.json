@@ -71,5 +71,20 @@
     ],
     "solution": "Present Perfect",
     "explanation": "since marca algo que empezó en el pasado y sigue ahora: present perfect."
+  },
+  {
+    "id": "present-perfect-011",
+    "tenseId": "present-perfect",
+    "prompt": "He ___ (already / read) the whole book.",
+    "solution": "has already read"
+  },
+  {
+    "id": "present-perfect-012",
+    "tenseId": "present-perfect",
+    "type": "choice",
+    "prompt": "I saw that film last night.",
+    "options": ["Past Simple", "Present Perfect", "Present Simple"],
+    "solution": "Past Simple",
+    "explanation": "last night es un momento cerrado del pasado: past simple, no present perfect."
   }
 ]
