@@ -81,6 +81,28 @@ que es la que llevan el `<link rel="canonical">` y el `og:url` de cada página; 
 falta nada. Para servirlo desde otro sitio (Netlify, un `nginx`…) basta con subir
 `.output/public` tal cual, pasando `NUXT_PUBLIC_SITE_URL` con el dominio nuevo.
 
+## App instalable
+
+El sitio es una PWA: se puede instalar en el móvil o en el escritorio desde el propio navegador
+—Chrome ofrece «Instalar» cuando la página se sirve por HTTPS, o desde `localhost` para probarlo—
+y una vez instalada arranca al instante y **funciona sin conexión**.
+
+Sin red siguen funcionando la teoría, los verbos, las frases, el reading, `/progreso` y `/repaso`:
+el contenido de `content/` se compila dentro del bundle, así que no hay nada que pedir. **No**
+funcionan los clips, que necesitan el iframe de YouTube, ni el speaking, que necesita la Web Speech
+API; las dos avisan en vez de romperse.
+
+El service worker precachea cada página prerenderizada con su propio HTML, así que cualquier URL
+abre offline, no solo la home. Como en GitHub Pages el sitio cuelga de `/<repo>/`, el `scope` y el
+`start_url` del manifest salen del mismo `NUXT_APP_BASE_URL` que usa el build: si se quedaran en
+`/`, el service worker no controlaría el sitio y la instalación no se ofrecería —y en `localhost`
+no se notaría—. `test/pwa.spec.ts` vigila esa parte y que los iconos que el manifest declara
+existan de verdad.
+
+Instalada, la app pide además almacenamiento persistente (`app/plugins/persist.client.ts`): el
+progreso vive solo en este navegador y sin esa petición un navegador con el disco lleno puede
+descartarlo.
+
 ## Accesibilidad
 
 Todo se puede hacer con el teclado: la primera tabulación es «Saltar al contenido», los
@@ -224,6 +246,7 @@ node scripts/merge-content.mjs content/exercises/present-simple.json < patch.jso
 .github/workflows/ci.yml   lint, typecheck, tests, generate y despliegue a GitHub Pages
 .env.example               las variables de configuración, con sus valores de desarrollo
 public/.nojekyll           para que GitHub Pages sirva el directorio _nuxt/
+public/icon*.png|svg       iconos de la app instalable, generados desde icon.svg
 app/
   app.vue                 raíz: layout + página, canonical y og:url de cada ruta
   error.vue               página de error propia, en español y dentro del layout
@@ -237,6 +260,7 @@ app/
   pages/clips/            listado de clips y ronda sorteada con el vídeo delante
   pages/progreso.vue      resumen de lo practicado, fallos y exportar / importar
   pages/repaso.vue        sesión de repaso con lo que vence hoy
+  plugins/persist.client.ts  pide almacenamiento persistente al navegador
   components/Exercise*.vue  un componente por tipo de ejercicio de content/exercises/
   components/ClipPlayer.vue  iframe de YouTube acotado al trozo del clip, en bucle
   composables/useSpeech.ts  Web Speech API: síntesis de voz y reconocimiento
@@ -273,6 +297,7 @@ test/
   reading.spec.ts         valida content/readings/ y corrige las preguntas en /reading
   clips.spec.ts           valida content/clips/ y juega una ronda en /clips/practica
   subtitles.spec.ts       parseo de subtítulos y corte en frases aprovechables
+  pwa.spec.ts             el manifest declara iconos que existen y el scope del base
   diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
   speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
   progress.spec.ts        cajas Leitner, persistencia serializada y sesión de repaso

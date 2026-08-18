@@ -9,11 +9,17 @@ if (missing.length > 0) {
   throw new Error(`Missing environment variables: ${missing.join(', ')}. Copy .env.example to .env.`)
 }
 
+// On GitHub Pages the site hangs off /<repo>/, and the workflow passes that in. The manifest
+// has to say the same: a service worker scoped to / would not control the site, and the install
+// would never be offered — silently, because on localhost the base is / and it all looks fine.
+const base = process.env.NUXT_APP_BASE_URL || '/'
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
-    '@nuxt/test-utils/module'
+    '@nuxt/test-utils/module',
+    '@vite-pwa/nuxt'
   ],
 
   devtools: {
@@ -63,6 +69,46 @@ export default defineNuxtConfig({
         commaDangle: 'never',
         braceStyle: '1tbs'
       }
+    }
+  },
+
+  // Installable and usable without a connection. What survives offline is everything the bundle
+  // already carries — theory, verbs, sentences, reading, /progreso and /repaso — because
+  // content/ is compiled in, not fetched. The clips need the YouTube iframe and the speaking
+  // needs the Web Speech API, so those two say so instead of pretending.
+  pwa: {
+    registerType: 'autoUpdate',
+    base,
+    scope: base,
+
+    manifest: {
+      id: base,
+      name: process.env.NUXT_PUBLIC_SITE_NAME,
+      short_name: 'Inglés',
+      description: process.env.NUXT_PUBLIC_SITE_DESCRIPTION,
+      lang: 'es',
+      display: 'standalone',
+      start_url: base,
+      scope: base,
+      theme_color: '#172554',
+      background_color: '#172554',
+      // Relative to the manifest, which lives under the base: no leading slash here.
+      icons: [
+        { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+        { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
+        { src: 'icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+      ]
+    },
+
+    workbox: {
+      // `json` are the _payload.json Nuxt writes for every prerendered route, and `woff2` the
+      // fonts @nuxt/fonts leaves in _fonts/. Without either, an offline start renders unstyled
+      // pages with no data.
+      globPatterns: ['**/*.{js,css,html,json,svg,png,ico,woff2}'],
+      // No navigateFallback on purpose: every route is prerendered with its own index.html and
+      // precached, so each URL opens offline with its own page. An SPA fallback to / would
+      // replace all of them with the home.
+      navigateFallback: undefined
     }
   }
 })
