@@ -1,0 +1,32 @@
+[
+  {
+    "id": "easy-english",
+    "url": "https://www.youtube.com/@EasyEnglishVideos/videos",
+    "note": "Entrevistas de calle en UK. Inglés espontáneo, no guionizado y con acentos variados: la mejor fuente para expresiones del día a día."
+  },
+  {
+    "id": "bbc-learning",
+    "url": "https://www.youtube.com/@BBCLearningEnglish/videos",
+    "note": "Inglés claro y subtítulos cuidados. Es de donde sale el material de A2-B1."
+  },
+  {
+    "id": "ted-ed",
+    "url": "https://www.youtube.com/@TEDEd/videos",
+    "note": "Divulgación con subtítulos escritos a mano. Vocabulario más rico, ritmo más lento."
+  },
+  {
+    "id": "friends",
+    "url": "https://www.youtube.com/@friends/videos",
+    "note": "Canal oficial de Warner. Publica recopilaciones de ~20 min, así que un solo vídeo rinde cientos de frases ya cronometradas por su pista de subtítulos."
+  },
+  {
+    "id": "the-office",
+    "url": "https://www.youtube.com/@TheOffice/videos",
+    "note": "Oficial, con vídeos de ~28 min de media."
+  },
+  {
+    "id": "movieclips",
+    "url": "https://www.youtube.com/@MOVIECLIPS/videos",
+    "note": "Fuente secundaria: buena parte del catálogo está restringido por edad y por tanto no es reproducible embebido. El filtro de la ingesta lo descarta, pero espera un ratio de descarte alto aquí."
+  }
+]

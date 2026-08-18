@@ -177,6 +177,30 @@ ejecutando el test que valida ese contenido (`pnpm test test/content.spec.ts`, o
 | `/verbo <infinitivo>`      | Añade o completa el verbo en `content/verbs.json`                      |
 | `/reading <tema> <nivel>`  | Escribe un texto con preguntas en `content/readings/<slug>.json`       |
 | `/teoria <tiempo>`         | Redacta o amplía la teoría de `content/tenses/<slug>.json`             |
+| `/clips [fichero]`         | Convierte frases ingeridas en clips con hueco en `content/clips/<fuente>.json` |
+
+### Ingerir clips
+
+`/clips` no sale a internet: reparte huecos sobre frases que ya están en `data/candidates/`, y
+eso lo llena la ingesta:
+
+```bash
+node scripts/ingest.mjs                 # todas las fuentes de data/sources.json
+node scripts/ingest.mjs easy-english    # una
+node scripts/ingest.mjs easy-english --limit 3
+```
+
+Necesita [yt-dlp](https://github.com/yt-dlp/yt-dlp) en el PATH y **una máquina con IP
+residencial**: YouTube bloquea los endpoints de player y de subtítulos desde IPs de datacenter,
+así que en un servidor el descubrimiento funciona y la extracción falla con *"Sign in to confirm
+you're not a bot"*. Si ves ese error no depures el script: estás en la máquina equivocada. La
+reproducción no se ve afectada, la hace el navegador de quien estudia.
+
+Descarga metadatos y la pista de subtítulos, nunca vídeo. Descarta lo que no se pueda reproducir
+embebido —restringido por edad, embed desactivado, sin subtítulos en inglés— y corta la pista en
+frases: las que duran entre 1,5 y 12 segundos y tienen entre 4 y 25 palabras. Un vídeo de media
+hora deja unas cuantas decenas. `data/candidates/` es desechable y no se versiona; lo que se
+versiona es lo que `/clips` publica en `content/clips/`.
 
 ```bash
 /frases present-simple A2 10   # content/exercises/present-simple.json, ids present-simple-0NN
@@ -233,8 +257,12 @@ content/
   readings/<slug>.json    lectura con glosario y preguntas de comprensión
   clips/<fuente>.json     clips de vídeo con su frase y sus huecos
   verbs.json              lista de verbos con pasado, participio y traducción
+data/
+  sources.json            catálogo de canales de YouTube para la ingesta
 scripts/
   merge-content.mjs       fusiona JSON en content/ sin duplicar entradas
+  ingest.mjs              saca frases con sus tiempos de los subtítulos de un canal
+  subtitles.mjs           parseo de pistas json3 y corte en frases
 test/
   content.spec.ts         valida los tiempos, verbos y ejercicios de content/
   merge-content.spec.ts   valida la fusión sin duplicados
@@ -244,6 +272,7 @@ test/
   frases.spec.ts          cada fichero de content/exercises/ y su tipo de ejercicio
   reading.spec.ts         valida content/readings/ y corrige las preguntas en /reading
   clips.spec.ts           valida content/clips/ y juega una ronda en /clips/practica
+  subtitles.spec.ts       parseo de subtítulos y corte en frases aprovechables
   diff.spec.ts            comparación palabra a palabra: acierto, omisión y sobrante
   speaking.spec.ts        /speaking avisa cuando el navegador no reconoce la voz
   progress.spec.ts        cajas Leitner, persistencia serializada y sesión de repaso

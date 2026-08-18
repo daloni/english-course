@@ -22,3 +22,7 @@ logs
 .env
 .env.*
 !.env.example
+
+# Ingest workspace: candidates and raw subtitle tracks, rebuilt by scripts/ingest.mjs
+data/candidates
+data/raw
