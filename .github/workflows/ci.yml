@@ -8,12 +8,6 @@ on:
     branches: [main]
   pull_request:
 
-# What the GitHub Pages deployment of the `deploy` job needs.
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 # One run per branch: main is not cancelled halfway through a deployment, the rest are.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -22,6 +16,9 @@ concurrency:
 jobs:
   ci:
     runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
 
     strategy:
       matrix:
@@ -64,29 +61,54 @@ jobs:
       - name: Test
         run: pnpm run test
 
-      # Only main publishes, and only if the repository has Pages enabled: the GITHUB_TOKEN
-      # cannot enable it, so without Pages these steps are skipped and the branch stays on
-      # lint, typecheck, test and generate, all green.
+      - name: Generate the static site
+        run: pnpm run generate
+        env:
+          NUXT_APP_BASE_URL: /
+          NUXT_PUBLIC_SITE_URL: ${{ format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
+
+  # Preparing the deployment needs Pages metadata. Keeping it in a main-only job means code
+  # from pull requests still runs with contents read and no Pages or OIDC credentials.
+  pages:
+    needs: ci
+    if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up the environment
+        run: cp .env.example .env
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Install node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Configure Pages
         id: pages
-        if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
         uses: actions/configure-pages@v5
 
       - name: Generate the static site
         run: pnpm run generate
         env:
-          # The site hangs off /<repo>/ on GitHub Pages, not off the root of the domain.
-          # When the previous step is skipped, `base_path` comes empty and the site is
-          # generated against the root, which is what we want to check it without publishing.
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
-          # The public URL, for the canonical and the og:url. It wins over the .env, which
-          # dotenv does not use to overwrite what is already in the environment. Without Pages
-          # enabled the previous step is skipped and `base_url` comes empty: the URL the site
-          # will have once it is enabled is composed here.
-          NUXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
+          NUXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
 
       - name: Upload the site
-        if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
         uses: actions/upload-pages-artifact@v4
         with:
           path: .output/public
@@ -94,10 +116,14 @@ jobs:
   # Only the main branch publishes, and only with Pages enabled: with no artifact to deploy
   # the job would fail, so it is skipped just like the Pages steps.
   deploy:
-    needs: ci
+    needs: pages
     if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
 
     runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
 
     environment:
       name: github-pages
