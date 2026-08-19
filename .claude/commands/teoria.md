@@ -51,7 +51,7 @@ a platform for Spanish speakers.
   corrections with ❌ / ✅. Line breaks are escaped as `\n` inside the JSON.
 - `structure`: the three forms, described in Spanish. All three are required.
 - `timeMarkers`: at least 5 typical time markers, in English.
-- `examples`: at least 2 of each `form` (`affirmative`, `negative`, `interrogative`), with `en`
+- `examples`: at least 5 of each `form` (`affirmative`, `negative`, `interrogative`), with `en`
   and `es`.
 
 ## Rules

@@ -1,0 +1,108 @@
+[
+  {
+    "id": "present-perfect-continuous-001",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "I ___ (study) for my driving test since breakfast, and I still have two chapters left.",
+    "solution": "have been studying",
+    "explanation": "La actividad empezó en el pasado, continúa ahora y aún no está terminada."
+  },
+  {
+    "id": "present-perfect-continuous-002",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "Marta's hands are covered in blue paint because she ___ (paint) the bedroom all morning.",
+    "solution": "has been painting",
+    "explanation": "Las manos manchadas son el resultado visible de una actividad reciente."
+  },
+  {
+    "id": "present-perfect-continuous-003",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "I have not been ___ (sleep) well lately, so I am finding it hard to concentrate.",
+    "solution": "sleeping",
+    "explanation": "have not been fija la forma negativa; después de been se usa el verbo en -ing."
+  },
+  {
+    "id": "present-perfect-continuous-004",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "How long ___ (you / wait) outside in the rain?",
+    "solution": "have you been waiting",
+    "explanation": "How long pregunta por la duración de una actividad que llega hasta ahora."
+  },
+  {
+    "id": "present-perfect-continuous-005",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "The children are muddy because they ___ (play) football in the garden.",
+    "solution": "have been playing",
+    "explanation": "El barro es una consecuencia presente de la actividad reciente."
+  },
+  {
+    "id": "present-perfect-continuous-006",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "Why ___ (the baby / cry) for the last twenty minutes?",
+    "solution": "has the baby been crying",
+    "explanation": "for the last twenty minutes marca una actividad en curso y su duración."
+  },
+  {
+    "id": "present-perfect-continuous-007",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "The builders have not been ___ (work) on the roof all week because the wind has been too strong.",
+    "solution": "working",
+    "explanation": "have not been fija la forma negativa; work añade -ing para expresar la actividad."
+  },
+  {
+    "id": "present-perfect-continuous-008",
+    "tenseId": "present-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Nora has been using the meeting room all morning.",
+    "solution": "Nora hasn't been using the meeting room all morning.",
+    "explanation": "not se coloca después de has; been y el verbo en -ing no cambian."
+  },
+  {
+    "id": "present-perfect-continuous-009",
+    "tenseId": "present-perfect-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They have been testing the new app since Tuesday.",
+    "solution": "Have they been testing the new app since Tuesday?",
+    "explanation": "La interrogativa coloca have delante del sujeto."
+  },
+  {
+    "id": "present-perfect-continuous-010",
+    "tenseId": "present-perfect-continuous",
+    "type": "choice",
+    "prompt": "The kitchen smells wonderful because Leo has been baking since early this morning.",
+    "options": [
+      "Present Perfect Continuous",
+      "Present Perfect",
+      "Present Continuous"
+    ],
+    "solution": "Present Perfect Continuous",
+    "explanation": "since marca el inicio y el olor actual es el resultado de la actividad reciente."
+  },
+  {
+    "id": "present-perfect-continuous-011",
+    "tenseId": "present-perfect-continuous",
+    "type": "choice",
+    "prompt": "I have been reading the novel for two hours, and I am only halfway through.",
+    "options": [
+      "Present Perfect Continuous",
+      "Present Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Present Perfect Continuous",
+    "explanation": "La actividad dura hasta ahora y sigue sin terminar; importa el proceso, no un resultado completo."
+  },
+  {
+    "id": "present-perfect-continuous-012",
+    "tenseId": "present-perfect-continuous",
+    "type": "choice",
+    "prompt": "How long have you been preparing for the interview?",
+    "options": [
+      "Present Perfect Continuous",
+      "Present Perfect",
+      "Present Continuous"
+    ],
+    "solution": "Present Perfect Continuous",
+    "explanation": "How long pregunta por la duración desde el pasado hasta el presente de una actividad dinámica."
+  }
+]

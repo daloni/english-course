@@ -89,5 +89,18 @@
     ],
     "solution": "Present Continuous",
     "explanation": "this year describe una situación temporal, y eso pide present continuous."
+  },
+  {
+    "id": "present-continuous-012",
+    "tenseId": "present-continuous",
+    "type": "choice",
+    "prompt": "The river is getting cleaner every year.",
+    "options": [
+      "Present Continuous",
+      "Present Simple",
+      "Present Perfect"
+    ],
+    "solution": "Present Continuous",
+    "explanation": "is getting describe un cambio gradual en curso, no un estado permanente."
   }
 ]

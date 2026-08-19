@@ -1,0 +1,101 @@
+{
+  "id": "future-perfect",
+  "name": "Future Perfect",
+  "nameEs": "Futuro perfecto",
+  "level": "B2",
+  "theory": "## Cuándo se usa\n\nEl **future perfect** presenta una acción como terminada antes de un límite o punto de referencia futuro:\n\n- Una tarea completada antes de una fecha: *By Friday, we will have sent the contract.*\n- Un resultado que ya existirá cuando ocurra otra acción: *By the time you arrive, I will have cooked dinner.*\n- Una predicción sobre lo conseguido hasta un momento futuro: *By 2030, the city will have reduced its emissions.*\n\n**By** marca el límite máximo: la acción puede terminar antes. **By the time** introduce una oración temporal cuyo verbo va en presente, aunque se refiera al futuro: *By the time the meeting starts, they will have read the report.*\n\n## Cómo se forma\n\nSe construye con **will have + participio pasado**. *Will* y *have* no cambian según la persona. Los verbos regulares forman el participio con **-ed**; los irregulares tienen una forma propia, como *written*, *done* o *seen*.\n\n- Afirmativa: *She will have finished by noon.*\n- Negativa: *She will not have finished by noon.* La contracción es *won't have finished*.\n- Interrogativa: *Will she have finished by noon?*\n\n## Future perfect o future continuous\n\nEl **future perfect** enfoca la **finalización o el resultado** anterior al punto futuro: *At six, I will have written the report.* (estará terminado). El **future continuous** muestra una acción **en curso** en ese momento: *At six, I will be writing the report.* (estaré trabajando en él).\n\nCon cantidades acabadas, como *all three chapters* o *the entire route*, suele importar el resultado y se usa future perfect. Si importa qué estará sucediendo a una hora concreta, se usa future continuous.\n\n## Errores frecuentes\n\n- Omitir *have*: *She will finished* ❌ → *She will have finished* ✅.\n- Usar pasado en vez de participio: *They will have wrote it* ❌ → *They will have written it* ✅.\n- Poner *will* en la oración con *by the time*: *By the time he will arrive* ❌ → *By the time he arrives* ✅.\n- Confundir *by* con *until*: *by Friday* significa «como muy tarde el viernes»; *until Friday* indica que algo continúa hasta el viernes.\n- Usar future continuous cuando se exige un resultado terminado: *By noon, I will be completing all ten forms* ❌ → *By noon, I will have completed all ten forms* ✅.",
+  "structure": {
+    "affirmative": "Sujeto + will + have + participio pasado",
+    "negative": "Sujeto + will + not (won't) + have + participio pasado",
+    "interrogative": "Will + sujeto + have + participio pasado + ?"
+  },
+  "timeMarkers": [
+    "by tomorrow",
+    "by then",
+    "by Friday",
+    "by the end of the week",
+    "by next year",
+    "by 2030",
+    "by the time",
+    "before noon",
+    "within two months",
+    "in five years' time"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "By Friday, the team will have submitted the final report.",
+      "es": "Para el viernes, el equipo habrá entregado el informe final."
+    },
+    {
+      "form": "affirmative",
+      "en": "By the time the guests arrive, we will have prepared dinner.",
+      "es": "Cuando lleguen los invitados, habremos preparado la cena."
+    },
+    {
+      "form": "affirmative",
+      "en": "She will have completed her degree by next June.",
+      "es": "Ella habrá terminado la carrera para junio del año que viene."
+    },
+    {
+      "form": "affirmative",
+      "en": "In two years' time, the scientists will have collected enough data.",
+      "es": "Dentro de dos años, los científicos habrán recopilado suficientes datos."
+    },
+    {
+      "form": "affirmative",
+      "en": "By 2030, the city will have replaced all its old buses.",
+      "es": "Para 2030, la ciudad habrá sustituido todos sus autobuses antiguos."
+    },
+    {
+      "form": "negative",
+      "en": "The builders will not have finished the bridge by the start of the rainy season.",
+      "es": "Los constructores no habrán terminado el puente para el comienzo de la temporada de lluvias."
+    },
+    {
+      "form": "negative",
+      "en": "By noon, I will not have read all three hundred pages.",
+      "es": "Para el mediodía, no habré leído las trescientas páginas."
+    },
+    {
+      "form": "negative",
+      "en": "She will not have saved enough for the deposit by the end of the year.",
+      "es": "Ella no habrá ahorrado lo suficiente para la entrada antes de que termine el año."
+    },
+    {
+      "form": "negative",
+      "en": "By the time the committee meets, the researchers will not have verified every result.",
+      "es": "Cuando se reúna el comité, los investigadores no habrán verificado todos los resultados."
+    },
+    {
+      "form": "negative",
+      "en": "The update will not have reached every device before July.",
+      "es": "La actualización no habrá llegado a todos los dispositivos antes de julio."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will you have completed the safety training by Monday?",
+      "es": "¿Habrás completado la formación de seguridad para el lunes?"
+    },
+    {
+      "form": "interrogative",
+      "en": "How many homes will the engineers have inspected by the end of the week?",
+      "es": "¿Cuántas viviendas habrán inspeccionado los ingenieros al final de la semana?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Will the plane have landed by the time the last train leaves?",
+      "es": "¿Habrá aterrizado el avión cuando salga el último tren?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Will they have resolved the dispute before the contract expires?",
+      "es": "¿Habrán resuelto la disputa antes de que venza el contrato?"
+    },
+    {
+      "form": "interrogative",
+      "en": "What will the company have achieved by its tenth anniversary?",
+      "es": "¿Qué habrá conseguido la empresa para su décimo aniversario?"
+    }
+  ]
+}

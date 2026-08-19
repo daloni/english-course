@@ -1,0 +1,101 @@
+{
+  "id": "future-continuous",
+  "name": "Future Continuous",
+  "nameEs": "Futuro continuo",
+  "level": "B1",
+  "theory": "## Cuándo se usa\n\nEl **future continuous** describe una actividad que estará en curso en un momento futuro:\n\n- Acción en desarrollo a una hora o fecha futura: *This time tomorrow, I will be flying to Lisbon.*\n- Hecho esperado como parte normal de un plan, horario o rutina: *The train will be crossing the border around midnight.*\n- Dos acciones futuras que coinciden: *We will be having dinner when you arrive.*\n- Pregunta neutral sobre los planes de alguien: *Will you be using the car tonight?* Esta forma suele sonar menos insistente que pedir una decisión con *will*.\n\n## Cómo se forma\n\nSe usa **will be + verbo en -ing** para todas las personas. El auxiliar y el verbo *be* no cambian.\n\n- Afirmativa: *She will be working at ten.* La contracción es **'ll be**.\n- Negativa: *She will not be working at ten.* La contracción es **won't be**.\n- Interrogativa: *Will she be working at ten?* En preguntas con palabra interrogativa: *Where will she be working?*\n\nEl verbo principal sigue las reglas normales de *-ing*: *make → making*, *sit → sitting*, *travel → travelling*.\n\n## Contraste con will, going to y present continuous\n\n- El **future simple con will** presenta una decisión, predicción o hecho completo: *I'll call the client now.* El **future continuous** enfoca la actividad en curso: *At six, I'll be calling clients.*\n- **Going to** destaca una intención previa o una predicción basada en pruebas: *I'm going to study tonight.* El future continuous sitúa esa actividad en un punto futuro: *At ten, I'll be studying.*\n- El **present continuous** destaca un acuerdo ya cerrado: *I'm meeting Laura at six.* El future continuous describe cómo estará transcurriendo: *At six, I'll be meeting Laura.*\n- Los verbos de estado como *know*, *believe*, *own* o *need* no suelen aparecer en forma continua.\n\n## Errores frecuentes\n\n- Omitir *be*: *I will working at eight* ❌ → *I will be working at eight* ✅.\n- Añadir *to* después de *will*: *She will to be travelling* ❌ → *She will be travelling* ✅.\n- Usar el infinitivo tras *be*: *They will be work* ❌ → *They will be working* ✅.\n- Repetir el futuro en la subordinada temporal: *when you will arrive* ❌ → *when you arrive* ✅.\n- Usarlo con un verbo de estado: *I will be knowing the answer* ❌ → *I will know the answer* ✅.",
+  "structure": {
+    "affirmative": "Sujeto + will be + verbo en -ing",
+    "negative": "Sujeto + will not (won't) be + verbo en -ing",
+    "interrogative": "Will + sujeto + be + verbo en -ing + ?"
+  },
+  "timeMarkers": [
+    "this time tomorrow",
+    "at eight tomorrow",
+    "this time next week",
+    "when you arrive",
+    "while",
+    "all morning tomorrow",
+    "from nine to five",
+    "in two hours' time",
+    "later today",
+    "around midnight"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "This time tomorrow, I will be flying to Lisbon.",
+      "es": "Mañana a esta hora estaré volando a Lisboa."
+    },
+    {
+      "form": "affirmative",
+      "en": "At eight tonight, they will be presenting their new project.",
+      "es": "Esta noche a las ocho estarán presentando su nuevo proyecto."
+    },
+    {
+      "form": "affirmative",
+      "en": "When you arrive, we will be having dinner.",
+      "es": "Cuando llegues, estaremos cenando."
+    },
+    {
+      "form": "affirmative",
+      "en": "The train will be crossing the border around midnight.",
+      "es": "El tren estará cruzando la frontera alrededor de medianoche."
+    },
+    {
+      "form": "affirmative",
+      "en": "She will be working from home all next week.",
+      "es": "Ella estará trabajando desde casa toda la semana que viene."
+    },
+    {
+      "form": "negative",
+      "en": "I will not be using the car this afternoon, so you can borrow it.",
+      "es": "No voy a usar el coche esta tarde, así que puedes llevártelo."
+    },
+    {
+      "form": "negative",
+      "en": "He will not be staying at the hotel when the conference starts.",
+      "es": "Él no se estará alojando en el hotel cuando empiece el congreso."
+    },
+    {
+      "form": "negative",
+      "en": "At ten tomorrow, the students will not be taking the exam yet.",
+      "es": "Mañana a las diez, los estudiantes todavía no estarán haciendo el examen."
+    },
+    {
+      "form": "negative",
+      "en": "We will not be waiting outside when the doors open.",
+      "es": "No estaremos esperando fuera cuando abran las puertas."
+    },
+    {
+      "form": "negative",
+      "en": "The café will not be serving lunch while the kitchen is closed next week.",
+      "es": "La cafetería no servirá almuerzos mientras la cocina esté cerrada la semana que viene."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will you be using the projector at eleven tomorrow?",
+      "es": "¿Vas a usar el proyector mañana a las once?"
+    },
+    {
+      "form": "interrogative",
+      "en": "What will she be doing this time next week?",
+      "es": "¿Qué estará haciendo ella la semana que viene a esta hora?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Will they be travelling when the storm reaches the coast?",
+      "es": "¿Estarán viajando cuando la tormenta llegue a la costa?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Where will you be staying during the conference?",
+      "es": "¿Dónde te alojarás durante el congreso?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Will the children be sleeping when we get home?",
+      "es": "¿Estarán durmiendo los niños cuando lleguemos a casa?"
+    }
+  ]
+}

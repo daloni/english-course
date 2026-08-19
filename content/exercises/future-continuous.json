@@ -1,0 +1,108 @@
+[
+  {
+    "id": "future-continuous-001",
+    "tenseId": "future-continuous",
+    "prompt": "This time tomorrow, our flight ___ (cross) the Atlantic.",
+    "solution": "will be crossing",
+    "explanation": "this time tomorrow sitúa la acción en curso en un momento futuro concreto."
+  },
+  {
+    "id": "future-continuous-002",
+    "tenseId": "future-continuous",
+    "prompt": "At half past three tomorrow, the team ___ (present) its new website in a meeting that runs from three to four.",
+    "solution": "will be presenting",
+    "explanation": "A las tres y media, la presentación estará desarrollándose."
+  },
+  {
+    "id": "future-continuous-003",
+    "tenseId": "future-continuous",
+    "prompt": "At two tonight, while the website is being updated, it ___ (not / accept) payments.",
+    "solution": "will not be accepting",
+    "explanation": "La acción no estará en curso durante la actualización indicada."
+  },
+  {
+    "id": "future-continuous-004",
+    "tenseId": "future-continuous",
+    "prompt": "___ (you / use) the conference room at eleven tomorrow?",
+    "solution": "Will you be using",
+    "explanation": "Future continuous permite preguntar de forma neutral por un plan esperado."
+  },
+  {
+    "id": "future-continuous-005",
+    "tenseId": "future-continuous",
+    "prompt": "When we arrive home after midnight, the children ___ (sleep).",
+    "solution": "will be sleeping",
+    "explanation": "La acción estará en desarrollo cuando ocurra la llegada."
+  },
+  {
+    "id": "future-continuous-006",
+    "tenseId": "future-continuous",
+    "prompt": "At noon tomorrow, the museum guides ___ (not / lead) tours; they will be attending a safety course instead.",
+    "solution": "will not be leading",
+    "explanation": "At noon tomorrow exige describir lo que no estará ocurriendo a esa hora."
+  },
+  {
+    "id": "future-continuous-007",
+    "tenseId": "future-continuous",
+    "prompt": "What ___ (you / do) this time next Saturday?",
+    "solution": "will you be doing",
+    "explanation": "La pregunta pide la actividad en curso en un punto futuro."
+  },
+  {
+    "id": "future-continuous-008",
+    "tenseId": "future-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "The technicians will be checking the lifts at nine tomorrow morning.",
+    "solution": "The technicians will not be checking the lifts at nine tomorrow morning.",
+    "explanation": "La negativa añade not después de will y conserva be + verbo en -ing."
+  },
+  {
+    "id": "future-continuous-009",
+    "tenseId": "future-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "You will be using the recording studio at four tomorrow.",
+    "solution": "Will you be using the recording studio at four tomorrow?",
+    "explanation": "Will pasa delante del sujeto; be using no cambia."
+  },
+  {
+    "id": "future-continuous-010",
+    "tenseId": "future-continuous",
+    "type": "choice",
+    "prompt": "At eight tomorrow evening, I will be attending an online seminar.",
+    "options": [
+      "Future Continuous",
+      "Future Simple",
+      "Present Continuous"
+    ],
+    "solution": "Future Continuous",
+    "explanation": "At eight tomorrow evening presenta la actividad en curso a esa hora."
+  },
+  {
+    "id": "future-continuous-011",
+    "tenseId": "future-continuous",
+    "type": "choice",
+    "prompt": "The overnight train will be passing through Lyon around midnight.",
+    "options": [
+      "Future Continuous",
+      "Future Simple",
+      "Be going to"
+    ],
+    "solution": "Future Continuous",
+    "explanation": "Se describe un hecho esperado que estará en curso alrededor de medianoche."
+  },
+  {
+    "id": "future-continuous-012",
+    "tenseId": "future-continuous",
+    "type": "choice",
+    "prompt": "Will you be driving to the office at eight tomorrow?",
+    "options": [
+      "Future Continuous",
+      "Future Simple",
+      "Present Continuous"
+    ],
+    "solution": "Future Continuous",
+    "explanation": "La pregunta neutral consulta qué actividad estará en curso a las ocho."
+  }
+]

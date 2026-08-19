@@ -81,6 +81,21 @@
       "form": "interrogative",
       "en": "Have they finished the project yet?",
       "es": "¿Han terminado ya el proyecto?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I have called the clinic twice so far this morning.",
+      "es": "He llamado dos veces a la clínica en lo que va de mañana."
+    },
+    {
+      "form": "negative",
+      "en": "Marta hasn't known Leo for very long.",
+      "es": "Marta no conoce a Leo desde hace mucho tiempo."
+    },
+    {
+      "form": "interrogative",
+      "en": "Have you spoken to Elena recently?",
+      "es": "¿Has hablado con Elena recientemente?"
     }
   ]
 }

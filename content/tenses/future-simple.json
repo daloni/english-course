@@ -81,6 +81,21 @@
       "form": "interrogative",
       "en": "Will it snow next week?",
       "es": "¿Nevará la semana que viene?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I will send you the address as soon as I get home.",
+      "es": "Te enviaré la dirección en cuanto llegue a casa."
+    },
+    {
+      "form": "negative",
+      "en": "The parcel probably won't arrive before Friday.",
+      "es": "Probablemente el paquete no llegará antes del viernes."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will robots do most household chores in the future?",
+      "es": "¿Harán los robots la mayoría de las tareas domésticas en el futuro?"
     }
   ]
 }

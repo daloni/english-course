@@ -1,0 +1,108 @@
+[
+  {
+    "id": "future-perfect-001",
+    "tenseId": "future-perfect",
+    "prompt": "By the time the external auditors arrive on Monday, the finance team ___ (complete) the annual accounts.",
+    "solution": "will have completed",
+    "explanation": "La contabilidad estará terminada antes de la llegada futura de los auditores: will have completed."
+  },
+  {
+    "id": "future-perfect-002",
+    "tenseId": "future-perfect",
+    "prompt": "According to the revised schedule, the contractors ___ (not / finish) the tunnel by the start of the rainy season.",
+    "solution": "will not have finished",
+    "explanation": "By the start fija el límite futuro antes del que la obra no estará acabada."
+  },
+  {
+    "id": "future-perfect-003",
+    "tenseId": "future-perfect",
+    "prompt": "___ (you / submit) the grant application by 5 p.m. tomorrow?",
+    "solution": "Will you have submitted",
+    "explanation": "La pregunta consulta si la entrega estará completada antes de una hora límite."
+  },
+  {
+    "id": "future-perfect-004",
+    "tenseId": "future-perfect",
+    "prompt": "By 2035, rising seas ___ (force) several coastal communities to relocate.",
+    "solution": "will have forced",
+    "explanation": "By 2035 presenta el traslado como un resultado ya producido para entonces."
+  },
+  {
+    "id": "future-perfect-005",
+    "tenseId": "future-perfect",
+    "prompt": "How many applications ___ (the inspectors / examine) by the time the registration period closes?",
+    "solution": "will the inspectors have examined",
+    "explanation": "Se pregunta por una cantidad completada antes de que cierre el plazo."
+  },
+  {
+    "id": "future-perfect-006",
+    "tenseId": "future-perfect",
+    "prompt": "Even after the weekend shift, the laboratory ___ (not / process) all the samples by Monday morning.",
+    "solution": "will not have processed",
+    "explanation": "All the samples exige valorar el resultado completo al llegar el lunes."
+  },
+  {
+    "id": "future-perfect-007",
+    "tenseId": "future-perfect",
+    "prompt": "By the end of the expedition, the researchers ___ (map) all three valleys.",
+    "solution": "will have mapped",
+    "explanation": "All three valleys expresa una tarea que estará totalmente acabada al final de la expedición."
+  },
+  {
+    "id": "future-perfect-008",
+    "tenseId": "future-perfect",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "The council will have approved the budget by Tuesday.",
+    "solution": "The council will not have approved the budget by Tuesday.",
+    "explanation": "La negación se coloca entre will y have: will not have approved."
+  },
+  {
+    "id": "future-perfect-009",
+    "tenseId": "future-perfect",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "The restoration team will have reopened the gallery before the festival begins.",
+    "solution": "Will the restoration team have reopened the gallery before the festival begins?",
+    "explanation": "Will pasa delante del sujeto; have y el participio permanecen juntos."
+  },
+  {
+    "id": "future-perfect-010",
+    "tenseId": "future-perfect",
+    "type": "choice",
+    "prompt": "At 8 p.m., the technicians will have completed the upgrade, so users can log in again.",
+    "options": [
+      "Future Perfect",
+      "Future Continuous",
+      "Future Simple"
+    ],
+    "solution": "Future Perfect",
+    "explanation": "A las ocho la actualización ya estará completada; el foco está en el resultado, no en una acción en curso."
+  },
+  {
+    "id": "future-perfect-011",
+    "tenseId": "future-perfect",
+    "type": "choice",
+    "prompt": "By the time the chair opens the session, every delegate will have received the amended proposal.",
+    "options": [
+      "Future Perfect",
+      "Future Continuous",
+      "Present Perfect"
+    ],
+    "solution": "Future Perfect",
+    "explanation": "La recepción quedará completada antes de que se abra la sesión; tras by the time se usa presente."
+  },
+  {
+    "id": "future-perfect-012",
+    "tenseId": "future-perfect",
+    "type": "choice",
+    "prompt": "By 2040, the region will have restored ninety percent of its wetlands.",
+    "options": [
+      "Future Perfect",
+      "Future Continuous",
+      "Future Simple"
+    ],
+    "solution": "Future Perfect",
+    "explanation": "El porcentaje cuantifica un resultado que se habrá alcanzado antes del límite de 2040."
+  }
+]

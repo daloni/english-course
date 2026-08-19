@@ -81,6 +81,21 @@
       "form": "interrogative",
       "en": "Am I speaking too fast?",
       "es": "¿Estoy hablando demasiado rápido?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The days are getting longer.",
+      "es": "Los días se están haciendo más largos."
+    },
+    {
+      "form": "negative",
+      "en": "We are not meeting the clients tomorrow after all.",
+      "es": "Al final no vamos a reunirnos con los clientes mañana."
+    },
+    {
+      "form": "interrogative",
+      "en": "Is your cousin staying with you this month?",
+      "es": "¿Se está quedando tu primo contigo este mes?"
     }
   ]
 }

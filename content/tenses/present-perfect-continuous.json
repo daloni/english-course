@@ -1,0 +1,101 @@
+{
+  "id": "present-perfect-continuous",
+  "name": "Present Perfect Continuous",
+  "nameEs": "Pretérito perfecto continuo",
+  "level": "B1",
+  "theory": "## Cuándo se usa\n\nEl **present perfect continuous** conecta una actividad pasada con el presente y pone el foco en su desarrollo, su duración o sus efectos actuales:\n\n- Una actividad que empezó en el pasado y continúa ahora: *I have been studying for two hours.*\n- Una actividad reciente que quizá acaba de terminar y deja un resultado visible: *She has been running, so she is out of breath.*\n- Una actividad repetida durante un periodo reciente: *They have been calling me a lot lately.*\n\nNo afirma necesariamente que la actividad esté terminada; lo importante es el proceso o el tiempo dedicado.\n\n## Cómo se forma\n\nSe construye con **have / has + been + verbo en -ing**. Se usa *have* con *I, you, we, they* y *has* con *he, she, it*.\n\n- Afirmativa: *We have been working all morning.*\n- Negativa: *We have not been working all morning.* Las contracciones son *haven't* y *hasn't*.\n- Interrogativa: *Have you been working all morning?* El auxiliar *have / has* va delante del sujeto.\n\nAl añadir *-ing*, normalmente se elimina una *-e* final (*write → writing*), se duplica la consonante final en palabras como *run → running* y *-ie* cambia a *-y* (*lie → lying*).\n\n## Contraste con present perfect y verbos de estado\n\n- El **present perfect continuous** destaca el proceso o la duración: *I have been reading the report for two hours.* Puede que aún no lo haya terminado.\n- El **present perfect** destaca un resultado terminado o una cantidad: *I have read three reports today.*\n- Una consecuencia visible suele favorecer la forma continua: *She has been painting, so her hands are blue.* Si importa el resultado completo, se usa la simple: *She has painted the whole room.*\n\nLos verbos de estado como *know, believe, own, need, want* y *love* normalmente no se usan en continuo. Se dice *I have known Ana for years*, no *I have been knowing Ana for years*.\n\n## Errores frecuentes\n\n- Omitir *been*: *She has working all day* ❌ → *She has been working all day* ✅.\n- Usar un participio después de *been*: *They have been worked* ❌ → *They have been working* ✅.\n- Confundir *since* y *for*: *since three hours* ❌ → *for three hours* ✅; *for Monday* ❌ → *since Monday* ✅.\n- Poner un verbo de estado en continuo: *I have been knowing him for years* ❌ → *I have known him for years* ✅.\n- Elegir la forma continua para un resultado ya terminado y cuantificado: *I have been reading three chapters* ❌ → *I have read three chapters* ✅ cuando los tres capítulos están completos.",
+  "structure": {
+    "affirmative": "Sujeto + have / has + been + verbo en -ing",
+    "negative": "Sujeto + have / has + not + been + verbo en -ing",
+    "interrogative": "Have / Has + sujeto + been + verbo en -ing + ?"
+  },
+  "timeMarkers": [
+    "for",
+    "since",
+    "all day",
+    "all morning",
+    "lately",
+    "recently",
+    "how long",
+    "since when",
+    "for the past few weeks",
+    "over the last few months"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "I have been studying English for three years.",
+      "es": "Llevo tres años estudiando inglés."
+    },
+    {
+      "form": "affirmative",
+      "en": "She has been working from home since January.",
+      "es": "Ella trabaja desde casa desde enero."
+    },
+    {
+      "form": "affirmative",
+      "en": "It has been raining all morning, so the streets are wet.",
+      "es": "Ha estado lloviendo toda la mañana, así que las calles están mojadas."
+    },
+    {
+      "form": "affirmative",
+      "en": "We have been painting the kitchen, and our clothes are covered in paint.",
+      "es": "Hemos estado pintando la cocina y tenemos la ropa cubierta de pintura."
+    },
+    {
+      "form": "affirmative",
+      "en": "They have been meeting online more often lately.",
+      "es": "Últimamente se han estado reuniendo por internet con más frecuencia."
+    },
+    {
+      "form": "negative",
+      "en": "I haven't been sleeping well lately.",
+      "es": "Últimamente no estoy durmiendo bien."
+    },
+    {
+      "form": "negative",
+      "en": "He hasn't been using his bike since the accident.",
+      "es": "No usa la bicicleta desde el accidente."
+    },
+    {
+      "form": "negative",
+      "en": "We haven't been waiting for very long.",
+      "es": "No llevamos mucho tiempo esperando."
+    },
+    {
+      "form": "negative",
+      "en": "Laura hasn't been feeling well this week.",
+      "es": "Laura no se ha encontrado bien esta semana."
+    },
+    {
+      "form": "negative",
+      "en": "The printer hasn't been working properly for the past few days.",
+      "es": "La impresora no ha estado funcionando correctamente durante los últimos días."
+    },
+    {
+      "form": "interrogative",
+      "en": "Have you been waiting long?",
+      "es": "¿Llevas mucho tiempo esperando?"
+    },
+    {
+      "form": "interrogative",
+      "en": "How long has Marta been learning Japanese?",
+      "es": "¿Cuánto tiempo lleva Marta estudiando japonés?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Has he been working on the report all afternoon?",
+      "es": "¿Ha estado trabajando en el informe toda la tarde?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Why have they been arguing lately?",
+      "es": "¿Por qué han estado discutiendo últimamente?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Has your dog been digging in the garden? Its paws are muddy.",
+      "es": "¿Tu perro ha estado cavando en el jardín? Tiene las patas llenas de barro."
+    }
+  ]
+}

@@ -79,6 +79,21 @@
       "form": "interrogative",
       "en": "When did you buy that jacket?",
       "es": "¿Cuándo compraste esa chaqueta?"
+    },
+    {
+      "form": "affirmative",
+      "en": "Last night, she closed the window and turned off the light.",
+      "es": "Anoche cerró la ventana y apagó la luz."
+    },
+    {
+      "form": "negative",
+      "en": "The Romans didn't use electricity.",
+      "es": "Los romanos no usaban electricidad."
+    },
+    {
+      "form": "interrogative",
+      "en": "How long did the meeting last yesterday?",
+      "es": "¿Cuánto duró la reunión de ayer?"
     }
   ]
 }

@@ -1,0 +1,108 @@
+[
+  {
+    "id": "past-perfect-continuous-001",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "By the time the rescue team reached them, the climbers ___ (wait) in the snow for six hours.",
+    "solution": "had been waiting",
+    "explanation": "for six hours mide la duración acumulada antes de que llegara el equipo de rescate."
+  },
+  {
+    "id": "past-perfect-continuous-002",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "The pavement was wet because it ___ (rain) steadily since dawn.",
+    "solution": "had been raining",
+    "explanation": "El pavimento mojado era el resultado pasado de una actividad prolongada."
+  },
+  {
+    "id": "past-perfect-continuous-003",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "When the review began, the analysts ___ (not / monitor) the system for very long.",
+    "solution": "had not been monitoring",
+    "explanation": "La negativa coloca not después de had: had not been monitoring."
+  },
+  {
+    "id": "past-perfect-continuous-004",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "How long ___ (she / rehearse) before the curtain went up?",
+    "solution": "had she been rehearsing",
+    "explanation": "How long pregunta por la duración anterior; had va delante del sujeto."
+  },
+  {
+    "id": "past-perfect-continuous-005",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "His hands were covered in paint because he ___ (decorate) the flat all morning, but only one wall was finished.",
+    "solution": "had been decorating",
+    "explanation": "La pintura en las manos era el resultado visible de la actividad anterior."
+  },
+  {
+    "id": "past-perfect-continuous-006",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "The engine failed at noon; it ___ (not / run) smoothly for several days.",
+    "solution": "had not been running",
+    "explanation": "for several days expresa una situación prolongada previa al fallo del motor."
+  },
+  {
+    "id": "past-perfect-continuous-007",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "___ (the engineers / test) the new material for long when the alarm sounded?",
+    "solution": "Had the engineers been testing",
+    "explanation": "La interrogativa se forma con Had + sujeto + been + verbo en -ing."
+  },
+  {
+    "id": "past-perfect-continuous-008",
+    "tenseId": "past-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "The laboratory had been storing the samples at the correct temperature before the alarm sounded.",
+    "solution": "The laboratory had not been storing the samples at the correct temperature before the alarm sounded.",
+    "explanation": "Para negar, se añade not entre had y been."
+  },
+  {
+    "id": "past-perfect-continuous-009",
+    "tenseId": "past-perfect-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "The researchers had been tracking the whale for six months before the tag failed.",
+    "solution": "Had the researchers been tracking the whale for six months before the tag failed?",
+    "explanation": "Had pasa delante del sujeto; been y la forma en -ing no cambian."
+  },
+  {
+    "id": "past-perfect-continuous-010",
+    "tenseId": "past-perfect-continuous",
+    "type": "choice",
+    "prompt": "By 9 p.m., Marta had been editing the documentary for four hours.",
+    "options": [
+      "Past Perfect Continuous",
+      "Past Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Past Perfect Continuous",
+    "explanation": "for four hours acumula duración hasta el punto pasado marcado por by 9 p.m."
+  },
+  {
+    "id": "past-perfect-continuous-011",
+    "tenseId": "past-perfect-continuous",
+    "type": "choice",
+    "prompt": "The players were exhausted because they had been training in the heat all afternoon.",
+    "options": [
+      "Past Perfect Continuous",
+      "Past Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Past Perfect Continuous",
+    "explanation": "El agotamiento era el resultado pasado de una actividad prolongada."
+  },
+  {
+    "id": "past-perfect-continuous-012",
+    "tenseId": "past-perfect-continuous",
+    "type": "choice",
+    "prompt": "Before the replacement crew arrived, the workers had been repairing the bridge for eight hours.",
+    "options": [
+      "Past Perfect Continuous",
+      "Past Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Past Perfect Continuous",
+    "explanation": "La reparación duró ocho horas antes de otro hecho pasado; se destaca el proceso, no su finalización."
+  }
+]

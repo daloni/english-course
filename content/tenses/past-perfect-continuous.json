@@ -1,0 +1,101 @@
+{
+  "id": "past-perfect-continuous",
+  "name": "Past Perfect Continuous",
+  "nameEs": "Pluscuamperfecto continuo",
+  "level": "B2",
+  "theory": "## Cuándo se usa\n\nEl **past perfect continuous** presenta una actividad que llevaba un tiempo desarrollándose **antes de otro momento del pasado**:\n\n- Duración hasta un punto pasado: *She had been studying for three hours when the library closed.*\n- Causa de una situación o un resultado pasado: *The ground was wet because it had been raining.*\n- Actividad repetida o temporal anterior a otro hecho: *They had been meeting every week before the project ended.*\n\nLa actividad puede seguir en el momento de referencia o haber terminado justo antes; lo importante es su desarrollo o duración previa.\n\n## Cómo se forma\n\nSe usa **had been + verbo en -ing** para todas las personas. *Had* no cambia con el sujeto y *been* nunca se omite.\n\n- Afirmativa: *They had been waiting for an hour.*\n- Negativa: *They had not been waiting for long.* La contracción habitual es **hadn't been**.\n- Interrogativa: *Had they been waiting for long?* En preguntas con *how long*, se dice *How long had they been waiting?*\n\nSe aplican las reglas normales de la terminación *-ing*: *write → writing*, *run → running*, *lie → lying*.\n\n## Contraste con past perfect y past continuous\n\n- El **past perfect** destaca un resultado terminado o una cantidad: *She had written five pages before lunch.* El **past perfect continuous** destaca el proceso o su duración: *She had been writing for two hours before lunch.*\n- El **past continuous** muestra lo que estaba en curso en un momento pasado: *At eight, she was working.* El **past perfect continuous** mira hacia atrás desde ese momento: *By eight, she had been working for three hours.*\n- Los verbos de estado como *know*, *believe*, *own* o *need* no suelen usarse en continuo. Se dice *They had known each other for years*, no *had been knowing*.\n\n## Errores frecuentes\n\n- Omitir *been*: *I had working all day* ❌ → *I had been working all day* ✅.\n- Usar el participio en lugar de *-ing*: *She had been worked* ❌ → *She had been working* ✅.\n- Cambiar *had* por persona: *He has been waiting before I arrived* ❌ → *He had been waiting before I arrived* ✅.\n- Usarlo con un verbo de estado: *We had been owning the house for years* ❌ → *We had owned the house for years* ✅.\n- No indicar un momento pasado de referencia: el contexto debe dejar claro hasta cuándo duró o qué resultado pasado provocó la actividad.",
+  "structure": {
+    "affirmative": "Sujeto + had been + verbo en -ing",
+    "negative": "Sujeto + had not (hadn't) been + verbo en -ing",
+    "interrogative": "Had + sujeto + been + verbo en -ing + ?"
+  },
+  "timeMarkers": [
+    "for",
+    "since",
+    "all morning",
+    "all day",
+    "how long",
+    "before",
+    "when",
+    "by the time",
+    "until then",
+    "for several weeks"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "She had been studying for three hours when the library closed.",
+      "es": "Ella llevaba tres horas estudiando cuando cerró la biblioteca."
+    },
+    {
+      "form": "affirmative",
+      "en": "The ground was wet because it had been raining all night.",
+      "es": "El suelo estaba mojado porque había estado lloviendo toda la noche."
+    },
+    {
+      "form": "affirmative",
+      "en": "By noon, we had been driving since dawn.",
+      "es": "Al mediodía, llevábamos conduciendo desde el amanecer."
+    },
+    {
+      "form": "affirmative",
+      "en": "His eyes were sore because he had been staring at the screen all morning.",
+      "es": "Le dolían los ojos porque había estado mirando la pantalla toda la mañana."
+    },
+    {
+      "form": "affirmative",
+      "en": "They had been renovating the house for months before they moved back in.",
+      "es": "Llevaban meses reformando la casa antes de volver a instalarse en ella."
+    },
+    {
+      "form": "negative",
+      "en": "I had not been waiting long when the bus arrived.",
+      "es": "No llevaba mucho tiempo esperando cuando llegó el autobús."
+    },
+    {
+      "form": "negative",
+      "en": "She had not been sleeping well in the weeks before the final exam.",
+      "es": "Ella no había estado durmiendo bien en las semanas anteriores al examen final."
+    },
+    {
+      "form": "negative",
+      "en": "They had not been working together for very long when the project ended.",
+      "es": "No llevaban mucho tiempo trabajando juntos cuando terminó el proyecto."
+    },
+    {
+      "form": "negative",
+      "en": "The machine had not been running properly for weeks before it broke down.",
+      "es": "La máquina llevaba semanas sin funcionar bien antes de averiarse."
+    },
+    {
+      "form": "negative",
+      "en": "We had not been living there long when the flood forced us to leave.",
+      "es": "No llevábamos mucho tiempo viviendo allí cuando la inundación nos obligó a marcharnos."
+    },
+    {
+      "form": "interrogative",
+      "en": "Had you been waiting long before the doctor saw you?",
+      "es": "¿Llevabas mucho tiempo esperando antes de que te atendiera el médico?"
+    },
+    {
+      "form": "interrogative",
+      "en": "How long had she been teaching there when she was promoted?",
+      "es": "¿Cuánto tiempo llevaba enseñando allí cuando la ascendieron?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Had it been snowing before the roads were closed?",
+      "es": "¿Había estado nevando antes de que cerraran las carreteras?"
+    },
+    {
+      "form": "interrogative",
+      "en": "What had they been discussing before the meeting was interrupted?",
+      "es": "¿Qué habían estado debatiendo antes de que se interrumpiera la reunión?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Had he been training regularly before he injured his knee?",
+      "es": "¿Había estado entrenando con regularidad antes de lesionarse la rodilla?"
+    }
+  ]
+}

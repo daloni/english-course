@@ -90,5 +90,18 @@
     ],
     "solution": "Future Simple",
     "explanation": "La decisión se toma en ese momento, y eso pide will."
+  },
+  {
+    "id": "future-simple-012",
+    "tenseId": "future-simple",
+    "type": "choice",
+    "prompt": "I will call you as soon as the train arrives.",
+    "options": [
+      "Future Simple",
+      "Be going to",
+      "Present Continuous"
+    ],
+    "solution": "Future Simple",
+    "explanation": "La acción principal lleva will; tras as soon as se usa present simple, aunque ambas acciones sean futuras."
   }
 ]

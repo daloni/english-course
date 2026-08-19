@@ -1,0 +1,108 @@
+[
+  {
+    "id": "future-perfect-continuous-001",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "By noon, I ___ (work) on this proposal for six hours.",
+    "solution": "will have been working",
+    "explanation": "For six hours mide la duración acumulada del trabajo hasta el mediodía."
+  },
+  {
+    "id": "future-perfect-continuous-002",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "Next January, the research team ___ (run) the clinical trial for eighteen months.",
+    "solution": "will have been running",
+    "explanation": "La actividad continuará y habrá acumulado dieciocho meses en enero."
+  },
+  {
+    "id": "future-perfect-continuous-003",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "When the launch window opens, the engineers ___ (not / test) the prototype under polar conditions for a full year.",
+    "solution": "will not have been testing",
+    "explanation": "La negativa indica que, al abrirse la ventana de lanzamiento, las pruebas aún no acumularán un año."
+  },
+  {
+    "id": "future-perfect-continuous-004",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "How long ___ (you / oversee) the merger by the time the regulators issue their decision?",
+    "solution": "will you have been overseeing",
+    "explanation": "How long pregunta por la duración acumulada hasta una decisión futura."
+  },
+  {
+    "id": "future-perfect-continuous-005",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "By morning, will it have been ___ (rain) continuously for twelve hours?",
+    "solution": "raining",
+    "explanation": "will it have been fija la cadena interrogativa; tras been se usa el verbo en -ing."
+  },
+  {
+    "id": "future-perfect-continuous-006",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "By next month, she will not have been ___ (use) the platform continuously for a full quarter.",
+    "solution": "using",
+    "explanation": "will not have been fija la cadena negativa; continuously destaca el proceso acumulado."
+  },
+  {
+    "id": "future-perfect-continuous-007",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "When the vessel docks in Cape Town, the crew ___ (sail) continuously for forty days.",
+    "solution": "will have been sailing",
+    "explanation": "For forty days expresa cuánto habrá durado la travesía continua al llegar a puerto."
+  },
+  {
+    "id": "future-perfect-continuous-008",
+    "tenseId": "future-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "The analysts will have been monitoring the market for six months by then.",
+    "solution": "The analysts will not have been monitoring the market for six months by then.",
+    "explanation": "Not se coloca después de will; la cadena have been monitoring no cambia."
+  },
+  {
+    "id": "future-perfect-continuous-009",
+    "tenseId": "future-perfect-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "The legal teams will have been negotiating for a year when the licence expires.",
+    "solution": "Will the legal teams have been negotiating for a year when the licence expires?",
+    "explanation": "Will pasa delante del sujeto y el resto de la cadena verbal conserva su orden."
+  },
+  {
+    "id": "future-perfect-continuous-010",
+    "tenseId": "future-perfect-continuous",
+    "type": "choice",
+    "prompt": "By July, the observatory will have been tracking the comet for twelve consecutive months.",
+    "options": [
+      "Future Perfect Continuous",
+      "Future Perfect",
+      "Future Continuous"
+    ],
+    "solution": "Future Perfect Continuous",
+    "explanation": "For twelve consecutive months destaca la duración acumulada del seguimiento hasta julio."
+  },
+  {
+    "id": "future-perfect-continuous-011",
+    "tenseId": "future-perfect-continuous",
+    "type": "choice",
+    "prompt": "By sunset, they will have been repairing the pipeline for ten hours, but the work will still not be complete.",
+    "options": [
+      "Future Perfect Continuous",
+      "Future Perfect",
+      "Future Continuous"
+    ],
+    "solution": "Future Perfect Continuous",
+    "explanation": "El trabajo seguirá incompleto y el foco recae en las diez horas de proceso acumulado."
+  },
+  {
+    "id": "future-perfect-continuous-012",
+    "tenseId": "future-perfect-continuous",
+    "type": "choice",
+    "prompt": "When the tribunal reconvenes, the lawyers will have been negotiating behind closed doors all week.",
+    "options": [
+      "Future Perfect Continuous",
+      "Future Perfect",
+      "Present Perfect Continuous"
+    ],
+    "solution": "Future Perfect Continuous",
+    "explanation": "All week mide una negociación sostenida hasta el momento futuro en que se reúna de nuevo el tribunal."
+  }
+]
