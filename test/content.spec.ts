@@ -20,11 +20,27 @@ function expectNoRawHtml(value: unknown, label: string) {
 
 const duplicates = (values: string[]) => values.filter((value, i) => values.indexOf(value) !== i)
 
+const targetTenseIds = [
+  'present-simple',
+  'present-continuous',
+  'present-perfect',
+  'present-perfect-continuous',
+  'past-simple',
+  'past-continuous',
+  'past-perfect',
+  'past-perfect-continuous',
+  'future-simple',
+  'future-continuous',
+  'future-perfect',
+  'future-perfect-continuous',
+  'be-going-to'
+]
+
 describe('tenses', () => {
   it('loads every file in content/tenses', () => {
     expect(tenses).toHaveLength(Object.keys(tenseFiles).length)
-    // The seed tenses always ship; /teoria may add more.
-    expect(tenses.map(tense => tense.id)).toEqual(expect.arrayContaining(['past-simple', 'present-perfect', 'present-simple']))
+    // The complete tense grid always ships; /teoria may add more.
+    expect(tenses.map(tense => tense.id)).toEqual(expect.arrayContaining(targetTenseIds))
   })
 
   it('has unique ids', () => {
@@ -67,12 +83,11 @@ describe('tenses', () => {
       })
     })
 
-    // Two per form is the floor /teoria asks for: without this, a tense written with a single
-    // affirmative example would still ship green.
-    it('has at least two examples of every form', () => {
+    // Five per form is the floor /teoria asks for.
+    it('has at least five examples of every form', () => {
       for (const form of forms) {
         expect(tense.examples.filter(example => example.form === form).length, `examples of ${form}`)
-          .toBeGreaterThanOrEqual(2)
+          .toBeGreaterThanOrEqual(5)
       }
     })
 
@@ -126,11 +141,12 @@ describe('exercises', () => {
     expect(duplicates(exercises.map(exercise => exercise.id))).toEqual([])
   })
 
-  // A tense with theory but no sentences is not listed on /frases and hides the practice
-  // button on /teoria/<slug>: the seed tenses have to ship their own.
-  it('drills every seed tense', () => {
-    expect([...new Set(exercises.map(exercise => exercise.tenseId))])
-      .toEqual(expect.arrayContaining(['past-simple', 'present-perfect', 'present-simple']))
+  // A tense without enough sentences offers an incomplete practice round.
+  it('has at least twelve exercises for every published tense', () => {
+    for (const tense of tenses) {
+      expect(exercises.filter(exercise => exercise.tenseId === tense.id).length, `exercises for ${tense.id}`)
+        .toBeGreaterThanOrEqual(12)
+    }
   })
 
   it('always has a solution and a known tense', () => {
