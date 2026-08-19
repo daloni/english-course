@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { marked } from 'marked'
-
 const route = useRoute()
 const tense = tenseById(String(route.params.slug))
 
@@ -8,8 +6,9 @@ if (!tense) {
   throw createError({ statusCode: 404, message: 'Tiempo verbal no encontrado', fatal: true })
 }
 
-// The markdown comes from content/tenses/*.json, versioned in this repo, so it is trusted.
-const theory = marked.parse(tense.theory, { async: false })
+// The markdown comes from content/tenses/*.json, versioned in this repo, but it is rendered through
+// renderMarkdown(): links with an executable scheme never reach the DOM as anchors.
+const theory = renderMarkdown(tense.theory)
 
 const examplesByForm = forms
   .map(form => ({ form, examples: tense.examples.filter(example => example.form === form) }))
@@ -46,7 +45,7 @@ useSeo({
 
     <UPageSection>
       <div class="space-y-12">
-        <!-- eslint-disable vue/no-v-html -- raw HTML is rejected by test/content.spec.ts -->
+        <!-- eslint-disable vue/no-v-html -- raw HTML is rejected by test/content.spec.ts and the links go through renderMarkdown() -->
         <div
           class="space-y-4 [&_em]:italic [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_li]:my-1 [&_strong]:font-semibold [&_ul]:list-disc [&_ul]:ps-6"
           v-html="theory"

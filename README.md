@@ -135,6 +135,20 @@ the `videoId` is recorded in `ingles:clips-unavailable` and its clips stop comin
 — in `/repaso` too — so a dead embed cannot stall the session. That list is not progress and does
 not travel in the export: it is a fact about the video.
 
+## Markdown of the content
+
+The theory of `content/tenses/` and the text of `content/readings/` are Markdown, rendered as
+HTML in `/teoria/<slug>` and `/reading/<slug>`. Both pages go through the same renderer,
+`app/utils/markdown.ts`, which only lets a link keep its `href` when the destination is
+`https://`, `http://`, `mailto:` or somewhere inside the site (`/teoria/...`, `#anchor`,
+`?query`). Any other scheme — `javascript:`, `data:`, `vbscript:` — loses the anchor and stays
+as plain text, and the same applies to the source of an image. The check ignores case and the
+control characters and spaces a URL can hide a scheme behind.
+
+Raw HTML in the content is rejected apart, by `test/content.spec.ts` and `test/reading.spec.ts`:
+what the content writes is Markdown. `test/markdown.spec.ts` covers both the allowlist and the
+two pages with malicious payloads.
+
 ## Progress and spaced repetition
 
 Every answer in `/frases`, `/verbos/practica`, `/reading` and `/clips/practica` is recorded in
@@ -282,6 +296,7 @@ app/
   utils/diff.ts           word-by-word comparison of what was said
   utils/progress.ts       Leitner boxes, localStorage persistence and reviewable items
   utils/content.ts        types of the content and loading of content/*.json
+  utils/markdown.ts       renders the Markdown of the content, with a link allowlist
   utils/explain.ts        component and explanation of every exercise type
   utils/sections.ts       sections of the site (navigation and cards)
   utils/unavailable.ts    list of dead videos, stored apart from the progress
@@ -305,6 +320,7 @@ test/
   verbos.spec.ts          table of verbs and a full conjugation round
   frases.spec.ts          every file of content/exercises/ and its exercise type
   reading.spec.ts         validates content/readings/ and corrects the questions in /reading
+  markdown.spec.ts        the link allowlist of the Markdown renderer, and the two pages
   clips.spec.ts           validates content/clips/ and plays a round in /clips/practica
   subtitles.spec.ts       subtitle parsing and cutting into usable sentences
   pwa.spec.ts             the manifest declares icons that exist, and the scope of the base
