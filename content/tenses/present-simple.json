@@ -81,6 +81,21 @@
       "form": "interrogative",
       "en": "How often do you go to the gym?",
       "es": "¿Con qué frecuencia vas al gimnasio?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The Earth goes around the Sun.",
+      "es": "La Tierra gira alrededor del Sol."
+    },
+    {
+      "form": "negative",
+      "en": "Penguins don't live in the Arctic.",
+      "es": "Los pingüinos no viven en el Ártico."
+    },
+    {
+      "form": "interrogative",
+      "en": "Does the film start at eight tonight?",
+      "es": "¿Empieza la película a las ocho esta noche?"
     }
   ]
 }

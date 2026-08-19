@@ -81,6 +81,21 @@
       "form": "interrogative",
       "en": "Had she ever flown alone before that day?",
       "es": "¿Había volado ella sola alguna vez antes de aquel día?"
+    },
+    {
+      "form": "affirmative",
+      "en": "By age thirty, she had worked in four countries.",
+      "es": "A los treinta años, ya había trabajado en cuatro países."
+    },
+    {
+      "form": "negative",
+      "en": "By midnight, the storm had not reached the coast.",
+      "es": "A medianoche, la tormenta aún no había llegado a la costa."
+    },
+    {
+      "form": "interrogative",
+      "en": "How many applications had the team received before the deadline passed?",
+      "es": "¿Cuántas solicitudes había recibido el equipo antes de que venciera el plazo?"
     }
   ]
 }

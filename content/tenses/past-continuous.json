@@ -81,6 +81,21 @@
       "form": "interrogative",
       "en": "What was she reading all night?",
       "es": "¿Qué estaba leyendo ella toda la noche?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The wind was blowing as we walked along the beach.",
+      "es": "El viento soplaba mientras caminábamos por la playa."
+    },
+    {
+      "form": "negative",
+      "en": "The sun was not shining, but the birds were singing.",
+      "es": "El sol no brillaba, pero los pájaros cantaban."
+    },
+    {
+      "form": "interrogative",
+      "en": "What were you doing while I was setting the table?",
+      "es": "¿Qué estabas haciendo mientras yo ponía la mesa?"
     }
   ]
 }

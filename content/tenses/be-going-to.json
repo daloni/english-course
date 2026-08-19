@@ -80,6 +80,21 @@
       "form": "interrogative",
       "en": "Am I going to need my passport?",
       "es": "¿Voy a necesitar el pasaporte?"
+    },
+    {
+      "form": "affirmative",
+      "en": "Nora is going to learn to drive this year.",
+      "es": "Nora va a aprender a conducir este año."
+    },
+    {
+      "form": "negative",
+      "en": "The weather is clearing; it is not going to snow after all.",
+      "es": "El cielo se está despejando; al final no va a nevar."
+    },
+    {
+      "form": "interrogative",
+      "en": "Where are you going to stay during your trip?",
+      "es": "¿Dónde vas a alojarte durante tu viaje?"
     }
   ]
 }

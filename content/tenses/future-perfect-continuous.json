@@ -1,0 +1,101 @@
+{
+  "id": "future-perfect-continuous",
+  "name": "Future Perfect Continuous",
+  "nameEs": "Futuro perfecto continuo",
+  "level": "C1",
+  "theory": "## Cuándo se usa\n\nEl **future perfect continuous** expresa la duración acumulada de una actividad hasta un punto futuro. Mira hacia atrás desde ese punto y destaca el proceso o su continuidad:\n\n- Duración hasta una hora o fecha futura: *By noon, I will have been working for six hours.*\n- Actividad repetida o sostenida que seguirá hasta entonces: *Next May, they will have been commuting together for a year.*\n- Causa de una situación prevista en el futuro: *She will be tired because she will have been travelling all night.*\n\nSuele aparecer con **for** + duración o **since** + punto inicial. El límite futuro se introduce con *by*, *by the time* o una expresión equivalente.\n\n## Cómo se forma\n\nSe construye con **will have been + verbo en -ing**. La cadena auxiliar es igual para todas las personas:\n\n- Afirmativa: *They will have been waiting for two hours.*\n- Negativa: *They will not have been waiting for two hours.* La contracción es *won't have been waiting*.\n- Interrogativa: *Will they have been waiting for two hours?*\n\nSe aplican las reglas ortográficas habituales de la forma en **-ing**: *write → writing*, *run → running*, *lie → lying*.\n\n## Future perfect continuous, future perfect o future continuous\n\nEl **future perfect continuous** destaca cuánto habrá durado el proceso: *By six, I will have been writing for four hours.* El **future perfect** destaca el resultado terminado o la cantidad completada: *By six, I will have written four pages.* El **future continuous** solo sitúa la acción en curso en un momento futuro, sin medir la duración anterior: *At six, I will be writing.*\n\nLos verbos de estado, como *know*, *believe*, *own*, *belong*, *need* y *understand*, normalmente no admiten la forma continua. Con ellos se usa future perfect simple: *By May, I will have known Ana for ten years*, no *will have been knowing*.\n\n## Errores frecuentes\n\n- Omitir *been*: *I will have working* ❌ → *I will have been working* ✅.\n- Usar el participio después de *been*: *She will have been worked* ❌ → *She will have been working* ✅.\n- Poner *will* tras *by the time*: *By the time they will arrive* ❌ → *By the time they arrive* ✅.\n- Elegir la continua para un resultado contado: *By noon, I will have been answering twenty emails* ❌ → *By noon, I will have answered twenty emails* ✅.\n- Usarla con un verbo de estado: *He will have been owning the house for a decade* ❌ → *He will have owned the house for a decade* ✅.",
+  "structure": {
+    "affirmative": "Sujeto + will + have + been + verbo en -ing",
+    "negative": "Sujeto + will + not (won't) + have + been + verbo en -ing",
+    "interrogative": "Will + sujeto + have + been + verbo en -ing + ?"
+  },
+  "timeMarkers": [
+    "by then",
+    "by noon",
+    "by next month",
+    "by the time",
+    "for two hours",
+    "for a decade",
+    "since 2021",
+    "all day",
+    "how long",
+    "when the deadline arrives"
+  ],
+  "examples": [
+    {
+      "form": "affirmative",
+      "en": "By noon, I will have been working on the proposal for six hours.",
+      "es": "Para el mediodía, llevaré seis horas trabajando en la propuesta."
+    },
+    {
+      "form": "affirmative",
+      "en": "Next September, she will have been teaching at the university for a decade.",
+      "es": "El próximo septiembre, ella llevará una década dando clases en la universidad."
+    },
+    {
+      "form": "affirmative",
+      "en": "By the time the train arrives, they will have been waiting for over an hour.",
+      "es": "Cuando llegue el tren, llevarán más de una hora esperando."
+    },
+    {
+      "form": "affirmative",
+      "en": "Next June, we will have been living in this neighbourhood since 2021.",
+      "es": "El próximo junio, llevaremos viviendo en este barrio desde 2021."
+    },
+    {
+      "form": "affirmative",
+      "en": "By the end of the expedition, the scientists will have been monitoring the glacier continuously for three months.",
+      "es": "Al terminar la expedición, los científicos llevarán tres meses siguiendo el glaciar sin interrupción."
+    },
+    {
+      "form": "negative",
+      "en": "By Friday, he will not have been training long enough to enter the marathon.",
+      "es": "Para el viernes, no llevará entrenando el tiempo suficiente para participar en el maratón."
+    },
+    {
+      "form": "negative",
+      "en": "When the inspection begins, the factory will not have been operating at full capacity for a full week.",
+      "es": "Cuando empiece la inspección, la fábrica aún no llevará una semana entera funcionando a pleno rendimiento."
+    },
+    {
+      "form": "negative",
+      "en": "By next month, I will not have been using the new system for very long.",
+      "es": "El mes que viene, aún no llevaré mucho tiempo usando el sistema nuevo."
+    },
+    {
+      "form": "negative",
+      "en": "By the time the results are published, the researchers will not have been collecting data for a complete year.",
+      "es": "Cuando se publiquen los resultados, los investigadores aún no llevarán un año completo recopilando datos."
+    },
+    {
+      "form": "negative",
+      "en": "At sunset, the crews will not have been searching for twelve hours yet.",
+      "es": "Al ponerse el sol, los equipos aún no llevarán doce horas buscando."
+    },
+    {
+      "form": "interrogative",
+      "en": "By December, will you have been managing the team for five years?",
+      "es": "Para diciembre, ¿llevarás cinco años dirigiendo el equipo?"
+    },
+    {
+      "form": "interrogative",
+      "en": "How long will she have been commuting from Leeds by the time the new office opens?",
+      "es": "¿Cuánto tiempo llevará desplazándose desde Leeds cuando abra la nueva oficina?"
+    },
+    {
+      "form": "interrogative",
+      "en": "Will it have been raining long enough to fill the reservoir by morning?",
+      "es": "¿Habrá estado lloviendo el tiempo suficiente para llenar el embalse de aquí a la mañana?"
+    },
+    {
+      "form": "interrogative",
+      "en": "By 6 p.m., will the surgeons have been operating for more than four hours?",
+      "es": "Para las seis de la tarde, ¿llevarán los cirujanos más de cuatro horas operando?"
+    },
+    {
+      "form": "interrogative",
+      "en": "How many months will they have been negotiating by the time the agreement is signed?",
+      "es": "¿Cuántos meses llevarán negociando cuando se firme el acuerdo?"
+    }
+  ]
+}

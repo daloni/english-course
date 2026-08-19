@@ -47,6 +47,10 @@ describe('tenses', () => {
     expect(duplicates(tenses.map(tense => tense.id))).toEqual([])
   })
 
+  it('has no repeated English example', () => {
+    expect(duplicates(tenses.flatMap(tense => tense.examples.map(example => example.en)))).toEqual([])
+  })
+
   describe.each(Object.entries(tenseFiles))('%s', (path, tense) => {
     it('is named after its id', () => {
       expectText(tense.id, 'id')
@@ -89,11 +93,6 @@ describe('tenses', () => {
         expect(tense.examples.filter(example => example.form === form).length, `examples of ${form}`)
           .toBeGreaterThanOrEqual(5)
       }
-    })
-
-    // /teoria/<slug> keys the list by `en`: a repeat is a duplicate key warning in Vue.
-    it('has no repeated English example', () => {
-      expect(duplicates(tense.examples.map(example => example.en))).toEqual([])
     })
   })
 })

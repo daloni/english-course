@@ -89,5 +89,18 @@
     ],
     "solution": "Past Perfect",
     "explanation": "had + participio: algo anterior a otro momento pasado del relato."
+  },
+  {
+    "id": "past-perfect-012",
+    "tenseId": "past-perfect",
+    "type": "choice",
+    "prompt": "By the start of the steepest climb, the hikers had just eaten their last sandwiches.",
+    "options": [
+      "Past Perfect",
+      "Past Continuous",
+      "Past Simple"
+    ],
+    "solution": "Past Perfect",
+    "explanation": "just sitúa la acción inmediatamente antes de otro punto pasado: el tramo más empinado."
   }
 ]

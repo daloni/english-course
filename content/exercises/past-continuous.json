@@ -87,5 +87,18 @@
     ],
     "solution": "Past Continuous",
     "explanation": "Dos acciones largas en paralelo con while: las dos en past continuous."
+  },
+  {
+    "id": "past-continuous-012",
+    "tenseId": "past-continuous",
+    "type": "choice",
+    "prompt": "At that moment, the wind was blowing and leaves were flying across the road.",
+    "options": [
+      "Past Continuous",
+      "Past Simple",
+      "Past Perfect"
+    ],
+    "solution": "Past Continuous",
+    "explanation": "At that moment sitúa dos acciones en curso que describen el fondo de la escena."
   }
 ]

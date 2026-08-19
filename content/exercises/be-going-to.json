@@ -88,5 +88,18 @@
     ],
     "solution": "Be going to",
     "explanation": "Predicción con la prueba delante de los ojos: going to, no will."
+  },
+  {
+    "id": "be-going-to-012",
+    "tenseId": "be-going-to",
+    "type": "choice",
+    "prompt": "The goalkeeper has the ball under control; the other team is not going to score this time.",
+    "options": [
+      "Be going to",
+      "Future Simple",
+      "Present Continuous"
+    ],
+    "solution": "Be going to",
+    "explanation": "La situación visible permite una predicción negativa con be going to."
   }
 ]
