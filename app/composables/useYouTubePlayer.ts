@@ -34,7 +34,7 @@ let apiPromise: Promise<YTNamespace> | null = null
 export function useYouTubeApi(): Promise<YTNamespace> {
   if (apiPromise) return apiPromise
 
-  apiPromise = new Promise<YTNamespace>((resolve, reject) => {
+  const attempt = new Promise<YTNamespace>((resolve, reject) => {
     if (import.meta.server) return reject(new Error('YouTube IFrame API is browser-only'))
     if (window.YT?.Player) return resolve(window.YT)
 
@@ -51,9 +51,20 @@ export function useYouTubeApi(): Promise<YTNamespace> {
     const script = document.createElement('script')
     script.src = 'https://www.youtube.com/iframe_api'
     script.async = true
-    script.onerror = () => reject(new Error('No se pudo cargar el reproductor de YouTube'))
+    // A failed load must not outlive the attempt: drop the cached promise and the dead
+    // tag so the next caller starts a new load instead of replaying this rejection
+    // until the page is reloaded.
+    script.onerror = () => {
+      // Only this attempt clears the cache: a late error from a script already
+      // replaced must not wipe a newer, healthy load.
+      if (apiPromise === attempt) apiPromise = null
+      script.remove()
+      reject(new Error('No se pudo cargar el reproductor de YouTube'))
+    }
     document.head.appendChild(script)
   })
 
-  return apiPromise
+  apiPromise = attempt
+
+  return attempt
 }

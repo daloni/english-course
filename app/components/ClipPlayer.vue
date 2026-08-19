@@ -10,10 +10,16 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{ unavailable: [videoId: string] }>()
 
+// The only YouTube error codes that mean the video itself is gone: removed, private or
+// with embedding disabled. Everything else (a network blip, a player hiccup) is worth
+// another try and must not cost the video its place in the rotation.
+const goneCodes = new Set([100, 101, 150])
+
 const host = useTemplateRef<HTMLDivElement>('host')
 const player = shallowRef<YTPlayer | null>(null)
 const started = ref(false)
 const failed = ref(false)
+const loadError = ref(false)
 const loading = ref(true)
 
 let rafId = 0
@@ -54,6 +60,8 @@ function watchWindow() {
 
 async function mount() {
   if (!host.value) return
+  loadError.value = false
+  loading.value = true
   try {
     const YT = await useYouTubeApi()
     player.value = new YT.Player(host.value, {
@@ -77,19 +85,35 @@ async function mount() {
         onStateChange: (e: { data: number }) => {
           if (e.data === YT.PlayerState.PLAYING) watchWindow()
         },
-        onError: () => {
-          // 100/101/150: removed, private or embedding disabled. The clip is
-          // dead for good, so tell the parent to take it out of rotation.
-          failed.value = true
+        onError: (e: { data: number }) => {
           loading.value = false
-          emit('unavailable', props.videoId)
+
+          // Only a dead clip leaves the rotation; a transient one just offers a retry.
+          if (goneCodes.has(e.data)) {
+            failed.value = true
+            emit('unavailable', props.videoId)
+          } else {
+            loadError.value = true
+          }
         }
       }
     })
   } catch {
-    failed.value = true
+    // The API script itself did not load. Nothing is known about this video, so the
+    // player says so and lets the user try again.
+    loadError.value = true
     loading.value = false
   }
+}
+
+/** After a transient failure: reuse the player if there is one, otherwise load the API again. */
+function retry() {
+  const p = player.value
+  if (!p) return mount()
+
+  loadError.value = false
+  p.loadVideoById({ videoId: props.videoId, startSeconds: startS.value, endSeconds: endS.value })
+  if (started.value) p.playVideo()
 }
 
 /** Mobile blocks autoplay without a gesture, so the first tap starts it. */
@@ -119,6 +143,7 @@ watch(() => [props.videoId, props.startMs], () => {
   if (!p) return
   cancelAnimationFrame(rafId)
   failed.value = false
+  loadError.value = false
   p.loadVideoById({ videoId: props.videoId, startSeconds: startS.value, endSeconds: endS.value })
   if (started.value) p.playVideo()
 })
@@ -137,7 +162,7 @@ onBeforeUnmount(() => {
     />
 
     <div
-      v-if="!started || failed || loading"
+      v-if="!started || failed || loadError || loading"
       class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/80 text-center"
     >
       <template v-if="failed">
@@ -148,6 +173,27 @@ onBeforeUnmount(() => {
         <p class="px-6 text-sm text-neutral-400">
           Este vídeo ya no está disponible. Se excluirá del repaso.
         </p>
+      </template>
+      <template v-else-if="loadError">
+        <UIcon
+          name="i-lucide-wifi-off"
+          class="size-8 text-neutral-400"
+        />
+        <p
+          role="status"
+          class="px-6 text-sm text-neutral-400"
+        >
+          No se pudo cargar el vídeo. Comprueba tu conexión.
+        </p>
+        <UButton
+          icon="i-lucide-rotate-ccw"
+          size="sm"
+          color="neutral"
+          variant="solid"
+          @click="retry"
+        >
+          Reintentar
+        </UButton>
       </template>
       <template v-else-if="loading">
         <UIcon
