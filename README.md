@@ -183,9 +183,10 @@ corrected in that visit: trying it again does not count twice. A blank question 
 of the round, but is not stored as an attempt.
 
 If the browser does not let the site write to `localStorage` (storage full, Safari private mode),
-the session keeps working all the same: what is corrected simply does not persist. If it blocks
-it entirely and does not even allow reading it, the progress starts empty on every visit, but the
-site does not go blank: the read degrades to an empty progress instead of breaking the page.
+the session keeps working all the same: answers and imports remain in memory and later writes
+retry them together with newer progress from other tabs. `/progreso` warns that this volatile
+progress will be lost on reload and links to the JSON export. If storage is blocked entirely and
+cannot even be read, the progress starts empty on every visit, but the site does not go blank.
 
 On import, the file is merged with the progress of this browser by id: the most recently
 practised attempt is kept and, if the dates tie, the one with more answers. Importing the same

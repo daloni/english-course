@@ -209,19 +209,19 @@ export function load(): Progress {
 
 /**
  * Saving is the only thing that can fail for outside reasons: full storage, Safari private
- * mode or a browser blocking the storage make it throw. It runs on every answer, so letting
- * the exception bubble up would bring the correction down; the session stays in memory and
- * does not persist.
+ * mode or a browser blocking the storage make it throw. It returns whether the browser accepted
+ * the write so the caller can keep a volatile copy without breaking correction.
  */
-export function save(progress: Progress) {
+export function save(progress: Progress): boolean {
   try {
     if (typeof localStorage === 'undefined') {
-      return
+      return false
     }
 
     localStorage.setItem(storageKey, serialize(progress))
+    return true
   } catch {
-    // With nowhere to store it, the progress of this session is lost on reload.
+    return false
   }
 }
 

@@ -1,9 +1,11 @@
 import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
+import { defineComponent } from 'vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
 import Progreso from '../app/pages/progreso.vue'
 import Repaso from '../app/pages/repaso.vue'
+import { useProgress } from '../app/composables/useProgress'
 import { exercisesOf, formLabels, tenseById } from '../app/utils/content'
 import { formOf } from '../app/utils/explain'
 import {
@@ -282,7 +284,7 @@ describe('load and save', () => {
   it('serializes the progress as plain JSON under a single key', () => {
     const attempt = review(undefined, 'x', true, today)
 
-    save({ x: attempt })
+    expect(save({ x: attempt })).toBe(true)
 
     expect(JSON.parse(localStorage.getItem(storageKey)!)).toEqual({ x: attempt })
   })
@@ -295,10 +297,10 @@ describe('load and save', () => {
 
   // With full storage, or in Safari private mode, setItem throws. It saves on every answer,
   // so letting the exception bubble up would leave the round dead halfway through.
-  it('does not throw when the browser refuses to store the progress', () => {
+  it('reports when the browser refuses to store the progress', () => {
     const setItem = refuseToStore()
 
-    expect(() => save({ x: review(undefined, 'x', true, today) })).not.toThrow()
+    expect(save({ x: review(undefined, 'x', true, today) })).toBe(false)
     expect(setItem).toHaveBeenCalled()
   })
 
@@ -330,6 +332,131 @@ function refuseToStore() {
 
   return setItem
 }
+
+async function progressSession() {
+  let session!: ReturnType<typeof useProgress>
+  const Harness = defineComponent({
+    setup() {
+      session = useProgress()
+      return () => null
+    }
+  })
+  const page = await mountSuspended(Harness)
+
+  await flushPromises()
+  onTestFinished(() => {
+    session.reset()
+    page.unmount()
+  })
+
+  return session
+}
+
+describe('volatile progress', () => {
+  beforeEach(async () => {
+    localStorage.removeItem(storageKey)
+
+    // The composable is a session singleton, so also clear memory left by the preceding test.
+    const session = await progressSession()
+
+    session.reset()
+  })
+
+  it('keeps consecutive answers in memory and includes them in the session export', async () => {
+    const session = await progressSession()
+
+    refuseToStore()
+    session.record('x', true)
+    session.record('y', false)
+
+    expect(session.attemptOf('x')).toMatchObject({ hits: 1, misses: 0 })
+    expect(session.attemptOf('y')).toMatchObject({ hits: 0, misses: 1 })
+
+    let exported!: Blob
+
+    vi.spyOn(URL, 'createObjectURL').mockImplementation((blob) => {
+      exported = blob
+      return 'blob:progress'
+    })
+    vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+
+    session.exportFile()
+
+    expect(Object.keys(parse(await exported.text()))).toEqual(['x', 'y'])
+  })
+
+  it('keeps accumulating answers to the same exercise while writes fail', async () => {
+    const session = await progressSession()
+
+    refuseToStore()
+    session.record('x', true)
+    session.record('x', false)
+
+    expect(session.attemptOf('x')).toMatchObject({ hits: 1, misses: 1 })
+  })
+
+  it('keeps an imported attempt when the import and next answer cannot be stored', async () => {
+    const session = await progressSession()
+    const imported = review(undefined, 'x', false, today)
+
+    refuseToStore()
+    await session.importFile(new File([serialize({ x: imported })], 'progress.json'))
+    session.record('y', true)
+
+    expect(session.attemptOf('x')).toEqual(imported)
+    expect(session.attemptOf('y')).toMatchObject({ hits: 1, misses: 0 })
+  })
+
+  it('persists volatile progress with newer stored attempts when storage recovers', async () => {
+    const session = await progressSession()
+    const setItem = vi.spyOn(localStorage, 'setItem').mockImplementationOnce(() => {
+      throw new DOMException('exceeded the quota', 'QuotaExceededError')
+    })
+
+    onTestFinished(() => setItem.mockRestore())
+    session.record('x', true)
+    expect(session.persistenceFailed.value).toBe(true)
+
+    const elsewhere = review(undefined, 'y', false, today)
+
+    localStorage.setItem(storageKey, serialize({ y: elsewhere }))
+    session.record('z', true)
+
+    expect(load()).toEqual({ x: session.attemptOf('x')!, y: elsewhere, z: session.attemptOf('z')! })
+    expect(session.persistenceFailed.value).toBe(false)
+  })
+
+  it('does not resurrect volatile attempts after another tab resets progress', async () => {
+    const session = await progressSession()
+    const setItem = refuseToStore()
+
+    session.record('x', true)
+    setItem.mockRestore()
+    localStorage.removeItem(storageKey)
+    window.dispatchEvent(new StorageEvent('storage', { key: storageKey, newValue: null }))
+    session.record('y', true)
+
+    expect(Object.keys(load())).toEqual(['y'])
+  })
+
+  it('shows an accessible warning with a link to the JSON export', async () => {
+    const session = await progressSession()
+
+    refuseToStore()
+    session.record('x', true)
+
+    const page = await mountSuspended(Progreso)
+
+    await flushPromises()
+    onTestFinished(() => page.unmount())
+
+    const warning = page.find('[role="status"]')
+
+    expect(warning.text()).toContain('no se guardará al recargar')
+    expect(warning.find('a').attributes('href')).toBe('#exportar-progreso')
+  })
+})
 
 describe('several tabs', () => {
   const exercise = exercisesOf('present-simple')[0]!
@@ -508,8 +635,11 @@ describe('several tabs', () => {
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!
 
-  beforeEach(() => {
+  beforeEach(async () => {
     localStorage.removeItem(storageKey)
+    const session = await progressSession()
+
+    session.reset()
     // The round is drawn at random. Pinned at the top of its range, `Math.random` makes every
     // swap of the shuffle a swap with itself, so the round comes out in file order and the
     // first sentence on screen is the first of the file, which is the one these tests answer.
