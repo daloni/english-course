@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Merges a JSON patch (stdin) into a content file, instead of overwriting it.
-// Used by the /frases, /verbo, /reading and /teoria commands in .claude/commands/.
+// Shared by the Claude Code commands and Codex skills that generate course content.
 //
 //   node scripts/merge-content.mjs content/exercises/present-simple.json < patch.json
 //

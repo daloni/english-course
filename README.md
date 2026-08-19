@@ -207,24 +207,27 @@ was wiped.
 The speaking does not count towards the progress: its correction is a percentage of words, not a
 hit or a miss.
 
-## Generating content with Claude Code
+## Generating content with Claude Code and Codex
 
 The content lives in `content/` as versioned JSON and is written with
-[Claude Code](https://claude.com/claude-code) commands defined in `.claude/commands/`. Every
-command carries the exact schema of the file it touches, merges instead of overwriting, and ends
-by running the test that validates that content (`pnpm test test/content.spec.ts`, or
-`test/reading.spec.ts` in the case of `/reading`).
+[Claude Code](https://claude.com/claude-code) commands defined in `.claude/commands/`. Codex uses
+the [repository skills](https://learn.chatgpt.com/docs/build-skills) in `.agents/skills/`, which
+load those same commands as their canonical workflow instead of copying the instructions. Every
+flow carries the exact schema of the file it touches, merges instead of overwriting, and ends by
+running the test that validates that content (`pnpm test test/content.spec.ts`, or
+`test/reading.spec.ts` for reading content).
 
-What the commands write is still Spanish — it is the language of the course. What is in English
-is the instructions they are given.
+Run either agent from the repository root. In Claude Code, invoke a flow with `/`; in Codex, use
+`/skills` to list the five repository skills and invoke one with `$`. The agent instructions are
+in English, while translations, explanations and theory shown to the learner remain in Spanish.
 
-| Command                    | What it does                                                          |
-| -------------------------- | --------------------------------------------------------------------- |
-| `/frases <tense> <level> <n>` | Adds `<n>` sentences (gap, transform or pick the tense) to `content/exercises/<tense>.json` |
-| `/verbo <infinitive>`      | Adds or completes the verb in `content/verbs.json`                     |
-| `/reading <topic> <level>` | Writes a text with questions in `content/readings/<slug>.json`         |
-| `/teoria <tense>`          | Writes or extends the theory of `content/tenses/<slug>.json`           |
-| `/clips [file]`            | Turns ingested sentences into clips with gaps in `content/clips/<source>.json` |
+| Claude Code | Codex | What it does |
+| --- | --- | --- |
+| `/frases <tense> <level> <n>` | `$frases <tense> <level> <n>` | Adds `<n>` sentences (gap, transform or pick the tense) to `content/exercises/<tense>.json` |
+| `/verbo <infinitive>` | `$verbo <infinitive>` | Adds or completes the verb in `content/verbs.json` |
+| `/reading <topic> <level>` | `$reading <topic> <level>` | Writes a text with questions in `content/readings/<slug>.json` |
+| `/teoria <tense>` | `$teoria <tense>` | Writes or extends the theory of `content/tenses/<slug>.json` |
+| `/clips [file \| --all]` | `$clips [file \| --all]` | Turns ingested sentences into clips with gaps in `content/clips/<source>.json` |
 
 ### Ingesting clips
 
