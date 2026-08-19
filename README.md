@@ -1,4 +1,4 @@
-# Aprender inglés
+# Learn English
 
 Personal web platform for learning English, built around the tenses: theory, verb
 conjugation, sentences, reading with questions, speaking and clips of real video.
