@@ -225,6 +225,23 @@ export function save(progress: Progress) {
   }
 }
 
+/**
+ * Wipes the stored progress: the key disappears instead of being left as an empty object, so
+ * a reset reads back as "nothing stored" and not as an unreadable progress. It fails for the
+ * same outside reasons as `save`, and just as silently.
+ */
+export function clear() {
+  try {
+    if (typeof localStorage === 'undefined') {
+      return
+    }
+
+    localStorage.removeItem(storageKey)
+  } catch {
+    // Storage blocked: there was nothing to remove that this browser would have stored.
+  }
+}
+
 export const itemKinds = ['frases', 'verbos', 'reading', 'clips'] as const
 
 export type ItemKind = typeof itemKinds[number]

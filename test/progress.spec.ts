@@ -8,6 +8,7 @@ import { exercisesOf, formLabels, tenseById } from '../app/utils/content'
 import { formOf } from '../app/utils/explain'
 import {
   addDays,
+  clear,
   day,
   frasesItemId,
   isDue,
@@ -22,7 +23,8 @@ import {
   save,
   serialize,
   storageKey,
-  type Attempt
+  type Attempt,
+  type Progress
 } from '../app/utils/progress'
 
 const today = '2026-08-14'
@@ -328,6 +330,180 @@ function refuseToStore() {
 
   return setItem
 }
+
+describe('several tabs', () => {
+  const exercise = exercisesOf('present-simple')[0]!
+  const id = frasesItemId(exercise)
+
+  beforeEach(() => {
+    localStorage.removeItem(storageKey)
+    // The round comes out in file order, so the sentence on screen is the one answered here.
+    vi.spyOn(Math, 'random').mockReturnValue(0.999_999)
+    onTestFinished(() => vi.restoreAllMocks())
+  })
+
+  it('listens once for the whole app and stops when the last page goes away', async () => {
+    const add = vi.spyOn(window, 'addEventListener')
+    const remove = vi.spyOn(window, 'removeEventListener')
+
+    const first = await mountSuspended(Progreso)
+    const second = await practise()
+    await flushPromises()
+
+    const storageListeners = (spy: typeof add) => spy.mock.calls.filter(([type]) => type === 'storage').length
+
+    expect(storageListeners(add)).toBe(1)
+    expect(storageListeners(remove)).toBe(0)
+
+    first.unmount()
+    expect(storageListeners(remove)).toBe(0)
+
+    second.unmount()
+    expect(storageListeners(remove)).toBe(1)
+
+    // And it is registered again by the next page, not left deaf for the rest of the session.
+    const back = await mountSuspended(Progreso)
+    await flushPromises()
+
+    expect(storageListeners(add)).toBe(2)
+
+    otherTabSaves({ [id]: review(undefined, id, false, today) })
+    await flushPromises()
+
+    expect(back.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+  })
+
+  /** What another tab writing progress looks like from this one: the storage and its event. */
+  function otherTabSaves(progress: Progress | null) {
+    if (progress) {
+      save(progress)
+    } else {
+      clear()
+    }
+
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: storageKey,
+      newValue: progress && serialize(progress),
+      storageArea: localStorage
+    }))
+  }
+
+  /** Answers the first sentence of /frases/present-simple right, as the learner would. */
+  async function practise() {
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    await flushPromises()
+
+    await page.find('input').setValue(exercise.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    return page
+  }
+
+  // The bug: each answer saved the whole progress from the snapshot loaded on mount, so the
+  // last tab to answer wiped whatever the other one had stored in the meantime.
+  it('keeps what another tab saved while this one was open', async () => {
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    await flushPromises()
+
+    // The other tab answers a different exercise, and this one is not told about it.
+    const elsewhere = review(undefined, 'verbos:go:past', true, today)
+
+    save({ [elsewhere.id]: elsewhere })
+
+    await page.find('input').setValue(exercise.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(load()).toEqual({ [elsewhere.id]: elsewhere, [id]: load()[id] })
+    expect(load()[id]).toMatchObject({ box: 2, hits: 1 })
+  })
+
+  it('updates the stats and the review queue when another tab saves', async () => {
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    expect(page.text()).toContain(`0 de ${items.length} ejercicios practicados`)
+
+    otherTabSaves({ [id]: review(undefined, id, false, today) })
+    await flushPromises()
+
+    expect(page.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+    expect(page.text()).toContain('Repasar hoy (1)')
+    expect(page.text()).toContain(exercise.prompt)
+  })
+
+  it('ignores what other keys of the storage do', async () => {
+    const attempt = review(undefined, id, false, today)
+
+    save({ [id]: attempt })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    localStorage.setItem('ingles:otra-cosa', 'x')
+    window.dispatchEvent(new StorageEvent('storage', { key: 'ingles:otra-cosa', newValue: 'x' }))
+    await flushPromises()
+
+    expect(page.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+  })
+
+  it('imports without dropping what another tab saved in the meantime', async () => {
+    const imported = review(undefined, 'y', true, today)
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    // Answered in the other tab after this one loaded: importing must not undo it.
+    const elsewhere = review(undefined, 'x', false, today)
+
+    save({ x: elsewhere })
+
+    const input = page.find<HTMLInputElement>('input[type="file"]')
+    const file = new File([serialize({ y: imported })], 'progress.json', { type: 'application/json' })
+
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await flushPromises()
+
+    expect(page.text()).toContain('Importados 1 intentos, 1 nuevos')
+    expect(load()).toEqual({ x: elsewhere, y: imported })
+  })
+
+  it('empties the open tabs when one of them resets', async () => {
+    save({ [id]: review(undefined, id, false, today) })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    expect(page.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+
+    otherTabSaves(null)
+    await flushPromises()
+
+    expect(load()).toEqual({})
+    expect(page.text()).toContain(`0 de ${items.length} ejercicios practicados`)
+    expect(page.text()).not.toContain('Repasar hoy (1)')
+  })
+
+  // Even if this tab never hears about the reset, answering rebuilds the progress from what
+  // is stored: it saves its own attempt without restoring the ones that were wiped.
+  it('does not bring back the wiped attempts when a stale tab answers after a reset', async () => {
+    save({ x: review(undefined, 'x', false, today) })
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    await flushPromises()
+
+    // The other tab resets and the notification never arrives here.
+    clear()
+
+    await page.find('input').setValue(exercise.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(Object.keys(load())).toEqual([id])
+  })
+})
 
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!

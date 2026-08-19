@@ -182,6 +182,13 @@ tomorrow are dropped too, so as not to import a device clock running ahead; tomo
 because of timezone differences between devices. If the file has no valid attempt at all, the
 import is rejected whole.
 
+The course can be open in several tabs at once without losing anything: before saving, each
+answer is rebased on what is stored at that moment, so a tab never overwrites what another one
+recorded, and the `storage` event of the browser brings the change into the tabs that are already
+open, updating their stats and their review queue. Importing merges the same way, and resetting
+empties the key: the other tabs are left empty too, and an outdated one does not bring back what
+was wiped.
+
 The speaking does not count towards the progress: its correction is a percentage of words, not a
 hit or a miss.
 
