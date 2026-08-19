@@ -2,6 +2,28 @@
 // soon as the browser mounts the first page that uses it. On the server it is empty, so
 // whatever depends on it is rendered inside <ClientOnly>.
 const progress = ref<Progress>({})
+const persistenceFailed = ref(false)
+let volatile: Progress | undefined
+
+/** Latest durable progress plus anything this tab could not persist yet. */
+function currentProgress() {
+  const stored = load()
+
+  return volatile ? merge(stored, volatile) : stored
+}
+
+/** Updates the session immediately and remembers it if the browser rejects the write. */
+function persist(next: Progress) {
+  progress.value = next
+
+  if (save(next)) {
+    volatile = undefined
+    persistenceFailed.value = false
+  } else {
+    volatile = next
+    persistenceFailed.value = true
+  }
+}
 
 /**
  * The same course can be open in several tabs, and each answer saves the whole object: a tab
@@ -13,7 +35,13 @@ const progress = ref<Progress>({})
 function onStorage(event: StorageEvent) {
   // A `localStorage.clear()` arrives with a null key and takes the progress with it.
   if (event.key === storageKey || event.key === null) {
-    progress.value = load()
+    if (event.newValue === null) {
+      progress.value = {}
+      volatile = undefined
+      persistenceFailed.value = false
+    } else {
+      progress.value = currentProgress()
+    }
   }
 }
 
@@ -35,7 +63,7 @@ export interface Stats {
 
 export function useProgress() {
   onMounted(() => {
-    progress.value = load()
+    progress.value = currentProgress()
 
     if (listening++ === 0) {
       window.addEventListener('storage', onStorage)
@@ -51,10 +79,9 @@ export function useProgress() {
 
   /** Corrects an exercise and saves its updated Leitner attempt. */
   function record(id: string, correct: boolean) {
-    const stored = load()
+    const current = currentProgress()
 
-    progress.value = { ...stored, [id]: review(stored[id], id, correct) }
-    save(progress.value)
+    persist({ ...current, [id]: review(current[id], id, correct) })
   }
 
   function attemptOf(id: string) {
@@ -108,10 +135,9 @@ export function useProgress() {
     const imported = parse(await file.text())
     // Against what is stored, not against what this tab loaded: importing does not undo the
     // answers of another tab, and `merge` already keeps the most recent attempt of each id.
-    const current = load()
+    const current = currentProgress()
 
-    progress.value = merge(current, imported)
-    save(progress.value)
+    persist(merge(current, imported))
 
     return {
       imported: Object.keys(imported).length,
@@ -122,6 +148,8 @@ export function useProgress() {
   /** Empties the progress of this browser, tabs included: the storage event does the rest. */
   function reset() {
     progress.value = {}
+    volatile = undefined
+    persistenceFailed.value = false
     clear()
   }
 
@@ -129,6 +157,7 @@ export function useProgress() {
     attempts,
     pending,
     failed,
+    persistenceFailed,
     record,
     attemptOf,
     statsOf,
