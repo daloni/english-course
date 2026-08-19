@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { marked } from 'marked'
-
 const { record } = useProgress()
 
 const route = useRoute()
@@ -10,8 +8,9 @@ if (!reading) {
   throw createError({ statusCode: 404, message: 'Lectura no encontrada', fatal: true })
 }
 
-// The markdown comes from content/readings/*.json, versioned in this repo, so it is trusted.
-const text = marked.parse(reading.text, { async: false })
+// The markdown comes from content/readings/*.json, versioned in this repo, but it is rendered through
+// renderMarkdown(): links with an executable scheme never reach the DOM as anchors.
+const text = renderMarkdown(reading.text)
 
 const answers = ref<Record<string, string>>({})
 const submitted = ref(false)
@@ -93,7 +92,7 @@ useSeo({
 
     <UPageSection>
       <div class="mx-auto w-full max-w-2xl space-y-10">
-        <!-- eslint-disable vue/no-v-html -- raw HTML is rejected by test/reading.spec.ts -->
+        <!-- eslint-disable vue/no-v-html -- raw HTML is rejected by test/reading.spec.ts and the links go through renderMarkdown() -->
         <div
           lang="en"
           class="space-y-4 text-lg [&_em]:italic [&_strong]:font-semibold"
