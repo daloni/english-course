@@ -111,10 +111,12 @@ marked with `lang="en"` so the screen reader does not read them in Spanish.
 
 ## Speaking
 
-`/speaking` uses the browser's Web Speech API, with no external services: it reads the sentence
-out with `SpeechSynthesis` (en-US or en-GB accent and three speeds) and corrects the repetition
-with `SpeechRecognition`, which today only exists in Chrome and Edge and asks for microphone
-permission. On Firefox or Safari the page says so and still lets you listen to the sentences.
+`/speaking` uses the browser's Web Speech API: it reads the sentence out with `SpeechSynthesis`
+(en-US or en-GB accent and three speeds). It corrects the repetition
+with `SpeechRecognition`: although the course does not receive or store the voice, the browser or
+its provider may process it remotely, outside the device. The exact behaviour depends on the
+browser; recognition today only exists in Chrome and Edge and asks for microphone permission. On
+Firefox or Safari the page says so and still lets you listen to the sentences.
 
 ## Clips
 

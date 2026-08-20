@@ -102,6 +102,16 @@ useSeo({
             {{ sentence.es }}
           </p>
 
+          <UAlert
+            id="speaking-privacy-notice"
+            class="mt-6"
+            title="Privacidad del reconocimiento de voz"
+            description="El curso no recibe ni guarda tu voz. Para reconocerla, el navegador o su proveedor pueden procesarla de forma remota, fuera de este dispositivo. El comportamiento exacto depende del navegador."
+            icon="i-lucide-shield-alert"
+            color="neutral"
+            variant="subtle"
+          />
+
           <div class="mt-6 flex flex-wrap gap-3">
             <UButton
               :label="speaking ? 'Sonando…' : 'Escuchar'"
@@ -118,6 +128,7 @@ useSeo({
               :color="listening ? 'error' : 'primary'"
               variant="subtle"
               :disabled="!canListen"
+              aria-describedby="speaking-privacy-notice"
               :aria-pressed="listening"
               aria-label="Repetir la frase al micrófono"
               @click="listening ? stopListening() : listen()"
