@@ -191,11 +191,11 @@ cannot even be read, the progress starts empty on every visit, but the site does
 On import, the file is merged with the progress of this browser by id: the most recently
 practised attempt is kept and, if the dates tie, the one with more answers. Importing the same
 file twice does not add the counters up. Attempts the site itself could not have exported are
-dropped: with no id, with hits or misses that are not whole positive numbers, with a date that
-does not exist, or with a review earlier than the day it was practised. Attempts dated after
-tomorrow are dropped too, so as not to import a device clock running ahead; tomorrow is allowed
-because of timezone differences between devices. If the file has no valid attempt at all, the
-import is rejected whole.
+dropped: with no id, with hits or misses that are not non-negative safe integers, with a date that
+does not exist, or with a review due date that does not exactly match its box (the same day, in 2
+days or in 7 days). Attempts dated after tomorrow are dropped too, so as not to import a device
+clock running ahead; tomorrow is allowed because of timezone differences between devices. If the
+file has no valid attempt at all, the import is rejected whole.
 
 The course can be open in several tabs at once without losing anything: before saving, each
 answer is rebased on what is stored at that moment, so a tab never overwrites what another one

@@ -135,8 +135,8 @@ const isDate = (value: unknown) => typeof value === 'string'
   && /^\d{4}-\d{2}-\d{2}$/.test(value)
   && new Date(`${value}T00:00:00Z`).toJSON()?.slice(0, 10) === value
 
-/** Answers that were counted: a whole number of them, and never below zero. */
-const isCount = (value: unknown) => Number.isInteger(value) && (value as number) >= 0
+/** Answers that were counted: a safe whole number of them, and never below zero. */
+const isCount = (value: unknown) => Number.isSafeInteger(value) && (value as number) >= 0
 
 function isAttempt(value: unknown): value is Attempt {
   const attempt = value as Attempt
@@ -147,9 +147,8 @@ function isAttempt(value: unknown): value is Attempt {
     && (boxes as readonly unknown[]).includes(attempt.box)
     && isCount(attempt.hits) && isCount(attempt.misses)
     && isDate(attempt.last) && isDate(attempt.due)
-    // The review always comes after the practice, so no attempt exported here can be due
-    // before the day it was last answered. ISO dates compare as plain text.
-    && attempt.due >= attempt.last
+    // `review()` schedules the next review exactly from the box delay.
+    && attempt.due === addDays(attempt.last, boxDelays[attempt.box])
     // A device with a different timezone can be one local day behind the exporter.
     && attempt.last <= addDays(day(), 1)
 }

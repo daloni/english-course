@@ -153,6 +153,16 @@ describe('parse', () => {
     expect(parse(serialize({ x: attempt }))).toEqual({ x: attempt })
   })
 
+  it('reads back every attempt produced by review', () => {
+    const box1 = review(undefined, 'box-1', false, today)
+    const box2 = review(undefined, 'box-2', true, today)
+    const box3 = review(box2, 'box-3', true, addDays(today, 2))
+
+    const progress = { [box1.id]: box1, [box2.id]: box2, [box3.id]: box3 }
+
+    expect(parse(serialize(progress))).toEqual(progress)
+  })
+
   it('rejects an empty progress', () => {
     expect(() => parse('{}')).toThrow('El fichero no tiene ningún intento válido')
   })
@@ -193,16 +203,38 @@ describe('parse', () => {
     expect(Object.keys(parse(json))).toEqual(['x'])
   })
 
+  it('drops unsafe counters and due dates that do not match the Leitner box', () => {
+    const json = JSON.stringify({
+      valid: { ...attempt, id: 'valid' },
+      unsafeHits: { ...attempt, id: 'unsafeHits', hits: Number.MAX_SAFE_INTEGER + 1 },
+      unsafeMisses: { ...attempt, id: 'unsafeMisses', misses: Number.MAX_SAFE_INTEGER + 1 },
+      box1: { ...attempt, id: 'box1', box: 1, due: addDays(today, 1) },
+      box2: { ...attempt, id: 'box2', box: 2, due: addDays(today, 1) },
+      box3: { ...attempt, id: 'box3', box: 3, due: addDays(today, 2) }
+    })
+
+    expect(Object.keys(parse(json))).toEqual(['valid'])
+  })
+
+  it('rejects a file containing only impossible Leitner states', () => {
+    const json = JSON.stringify({
+      unsafe: { ...attempt, id: 'unsafe', hits: Number.MAX_SAFE_INTEGER + 1 },
+      wrongDue: { ...attempt, id: 'wrongDue', box: 3, due: addDays(today, 2) }
+    })
+
+    expect(() => parse(json)).toThrow('El fichero no tiene ningún intento válido')
+  })
+
   it('keeps zeroed counters and a review due the same day', () => {
     const json = JSON.stringify({
-      x: { ...attempt, hits: 0, misses: 0, due: attempt.last }
+      x: { ...attempt, box: 1, hits: 0, misses: 0, due: attempt.last }
     })
 
     expect(Object.keys(parse(json))).toEqual(['x'])
   })
 
   it('keeps a leap day, which does exist', () => {
-    const json = JSON.stringify({ x: { ...attempt, last: '2024-02-29', due: '2024-02-29' } })
+    const json = JSON.stringify({ x: { ...attempt, box: 1, last: '2024-02-29', due: '2024-02-29' } })
 
     expect(Object.keys(parse(json))).toEqual(['x'])
   })
@@ -213,10 +245,10 @@ describe('parse', () => {
     onTestFinished(() => vi.useRealTimers())
 
     const json = JSON.stringify({
-      today: { ...attempt, id: 'today', last: today, due: today },
-      yesterday: { ...attempt, id: 'yesterday', last: addDays(today, -1), due: today },
-      tomorrow: { ...attempt, id: 'tomorrow', last: addDays(today, 1), due: addDays(today, 2) },
-      future: { ...attempt, id: 'future', last: addDays(today, 2), due: addDays(today, 3) }
+      today: { ...attempt, id: 'today', last: today, due: addDays(today, 2) },
+      yesterday: { ...attempt, id: 'yesterday', last: addDays(today, -1), due: addDays(today, 1) },
+      tomorrow: { ...attempt, id: 'tomorrow', last: addDays(today, 1), due: addDays(today, 3) },
+      future: { ...attempt, id: 'future', last: addDays(today, 2), due: addDays(today, 4) }
     })
 
     expect(Object.keys(parse(json))).toEqual(['today', 'yesterday', 'tomorrow'])
@@ -406,6 +438,20 @@ describe('volatile progress', () => {
 
     expect(session.attemptOf('x')).toEqual(imported)
     expect(session.attemptOf('y')).toMatchObject({ hits: 1, misses: 0 })
+  })
+
+  it('does not change existing progress when an import has no valid attempts', async () => {
+    const session = await progressSession()
+
+    session.record('x', false)
+    const existing = session.attemptOf('x')!
+    const invalid = { ...existing, hits: Number.MAX_SAFE_INTEGER + 1 }
+
+    await expect(session.importFile(new File([serialize({ x: invalid })], 'progress.json')))
+      .rejects.toThrow('El fichero no tiene ningún intento válido')
+
+    expect(session.attemptOf('x')).toEqual(existing)
+    expect(load()).toEqual({ x: existing })
   })
 
   it('persists volatile progress with newer stored attempts when storage recovers', async () => {
