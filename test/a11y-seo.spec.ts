@@ -8,6 +8,7 @@ import TensePractice from '../app/pages/frases/[tiempo].vue'
 import Progreso from '../app/pages/progreso.vue'
 import Repaso from '../app/pages/repaso.vue'
 import TenseTheory from '../app/pages/teoria/[slug].vue'
+import VerbosIndex from '../app/pages/verbos/index.vue'
 import VerbPractice from '../app/pages/verbos/practica.vue'
 import { exerciseFiles, exercisesOf, tenseById, typeOf } from '../app/utils/content'
 import { day, items, review, save, storageKey } from '../app/utils/progress'
@@ -155,6 +156,29 @@ describe('accesibilidad', () => {
     await page.find('form').trigger('submit')
     await flushPromises()
     expect(page.text()).toContain('Pregunta 2 de')
+  })
+
+  it('contains table overflow in a keyboard-accessible region', async () => {
+    const tense = tenseById('past-simple')!
+    const verbos = await mountSuspended(VerbosIndex)
+
+    const verb = items.find(item => item.kind === 'verbos')!
+    save({ [verb.id]: review(undefined, verb.id, false, day()) })
+    const progreso = await mountSuspended(Progreso)
+    const teoria = await mountSuspended(TenseTheory, { route: `/teoria/${tense.id}` })
+
+    for (const page of [verbos, progreso, teoria]) {
+      const region = page.find('[data-table-scroll]')
+      const table = region.find('table')
+
+      expect(region.attributes('tabindex')).toBe('0')
+      expect(region.attributes('aria-label')).not.toBe('')
+      expect(region.classes()).toContain('overflow-x-auto')
+      expect(table.classes()).toContain('min-w-max')
+      expect(table.find('caption').exists()).toBe(true)
+      expect(table.findAll('th[scope="col"]').length).toBeGreaterThan(0)
+      expect(table.findAll('th[scope="row"]').length).toBeGreaterThan(0)
+    }
   })
 })
 

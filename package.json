@@ -6,6 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "check-pwa": "node scripts/check-pwa.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest run",

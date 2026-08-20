@@ -46,6 +46,7 @@ the `NUXT_PUBLIC_SITE_URL` of GitHub Pages.
 | `pnpm dev`       | Development server on `http://localhost:3000`   |
 | `pnpm build`     | Builds the app for production                   |
 | `pnpm generate`  | Generates the static site in `.output/public`   |
+| `pnpm check-pwa` | Checks the generated PWA artifact               |
 | `pnpm preview`   | Serves the production build                     |
 | `pnpm test`      | Tests with Vitest                               |
 | `pnpm lint`      | ESLint                                          |
@@ -58,6 +59,7 @@ The site is static: `pnpm generate` follows the links from the home and writes e
 
 ```bash
 pnpm generate
+pnpm check-pwa
 npx serve .output/public   # check it locally before publishing
 ```
 
@@ -85,6 +87,11 @@ The site is a PWA: it can be installed on a phone or a desktop from the browser 
 offers "Install" when the page is served over HTTPS, or from `localhost` to try it — and once
 installed it starts instantly and **works with no connection**.
 
+When the browser confirms that the app can be installed, the header shows an **Instalar app**
+button that opens its native installation dialog. The button is not shown when the browser does
+not support this prompt or the PWA does not meet its installation criteria; in that case, use the
+browser's own menu to install it when available.
+
 Offline, the theory, the verbs, the sentences, the reading, `/progreso` and `/repaso` keep
 working: the content of `content/` is compiled into the bundle, so there is nothing to fetch.
 What does **not** work are the clips, which need the YouTube iframe, and the speaking, which
@@ -96,6 +103,11 @@ not only the home. Since on GitHub Pages the site hangs off `/<repo>/`, the `sco
 the service worker would not control the site and the install would never be offered — and on
 `localhost` it would not show. `test/pwa.spec.ts` guards that, and that the icons the manifest
 declares are really there.
+
+After publishing over HTTPS, verify the browser's native install action, then open the installed
+app and confirm it starts at `/english-course/` in a standalone window. With the network disabled,
+reload the home, theory, sentences, reading, progress and review routes; clips and speaking should
+show their documented YouTube and Web Speech limitations without breaking the rest of the app.
 
 Installed, the app also asks for persistent storage (`app/plugins/persist.client.ts`): the
 progress lives only in this browser, and without that request a browser running out of disk can
