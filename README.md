@@ -223,10 +223,10 @@ in English, while translations, explanations and theory shown to the learner rem
 
 | Claude Code | Codex | What it does |
 | --- | --- | --- |
-| `/frases <tense> <level> <n>` | `$frases <tense> <level> <n>` | Adds `<n>` sentences (gap, transform or pick the tense) to `content/exercises/<tense>.json` |
-| `/verbo <infinitive>` | `$verbo <infinitive>` | Adds or completes the verb in `content/verbs.json` |
+| `/sentences <tense> <level> <n>` | `$sentences <tense> <level> <n>` | Adds `<n>` sentences (gap, transform or pick the tense) to `content/exercises/<tense>.json` |
+| `/verb <infinitive>` | `$verb <infinitive>` | Adds or completes the verb in `content/verbs.json` |
 | `/reading <topic> <level>` | `$reading <topic> <level>` | Writes a text with questions in `content/readings/<slug>.json` |
-| `/teoria <tense>` | `$teoria <tense>` | Writes or extends the theory of `content/tenses/<slug>.json` |
+| `/theory <tense>` | `$theory <tense>` | Writes or extends the theory of `content/tenses/<slug>.json` |
 | `/clips [file \| --all]` | `$clips [file \| --all]` | Turns ingested sentences into clips with gaps in `content/clips/<source>.json` |
 
 ### Ingesting clips
@@ -253,10 +253,10 @@ an hour of video leaves a few dozen. `data/candidates/` is throwaway and is not 
 is versioned is what `/clips` publishes in `content/clips/`.
 
 ```bash
-/frases present-simple A2 10   # content/exercises/present-simple.json, ids present-simple-0NN
-/verbo understand              # a new entry in content/verbs.json
+/sentences present-simple A2 10 # content/exercises/present-simple.json, ids present-simple-0NN
+/verb understand                # a new entry in content/verbs.json
 /reading travel A2             # content/readings/travel.json
-/teoria past-continuous        # content/tenses/past-continuous.json
+/theory past-continuous         # content/tenses/past-continuous.json
 ```
 
 The commands never rewrite a whole file: they prepare the new JSON and pass it through

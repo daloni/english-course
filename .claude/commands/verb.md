@@ -10,8 +10,8 @@ Add the verb **$1** to `content/verbs.json`, or complete its entry if it is alre
 
 1. Read `content/verbs.json` and look for `$1`. If it exists and is complete, say so and touch
    nothing.
-2. Write the entry into `/tmp/verbo.json` (an array of one element) with the schema below.
-3. Merge: `node scripts/merge-content.mjs content/verbs.json < /tmp/verbo.json`
+2. Write the entry into `/tmp/verb.json` (an array of one element) with the schema below.
+3. Merge: `node scripts/merge-content.mjs content/verbs.json < /tmp/verb.json`
 4. Run `pnpm test test/content.spec.ts`. If it fails, fix the JSON and repeat.
 
 ## Schema
