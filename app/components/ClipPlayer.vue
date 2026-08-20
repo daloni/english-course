@@ -138,7 +138,7 @@ onMounted(mount)
 
 // Reusing the iframe across cards is much faster than tearing it down, and it
 // keeps the user's single "play" gesture alive for the whole session.
-watch(() => [props.videoId, props.startMs], () => {
+watch(() => [props.videoId, props.startMs, props.endMs], () => {
   const p = player.value
   if (!p) return
   cancelAnimationFrame(rafId)

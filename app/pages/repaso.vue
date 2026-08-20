@@ -145,7 +145,6 @@ useSeo({
             <!-- A clip is heard before it is answered: the line is only in the video. -->
             <ClipPlayer
               v-if="item.clip"
-              :key="item.clip.id"
               :video-id="item.clip.videoId"
               :start-ms="item.clip.startMs"
               :end-ms="item.clip.endMs"
