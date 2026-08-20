@@ -67,6 +67,11 @@ jobs:
           NUXT_APP_BASE_URL: /
           NUXT_PUBLIC_SITE_URL: ${{ format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
 
+      - name: Check the generated PWA artifact
+        run: pnpm run check-pwa
+        env:
+          NUXT_APP_BASE_URL: /
+
   # Preparing the deployment needs Pages metadata. Keeping it in a main-only job means code
   # from pull requests still runs with contents read and no Pages or OIDC credentials.
   pages:
@@ -107,6 +112,11 @@ jobs:
         env:
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
           NUXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
+
+      - name: Check the generated PWA artifact
+        run: pnpm run check-pwa
+        env:
+          NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
 
       - name: Upload the site
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
