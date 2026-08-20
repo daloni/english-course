@@ -126,6 +126,7 @@ describe('ClipPlayer', () => {
     const player = await mountSuspended(ClipPlayer, { props })
 
     expect(apiScripts()).toHaveLength(0)
+    expect(player.find('iframe').exists()).toBe(false)
     expect(player.text()).toContain('se conectará con YouTube')
     expect(player.find('button').text()).toContain('Reproducir')
 
