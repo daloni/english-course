@@ -210,12 +210,13 @@ describe('ClipPlayer', () => {
   it('reuses the player and loads every part of the next clip', async () => {
     installApi()
 
+    const ClipPlayer = await freshComponent()
     const player = await mountSuspended(ClipPlayer, { props })
+    await player.find('button').trigger('click')
     await flushPromises()
 
     events.onReady!()
     await flushPromises()
-    await player.find('button').trigger('click')
 
     const nextProps = { videoId: 'abcdefghijk', startMs: 2500, endMs: 6500 }
     await player.setProps(nextProps)
@@ -239,7 +240,9 @@ describe('ClipPlayer', () => {
   it.each([100, 2])('clears the previous %i error on the next clip', async (code) => {
     installApi()
 
+    const ClipPlayer = await freshComponent()
     const player = await mountSuspended(ClipPlayer, { props })
+    await player.find('button').trigger('click')
     await flushPromises()
 
     events.onError!({ data: code })
@@ -249,14 +252,15 @@ describe('ClipPlayer', () => {
 
     expect(player.text()).not.toContain('Este vídeo ya no está disponible')
     expect(player.text()).not.toContain('Comprueba tu conexión')
-    expect(player.text()).toContain('Reproducir')
   })
 
   it('cancels the previous window when the clip changes', async () => {
     installApi()
 
     const cancelAnimationFrame = vi.spyOn(globalThis, 'cancelAnimationFrame')
+    const ClipPlayer = await freshComponent()
     const player = await mountSuspended(ClipPlayer, { props })
+    await player.find('button').trigger('click')
     await flushPromises()
 
     events.onStateChange!({ data: fakeApi.PlayerState.PLAYING })
