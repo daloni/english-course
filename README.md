@@ -137,6 +137,11 @@ the `videoId` is recorded in `ingles:clips-unavailable` and its clips stop comin
 — in `/repaso` too — so a dead embed cannot stall the session. That list is not progress and does
 not travel in the export: it is a fact about the video.
 
+The YouTube connection is delayed until the learner presses **Reproducir**. Before that action the
+player only explains that playback connects to YouTube; this avoids contacting the external service
+when the clip is not going to be watched. Once activated, all players on the page share the same API
+load.
+
 ## Markdown of the content
 
 The theory of `content/tenses/` and the text of `content/readings/` are Markdown, rendered as

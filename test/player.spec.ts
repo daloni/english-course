@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
-import ClipPlayer from '../app/components/ClipPlayer.vue'
 import type { YTPlayer } from '../app/composables/useYouTubePlayer'
 
 // Guards the two ways playing a clip can go wrong. A video that no longer exists is gone for
@@ -21,14 +20,17 @@ interface PlayerEvents {
 
 let events: PlayerEvents = {}
 let loaded: { videoId: string, startSeconds?: number, endSeconds?: number } | null = null
+let playerCreated = 0
+let playCalls = 0
 
 /** Stands in for the real iframe player, which needs a browser and a network. */
 class FakePlayer implements YTPlayer {
   constructor(_el: HTMLElement | string, options: Record<string, unknown>) {
+    playerCreated++
     events = options.events as PlayerEvents
   }
 
-  playVideo() {}
+  playVideo() { playCalls++ }
   pauseVideo() {}
   seekTo() {}
   getCurrentTime() { return 0 }
@@ -60,9 +62,17 @@ function failScript() {
 
 const props = { videoId: 'dQw4w9WgXcQ', startMs: 1000, endMs: 4000 }
 
+async function freshComponent() {
+  vi.resetModules()
+
+  return (await import('../app/components/ClipPlayer.vue')).default
+}
+
 beforeEach(() => {
   events = {}
   loaded = null
+  playerCreated = 0
+  playCalls = 0
   delete window.YT
   delete window.onYouTubeIframeAPIReady
   for (const script of apiScripts()) script.remove()
@@ -111,11 +121,31 @@ describe('useYouTubeApi', () => {
 })
 
 describe('ClipPlayer', () => {
-  // First case of the block: the component holds the real loader, and this is the only one
-  // that needs it to have loaded nothing yet.
-  it('offers a retry when the API script fails, and plays after it', async () => {
+  it('does not load YouTube until the user asks to play', async () => {
+    const ClipPlayer = await freshComponent()
     const player = await mountSuspended(ClipPlayer, { props })
 
+    expect(apiScripts()).toHaveLength(0)
+    expect(player.text()).toContain('se conectará con YouTube')
+    expect(player.find('button').text()).toContain('Reproducir')
+
+    await player.find('button').trigger('click')
+    expect(apiScripts()).toHaveLength(1)
+
+    installApi()
+    window.onYouTubeIframeAPIReady!()
+    await flushPromises()
+    expect(playerCreated).toBe(1)
+
+    events.onReady!()
+    expect(playCalls).toBe(1)
+  })
+
+  it('offers a retry when the API script fails, and plays after it', async () => {
+    const ClipPlayer = await freshComponent()
+    const player = await mountSuspended(ClipPlayer, { props })
+
+    await player.find('button').trigger('click')
     failScript()
     await flushPromises()
 
@@ -131,13 +161,15 @@ describe('ClipPlayer', () => {
     await flushPromises()
 
     expect(player.text()).not.toContain('Comprueba tu conexión')
-    expect(player.text()).toContain('Reproducir')
+    expect(playCalls).toBe(1)
   })
 
   it.each([100, 101, 150])('takes the video out of rotation on error %i', async (code) => {
+    const ClipPlayer = await freshComponent()
     installApi()
 
     const player = await mountSuspended(ClipPlayer, { props })
+    await player.find('button').trigger('click')
     await flushPromises()
 
     events.onError!({ data: code })
@@ -149,9 +181,11 @@ describe('ClipPlayer', () => {
   })
 
   it.each([2, 5])('keeps the video and reloads it on error %i', async (code) => {
+    const ClipPlayer = await freshComponent()
     installApi()
 
     const player = await mountSuspended(ClipPlayer, { props })
+    await player.find('button').trigger('click')
     await flushPromises()
 
     events.onError!({ data: code })
