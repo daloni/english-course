@@ -223,10 +223,10 @@ in English, while translations, explanations and theory shown to the learner rem
 
 | Claude Code | Codex | What it does |
 | --- | --- | --- |
-| `/frases <tense> <level> <n>` | `$frases <tense> <level> <n>` | Adds `<n>` sentences (gap, transform or pick the tense) to `content/exercises/<tense>.json` |
-| `/verbo <infinitive>` | `$verbo <infinitive>` | Adds or completes the verb in `content/verbs.json` |
+| `/frases <tense> <level> <n>` | `$sentences <tense> <level> <n>` | Adds `<n>` sentences (gap, transform or pick the tense) to `content/exercises/<tense>.json` |
+| `/verbo <infinitive>` | `$verb <infinitive>` | Adds or completes the verb in `content/verbs.json` |
 | `/reading <topic> <level>` | `$reading <topic> <level>` | Writes a text with questions in `content/readings/<slug>.json` |
-| `/teoria <tense>` | `$teoria <tense>` | Writes or extends the theory of `content/tenses/<slug>.json` |
+| `/teoria <tense>` | `$theory <tense>` | Writes or extends the theory of `content/tenses/<slug>.json` |
 | `/clips [file \| --all]` | `$clips [file \| --all]` | Turns ingested sentences into clips with gaps in `content/clips/<source>.json` |
 
 ### Ingesting clips
