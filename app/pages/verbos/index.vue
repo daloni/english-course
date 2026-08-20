@@ -58,76 +58,84 @@ const filtered = computed(() => {
         />
       </div>
 
-      <table class="w-full text-left text-sm">
-        <caption class="sr-only">
-          Verbos con su pasado simple, participio y traducción
-        </caption>
-        <thead>
-          <tr class="border-b border-default">
-            <th
-              scope="col"
-              class="py-2 pe-4 font-semibold"
+      <div
+        data-table-scroll
+        role="region"
+        tabindex="0"
+        aria-label="Tabla de verbos. Desplázate horizontalmente si es necesario."
+        class="overflow-x-auto"
+      >
+        <table class="w-full min-w-max text-left text-sm">
+          <caption class="sr-only">
+            Verbos con su pasado simple, participio y traducción
+          </caption>
+          <thead>
+            <tr class="border-b border-default">
+              <th
+                scope="col"
+                class="py-2 pe-4 font-semibold"
+              >
+                Infinitivo
+              </th>
+              <th
+                scope="col"
+                class="py-2 pe-4 font-semibold"
+              >
+                Pasado simple
+              </th>
+              <th
+                scope="col"
+                class="py-2 pe-4 font-semibold"
+              >
+                Participio
+              </th>
+              <th
+                scope="col"
+                class="py-2 font-semibold"
+              >
+                Español
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-default">
+            <tr
+              v-for="verb in filtered"
+              :key="verb.infinitive"
             >
-              Infinitivo
-            </th>
-            <th
-              scope="col"
-              class="py-2 pe-4 font-semibold"
-            >
-              Pasado simple
-            </th>
-            <th
-              scope="col"
-              class="py-2 pe-4 font-semibold"
-            >
-              Participio
-            </th>
-            <th
-              scope="col"
-              class="py-2 font-semibold"
-            >
-              Español
-            </th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-default">
-          <tr
-            v-for="verb in filtered"
-            :key="verb.infinitive"
-          >
-            <th
-              scope="row"
-              lang="en"
-              class="py-2 pe-4 font-medium whitespace-nowrap"
-            >
-              {{ verb.infinitive }}
-              <UBadge
-                v-if="!verb.regular"
-                label="irregular"
-                variant="subtle"
-                color="neutral"
-                size="sm"
-                class="ms-2"
-              />
-            </th>
-            <td
-              lang="en"
-              class="py-2 pe-4"
-            >
-              {{ verb.past }}
-            </td>
-            <td
-              lang="en"
-              class="py-2 pe-4"
-            >
-              {{ verb.participle }}
-            </td>
-            <td class="py-2 text-muted">
-              {{ verb.es }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <th
+                scope="row"
+                lang="en"
+                class="py-2 pe-4 font-medium whitespace-nowrap"
+              >
+                {{ verb.infinitive }}
+                <UBadge
+                  v-if="!verb.regular"
+                  label="irregular"
+                  variant="subtle"
+                  color="neutral"
+                  size="sm"
+                  class="ms-2"
+                />
+              </th>
+              <td
+                lang="en"
+                class="py-2 pe-4"
+              >
+                {{ verb.past }}
+              </td>
+              <td
+                lang="en"
+                class="py-2 pe-4"
+              >
+                {{ verb.participle }}
+              </td>
+              <td class="py-2 text-muted">
+                {{ verb.es }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p
         v-if="filtered.length === 0"
