@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
+import { defineComponent, onUnmounted } from 'vue'
 import ClipsIndex from '../app/pages/clips/index.vue'
 import ClipsPractice from '../app/pages/clips/practica.vue'
 import { clipFiles, clips, levels, tenses } from '../app/utils/content'
@@ -23,7 +24,20 @@ function expectText(value: unknown, label: string) {
 
 // The iframe is never mounted in the tests: the API script only loads in a real browser, and
 // what matters here is what the page does around it, including when it reports a dead video.
-const stubs = { ClipPlayer: { name: 'ClipPlayer', template: '<div data-testid="player" />', emits: ['unavailable'] } }
+let playerMounts = 0
+let playerUnmounts = 0
+
+const stubs = {
+  ClipPlayer: defineComponent({
+    name: 'ClipPlayer',
+    emits: ['unavailable'],
+    setup() {
+      playerMounts += 1
+      onUnmounted(() => playerUnmounts += 1)
+    },
+    template: '<div data-testid="player" />'
+  })
+}
 
 describe('content/clips', () => {
   it('has unique ids across every file', () => {
@@ -117,6 +131,8 @@ describe('/clips', () => {
 
 describe('/clips/practica', () => {
   beforeEach(() => {
+    playerMounts = 0
+    playerUnmounts = 0
     localStorage.removeItem(storageKey)
     localStorage.removeItem(unavailableKey)
     // Pinned at the top of its range, `Math.random` makes every swap of the shuffle a swap with
@@ -155,6 +171,24 @@ describe('/clips/practica', () => {
       expect(progress[id], `${id} must be recorded`).toBeDefined()
       expect(progress[id]!.hits).toBe(1)
     }
+  })
+
+  it('reuses the player while moving to the next question', async () => {
+    const page = await mountSuspended(ClipsPractice, { global: { stubs } })
+    await flushPromises()
+
+    expect(playerMounts).toBe(1)
+
+    const first = clips[0]!.exercises[0]!
+    await page.find('input').setValue(first.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('Clip 2 de')
+    expect(playerMounts).toBe(1)
+    expect(playerUnmounts).toBe(0)
   })
 
   it('never asks the same clip twice in a round', async () => {

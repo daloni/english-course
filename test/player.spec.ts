@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import ClipPlayer from '../app/components/ClipPlayer.vue'
@@ -21,20 +21,24 @@ interface PlayerEvents {
 
 let events: PlayerEvents = {}
 let loaded: { videoId: string, startSeconds?: number, endSeconds?: number } | null = null
+let created = 0
+let destroyed = 0
+let playCalls = 0
 
 /** Stands in for the real iframe player, which needs a browser and a network. */
 class FakePlayer implements YTPlayer {
   constructor(_el: HTMLElement | string, options: Record<string, unknown>) {
+    created += 1
     events = options.events as PlayerEvents
   }
 
-  playVideo() {}
+  playVideo() { playCalls += 1 }
   pauseVideo() {}
   seekTo() {}
   getCurrentTime() { return 0 }
   getPlayerState() { return 0 }
   loadVideoById(options: { videoId: string, startSeconds?: number, endSeconds?: number }) { loaded = options }
-  destroy() {}
+  destroy() { destroyed += 1 }
   mute() {}
   unMute() {}
 }
@@ -63,10 +67,15 @@ const props = { videoId: 'dQw4w9WgXcQ', startMs: 1000, endMs: 4000 }
 beforeEach(() => {
   events = {}
   loaded = null
+  created = 0
+  destroyed = 0
+  playCalls = 0
   delete window.YT
   delete window.onYouTubeIframeAPIReady
   for (const script of apiScripts()) script.remove()
 })
+
+afterEach(() => vi.restoreAllMocks())
 
 describe('useYouTubeApi', () => {
   // The loader is a page-wide singleton on purpose, so each case takes a fresh copy of the
@@ -166,5 +175,63 @@ describe('ClipPlayer', () => {
 
     expect(loaded).toEqual({ videoId: props.videoId, startSeconds: 1, endSeconds: 4 })
     expect(player.text()).not.toContain('Comprueba tu conexión')
+  })
+
+  it('reuses the player and loads every part of the next clip', async () => {
+    installApi()
+
+    const player = await mountSuspended(ClipPlayer, { props })
+    await flushPromises()
+
+    events.onReady!()
+    await flushPromises()
+    await player.find('button').trigger('click')
+
+    const nextProps = { videoId: 'abcdefghijk', startMs: 2500, endMs: 6500 }
+    await player.setProps(nextProps)
+    await flushPromises()
+
+    expect(created).toBe(1)
+    expect(destroyed).toBe(0)
+    expect(loaded).toEqual({ videoId: nextProps.videoId, startSeconds: 2.5, endSeconds: 6.5 })
+    expect(playCalls).toBe(2)
+
+    loaded = null
+    await player.setProps({ endMs: 7000 })
+    await flushPromises()
+
+    expect(loaded).toEqual({ videoId: nextProps.videoId, startSeconds: 2.5, endSeconds: 7 })
+
+    await player.unmount()
+    expect(destroyed).toBe(1)
+  })
+
+  it.each([100, 2])('clears the previous %i error on the next clip', async (code) => {
+    installApi()
+
+    const player = await mountSuspended(ClipPlayer, { props })
+    await flushPromises()
+
+    events.onError!({ data: code })
+    await flushPromises()
+    await player.setProps({ videoId: 'abcdefghijk' })
+    await flushPromises()
+
+    expect(player.text()).not.toContain('Este vídeo ya no está disponible')
+    expect(player.text()).not.toContain('Comprueba tu conexión')
+    expect(player.text()).toContain('Reproducir')
+  })
+
+  it('cancels the previous window when the clip changes', async () => {
+    installApi()
+
+    const cancelAnimationFrame = vi.spyOn(globalThis, 'cancelAnimationFrame')
+    const player = await mountSuspended(ClipPlayer, { props })
+    await flushPromises()
+
+    events.onStateChange!({ data: fakeApi.PlayerState.PLAYING })
+    await player.setProps({ videoId: 'abcdefghijk' })
+
+    expect(cancelAnimationFrame).toHaveBeenCalled()
   })
 })

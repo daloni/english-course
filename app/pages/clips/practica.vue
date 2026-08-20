@@ -179,7 +179,6 @@ function onUnavailable(videoId: string) {
             </p>
 
             <ClipPlayer
-              :key="question.clip.id"
               :video-id="question.clip.videoId"
               :start-ms="question.clip.startMs"
               :end-ms="question.clip.endMs"
