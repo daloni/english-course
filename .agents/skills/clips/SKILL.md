@@ -9,5 +9,5 @@ description: Generate validated learning clips from ingested sentence candidates
 2. Treat the text after `$clips` as the value of `$ARGUMENTS`; use an empty string when no arguments follow the skill name.
 3. Read `.claude/commands/clips.md`, ignore its YAML frontmatter, and use the Markdown body as the canonical workflow.
 4. Replace every literal `$ARGUMENTS` in that body with the parsed value.
-5. When running in Codex, translate command references using this map: `/frases` → `$sentences`, `/teoria` → `$theory`, `/verbo` → `$verb`, `/clips` → `$clips`, and `/reading` → `$reading`.
+5. Use `$sentences`, `$theory`, `$verb`, `$clips`, and `$reading` for cross-command references in Codex.
 6. Follow the resulting instructions completely, including their merge and validation steps.

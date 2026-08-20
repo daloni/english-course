@@ -87,7 +87,7 @@ capitals, the final punctuation and contractions —`We're` ↔ `We are`— and 
 ### `tenseId`
 
 The tense the gap drills, and it **has to exist** in `content/tenses/`. If the tense of the verb
-has not been created yet, use `/teoria <tense>` to create it first, or pick another gap in the
+has not been created yet, use `/theory <tense>` to create it first, or pick another gap in the
 same sentence.
 
 For expressions —phrasal verbs, idioms, fixed collocations— use `tenseId: ""`: they drill no

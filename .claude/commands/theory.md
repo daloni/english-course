@@ -15,9 +15,9 @@ a platform for Spanish speakers.
 
 1. Read `content/tenses/$1.json` if it exists, and `content/tenses/present-simple.json` as a
    reference for tone and format.
-2. Write the object into `/tmp/teoria.json`: if the file was already there, include only the
+2. Write the object into `/tmp/theory.json`: if the file was already there, include only the
    fields that change (usually `theory`, or `examples` to add examples).
-3. Merge: `node scripts/merge-content.mjs content/tenses/$1.json < /tmp/teoria.json`
+3. Merge: `node scripts/merge-content.mjs content/tenses/$1.json < /tmp/theory.json`
 4. Run `pnpm test test/content.spec.ts`. If it fails, fix the JSON and repeat.
 
 ## Schema

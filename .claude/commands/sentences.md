@@ -14,11 +14,11 @@ Spanish: it is what the learner reads.
 
 1. Read `content/tenses/$1.json` to keep to the structure, the time markers and the examples of
    that tense. If the file does not exist, stop and say so: the `tenseId` has to be a tense that
-   exists (`/teoria` creates it).
+   exists (`/theory` creates it).
 2. Read `content/exercises/$1.json` if it is already there, so as not to repeat sentences or ids.
-3. Write the new sentences into `/tmp/frases.json` with the schema below.
+3. Write the new sentences into `/tmp/sentences.json` with the schema below.
 4. Merge without overwriting the file:
-   `node scripts/merge-content.mjs content/exercises/$1.json < /tmp/frases.json`
+   `node scripts/merge-content.mjs content/exercises/$1.json < /tmp/sentences.json`
 5. Run `pnpm test test/content.spec.ts`. If it fails, fix the JSON and repeat.
 
 ## Schema
