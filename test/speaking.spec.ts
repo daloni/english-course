@@ -113,6 +113,22 @@ describe('/speaking', () => {
     expect(page.text()).toContain(tenses[0]!.name)
   })
 
+  it('explains that speech recognition may process audio remotely before recording', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const notice = page.find('#speaking-privacy-notice')
+    const mic = page.find('[aria-label="Repetir la frase al micrófono"]')
+
+    expect(notice.exists()).toBe(true)
+    expect(notice.text()).toContain('El curso no recibe ni guarda tu voz')
+    expect(notice.text()).toContain('pueden procesarla de forma remota')
+    expect(mic.attributes('aria-describedby')).toBe('speaking-privacy-notice')
+    expect(FakeRecognition.last).toBeNull()
+  })
+
   it('cuts the microphone and the comparison when it changes sentence', async () => {
     supportSpeech()
 
