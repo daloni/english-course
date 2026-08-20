@@ -123,80 +123,91 @@ useSeo({
               Por tiempo verbal
             </h2>
 
-            <table class="mt-4 w-full text-left text-sm">
-              <thead class="text-muted">
-                <tr class="border-b border-default">
-                  <th
-                    scope="col"
-                    class="py-2 pr-4 font-medium"
-                  >
-                    Tiempo
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-2 pr-4 font-medium"
-                  >
-                    Practicados
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-2 pr-4 font-medium"
-                  >
-                    Aciertos
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-2 pr-4 font-medium"
-                  >
-                    Fallos
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-2 pr-4 font-medium"
-                  >
-                    Aprendidos
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-2 font-medium"
-                  >
-                    Para hoy
-                  </th>
-                </tr>
-              </thead>
+            <div
+              data-table-scroll
+              role="region"
+              tabindex="0"
+              aria-label="Progreso por tiempo verbal. Desplázate horizontalmente si es necesario."
+              class="mt-4 overflow-x-auto"
+            >
+              <table class="w-full min-w-max text-left text-sm">
+                <caption class="sr-only">
+                  Progreso por tiempo verbal
+                </caption>
+                <thead class="text-muted">
+                  <tr class="border-b border-default">
+                    <th
+                      scope="col"
+                      class="py-2 pr-4 font-medium"
+                    >
+                      Tiempo
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 pr-4 font-medium"
+                    >
+                      Practicados
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 pr-4 font-medium"
+                    >
+                      Aciertos
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 pr-4 font-medium"
+                    >
+                      Fallos
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 pr-4 font-medium"
+                    >
+                      Aprendidos
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 font-medium"
+                    >
+                      Para hoy
+                    </th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr
-                  v-for="row in byTense"
-                  :key="row.tense.id"
-                  class="border-b border-default"
-                >
-                  <th
-                    scope="row"
-                    class="py-2 pr-4 font-medium"
+                <tbody>
+                  <tr
+                    v-for="row in byTense"
+                    :key="row.tense.id"
+                    class="border-b border-default"
                   >
-                    <ULink :to="`/teoria/${row.tense.id}`">
-                      {{ row.tense.name }}
-                    </ULink>
-                  </th>
-                  <td class="py-2 pr-4">
-                    {{ row.stats.practiced }} / {{ row.stats.total }}
-                  </td>
-                  <td class="py-2 pr-4">
-                    {{ row.stats.hits }}
-                  </td>
-                  <td class="py-2 pr-4">
-                    {{ row.stats.misses }}
-                  </td>
-                  <td class="py-2 pr-4">
-                    {{ row.stats.mastered }}
-                  </td>
-                  <td class="py-2">
-                    {{ row.stats.due }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <th
+                      scope="row"
+                      class="py-2 pr-4 font-medium"
+                    >
+                      <ULink :to="`/teoria/${row.tense.id}`">
+                        {{ row.tense.name }}
+                      </ULink>
+                    </th>
+                    <td class="py-2 pr-4">
+                      {{ row.stats.practiced }} / {{ row.stats.total }}
+                    </td>
+                    <td class="py-2 pr-4">
+                      {{ row.stats.hits }}
+                    </td>
+                    <td class="py-2 pr-4">
+                      {{ row.stats.misses }}
+                    </td>
+                    <td class="py-2 pr-4">
+                      {{ row.stats.mastered }}
+                    </td>
+                    <td class="py-2">
+                      {{ row.stats.due }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </section>
 
           <section v-if="attempts.length > 0">

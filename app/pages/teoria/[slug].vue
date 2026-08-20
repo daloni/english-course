@@ -57,42 +57,53 @@ useSeo({
             Estructura
           </h2>
 
-          <table class="w-full text-left text-sm">
-            <thead>
-              <tr class="border-b border-default">
-                <th
-                  scope="col"
-                  class="py-2 pe-4 font-semibold"
+          <div
+            data-table-scroll
+            role="region"
+            tabindex="0"
+            :aria-label="`Estructura de ${tense.name}. Desplázate horizontalmente si es necesario.`"
+            class="overflow-x-auto"
+          >
+            <table class="w-full min-w-max text-left text-sm">
+              <caption class="sr-only">
+                Estructura de {{ tense.name }}
+              </caption>
+              <thead>
+                <tr class="border-b border-default">
+                  <th
+                    scope="col"
+                    class="py-2 pe-4 font-semibold"
+                  >
+                    Forma
+                  </th>
+                  <th
+                    scope="col"
+                    class="py-2 font-semibold"
+                  >
+                    Cómo se construye
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-default">
+                <tr
+                  v-for="form in forms"
+                  :key="form"
                 >
-                  Forma
-                </th>
-                <th
-                  scope="col"
-                  class="py-2 font-semibold"
-                >
-                  Cómo se construye
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-default">
-              <tr
-                v-for="form in forms"
-                :key="form"
-              >
-                <th
-                  scope="row"
-                  class="py-2 pe-4 font-medium whitespace-nowrap"
-                >
-                  {{ formLabels[form] }}
-                </th>
-                <!-- The structure is written in Spanish ("Sujeto + verbo en pasado"): only
-                     the time markers and the examples below are English. -->
-                <td class="py-2">
-                  {{ tense.structure[form] }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <th
+                    scope="row"
+                    class="py-2 pe-4 font-medium whitespace-nowrap"
+                  >
+                    {{ formLabels[form] }}
+                  </th>
+                  <!-- The structure is written in Spanish ("Sujeto + verbo en pasado"): only
+                       the time markers and the examples below are English. -->
+                  <td class="py-2">
+                    {{ tense.structure[form] }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section>
