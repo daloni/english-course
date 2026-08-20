@@ -1,5 +1,51 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
+
+interface InstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed', platform: string }>
+}
+
 const items = sections.map(({ label, to, icon }) => ({ label, to, icon }))
+const installPrompt = ref<InstallPromptEvent | null>(null)
+const installing = ref(false)
+
+function onBeforeInstallPrompt(event: Event) {
+  event.preventDefault()
+  installPrompt.value = event as InstallPromptEvent
+}
+
+function onAppInstalled() {
+  installPrompt.value = null
+}
+
+async function installApp() {
+  const prompt = installPrompt.value
+
+  if (!prompt || installing.value) {
+    return
+  }
+
+  installing.value = true
+
+  try {
+    await prompt.prompt()
+    await prompt.userChoice
+  } finally {
+    installPrompt.value = null
+    installing.value = false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('beforeinstallprompt', onBeforeInstallPrompt)
+  window.addEventListener('appinstalled', onAppInstalled)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('beforeinstallprompt', onBeforeInstallPrompt)
+  window.removeEventListener('appinstalled', onAppInstalled)
+})
 </script>
 
 <template>
@@ -20,6 +66,13 @@ const items = sections.map(({ label, to, icon }) => ({ label, to, icon }))
       <UNavigationMenu :items="items" />
 
       <template #right>
+        <UButton
+          v-if="installPrompt && !installing"
+          label="Instalar app"
+          aria-label="Instalar app"
+          type="button"
+          @click="installApp"
+        />
         <UColorModeButton />
       </template>
 

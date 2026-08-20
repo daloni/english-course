@@ -87,6 +87,11 @@ The site is a PWA: it can be installed on a phone or a desktop from the browser 
 offers "Install" when the page is served over HTTPS, or from `localhost` to try it — and once
 installed it starts instantly and **works with no connection**.
 
+When the browser confirms that the app can be installed, the header shows an **Instalar app**
+button that opens its native installation dialog. The button is not shown when the browser does
+not support this prompt or the PWA does not meet its installation criteria; in that case, use the
+browser's own menu to install it when available.
+
 Offline, the theory, the verbs, the sentences, the reading, `/progreso` and `/repaso` keep
 working: the content of `content/` is compiled into the bundle, so there is nothing to fetch.
 What does **not** work are the clips, which need the YouTube iframe, and the speaking, which
