@@ -20,7 +20,7 @@ const player = shallowRef<YTPlayer | null>(null)
 const started = ref(false)
 const failed = ref(false)
 const loadError = ref(false)
-const loading = ref(true)
+const loading = ref(false)
 
 let rafId = 0
 
@@ -81,6 +81,10 @@ async function mount() {
       events: {
         onReady: () => {
           loading.value = false
+          if (started.value) {
+            player.value?.seekTo(startS.value, true)
+            player.value?.playVideo()
+          }
         },
         onStateChange: (e: { data: number }) => {
           if (e.data === YT.PlayerState.PLAYING) watchWindow()
@@ -116,11 +120,14 @@ function retry() {
   if (started.value) p.playVideo()
 }
 
-/** Mobile blocks autoplay without a gesture, so the first tap starts it. */
-function play() {
+/** Mobile blocks autoplay without a gesture, so the first tap starts the load and playback. */
+async function play() {
   started.value = true
   const p = player.value
-  if (!p) return
+  if (!p) {
+    await mount()
+    return
+  }
   p.seekTo(startS.value, true)
   p.playVideo()
 }
@@ -133,8 +140,6 @@ function replay() {
 }
 
 defineExpose({ replay })
-
-onMounted(mount)
 
 // Reusing the iframe across cards is much faster than tearing it down, and it
 // keeps the user's single "play" gesture alive for the whole session.
@@ -202,11 +207,18 @@ onBeforeUnmount(() => {
         />
       </template>
       <template v-else>
+        <p
+          id="youtube-connection-notice"
+          class="px-6 text-sm text-neutral-400"
+        >
+          Al reproducir, este vídeo se conectará con YouTube.
+        </p>
         <UButton
           icon="i-lucide-play"
           size="xl"
           color="neutral"
           variant="solid"
+          aria-describedby="youtube-connection-notice"
           @click="play"
         >
           Reproducir
