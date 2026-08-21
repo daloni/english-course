@@ -104,5 +104,100 @@
     ],
     "solution": "Future Perfect",
     "explanation": "El porcentaje cuantifica un resultado que se habrá alcanzado antes del límite de 2040."
+  },
+  {
+    "id": "future-perfect-013",
+    "tenseId": "future-perfect",
+    "prompt": "By Friday, we ___ (finish) the project.",
+    "solution": "will have finished"
+  },
+  {
+    "id": "future-perfect-014",
+    "tenseId": "future-perfect",
+    "prompt": "She ___ (not / return) by noon.",
+    "solution": "won't have returned"
+  },
+  {
+    "id": "future-perfect-015",
+    "tenseId": "future-perfect",
+    "prompt": "___ they ___ (complete) the course by June?",
+    "solution": "Will / have completed"
+  },
+  {
+    "id": "future-perfect-016",
+    "tenseId": "future-perfect",
+    "prompt": "By next year, I ___ (save) enough money.",
+    "solution": "will have saved"
+  },
+  {
+    "id": "future-perfect-017",
+    "tenseId": "future-perfect",
+    "prompt": "The builders ___ (repair) the roof by tomorrow.",
+    "solution": "will have repaired"
+  },
+  {
+    "id": "future-perfect-018",
+    "tenseId": "future-perfect",
+    "prompt": "He ___ (read) the report before the meeting.",
+    "solution": "will have read"
+  },
+  {
+    "id": "future-perfect-019",
+    "tenseId": "future-perfect",
+    "prompt": "Within two months, we ___ (move) to our new flat.",
+    "solution": "will have moved"
+  },
+  {
+    "id": "future-perfect-020",
+    "tenseId": "future-perfect",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "The train will have left by the time we arrive.",
+    "solution": "The train will not have left by the time we arrive.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-perfect-021",
+    "tenseId": "future-perfect",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "She will have completed the task by Friday.",
+    "solution": "Will she have completed the task by Friday?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-perfect-022",
+    "tenseId": "future-perfect",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "I will have written the article by tomorrow.",
+    "solution": "I will not have written the article by tomorrow.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-perfect-023",
+    "tenseId": "future-perfect",
+    "type": "choice",
+    "prompt": "By the end of the week, they will have solved the problem.",
+    "options": [
+      "Future Perfect",
+      "Future Simple",
+      "Present Perfect"
+    ],
+    "solution": "Future Perfect",
+    "explanation": "El marcador temporal y el contexto indican Future Perfect."
+  },
+  {
+    "id": "future-perfect-024",
+    "tenseId": "future-perfect",
+    "type": "choice",
+    "prompt": "Will you have finished the book by tomorrow?",
+    "options": [
+      "Future Perfect",
+      "Future Continuous",
+      "Past Perfect"
+    ],
+    "solution": "Future Perfect",
+    "explanation": "El marcador temporal y el contexto indican Future Perfect."
   }
 ]

@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "Had he been training regularly before he injured his knee?",
       "es": "¿Había estado entrenando con regularidad antes de lesionarse la rodilla?"
+    },
+    {
+      "form": "affirmative",
+      "en": "They had been waiting for an hour before the bus came.",
+      "es": "Habían estado esperando una hora antes de que llegara el autobús."
+    },
+    {
+      "form": "negative",
+      "en": "I had not been feeling well for several weeks.",
+      "es": "No me había estado sintiendo bien durante varias semanas."
+    },
+    {
+      "form": "interrogative",
+      "en": "Had he been working all morning?",
+      "es": "¿Había estado trabajando toda la mañana?"
+    },
+    {
+      "form": "affirmative",
+      "en": "She had been studying since dawn before the exam.",
+      "es": "Había estado estudiando desde el amanecer antes del examen."
+    },
+    {
+      "form": "negative",
+      "en": "We had been walking for two hours when it rained.",
+      "es": "Habíamos estado caminando dos horas cuando llovió."
+    },
+    {
+      "form": "interrogative",
+      "en": "Had they been living there for long?",
+      "es": "¿Llevaban mucho tiempo viviendo allí?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The road was muddy because it had been raining all day.",
+      "es": "La carretera estaba embarrada porque había estado lloviendo todo el día."
+    },
+    {
+      "form": "negative",
+      "en": "He had not been sleeping well before the trip.",
+      "es": "Él no había estado durmiendo bien antes del viaje."
+    },
+    {
+      "form": "interrogative",
+      "en": "How long had you been learning English by then?",
+      "es": "¿Cuánto tiempo llevabas aprendiendo inglés hasta entonces?"
     }
   ]
 }

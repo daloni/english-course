@@ -1,0 +1,89 @@
+{
+  "id": "technology",
+  "title": "A Phone-Free Evening",
+  "topic": "Tecnología",
+  "level": "B1",
+  "text": "Last month, Omar noticed that his family rarely talked during dinner. Everyone brought a phone to the table, and somebody was always checking a message or watching a short video. Omar suggested a simple experiment: the family would leave their phones in a drawer during dinner for one week. At first, his younger sister complained because she was waiting for an important reply from a friend. His father worried that a work call might arrive, but he agreed to try. The first evening felt strange. Without their screens, they finished eating quickly and sat in silence. Then Omar asked his father about a photograph on the wall, and the conversation became easier. By the end of the week, they were telling stories, discussing plans, and laughing more often. They did not decide to stop using technology. Instead, they created a quiet hour each evening and kept phones away from the table. The experiment showed them that a small rule could change the way they spent time together. They still used online calendars and sent messages, but they chose different moments for those activities. Omar wrote the rule on a card and placed it beside the drawer, where everybody could see it. After a month, nobody wanted to remove the card.",
+  "glossary": [
+    {
+      "en": "drawer",
+      "es": "cajón"
+    },
+    {
+      "en": "complained",
+      "es": "se quejó"
+    },
+    {
+      "en": "reply",
+      "es": "respuesta"
+    },
+    {
+      "en": "screen",
+      "es": "pantalla"
+    },
+    {
+      "en": "silence",
+      "es": "silencio"
+    },
+    {
+      "en": "rule",
+      "es": "regla"
+    }
+  ],
+  "questions": [
+    {
+      "id": "technology-q1",
+      "question": "What problem did Omar notice?",
+      "options": [
+        "The family ate too slowly",
+        "The family rarely talked at dinner",
+        "The phones were broken",
+        "His sister lost a photograph"
+      ],
+      "answer": "The family rarely talked at dinner",
+      "explanation": "La primera frase indica que «his family rarely talked during dinner»."
+    },
+    {
+      "id": "technology-q2",
+      "question": "Where did the family put their phones?",
+      "options": [
+        "In a bag",
+        "In a drawer",
+        "On the sofa",
+        "At work"
+      ],
+      "answer": "In a drawer",
+      "explanation": "El experimento consistía en dejarlos «in a drawer during dinner»."
+    },
+    {
+      "id": "technology-q3",
+      "question": "What did Omar write the new rule on?",
+      "answer": "A card / card",
+      "explanation": "Al final: «Omar wrote the rule on a card and placed it beside the drawer»."
+    },
+    {
+      "id": "technology-q4",
+      "question": "What changed by the end of the week?",
+      "options": [
+        "They bought new phones",
+        "They talked and laughed more",
+        "They stopped eating together",
+        "They cancelled the experiment"
+      ],
+      "answer": "They talked and laughed more",
+      "explanation": "Al final, «they were telling stories ... and laughing more often»."
+    },
+    {
+      "id": "technology-q5",
+      "question": "What rule did they keep?",
+      "options": [
+        "No technology all day",
+        "Phones away from the table",
+        "One video before dinner",
+        "A work call at dinner"
+      ],
+      "answer": "Phones away from the table",
+      "explanation": "Crearon una hora tranquila y «kept phones away from the table»."
+    }
+  ]
+}

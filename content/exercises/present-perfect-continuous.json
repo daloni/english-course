@@ -104,5 +104,100 @@
     ],
     "solution": "Present Perfect Continuous",
     "explanation": "How long pregunta por la duración desde el pasado hasta el presente de una actividad dinámica."
+  },
+  {
+    "id": "present-perfect-continuous-013",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "I ___ (study) for two hours.",
+    "solution": "have been studying"
+  },
+  {
+    "id": "present-perfect-continuous-014",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "She ___ (work) all morning.",
+    "solution": "has been working"
+  },
+  {
+    "id": "present-perfect-continuous-015",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "They ___ (not / sleep) well lately.",
+    "solution": "haven't been sleeping"
+  },
+  {
+    "id": "present-perfect-continuous-016",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "___ you ___ (wait) long?",
+    "solution": "Have / been waiting"
+  },
+  {
+    "id": "present-perfect-continuous-017",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "We ___ (look) for a larger flat for the past few weeks.",
+    "solution": "have been looking"
+  },
+  {
+    "id": "present-perfect-continuous-018",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "He ___ (learn) Spanish since January.",
+    "solution": "has been learning"
+  },
+  {
+    "id": "present-perfect-continuous-019",
+    "tenseId": "present-perfect-continuous",
+    "prompt": "The children ___ (play) outside all afternoon.",
+    "solution": "have been playing"
+  },
+  {
+    "id": "present-perfect-continuous-020",
+    "tenseId": "present-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Maya has been writing emails all morning.",
+    "solution": "Maya has not been writing emails all morning.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-perfect-continuous-021",
+    "tenseId": "present-perfect-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They have been repairing the road for three days.",
+    "solution": "Have they been repairing the road for three days?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-perfect-continuous-022",
+    "tenseId": "present-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "I have been waiting since nine.",
+    "solution": "I have not been waiting since nine.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-perfect-continuous-023",
+    "tenseId": "present-perfect-continuous",
+    "type": "choice",
+    "prompt": "It has been raining for three hours.",
+    "options": [
+      "Present Perfect Continuous",
+      "Present Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Present Perfect Continuous",
+    "explanation": "El marcador temporal y el contexto indican Present Perfect Continuous."
+  },
+  {
+    "id": "present-perfect-continuous-024",
+    "tenseId": "present-perfect-continuous",
+    "type": "choice",
+    "prompt": "How long have you been learning French?",
+    "options": [
+      "Present Perfect Continuous",
+      "Present Simple",
+      "Future Continuous"
+    ],
+    "solution": "Present Perfect Continuous",
+    "explanation": "El marcador temporal y el contexto indican Present Perfect Continuous."
   }
 ]

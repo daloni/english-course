@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "How many applications had the team received before the deadline passed?",
       "es": "¿Cuántas solicitudes había recibido el equipo antes de que venciera el plazo?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The guests had already left by the time we arrived.",
+      "es": "Los invitados ya se habían ido cuando llegamos."
+    },
+    {
+      "form": "negative",
+      "en": "She had not locked the door before dinner.",
+      "es": "Ella no había cerrado la puerta con llave antes de cenar."
+    },
+    {
+      "form": "interrogative",
+      "en": "Had you seen the film before?",
+      "es": "¿Habías visto la película antes?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I had just finished work when he called.",
+      "es": "Acababa de terminar el trabajo cuando llamó."
+    },
+    {
+      "form": "negative",
+      "en": "They had never travelled abroad until then.",
+      "es": "Nunca habían viajado al extranjero hasta entonces."
+    },
+    {
+      "form": "interrogative",
+      "en": "Had the train departed before you reached the station?",
+      "es": "¿Había salido el tren antes de que llegaras a la estación?"
+    },
+    {
+      "form": "affirmative",
+      "en": "We had prepared everything by the time the guests came.",
+      "es": "Lo habíamos preparado todo cuando llegaron los invitados."
+    },
+    {
+      "form": "negative",
+      "en": "He had forgotten the address before the meeting.",
+      "es": "Había olvidado la dirección antes de la reunión."
+    },
+    {
+      "form": "interrogative",
+      "en": "It was the first time she had spoken in public.",
+      "es": "Era la primera vez que ella había hablado en público."
     }
   ]
 }

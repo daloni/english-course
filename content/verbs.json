@@ -1,22 +1,422 @@
 [
-  { "infinitive": "be", "past": "was / were", "participle": "been", "regular": false, "es": "ser, estar" },
-  { "infinitive": "have", "past": "had", "participle": "had", "regular": false, "es": "tener, haber" },
-  { "infinitive": "do", "past": "did", "participle": "done", "regular": false, "es": "hacer" },
-  { "infinitive": "say", "past": "said", "participle": "said", "regular": false, "es": "decir" },
-  { "infinitive": "go", "past": "went", "participle": "gone", "regular": false, "es": "ir" },
-  { "infinitive": "get", "past": "got", "participle": "got", "regular": false, "es": "conseguir, obtener" },
-  { "infinitive": "make", "past": "made", "participle": "made", "regular": false, "es": "hacer, fabricar" },
-  { "infinitive": "know", "past": "knew", "participle": "known", "regular": false, "es": "saber, conocer" },
-  { "infinitive": "think", "past": "thought", "participle": "thought", "regular": false, "es": "pensar" },
-  { "infinitive": "take", "past": "took", "participle": "taken", "regular": false, "es": "coger, llevar" },
-  { "infinitive": "see", "past": "saw", "participle": "seen", "regular": false, "es": "ver" },
-  { "infinitive": "come", "past": "came", "participle": "come", "regular": false, "es": "venir" },
-  { "infinitive": "find", "past": "found", "participle": "found", "regular": false, "es": "encontrar" },
-  { "infinitive": "give", "past": "gave", "participle": "given", "regular": false, "es": "dar" },
-  { "infinitive": "tell", "past": "told", "participle": "told", "regular": false, "es": "contar, decir" },
-  { "infinitive": "want", "past": "wanted", "participle": "wanted", "regular": true, "es": "querer" },
-  { "infinitive": "use", "past": "used", "participle": "used", "regular": true, "es": "usar" },
-  { "infinitive": "work", "past": "worked", "participle": "worked", "regular": true, "es": "trabajar" },
-  { "infinitive": "call", "past": "called", "participle": "called", "regular": true, "es": "llamar" },
-  { "infinitive": "try", "past": "tried", "participle": "tried", "regular": true, "es": "intentar" }
+  {
+    "infinitive": "be",
+    "past": "was / were",
+    "participle": "been",
+    "regular": false,
+    "es": "ser, estar"
+  },
+  {
+    "infinitive": "have",
+    "past": "had",
+    "participle": "had",
+    "regular": false,
+    "es": "tener, haber"
+  },
+  {
+    "infinitive": "do",
+    "past": "did",
+    "participle": "done",
+    "regular": false,
+    "es": "hacer"
+  },
+  {
+    "infinitive": "say",
+    "past": "said",
+    "participle": "said",
+    "regular": false,
+    "es": "decir"
+  },
+  {
+    "infinitive": "go",
+    "past": "went",
+    "participle": "gone",
+    "regular": false,
+    "es": "ir"
+  },
+  {
+    "infinitive": "get",
+    "past": "got",
+    "participle": "got",
+    "regular": false,
+    "es": "conseguir, obtener"
+  },
+  {
+    "infinitive": "make",
+    "past": "made",
+    "participle": "made",
+    "regular": false,
+    "es": "hacer, fabricar"
+  },
+  {
+    "infinitive": "know",
+    "past": "knew",
+    "participle": "known",
+    "regular": false,
+    "es": "saber, conocer"
+  },
+  {
+    "infinitive": "think",
+    "past": "thought",
+    "participle": "thought",
+    "regular": false,
+    "es": "pensar"
+  },
+  {
+    "infinitive": "take",
+    "past": "took",
+    "participle": "taken",
+    "regular": false,
+    "es": "coger, llevar"
+  },
+  {
+    "infinitive": "see",
+    "past": "saw",
+    "participle": "seen",
+    "regular": false,
+    "es": "ver"
+  },
+  {
+    "infinitive": "come",
+    "past": "came",
+    "participle": "come",
+    "regular": false,
+    "es": "venir"
+  },
+  {
+    "infinitive": "find",
+    "past": "found",
+    "participle": "found",
+    "regular": false,
+    "es": "encontrar"
+  },
+  {
+    "infinitive": "give",
+    "past": "gave",
+    "participle": "given",
+    "regular": false,
+    "es": "dar"
+  },
+  {
+    "infinitive": "tell",
+    "past": "told",
+    "participle": "told",
+    "regular": false,
+    "es": "contar, decir"
+  },
+  {
+    "infinitive": "want",
+    "past": "wanted",
+    "participle": "wanted",
+    "regular": true,
+    "es": "querer"
+  },
+  {
+    "infinitive": "use",
+    "past": "used",
+    "participle": "used",
+    "regular": true,
+    "es": "usar"
+  },
+  {
+    "infinitive": "work",
+    "past": "worked",
+    "participle": "worked",
+    "regular": true,
+    "es": "trabajar"
+  },
+  {
+    "infinitive": "call",
+    "past": "called",
+    "participle": "called",
+    "regular": true,
+    "es": "llamar"
+  },
+  {
+    "infinitive": "try",
+    "past": "tried",
+    "participle": "tried",
+    "regular": true,
+    "es": "intentar"
+  },
+  {
+    "infinitive": "eat",
+    "past": "ate",
+    "participle": "eaten",
+    "regular": false,
+    "es": "comer"
+  },
+  {
+    "infinitive": "drink",
+    "past": "drank",
+    "participle": "drunk",
+    "regular": false,
+    "es": "beber"
+  },
+  {
+    "infinitive": "write",
+    "past": "wrote",
+    "participle": "written",
+    "regular": false,
+    "es": "escribir"
+  },
+  {
+    "infinitive": "read",
+    "past": "read",
+    "participle": "read",
+    "regular": false,
+    "es": "leer"
+  },
+  {
+    "infinitive": "speak",
+    "past": "spoke",
+    "participle": "spoken",
+    "regular": false,
+    "es": "hablar"
+  },
+  {
+    "infinitive": "bring",
+    "past": "brought",
+    "participle": "brought",
+    "regular": false,
+    "es": "traer"
+  },
+  {
+    "infinitive": "buy",
+    "past": "bought",
+    "participle": "bought",
+    "regular": false,
+    "es": "comprar"
+  },
+  {
+    "infinitive": "leave",
+    "past": "left",
+    "participle": "left",
+    "regular": false,
+    "es": "salir, dejar"
+  },
+  {
+    "infinitive": "run",
+    "past": "ran",
+    "participle": "run",
+    "regular": false,
+    "es": "correr"
+  },
+  {
+    "infinitive": "sit",
+    "past": "sat",
+    "participle": "sat",
+    "regular": false,
+    "es": "sentarse"
+  },
+  {
+    "infinitive": "stand",
+    "past": "stood",
+    "participle": "stood",
+    "regular": false,
+    "es": "estar de pie"
+  },
+  {
+    "infinitive": "understand",
+    "past": "understood",
+    "participle": "understood",
+    "regular": false,
+    "es": "entender"
+  },
+  {
+    "infinitive": "begin",
+    "past": "began",
+    "participle": "begun",
+    "regular": false,
+    "es": "empezar"
+  },
+  {
+    "infinitive": "break",
+    "past": "broke",
+    "participle": "broken",
+    "regular": false,
+    "es": "romper"
+  },
+  {
+    "infinitive": "choose",
+    "past": "chose",
+    "participle": "chosen",
+    "regular": false,
+    "es": "elegir"
+  },
+  {
+    "infinitive": "drive",
+    "past": "drove",
+    "participle": "driven",
+    "regular": false,
+    "es": "conducir"
+  },
+  {
+    "infinitive": "fall",
+    "past": "fell",
+    "participle": "fallen",
+    "regular": false,
+    "es": "caer"
+  },
+  {
+    "infinitive": "feel",
+    "past": "felt",
+    "participle": "felt",
+    "regular": false,
+    "es": "sentir(se)"
+  },
+  {
+    "infinitive": "keep",
+    "past": "kept",
+    "participle": "kept",
+    "regular": false,
+    "es": "guardar, mantener"
+  },
+  {
+    "infinitive": "lose",
+    "past": "lost",
+    "participle": "lost",
+    "regular": false,
+    "es": "perder"
+  },
+  {
+    "infinitive": "meet",
+    "past": "met",
+    "participle": "met",
+    "regular": false,
+    "es": "conocer, reunirse"
+  },
+  {
+    "infinitive": "pay",
+    "past": "paid",
+    "participle": "paid",
+    "regular": false,
+    "es": "pagar"
+  },
+  {
+    "infinitive": "put",
+    "past": "put",
+    "participle": "put",
+    "regular": false,
+    "es": "poner"
+  },
+  {
+    "infinitive": "send",
+    "past": "sent",
+    "participle": "sent",
+    "regular": false,
+    "es": "enviar"
+  },
+  {
+    "infinitive": "sleep",
+    "past": "slept",
+    "participle": "slept",
+    "regular": false,
+    "es": "dormir"
+  },
+  {
+    "infinitive": "live",
+    "past": "lived",
+    "participle": "lived",
+    "regular": true,
+    "es": "vivir"
+  },
+  {
+    "infinitive": "study",
+    "past": "studied",
+    "participle": "studied",
+    "regular": true,
+    "es": "estudiar"
+  },
+  {
+    "infinitive": "watch",
+    "past": "watched",
+    "participle": "watched",
+    "regular": true,
+    "es": "ver, mirar"
+  },
+  {
+    "infinitive": "open",
+    "past": "opened",
+    "participle": "opened",
+    "regular": true,
+    "es": "abrir"
+  },
+  {
+    "infinitive": "close",
+    "past": "closed",
+    "participle": "closed",
+    "regular": true,
+    "es": "cerrar"
+  },
+  {
+    "infinitive": "finish",
+    "past": "finished",
+    "participle": "finished",
+    "regular": true,
+    "es": "terminar"
+  },
+  {
+    "infinitive": "travel",
+    "past": "travelled",
+    "participle": "travelled",
+    "regular": true,
+    "es": "viajar"
+  },
+  {
+    "infinitive": "learn",
+    "past": "learned",
+    "participle": "learned",
+    "regular": true,
+    "es": "aprender"
+  },
+  {
+    "infinitive": "help",
+    "past": "helped",
+    "participle": "helped",
+    "regular": true,
+    "es": "ayudar"
+  },
+  {
+    "infinitive": "listen",
+    "past": "listened",
+    "participle": "listened",
+    "regular": true,
+    "es": "escuchar"
+  },
+  {
+    "infinitive": "clean",
+    "past": "cleaned",
+    "participle": "cleaned",
+    "regular": true,
+    "es": "limpiar"
+  },
+  {
+    "infinitive": "cook",
+    "past": "cooked",
+    "participle": "cooked",
+    "regular": true,
+    "es": "cocinar"
+  },
+  {
+    "infinitive": "move",
+    "past": "moved",
+    "participle": "moved",
+    "regular": true,
+    "es": "mudarse, mover"
+  },
+  {
+    "infinitive": "start",
+    "past": "started",
+    "participle": "started",
+    "regular": true,
+    "es": "empezar"
+  },
+  {
+    "infinitive": "visit",
+    "past": "visited",
+    "participle": "visited",
+    "regular": true,
+    "es": "visitar"
+  }
 ]

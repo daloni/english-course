@@ -1,0 +1,89 @@
+{
+  "id": "work",
+  "title": "A Helpful Team",
+  "topic": "Trabajo",
+  "level": "B1",
+  "text": "When Priya started her new job at a community centre, she expected to work alone at the front desk. Instead, she joined a small team that organises classes and events for local residents. Every morning, she checks the room bookings and answers messages from visitors. Her colleague Daniel prepares the timetable, while Sofia speaks to teachers and volunteers. Priya enjoys the variety because no two days are exactly the same. Last month, the team planned a weekend science fair for children. They had only three weeks to prepare, so everyone shared tasks carefully. Priya contacted the schools, Daniel ordered tables, and Sofia created a poster. On the day of the fair, more than a hundred families arrived. A few problems appeared, including a late delivery, but the team solved them calmly. At the end of the day, the centre manager thanked them for their cooperation. Priya now hopes to organise another event in the summer. She has also suggested a short meeting every Monday, so the team can discuss new ideas and notice small problems before they become serious. The manager likes the proposal because it gives every volunteer a chance to contribute. This routine helps the centre improve its services and keeps the team connected.",
+  "glossary": [
+    {
+      "en": "community centre",
+      "es": "centro comunitario"
+    },
+    {
+      "en": "front desk",
+      "es": "recepción"
+    },
+    {
+      "en": "residents",
+      "es": "residentes"
+    },
+    {
+      "en": "timetable",
+      "es": "horario"
+    },
+    {
+      "en": "delivery",
+      "es": "entrega"
+    },
+    {
+      "en": "cooperation",
+      "es": "cooperación"
+    }
+  ],
+  "questions": [
+    {
+      "id": "work-q1",
+      "question": "What did Priya expect when she started the job?",
+      "options": [
+        "To teach science",
+        "To work alone at the front desk",
+        "To organise summer events",
+        "To work in a school"
+      ],
+      "answer": "To work alone at the front desk",
+      "explanation": "Al principio, «she expected to work alone at the front desk»."
+    },
+    {
+      "id": "work-q2",
+      "question": "What does Daniel prepare?",
+      "options": [
+        "Posters",
+        "Room bookings",
+        "The timetable",
+        "Science experiments"
+      ],
+      "answer": "The timetable",
+      "explanation": "El texto asigna a Daniel la tarea de «prepares the timetable»."
+    },
+    {
+      "id": "work-q3",
+      "question": "How long did the team have to prepare the science fair?",
+      "answer": "Three weeks",
+      "explanation": "«They had only three weeks to prepare»."
+    },
+    {
+      "id": "work-q4",
+      "question": "How many families came to the fair?",
+      "options": [
+        "About fifty",
+        "More than a hundred",
+        "Exactly three hundred",
+        "Fewer than ten"
+      ],
+      "answer": "More than a hundred",
+      "explanation": "El día del evento llegaron «more than a hundred families»."
+    },
+    {
+      "id": "work-q5",
+      "question": "What did the team do when problems appeared?",
+      "options": [
+        "They cancelled the fair",
+        "They solved them calmly",
+        "They called the schools",
+        "They went home"
+      ],
+      "answer": "They solved them calmly",
+      "explanation": "Aunque hubo problemas, «the team solved them calmly»."
+    }
+  ]
+}

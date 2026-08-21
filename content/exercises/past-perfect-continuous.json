@@ -104,5 +104,100 @@
     ],
     "solution": "Past Perfect Continuous",
     "explanation": "La reparación duró ocho horas antes de otro hecho pasado; se destaca el proceso, no su finalización."
+  },
+  {
+    "id": "past-perfect-continuous-013",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "They ___ (wait) for an hour before the bus came.",
+    "solution": "had been waiting"
+  },
+  {
+    "id": "past-perfect-continuous-014",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "I ___ (work) all day before I went home.",
+    "solution": "had been working"
+  },
+  {
+    "id": "past-perfect-continuous-015",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "She ___ (not / feel) well for several weeks.",
+    "solution": "hadn't been feeling"
+  },
+  {
+    "id": "past-perfect-continuous-016",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "___ he ___ (run) before the race started?",
+    "solution": "Had / been running"
+  },
+  {
+    "id": "past-perfect-continuous-017",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "We ___ (look) for the keys until then.",
+    "solution": "had been looking"
+  },
+  {
+    "id": "past-perfect-continuous-018",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "The machine ___ (make) a strange noise before it stopped.",
+    "solution": "had been making"
+  },
+  {
+    "id": "past-perfect-continuous-019",
+    "tenseId": "past-perfect-continuous",
+    "prompt": "You ___ (study) since early morning before the exam.",
+    "solution": "had been studying"
+  },
+  {
+    "id": "past-perfect-continuous-020",
+    "tenseId": "past-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Sam had been travelling for three weeks before he returned.",
+    "solution": "Sam had not been travelling for three weeks before he returned.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "past-perfect-continuous-021",
+    "tenseId": "past-perfect-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They had been building the bridge all year.",
+    "solution": "Had they been building the bridge all year?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "past-perfect-continuous-022",
+    "tenseId": "past-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "I had been waiting since dawn.",
+    "solution": "I had not been waiting since dawn.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "past-perfect-continuous-023",
+    "tenseId": "past-perfect-continuous",
+    "type": "choice",
+    "prompt": "The ground was wet because it had been raining all night.",
+    "options": [
+      "Past Perfect Continuous",
+      "Past Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Past Perfect Continuous",
+    "explanation": "El marcador temporal y el contexto indican Past Perfect Continuous."
+  },
+  {
+    "id": "past-perfect-continuous-024",
+    "tenseId": "past-perfect-continuous",
+    "type": "choice",
+    "prompt": "She had been teaching there for ten years before she moved.",
+    "options": [
+      "Past Perfect Continuous",
+      "Present Perfect Continuous",
+      "Future Continuous"
+    ],
+    "solution": "Past Perfect Continuous",
+    "explanation": "El marcador temporal y el contexto indican Past Perfect Continuous."
   }
 ]

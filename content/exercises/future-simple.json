@@ -103,5 +103,100 @@
     ],
     "solution": "Future Simple",
     "explanation": "La acción principal lleva will; tras as soon as se usa present simple, aunque ambas acciones sean futuras."
+  },
+  {
+    "id": "future-simple-013",
+    "tenseId": "future-simple",
+    "prompt": "I think it ___ (rain) tomorrow.",
+    "solution": "will rain"
+  },
+  {
+    "id": "future-simple-014",
+    "tenseId": "future-simple",
+    "prompt": "She ___ (not / forget) your birthday.",
+    "solution": "won't forget"
+  },
+  {
+    "id": "future-simple-015",
+    "tenseId": "future-simple",
+    "prompt": "___ you ___ (help) me later?",
+    "solution": "Will / help"
+  },
+  {
+    "id": "future-simple-016",
+    "tenseId": "future-simple",
+    "prompt": "We ___ (meet) again next week.",
+    "solution": "will meet"
+  },
+  {
+    "id": "future-simple-017",
+    "tenseId": "future-simple",
+    "prompt": "The package ___ (arrive) in an hour.",
+    "solution": "will arrive"
+  },
+  {
+    "id": "future-simple-018",
+    "tenseId": "future-simple",
+    "prompt": "They probably ___ (choose) the blue one.",
+    "solution": "will choose"
+  },
+  {
+    "id": "future-simple-019",
+    "tenseId": "future-simple",
+    "prompt": "I ___ (call) you tonight.",
+    "solution": "will call"
+  },
+  {
+    "id": "future-simple-020",
+    "tenseId": "future-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Ben will send the documents tomorrow.",
+    "solution": "Ben will not send the documents tomorrow.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-simple-021",
+    "tenseId": "future-simple",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "We will visit you next year.",
+    "solution": "Will we visit you next year?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-simple-022",
+    "tenseId": "future-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "I will make dinner tonight.",
+    "solution": "I will not make dinner tonight.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-simple-023",
+    "tenseId": "future-simple",
+    "type": "choice",
+    "prompt": "I will answer the phone in a minute.",
+    "options": [
+      "Future Simple",
+      "Present Continuous",
+      "Past Simple"
+    ],
+    "solution": "Future Simple",
+    "explanation": "El marcador temporal y el contexto indican Future Simple."
+  },
+  {
+    "id": "future-simple-024",
+    "tenseId": "future-simple",
+    "type": "choice",
+    "prompt": "Will they win the game next week?",
+    "options": [
+      "Future Simple",
+      "Future Perfect",
+      "Present Simple"
+    ],
+    "solution": "Future Simple",
+    "explanation": "El marcador temporal y el contexto indican Future Simple."
   }
 ]

@@ -101,5 +101,100 @@
     ],
     "solution": "Be going to",
     "explanation": "La situación visible permite una predicción negativa con be going to."
+  },
+  {
+    "id": "be-going-to-013",
+    "tenseId": "be-going-to",
+    "prompt": "I ___ (visit) my grandparents next weekend.",
+    "solution": "am going to visit"
+  },
+  {
+    "id": "be-going-to-014",
+    "tenseId": "be-going-to",
+    "prompt": "Look at those clouds; it ___ (rain) soon.",
+    "solution": "is going to rain"
+  },
+  {
+    "id": "be-going-to-015",
+    "tenseId": "be-going-to",
+    "prompt": "We ___ (not / buy) a new car this year.",
+    "solution": "aren't going to buy"
+  },
+  {
+    "id": "be-going-to-016",
+    "tenseId": "be-going-to",
+    "prompt": "___ she ___ (start) a course in September?",
+    "solution": "Is / going to start"
+  },
+  {
+    "id": "be-going-to-017",
+    "tenseId": "be-going-to",
+    "prompt": "They ___ (move) house in two weeks.",
+    "solution": "are going to move"
+  },
+  {
+    "id": "be-going-to-018",
+    "tenseId": "be-going-to",
+    "prompt": "He ___ (cook) dinner tonight.",
+    "solution": "is going to cook"
+  },
+  {
+    "id": "be-going-to-019",
+    "tenseId": "be-going-to",
+    "prompt": "The team ___ (play) in the final next month.",
+    "solution": "is going to play"
+  },
+  {
+    "id": "be-going-to-020",
+    "tenseId": "be-going-to",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "They are going to renovate the kitchen next month.",
+    "solution": "They are not going to renovate the kitchen next month.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "be-going-to-021",
+    "tenseId": "be-going-to",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "I am going to call the plumber this evening.",
+    "solution": "Am I going to call the plumber this evening?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "be-going-to-022",
+    "tenseId": "be-going-to",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "We are going to leave soon.",
+    "solution": "We are not going to leave soon.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "be-going-to-023",
+    "tenseId": "be-going-to",
+    "type": "choice",
+    "prompt": "She has bought the ingredients, so she is going to make a cake tonight.",
+    "options": [
+      "Be going to",
+      "Future Simple",
+      "Present Simple"
+    ],
+    "solution": "Be going to",
+    "explanation": "El marcador temporal y el contexto indican Be going to."
+  },
+  {
+    "id": "be-going-to-024",
+    "tenseId": "be-going-to",
+    "type": "choice",
+    "prompt": "Look at that broken branch; it is going to fall.",
+    "options": [
+      "Be going to",
+      "Future Continuous",
+      "Past Simple"
+    ],
+    "solution": "Be going to",
+    "explanation": "El marcador temporal y el contexto indican Be going to."
   }
 ]

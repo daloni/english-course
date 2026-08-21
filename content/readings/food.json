@@ -1,0 +1,85 @@
+{
+  "id": "food",
+  "title": "Saturday at the Market",
+  "topic": "Comida",
+  "level": "A2",
+  "text": "On Saturday morning, Ana goes to the market with her father. They need food for a picnic in the park. First, they buy fresh bread from a small bakery. The baker gives Ana a warm roll to taste, and she says it is delicious. Next, they choose red apples, strawberries, and two bottles of water. Her father looks for cheese, but the first shop is too busy. At the next stall, he finds a soft local cheese and some tomatoes. Ana also buys a small lemon cake because her brother loves it. Before they leave, they sit at a café and drink orange juice. The shopping bag is heavy, so they take the bus home. In the afternoon, Ana puts everything in a basket and prepares the picnic. The family eats beside the lake and finishes all the cake.",
+  "glossary": [
+    {
+      "en": "bakery",
+      "es": "panadería"
+    },
+    {
+      "en": "roll",
+      "es": "bollo"
+    },
+    {
+      "en": "stall",
+      "es": "puesto"
+    },
+    {
+      "en": "soft",
+      "es": "blando"
+    },
+    {
+      "en": "basket",
+      "es": "cesta"
+    },
+    {
+      "en": "beside",
+      "es": "junto a"
+    }
+  ],
+  "questions": [
+    {
+      "id": "food-q1",
+      "question": "Why do Ana and her father go to the market?",
+      "options": [
+        "To buy food for a picnic",
+        "To meet a baker",
+        "To find a new café"
+      ],
+      "answer": "To buy food for a picnic",
+      "explanation": "La segunda frase dice que necesitan comida para un picnic en el parque."
+    },
+    {
+      "id": "food-q2",
+      "question": "What does the baker give Ana?",
+      "options": [
+        "A lemon cake",
+        "A warm roll",
+        "A bottle of water"
+      ],
+      "answer": "A warm roll",
+      "explanation": "«The baker gives Ana a warm roll to taste»."
+    },
+    {
+      "id": "food-q3",
+      "question": "Where does Ana’s father find the cheese?",
+      "options": [
+        "At the bakery",
+        "At the café",
+        "At the next stall"
+      ],
+      "answer": "At the next stall",
+      "explanation": "No lo encuentra en el primer puesto; «at the next stall» encuentra queso local."
+    },
+    {
+      "id": "food-q4",
+      "question": "What do Ana and her father drink at the café?",
+      "answer": "Orange juice",
+      "explanation": "Antes de irse, «they sit at a café and drink orange juice»."
+    },
+    {
+      "id": "food-q5",
+      "question": "How do they go home?",
+      "options": [
+        "By bus",
+        "By train",
+        "On foot"
+      ],
+      "answer": "By bus",
+      "explanation": "La bolsa pesa, «so they take the bus home»."
+    }
+  ]
+}

@@ -87,11 +87,11 @@ describe('tenses', () => {
       })
     })
 
-    // Five per form is the floor /teoria asks for.
-    it('has at least five examples of every form', () => {
+    // Eight per form keeps the theory examples varied enough for repeated study.
+    it('has at least eight examples of every form', () => {
       for (const form of forms) {
         expect(tense.examples.filter(example => example.form === form).length, `examples of ${form}`)
-          .toBeGreaterThanOrEqual(5)
+          .toBeGreaterThanOrEqual(8)
       }
     })
   })
@@ -109,7 +109,7 @@ describe('Markdown content', () => {
 
 describe('verbs', () => {
   it('loads the seed list', () => {
-    expect(verbs.length).toBeGreaterThanOrEqual(20)
+    expect(verbs.length).toBeGreaterThanOrEqual(60)
   })
 
   it('has unique infinitives', () => {
@@ -141,10 +141,10 @@ describe('exercises', () => {
   })
 
   // A tense without enough sentences offers an incomplete practice round.
-  it('has at least twelve exercises for every published tense', () => {
+  it('has at least twenty-four exercises for every published tense', () => {
     for (const tense of tenses) {
       expect(exercises.filter(exercise => exercise.tenseId === tense.id).length, `exercises for ${tense.id}`)
-        .toBeGreaterThanOrEqual(12)
+        .toBeGreaterThanOrEqual(24)
     }
   })
 

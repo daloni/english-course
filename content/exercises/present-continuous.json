@@ -102,5 +102,100 @@
     ],
     "solution": "Present Continuous",
     "explanation": "is getting describe un cambio gradual en curso, no un estado permanente."
+  },
+  {
+    "id": "present-continuous-013",
+    "tenseId": "present-continuous",
+    "prompt": "Please be quiet; the baby ___ (sleep) right now.",
+    "solution": "is sleeping"
+  },
+  {
+    "id": "present-continuous-014",
+    "tenseId": "present-continuous",
+    "prompt": "We ___ (not / watch) television at the moment.",
+    "solution": "aren't watching"
+  },
+  {
+    "id": "present-continuous-015",
+    "tenseId": "present-continuous",
+    "prompt": "___ they ___ (wait) for the doctor now?",
+    "solution": "Are / waiting"
+  },
+  {
+    "id": "present-continuous-016",
+    "tenseId": "present-continuous",
+    "prompt": "I ___ (work) from home this week.",
+    "solution": "am working"
+  },
+  {
+    "id": "present-continuous-017",
+    "tenseId": "present-continuous",
+    "prompt": "The students ___ (prepare) a presentation today.",
+    "solution": "are preparing"
+  },
+  {
+    "id": "present-continuous-018",
+    "tenseId": "present-continuous",
+    "prompt": "Why ___ you ___ (carry) an umbrella this morning?",
+    "solution": "are / carrying"
+  },
+  {
+    "id": "present-continuous-019",
+    "tenseId": "present-continuous",
+    "prompt": "My brother ___ (not / drive) today because his car is broken.",
+    "solution": "isn't driving"
+  },
+  {
+    "id": "present-continuous-020",
+    "tenseId": "present-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Nina is reading a report at the moment.",
+    "solution": "Nina isn't reading a report at the moment.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-continuous-021",
+    "tenseId": "present-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "The children are playing outside today.",
+    "solution": "Are the children playing outside today?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-continuous-022",
+    "tenseId": "present-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "I am staying with my aunt this week.",
+    "solution": "I am not staying with my aunt this week.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-continuous-023",
+    "tenseId": "present-continuous",
+    "type": "choice",
+    "prompt": "Look at Tom: he is carrying three boxes right now.",
+    "options": [
+      "Present Continuous",
+      "Present Simple",
+      "Past Continuous"
+    ],
+    "solution": "Present Continuous",
+    "explanation": "El marcador temporal y el contexto indican Present Continuous."
+  },
+  {
+    "id": "present-continuous-024",
+    "tenseId": "present-continuous",
+    "type": "choice",
+    "prompt": "We are having lunch at the moment.",
+    "options": [
+      "Present Continuous",
+      "Future Simple",
+      "Present Perfect"
+    ],
+    "solution": "Present Continuous",
+    "explanation": "El marcador temporal y el contexto indican Present Continuous."
   }
 ]

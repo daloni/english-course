@@ -1,0 +1,85 @@
+{
+  "id": "daily-routine",
+  "title": "A Simple School Day",
+  "topic": "Rutina diaria",
+  "level": "A1",
+  "text": "Every weekday, Leo gets up at seven o’clock. He opens the curtains and makes his bed before breakfast. Then he washes his face and eats cereal with a banana. At eight o’clock, he walks to school with his sister. His first lesson is English, and his favourite lesson is art. At midday, Leo eats lunch in the school garden. He talks to his friends and shares an apple with Mia. Lessons finish at three o’clock. Leo walks home, feeds the family dog, and does his homework at the kitchen table. In the evening, he helps his mother cook dinner. After dinner, he reads a short book. He goes to bed at half past nine because he feels tired. Before sleeping, he prepares his schoolbag.",
+  "glossary": [
+    {
+      "en": "curtains",
+      "es": "cortinas"
+    },
+    {
+      "en": "makes his bed",
+      "es": "hace la cama"
+    },
+    {
+      "en": "lesson",
+      "es": "clase"
+    },
+    {
+      "en": "shares",
+      "es": "comparte"
+    },
+    {
+      "en": "feeds",
+      "es": "da de comer"
+    },
+    {
+      "en": "tired",
+      "es": "cansado"
+    }
+  ],
+  "questions": [
+    {
+      "id": "daily-routine-q1",
+      "question": "What time does Leo get up?",
+      "options": [
+        "At six o’clock",
+        "At seven o’clock",
+        "At eight o’clock"
+      ],
+      "answer": "At seven o’clock",
+      "explanation": "El texto dice: «Leo gets up at seven o’clock»."
+    },
+    {
+      "id": "daily-routine-q2",
+      "question": "How does Leo go to school?",
+      "options": [
+        "By bus",
+        "By car",
+        "On foot"
+      ],
+      "answer": "On foot",
+      "explanation": "«He walks to school with his sister»: va andando."
+    },
+    {
+      "id": "daily-routine-q3",
+      "question": "What is Leo’s favourite lesson?",
+      "options": [
+        "English",
+        "Art",
+        "Music"
+      ],
+      "answer": "Art",
+      "explanation": "La frase «his favourite lesson is art» da la respuesta."
+    },
+    {
+      "id": "daily-routine-q4",
+      "question": "Who does Leo share an apple with?",
+      "answer": "Mia",
+      "explanation": "En el jardín, «he shares an apple with Mia»."
+    },
+    {
+      "id": "daily-routine-q5",
+      "question": "Why does Leo go to bed at half past nine?",
+      "options": [
+        "He feels tired",
+        "He has a late lesson",
+        "He cooks dinner"
+      ],
+      "answer": "He feels tired",
+      "explanation": "La última frase explica: «because he feels tired»."
+    }
+  ]
+}

@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "What will the company have achieved by its tenth anniversary?",
       "es": "¿Qué habrá conseguido la empresa para su décimo aniversario?"
+    },
+    {
+      "form": "affirmative",
+      "en": "By tomorrow, I will have finished the book.",
+      "es": "Para mañana, habré terminado el libro."
+    },
+    {
+      "form": "negative",
+      "en": "They will not have arrived by noon.",
+      "es": "No habrán llegado para el mediodía."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will you have completed the form by Friday?",
+      "es": "¿Habrás completado el formulario para el viernes?"
+    },
+    {
+      "form": "affirmative",
+      "en": "She will have saved enough money by next year.",
+      "es": "Habrá ahorrado suficiente dinero para el año que viene."
+    },
+    {
+      "form": "negative",
+      "en": "By the end of the week, we will have moved house.",
+      "es": "Para el final de la semana, nos habremos mudado."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will he have repaired the bike before noon?",
+      "es": "¿Habrá reparado la bicicleta antes del mediodía?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The builders will have painted the room within two months.",
+      "es": "Los constructores habrán pintado la habitación en dos meses."
+    },
+    {
+      "form": "negative",
+      "en": "By 2030, the town will have changed completely.",
+      "es": "Para 2030, el pueblo habrá cambiado por completo."
+    },
+    {
+      "form": "interrogative",
+      "en": "I will have sent the invitation by then.",
+      "es": "Habré enviado la invitación para entonces."
     }
   ]
 }

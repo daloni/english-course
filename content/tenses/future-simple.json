@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "Will robots do most household chores in the future?",
       "es": "¿Harán los robots la mayoría de las tareas domésticas en el futuro?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I will send the details tomorrow.",
+      "es": "Enviaré los detalles mañana."
+    },
+    {
+      "form": "negative",
+      "en": "They will not forget this evening.",
+      "es": "No lo olvidarán esta tarde."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will you call me next week?",
+      "es": "¿Me llamarás la semana que viene?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The parcel will arrive in an hour.",
+      "es": "El paquete llegará en una hora."
+    },
+    {
+      "form": "negative",
+      "en": "She probably will choose the green dress.",
+      "es": "Probablemente elegirá el vestido verde."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will the weather improve later?",
+      "es": "¿Mejorará el tiempo más tarde?"
+    },
+    {
+      "form": "affirmative",
+      "en": "We will meet again next year.",
+      "es": "Nos reuniremos de nuevo el año que viene."
+    },
+    {
+      "form": "negative",
+      "en": "I think he will understand soon.",
+      "es": "Creo que lo entenderá pronto."
+    },
+    {
+      "form": "interrogative",
+      "en": "The children will be excited tonight.",
+      "es": "Los niños estarán emocionados esta noche."
     }
   ]
 }

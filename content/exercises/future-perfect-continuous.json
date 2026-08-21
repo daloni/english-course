@@ -104,5 +104,100 @@
     ],
     "solution": "Future Perfect Continuous",
     "explanation": "All week mide una negociación sostenida hasta el momento futuro en que se reúna de nuevo el tribunal."
+  },
+  {
+    "id": "future-perfect-continuous-013",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "By noon, I ___ (work) for six hours.",
+    "solution": "will have been working"
+  },
+  {
+    "id": "future-perfect-continuous-014",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "By next month, she ___ (teach) here for a decade.",
+    "solution": "will have been teaching"
+  },
+  {
+    "id": "future-perfect-continuous-015",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "They ___ (not / travel) for long by then.",
+    "solution": "won't have been travelling"
+  },
+  {
+    "id": "future-perfect-continuous-016",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "___ you ___ (wait) for two hours by the time I arrive?",
+    "solution": "Will / have been waiting"
+  },
+  {
+    "id": "future-perfect-continuous-017",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "By 2030, we ___ (live) in this city for twenty years.",
+    "solution": "will have been living"
+  },
+  {
+    "id": "future-perfect-continuous-018",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "He ___ (run) all morning by the time the race ends.",
+    "solution": "will have been running"
+  },
+  {
+    "id": "future-perfect-continuous-019",
+    "tenseId": "future-perfect-continuous",
+    "prompt": "The team ___ (train) since sunrise by then.",
+    "solution": "will have been training"
+  },
+  {
+    "id": "future-perfect-continuous-020",
+    "tenseId": "future-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "By Friday, I will have been studying for a month.",
+    "solution": "By Friday, I will not have been studying for a month.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-perfect-continuous-021",
+    "tenseId": "future-perfect-continuous",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "They will have been working all day by six.",
+    "solution": "Will they have been working all day by six?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-perfect-continuous-022",
+    "tenseId": "future-perfect-continuous",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "She will have been waiting for two hours by then.",
+    "solution": "She will not have been waiting for two hours by then.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "future-perfect-continuous-023",
+    "tenseId": "future-perfect-continuous",
+    "type": "choice",
+    "prompt": "By next year, he will have been running the company for a decade.",
+    "options": [
+      "Future Perfect Continuous",
+      "Future Perfect",
+      "Future Continuous"
+    ],
+    "solution": "Future Perfect Continuous",
+    "explanation": "El marcador temporal y el contexto indican Future Perfect Continuous."
+  },
+  {
+    "id": "future-perfect-continuous-024",
+    "tenseId": "future-perfect-continuous",
+    "type": "choice",
+    "prompt": "How long will you have been living there by June?",
+    "options": [
+      "Future Perfect Continuous",
+      "Present Perfect Continuous",
+      "Past Perfect Continuous"
+    ],
+    "solution": "Future Perfect Continuous",
+    "explanation": "El marcador temporal y el contexto indican Future Perfect Continuous."
   }
 ]

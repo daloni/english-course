@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "Have you spoken to Elena recently?",
       "es": "¿Has hablado con Elena recientemente?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I have just posted the letter.",
+      "es": "Acabo de echar la carta."
+    },
+    {
+      "form": "negative",
+      "en": "He has not visited Scotland yet.",
+      "es": "Él todavía no ha visitado Escocia."
+    },
+    {
+      "form": "interrogative",
+      "en": "Have you ever ridden a motorbike?",
+      "es": "¿Has montado alguna vez en moto?"
+    },
+    {
+      "form": "affirmative",
+      "en": "We have already chosen a hotel.",
+      "es": "Ya hemos elegido un hotel."
+    },
+    {
+      "form": "negative",
+      "en": "She has lived in this flat since 2020.",
+      "es": "Ella ha vivido en este piso desde 2020."
+    },
+    {
+      "form": "interrogative",
+      "en": "Have they finished the report so far?",
+      "es": "¿Han terminado el informe hasta ahora?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I have never broken a bone.",
+      "es": "Nunca me he roto un hueso."
+    },
+    {
+      "form": "negative",
+      "en": "The team has won three matches this week.",
+      "es": "El equipo ha ganado tres partidos esta semana."
+    },
+    {
+      "form": "interrogative",
+      "en": "Has your brother called recently?",
+      "es": "¿Ha llamado tu hermano recientemente?"
     }
   ]
 }

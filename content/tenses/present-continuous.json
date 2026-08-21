@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "Is your cousin staying with you this month?",
       "es": "¿Se está quedando tu primo contigo este mes?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I am sorting the photos right now.",
+      "es": "Estoy ordenando las fotos ahora mismo."
+    },
+    {
+      "form": "negative",
+      "en": "The children are not playing outside at the moment.",
+      "es": "Los niños no están jugando fuera en este momento."
+    },
+    {
+      "form": "interrogative",
+      "en": "Are you meeting the dentist today?",
+      "es": "¿Te reúnes con el dentista hoy?"
+    },
+    {
+      "form": "affirmative",
+      "en": "She is wearing a blue jacket this morning.",
+      "es": "Ella lleva una chaqueta azul esta mañana."
+    },
+    {
+      "form": "negative",
+      "en": "We are staying with friends this week.",
+      "es": "Nos estamos quedando con unos amigos esta semana."
+    },
+    {
+      "form": "interrogative",
+      "en": "Is the dog sleeping under the desk now?",
+      "es": "¿Está durmiendo el perro debajo del escritorio ahora?"
+    },
+    {
+      "form": "affirmative",
+      "en": "They are building a new bridge these days.",
+      "es": "Están construyendo un puente nuevo estos días."
+    },
+    {
+      "form": "negative",
+      "en": "I am not using the car today.",
+      "es": "Hoy no estoy usando el coche."
+    },
+    {
+      "form": "interrogative",
+      "en": "Why are you smiling at present?",
+      "es": "¿Por qué estás sonriendo actualmente?"
     }
   ]
 }

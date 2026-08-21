@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "Does the film start at eight tonight?",
       "es": "¿Empieza la película a las ocho esta noche?"
+    },
+    {
+      "form": "affirmative",
+      "en": "My neighbour waters the plants every morning.",
+      "es": "Mi vecino riega las plantas cada mañana."
+    },
+    {
+      "form": "negative",
+      "en": "We do not order takeaways on Mondays.",
+      "es": "No pedimos comida para llevar los lunes."
+    },
+    {
+      "form": "interrogative",
+      "en": "Does your cousin play tennis twice a month?",
+      "es": "¿Tu primo juega al tenis dos veces al mes?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The museum opens at ten on weekdays.",
+      "es": "El museo abre a las diez entre semana."
+    },
+    {
+      "form": "negative",
+      "en": "I rarely watch television before dinner.",
+      "es": "Rara vez veo la televisión antes de cenar."
+    },
+    {
+      "form": "interrogative",
+      "en": "Do they usually walk to work?",
+      "es": "¿Suelen ir andando al trabajo?"
+    },
+    {
+      "form": "affirmative",
+      "en": "Our teacher checks the homework every week.",
+      "es": "Nuestro profesor revisa los deberes cada semana."
+    },
+    {
+      "form": "negative",
+      "en": "She never forgets her keys.",
+      "es": "Ella nunca se olvida de las llaves."
+    },
+    {
+      "form": "interrogative",
+      "en": "Does this bus stop here on Mondays?",
+      "es": "¿Este autobús para aquí los lunes?"
     }
   ]
 }

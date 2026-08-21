@@ -83,8 +83,114 @@
     "tenseId": "present-perfect",
     "type": "choice",
     "prompt": "I saw that film last night.",
-    "options": ["Past Simple", "Present Perfect", "Present Simple"],
+    "options": [
+      "Past Simple",
+      "Present Perfect",
+      "Present Simple"
+    ],
     "solution": "Past Simple",
     "explanation": "last night es un momento cerrado del pasado: past simple, no present perfect."
+  },
+  {
+    "id": "present-perfect-013",
+    "tenseId": "present-perfect",
+    "prompt": "She ___ (just / finish) her homework.",
+    "solution": "has just finished"
+  },
+  {
+    "id": "present-perfect-014",
+    "tenseId": "present-perfect",
+    "prompt": "We ___ (visit) that museum twice so far.",
+    "solution": "have visited"
+  },
+  {
+    "id": "present-perfect-015",
+    "tenseId": "present-perfect",
+    "prompt": "I ___ (not / see) the new film yet.",
+    "solution": "haven't seen"
+  },
+  {
+    "id": "present-perfect-016",
+    "tenseId": "present-perfect",
+    "prompt": "___ you ever ___ (ride) a horse?",
+    "solution": "Have / ridden"
+  },
+  {
+    "id": "present-perfect-017",
+    "tenseId": "present-perfect",
+    "prompt": "They ___ (live) here since 2020.",
+    "solution": "have lived"
+  },
+  {
+    "id": "present-perfect-018",
+    "tenseId": "present-perfect",
+    "prompt": "He ___ (already / send) the email.",
+    "solution": "has already sent"
+  },
+  {
+    "id": "present-perfect-019",
+    "tenseId": "present-perfect",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Laura has already cleaned the kitchen.",
+    "solution": "Laura has not cleaned the kitchen yet.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-perfect-020",
+    "tenseId": "present-perfect",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "You have seen this episode before.",
+    "solution": "Have you seen this episode before?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-perfect-021",
+    "tenseId": "present-perfect",
+    "type": "transform",
+    "form": "affirmative",
+    "prompt": "I have never flown in a helicopter.",
+    "solution": "I have flown in a helicopter.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "present-perfect-022",
+    "tenseId": "present-perfect",
+    "type": "choice",
+    "prompt": "Have you ever eaten Indian food?",
+    "options": [
+      "Present Perfect",
+      "Past Simple",
+      "Present Simple"
+    ],
+    "solution": "Present Perfect",
+    "explanation": "El marcador temporal y el contexto indican Present Perfect."
+  },
+  {
+    "id": "present-perfect-023",
+    "tenseId": "present-perfect",
+    "type": "choice",
+    "prompt": "They have not arrived yet.",
+    "options": [
+      "Present Perfect",
+      "Past Continuous",
+      "Future Simple"
+    ],
+    "solution": "Present Perfect",
+    "explanation": "El marcador temporal y el contexto indican Present Perfect."
+  },
+  {
+    "id": "present-perfect-024",
+    "tenseId": "present-perfect",
+    "type": "choice",
+    "prompt": "She has worked here since 2020.",
+    "options": [
+      "Present Perfect",
+      "Present Continuous",
+      "Past Perfect"
+    ],
+    "solution": "Present Perfect",
+    "explanation": "El marcador temporal y el contexto indican Present Perfect."
   }
 ]

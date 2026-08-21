@@ -109,7 +109,11 @@
     "tenseId": "present-simple",
     "type": "choice",
     "prompt": "My brother gets up at seven every morning.",
-    "options": ["Present Simple", "Present Continuous", "Past Simple"],
+    "options": [
+      "Present Simple",
+      "Present Continuous",
+      "Past Simple"
+    ],
     "solution": "Present Simple",
     "explanation": "every morning describe una rutina, y las rutinas van en Present Simple."
   },
@@ -118,7 +122,11 @@
     "tenseId": "present-simple",
     "type": "choice",
     "prompt": "Water boils at one hundred degrees.",
-    "options": ["Present Simple", "Present Continuous", "Present Perfect"],
+    "options": [
+      "Present Simple",
+      "Present Continuous",
+      "Present Perfect"
+    ],
     "solution": "Present Simple",
     "explanation": "Los hechos que siempre son verdad se cuentan en Present Simple."
   },
@@ -127,8 +135,62 @@
     "tenseId": "present-simple",
     "type": "choice",
     "prompt": "She never drinks coffee after lunch.",
-    "options": ["Present Simple", "Past Simple", "Present Perfect"],
+    "options": [
+      "Present Simple",
+      "Past Simple",
+      "Present Perfect"
+    ],
     "solution": "Present Simple",
     "explanation": "never es un adverbio de frecuencia: acompaña a las costumbres, en Present Simple."
+  },
+  {
+    "id": "present-simple-019",
+    "tenseId": "present-simple",
+    "prompt": "My parents ___ (cook) dinner every Sunday.",
+    "solution": "cook"
+  },
+  {
+    "id": "present-simple-020",
+    "tenseId": "present-simple",
+    "prompt": "The library ___ (close) at six on weekdays.",
+    "solution": "closes"
+  },
+  {
+    "id": "present-simple-021",
+    "tenseId": "present-simple",
+    "prompt": "I ___ (not / drink) coffee in the evening.",
+    "solution": "don't drink"
+  },
+  {
+    "id": "present-simple-022",
+    "tenseId": "present-simple",
+    "prompt": "___ your sister ___ (study) English twice a week?",
+    "solution": "Does / study"
+  },
+  {
+    "id": "present-simple-023",
+    "tenseId": "present-simple",
+    "type": "choice",
+    "prompt": "Marta works in a hospital every weekday.",
+    "options": [
+      "Present Simple",
+      "Present Continuous",
+      "Past Simple"
+    ],
+    "solution": "Present Simple",
+    "explanation": "El marcador temporal y el contexto indican Present Simple."
+  },
+  {
+    "id": "present-simple-024",
+    "tenseId": "present-simple",
+    "type": "choice",
+    "prompt": "The train leaves at seven every morning.",
+    "options": [
+      "Present Simple",
+      "Future Simple",
+      "Present Perfect"
+    ],
+    "solution": "Present Simple",
+    "explanation": "El marcador temporal y el contexto indican Present Simple."
   }
 ]
