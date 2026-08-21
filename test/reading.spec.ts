@@ -35,6 +35,13 @@ describe('content/readings', () => {
     expect(duplicates(readings.map(reading => reading.id))).toEqual([])
   })
 
+  it('has six readings covering the main learner levels', () => {
+    expect(readings.length).toBeGreaterThanOrEqual(6)
+    for (const level of ['A1', 'A2', 'B1', 'B2']) {
+      expect(readings.some(reading => reading.level === level), `missing ${level} reading`).toBe(true)
+    }
+  })
+
   describe.each(Object.entries(readingFiles))('%s', (path, reading) => {
     it('is named after its id', () => {
       expectText(reading.id, 'id')

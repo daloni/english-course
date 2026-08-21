@@ -1,0 +1,89 @@
+{
+  "id": "environment",
+  "title": "The River Project",
+  "topic": "Medio ambiente",
+  "level": "B2",
+  "text": "For years, the river that crosses Millford was treated as a convenient place to forget rubbish. After heavy rain, plastic containers and branches collected near the bridge, while the water became too dirty for many birds and fish. A group of residents decided that waiting for someone else to solve the problem was no longer acceptable. They formed a volunteer project with two aims: to remove waste and to understand where it came from. During the first clean-up, they filled dozens of bags, but they also recorded the types of rubbish they found. Most items came from overflowing bins near the market or had been carried downstream from nearby villages. The group presented its results to the council, which agreed to install covered containers and add signs beside the river. Local schools then joined monthly clean-ups and tested the water with a science teacher. The river has not become perfect overnight, yet the change is visible. More wildlife has returned, and residents now see the river as a shared responsibility rather than somebody else’s problem. The volunteers continue to meet on the first Saturday of each month. They report damaged containers quickly, and the council is considering a cycling path that would bring more visitors without disturbing the riverbank. The project has also encouraged neighbouring villages to examine their own waste systems.",
+  "glossary": [
+    {
+      "en": "rubbish",
+      "es": "basura"
+    },
+    {
+      "en": "downstream",
+      "es": "río abajo"
+    },
+    {
+      "en": "overflowing",
+      "es": "que se desborda"
+    },
+    {
+      "en": "covered containers",
+      "es": "contenedores con tapa"
+    },
+    {
+      "en": "wildlife",
+      "es": "fauna"
+    },
+    {
+      "en": "shared responsibility",
+      "es": "responsabilidad compartida"
+    }
+  ],
+  "questions": [
+    {
+      "id": "environment-q1",
+      "question": "Why did rubbish collect near the bridge?",
+      "options": [
+        "Because the river was frozen",
+        "Because heavy rain carried it there",
+        "Because schools put it there",
+        "Because fish moved it"
+      ],
+      "answer": "Because heavy rain carried it there",
+      "explanation": "El texto relaciona la acumulación con «After heavy rain»."
+    },
+    {
+      "id": "environment-q2",
+      "question": "What were the project’s two aims?",
+      "options": [
+        "To build a bridge and test fish",
+        "To remove waste and find its sources",
+        "To close the market and teach science",
+        "To count birds and plant trees"
+      ],
+      "answer": "To remove waste and find its sources",
+      "explanation": "Tenían dos objetivos: «to remove waste and to understand where it came from»."
+    },
+    {
+      "id": "environment-q3",
+      "question": "Where did most of the rubbish come from?",
+      "answer": "The market",
+      "explanation": "La mayoría procedía de «overflowing bins near the market»."
+    },
+    {
+      "id": "environment-q4",
+      "question": "What did the council agree to install?",
+      "options": [
+        "A new bridge",
+        "Covered containers and signs",
+        "A fish laboratory",
+        "More schools"
+      ],
+      "answer": "Covered containers and signs",
+      "explanation": "El ayuntamiento aceptó instalar «covered containers and add signs»."
+    },
+    {
+      "id": "environment-q5",
+      "question": "How do residents see the river now?",
+      "options": [
+        "As a private garden",
+        "As a shared responsibility",
+        "As a dangerous road",
+        "As somebody else’s problem"
+      ],
+      "answer": "As a shared responsibility",
+      "explanation": "La última frase contrasta la situación actual con «somebody else’s problem»."
+    }
+  ]
+}
