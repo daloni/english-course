@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "Will the children be sleeping when we get home?",
       "es": "¿Estarán durmiendo los niños cuando lleguemos a casa?"
+    },
+    {
+      "form": "affirmative",
+      "en": "This time tomorrow, we will be crossing the mountains.",
+      "es": "A estas horas mañana, estaremos cruzando las montañas."
+    },
+    {
+      "form": "negative",
+      "en": "She will not be working at eight tomorrow.",
+      "es": "Ella no estará trabajando mañana a las ocho."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will they be staying here when you arrive?",
+      "es": "¿Se estarán quedando aquí cuando llegues?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I will be travelling all morning tomorrow.",
+      "es": "Estaré viajando toda la mañana mañana."
+    },
+    {
+      "form": "negative",
+      "en": "At midnight, the city will be sleeping.",
+      "es": "A medianoche, la ciudad estará durmiendo."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will you be using the computer later today?",
+      "es": "¿Estarás usando el ordenador más tarde hoy?"
+    },
+    {
+      "form": "affirmative",
+      "en": "He will be teaching from nine to five.",
+      "es": "Estará enseñando de nueve a cinco."
+    },
+    {
+      "form": "negative",
+      "en": "We will not be driving in two hours’ time.",
+      "es": "No estaremos conduciendo dentro de dos horas."
+    },
+    {
+      "form": "interrogative",
+      "en": "What will you be doing when I call later today?",
+      "es": "¿Qué estarás haciendo cuando llame más tarde hoy?"
     }
   ]
 }

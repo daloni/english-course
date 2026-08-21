@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "Has your dog been digging in the garden? Its paws are muddy.",
       "es": "¿Tu perro ha estado cavando en el jardín? Tiene las patas llenas de barro."
+    },
+    {
+      "form": "affirmative",
+      "en": "I have been cleaning the house all morning.",
+      "es": "He estado limpiando la casa toda la mañana."
+    },
+    {
+      "form": "negative",
+      "en": "She has not been sleeping well lately.",
+      "es": "Ella no ha estado durmiendo bien últimamente."
+    },
+    {
+      "form": "interrogative",
+      "en": "Has he been waiting since morning?",
+      "es": "¿Ha estado él esperando desde la mañana?"
+    },
+    {
+      "form": "affirmative",
+      "en": "We have been discussing the plan for two hours.",
+      "es": "Llevamos dos horas hablando del plan."
+    },
+    {
+      "form": "negative",
+      "en": "He has been learning Japanese since January.",
+      "es": "Él lleva aprendiendo japonés desde enero."
+    },
+    {
+      "form": "interrogative",
+      "en": "Have they been working on the bridge recently?",
+      "es": "¿Han estado trabajando en el puente recientemente?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The baby has been crying all afternoon.",
+      "es": "El bebé ha estado llorando toda la tarde."
+    },
+    {
+      "form": "negative",
+      "en": "I have not been feeling energetic lately.",
+      "es": "No me he estado sintiendo con energía últimamente."
+    },
+    {
+      "form": "interrogative",
+      "en": "How long has she been teaching at this school?",
+      "es": "¿Cuánto tiempo lleva ella enseñando en este colegio?"
     }
   ]
 }

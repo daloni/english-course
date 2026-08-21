@@ -88,10 +88,10 @@ describe('tenses', () => {
     })
 
   // Eight per form keeps the theory examples varied enough for repeated study.
-  it('has at least five examples of every form', () => {
-      for (const form of forms) {
-        expect(tense.examples.filter(example => example.form === form).length, `examples of ${form}`)
-          .toBeGreaterThanOrEqual(5)
+  it('has at least eight examples of every form', () => {
+    for (const form of forms) {
+      expect(tense.examples.filter(example => example.form === form).length, `examples of ${form}`)
+        .toBeGreaterThanOrEqual(8)
       }
     })
   })

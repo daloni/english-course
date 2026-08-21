@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "How many months will they have been negotiating by the time the agreement is signed?",
       "es": "¿Cuántos meses llevarán negociando cuando se firme el acuerdo?"
+    },
+    {
+      "form": "affirmative",
+      "en": "By noon, I will have been working for six hours.",
+      "es": "Al mediodía, llevaré seis horas trabajando."
+    },
+    {
+      "form": "negative",
+      "en": "She will not have been teaching for a decade by then.",
+      "es": "Para entonces, no llevará una década enseñando."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will you have been waiting for two hours by the time I arrive?",
+      "es": "¿Llevarás dos horas esperando cuando llegue?"
+    },
+    {
+      "form": "affirmative",
+      "en": "By next month, we will have been living here for a year.",
+      "es": "El mes que viene llevaremos un año viviendo aquí."
+    },
+    {
+      "form": "negative",
+      "en": "He will have been running all morning by the race.",
+      "es": "Para la carrera, llevará toda la mañana corriendo."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will they have been travelling since dawn?",
+      "es": "¿Llevarán viajando desde el amanecer?"
+    },
+    {
+      "form": "affirmative",
+      "en": "By 2030, the company will have been operating for fifty years.",
+      "es": "Para 2030, la empresa llevará cincuenta años funcionando."
+    },
+    {
+      "form": "negative",
+      "en": "I will not have been studying for long by then.",
+      "es": "Para entonces, no llevaré mucho tiempo estudiando."
+    },
+    {
+      "form": "interrogative",
+      "en": "How long will she have been working there by June?",
+      "es": "¿Cuánto tiempo llevará trabajando allí en junio?"
     }
   ]
 }

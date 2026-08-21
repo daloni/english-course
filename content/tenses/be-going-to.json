@@ -95,6 +95,51 @@
       "form": "interrogative",
       "en": "Where are you going to stay during your trip?",
       "es": "¿Dónde vas a alojarte durante tu viaje?"
+    },
+    {
+      "form": "affirmative",
+      "en": "We are going to plant herbs this evening.",
+      "es": "Vamos a plantar hierbas esta tarde."
+    },
+    {
+      "form": "negative",
+      "en": "He is not going to sell his bicycle next year.",
+      "es": "Él no va a vender su bicicleta el año que viene."
+    },
+    {
+      "form": "interrogative",
+      "en": "Are you going to visit them next weekend?",
+      "es": "¿Vas a visitarlos el próximo fin de semana?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The sky is dark; it is going to storm soon.",
+      "es": "El cielo está oscuro; va a haber tormenta pronto."
+    },
+    {
+      "form": "negative",
+      "en": "They are going to move in two weeks.",
+      "es": "Van a mudarse en dos semanas."
+    },
+    {
+      "form": "interrogative",
+      "en": "Is she going to start a new course tonight?",
+      "es": "¿Va a empezar un curso nuevo esta noche?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I am going to repair the shelf this evening.",
+      "es": "Voy a reparar la estantería esta tarde."
+    },
+    {
+      "form": "negative",
+      "en": "Look at that glass! It is going to fall.",
+      "es": "¡Mira ese vaso! Va a caerse."
+    },
+    {
+      "form": "interrogative",
+      "en": "We are not going to travel next summer.",
+      "es": "No vamos a viajar el próximo verano."
     }
   ]
 }

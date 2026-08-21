@@ -94,6 +94,51 @@
       "form": "interrogative",
       "en": "How long did the meeting last yesterday?",
       "es": "¿Cuánto duró la reunión de ayer?"
+    },
+    {
+      "form": "affirmative",
+      "en": "We bought fresh bread yesterday.",
+      "es": "Ayer compramos pan fresco."
+    },
+    {
+      "form": "negative",
+      "en": "He did not answer the phone last night.",
+      "es": "Él no contestó el teléfono anoche."
+    },
+    {
+      "form": "interrogative",
+      "en": "Did you meet Laura two days ago?",
+      "es": "¿Conociste a Laura hace dos días?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The shop opened in 2019.",
+      "es": "La tienda abrió en 2019."
+    },
+    {
+      "form": "negative",
+      "en": "I lost my ticket that morning.",
+      "es": "Perdí mi billete aquella mañana."
+    },
+    {
+      "form": "interrogative",
+      "en": "Did they drive to the coast last week?",
+      "es": "¿Condujeron hasta la costa la semana pasada?"
+    },
+    {
+      "form": "affirmative",
+      "en": "She wrote a postcard when she was a child.",
+      "es": "Ella escribió una postal cuando era niña."
+    },
+    {
+      "form": "negative",
+      "en": "We never visited that village before the move.",
+      "es": "Nunca visitamos aquel pueblo antes de la mudanza."
+    },
+    {
+      "form": "interrogative",
+      "en": "What did Mark choose yesterday?",
+      "es": "¿Qué eligió Mark ayer?"
     }
   ]
 }

@@ -96,6 +96,51 @@
       "form": "interrogative",
       "en": "What were you doing while I was setting the table?",
       "es": "¿Qué estabas haciendo mientras yo ponía la mesa?"
+    },
+    {
+      "form": "affirmative",
+      "en": "I was washing the dishes at eight yesterday.",
+      "es": "Estaba lavando los platos ayer a las ocho."
+    },
+    {
+      "form": "negative",
+      "en": "They were not listening during the lesson.",
+      "es": "No estaban escuchando durante la clase."
+    },
+    {
+      "form": "interrogative",
+      "en": "Was she waiting outside when you arrived?",
+      "es": "¿Estaba esperando fuera cuando llegaste?"
+    },
+    {
+      "form": "affirmative",
+      "en": "The wind was blowing all night.",
+      "es": "El viento soplaba toda la noche."
+    },
+    {
+      "form": "negative",
+      "en": "We were having dinner at that moment.",
+      "es": "Estábamos cenando en ese momento."
+    },
+    {
+      "form": "interrogative",
+      "en": "Were you reading this time yesterday?",
+      "es": "¿Estabas leyendo a estas horas ayer?"
+    },
+    {
+      "form": "affirmative",
+      "en": "He was carrying a heavy box during the storm.",
+      "es": "Él llevaba una caja pesada durante la tormenta."
+    },
+    {
+      "form": "negative",
+      "en": "I was not sleeping well last night at ten.",
+      "es": "No estaba durmiendo bien anoche a las diez."
+    },
+    {
+      "form": "interrogative",
+      "en": "What were they doing while the rain fell?",
+      "es": "¿Qué estaban haciendo mientras caía la lluvia?"
     }
   ]
 }
