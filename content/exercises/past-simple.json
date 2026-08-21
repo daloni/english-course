@@ -46,7 +46,11 @@
     "tenseId": "past-simple",
     "type": "choice",
     "prompt": "I finished the report two days ago.",
-    "options": ["Past Simple", "Present Perfect", "Present Simple"],
+    "options": [
+      "Past Simple",
+      "Present Perfect",
+      "Present Simple"
+    ],
     "solution": "Past Simple",
     "explanation": "two days ago es un momento cerrado del pasado, y eso pide Past Simple."
   },
@@ -55,7 +59,11 @@
     "tenseId": "past-simple",
     "type": "choice",
     "prompt": "When I was a child, I lived in a small village.",
-    "options": ["Past Simple", "Present Perfect", "Present Continuous"],
+    "options": [
+      "Past Simple",
+      "Present Perfect",
+      "Present Continuous"
+    ],
     "solution": "Past Simple",
     "explanation": "when I was a child sitúa la acción en un pasado terminado: Past Simple."
   },
@@ -85,8 +93,196 @@
     "tenseId": "past-simple",
     "type": "choice",
     "prompt": "We have lived in this town since 2015.",
-    "options": ["Present Perfect", "Past Simple", "Present Simple"],
+    "options": [
+      "Present Perfect",
+      "Past Simple",
+      "Present Simple"
+    ],
     "solution": "Present Perfect",
     "explanation": "since abre un periodo que sigue abierto: eso pide present perfect, no past simple."
+  },
+  {
+    "id": "past-simple-013",
+    "tenseId": "past-simple",
+    "prompt": "We ___ (take) the early train yesterday.",
+    "solution": "took"
+  },
+  {
+    "id": "past-simple-014",
+    "tenseId": "past-simple",
+    "prompt": "She ___ (not / call) me last night.",
+    "solution": "didn't call"
+  },
+  {
+    "id": "past-simple-015",
+    "tenseId": "past-simple",
+    "prompt": "___ you ___ (buy) bread two days ago?",
+    "solution": "Did / buy"
+  },
+  {
+    "id": "past-simple-016",
+    "tenseId": "past-simple",
+    "prompt": "I ___ (meet) my best friend in 2019.",
+    "solution": "met"
+  },
+  {
+    "id": "past-simple-017",
+    "tenseId": "past-simple",
+    "prompt": "The children ___ (play) in the garden that morning.",
+    "solution": "played"
+  },
+  {
+    "id": "past-simple-018",
+    "tenseId": "past-simple",
+    "prompt": "He ___ (leave) home when he was eighteen.",
+    "solution": "left"
+  },
+  {
+    "id": "past-simple-019",
+    "tenseId": "past-simple",
+    "prompt": "They ___ (not / understand) the question yesterday.",
+    "solution": "didn't understand"
+  },
+  {
+    "id": "past-simple-020",
+    "tenseId": "past-simple",
+    "prompt": "What ___ Maria ___ (choose) last week?",
+    "solution": "did / choose"
+  },
+  {
+    "id": "past-simple-021",
+    "tenseId": "past-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Tom visited his grandparents last weekend.",
+    "solution": "Tom did not visit his grandparents last weekend.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "past-simple-022",
+    "tenseId": "past-simple",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "We watched the match yesterday.",
+    "solution": "Did we watch the match yesterday?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "past-simple-023",
+    "tenseId": "past-simple",
+    "type": "choice",
+    "prompt": "I wrote the message last night.",
+    "options": [
+      "Past Simple",
+      "Present Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Past Simple",
+    "explanation": "El marcador temporal y el contexto indican Past Simple."
+  },
+  {
+    "id": "past-simple-024",
+    "tenseId": "past-simple",
+    "type": "choice",
+    "prompt": "Did Anna open the window this morning?",
+    "options": [
+      "Past Simple",
+      "Present Simple",
+      "Future Simple"
+    ],
+    "solution": "Past Simple",
+    "explanation": "El marcador temporal y el contexto indican Past Simple."
+  },
+  {
+    "id": "past-simple-025",
+    "tenseId": "past-simple",
+    "prompt": "We ___ (take) the early train yesterday.",
+    "solution": "took"
+  },
+  {
+    "id": "past-simple-026",
+    "tenseId": "past-simple",
+    "prompt": "She ___ (not / call) me last night.",
+    "solution": "didn't call"
+  },
+  {
+    "id": "past-simple-027",
+    "tenseId": "past-simple",
+    "prompt": "___ you ___ (buy) bread two days ago?",
+    "solution": "Did / buy"
+  },
+  {
+    "id": "past-simple-028",
+    "tenseId": "past-simple",
+    "prompt": "I ___ (meet) my best friend in 2019.",
+    "solution": "met"
+  },
+  {
+    "id": "past-simple-029",
+    "tenseId": "past-simple",
+    "prompt": "The children ___ (play) in the garden that morning.",
+    "solution": "played"
+  },
+  {
+    "id": "past-simple-030",
+    "tenseId": "past-simple",
+    "prompt": "He ___ (leave) home when he was eighteen.",
+    "solution": "left"
+  },
+  {
+    "id": "past-simple-031",
+    "tenseId": "past-simple",
+    "prompt": "They ___ (not / understand) the question yesterday.",
+    "solution": "didn't understand"
+  },
+  {
+    "id": "past-simple-032",
+    "tenseId": "past-simple",
+    "prompt": "What ___ Maria ___ (choose) last week?",
+    "solution": "did / choose"
+  },
+  {
+    "id": "past-simple-033",
+    "tenseId": "past-simple",
+    "type": "transform",
+    "form": "negative",
+    "prompt": "Tom visited his grandparents last weekend.",
+    "solution": "Tom did not visit his grandparents last weekend.",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "past-simple-034",
+    "tenseId": "past-simple",
+    "type": "transform",
+    "form": "interrogative",
+    "prompt": "We watched the match yesterday.",
+    "solution": "Did we watch the match yesterday?",
+    "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
+  },
+  {
+    "id": "past-simple-035",
+    "tenseId": "past-simple",
+    "type": "choice",
+    "prompt": "I wrote the message last night.",
+    "options": [
+      "Past Simple",
+      "Present Perfect",
+      "Past Continuous"
+    ],
+    "solution": "Past Simple",
+    "explanation": "El marcador temporal y el contexto indican Past Simple."
+  },
+  {
+    "id": "past-simple-036",
+    "tenseId": "past-simple",
+    "type": "choice",
+    "prompt": "Did Anna open the window this morning?",
+    "options": [
+      "Past Simple",
+      "Present Simple",
+      "Future Simple"
+    ],
+    "solution": "Past Simple",
+    "explanation": "El marcador temporal y el contexto indican Past Simple."
   }
 ]
