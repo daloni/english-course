@@ -47,8 +47,17 @@ export function normalize(answer: string): string {
 export const alternatives = (solution: string) =>
   solution.split(/\s+\/\s+/).map(normalize).filter(alternative => alternative !== '')
 
+export const gapCount = (prompt: string) => (prompt.match(/___/g) ?? []).length
+
 /** True when the answer matches the solution, or any of its alternatives. */
-export function isCorrect(answer: string, solution: string): boolean {
+export function isCorrect(answer: string, solution: string, gaps = 1): boolean {
+  if (gaps > 1) {
+    const given = answer.split(/\s*\/\s*/).map(normalize)
+    const expected = solution.split(/\s*\/\s*/).map(normalize)
+
+    return given.length === expected.length && given.every((part, index) => part !== '' && part === expected[index])
+  }
+
   const given = normalize(answer)
 
   return given !== '' && (given === normalize(solution) || alternatives(solution).includes(given))

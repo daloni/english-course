@@ -73,6 +73,14 @@ describe('isCorrect', () => {
     expect(isCorrect('Lisboa', 'Lisbon / Lisboa')).toBe(true)
   })
 
+  it('checks each answer of a multiple-gap solution by position', () => {
+    expect(isCorrect('Are / waiting', 'Are / waiting', 2)).toBe(true)
+    expect(isCorrect('are/waiting', 'Are / waiting', 2)).toBe(true)
+    expect(isCorrect('are', 'Are / waiting', 2)).toBe(false)
+    expect(isCorrect('waiting', 'Are / waiting', 2)).toBe(false)
+    expect(isCorrect('are they waiting', 'Are / waiting', 2)).toBe(false)
+  })
+
   it('rejects a wrong or empty answer', () => {
     expect(isCorrect('goed', 'went')).toBe(false)
     expect(isCorrect('', 'went')).toBe(false)
