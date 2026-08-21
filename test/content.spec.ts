@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { gapCount, isCorrect } from '../app/utils/check'
 import { exerciseFiles, exerciseTypes, exercises, forms, levels, tenseFiles, tenses, typeOf, verbs } from '../app/utils/content'
 
 // Guards every JSON file under content/: a missing field, a duplicate id or a file name that
@@ -181,6 +182,21 @@ describe('exercises', () => {
         exercise.options!.forEach((option, i) => expectText(option, `${exercise.id}.options[${i}]`))
         expect(exercise.options, `${exercise.id}.solution must be one of the options`).toContain(exercise.solution)
       }
+    }
+  })
+
+  it('separates the solutions of multiple-gap exercises', () => {
+    const multipleGapExercises = exercises.filter(exercise => typeOf(exercise) === 'gap' && gapCount(exercise.prompt) > 1)
+    const singleGapExercises = exercises.filter(exercise => typeOf(exercise) === 'gap' && gapCount(exercise.prompt) === 1)
+
+    expect(multipleGapExercises.length).toBeGreaterThan(0)
+    for (const exercise of multipleGapExercises) {
+      expect(exercise.solution, `${exercise.id}.solution must separate its gaps`).toContain(' / ')
+    }
+
+    expect(singleGapExercises.some(exercise => !exercise.solution.includes('/'))).toBe(true)
+    for (const exercise of singleGapExercises.filter(exercise => !exercise.solution.includes('/'))) {
+      expect(isCorrect(exercise.solution, exercise.solution), `${exercise.id} must remain correct`).toBe(true)
     }
   })
 })

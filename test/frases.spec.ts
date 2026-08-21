@@ -234,6 +234,48 @@ describe('explain', () => {
   })
 })
 
+describe('ExerciseGap', () => {
+  it('shows the slash-separated format for multiple gaps', async () => {
+    const page = await mountSuspended(ExerciseGap, {
+      props: {
+        exercise: {
+          id: 'multiple-gaps',
+          tenseId: 'present-continuous',
+          prompt: '___ they ___ (wait) for the doctor now?',
+          solution: 'Are / waiting'
+        },
+        modelValue: ''
+      }
+    })
+
+    const input = page.find('input')
+
+    expect(input.attributes('placeholder')).toBe('Las dos respuestas separadas por /')
+    expect(input.attributes('aria-label')).toBe('Las dos respuestas separadas por /')
+    expect(page.text()).toContain('Hay dos huecos: escribe las respuestas separadas por / (por ejemplo Are / waiting).')
+  })
+
+  it('keeps the original label for a single gap', async () => {
+    const page = await mountSuspended(ExerciseGap, {
+      props: {
+        exercise: {
+          id: 'single-gap',
+          tenseId: 'present-simple',
+          prompt: 'She ___ (work) here.',
+          solution: 'works'
+        },
+        modelValue: ''
+      }
+    })
+
+    const input = page.find('input')
+
+    expect(input.attributes('placeholder')).toBe('Lo que va en el hueco')
+    expect(input.attributes('aria-label')).toBe('Lo que va en el hueco')
+    expect(page.text()).not.toContain('separadas por /')
+  })
+})
+
 describe('/frases/[tiempo]', () => {
   beforeEach(() => localStorage.removeItem(storageKey))
 

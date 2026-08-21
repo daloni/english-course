@@ -39,7 +39,7 @@ function submit() {
     return
   }
 
-  const correct = isCorrect(answer.value, item.value.solution)
+  const correct = isCorrect(answer.value, item.value.solution, gapCount(item.value.prompt))
 
   record(item.value.id, correct)
   results.value.push({ item: item.value, answer: answer.value, correct })
