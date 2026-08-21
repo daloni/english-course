@@ -109,7 +109,7 @@ describe('Markdown content', () => {
 
 describe('verbs', () => {
   it('loads the seed list', () => {
-    expect(verbs.length).toBeGreaterThanOrEqual(20)
+    expect(verbs.length).toBeGreaterThanOrEqual(60)
   })
 
   it('has unique infinitives', () => {
