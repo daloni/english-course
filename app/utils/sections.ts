@@ -31,6 +31,12 @@ export const sections = [
     description: 'Inglés real en trozos de vídeo: escucha la frase y rellena el hueco.'
   },
   {
+    label: 'Repaso',
+    to: '/repaso',
+    icon: 'i-lucide-rotate-ccw',
+    description: 'Repasa los ejercicios que te tocan hoy.'
+  },
+  {
     label: 'Speaking',
     to: '/speaking',
     icon: 'i-lucide-mic',

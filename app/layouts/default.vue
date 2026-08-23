@@ -6,7 +6,13 @@ interface InstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed', platform: string }>
 }
 
-const items = sections.map(({ label, to, icon }) => ({ label, to, icon }))
+const { pending } = useProgress()
+const items = sections.map(({ label, to, icon }) => ({
+  label,
+  to,
+  icon,
+  ...(to === '/repaso' ? { slot: 'review' } : {})
+}))
 const installPrompt = ref<InstallPromptEvent | null>(null)
 const installing = ref(false)
 
@@ -63,7 +69,17 @@ onUnmounted(() => {
         <span class="font-bold">Inglés</span>
       </template>
 
-      <UNavigationMenu :items="items" />
+      <UNavigationMenu :items="items">
+        <template #review-trailing>
+          <ClientOnly>
+            <UBadge
+              v-if="pending.length"
+              :label="pending.length"
+              aria-label="ejercicios pendientes"
+            />
+          </ClientOnly>
+        </template>
+      </UNavigationMenu>
 
       <template #right>
         <UButton
@@ -80,7 +96,17 @@ onUnmounted(() => {
         <UNavigationMenu
           :items="items"
           orientation="vertical"
-        />
+        >
+          <template #review-trailing>
+            <ClientOnly>
+              <UBadge
+                v-if="pending.length"
+                :label="pending.length"
+                aria-label="ejercicios pendientes"
+              />
+            </ClientOnly>
+          </template>
+        </UNavigationMenu>
       </template>
     </UHeader>
 
