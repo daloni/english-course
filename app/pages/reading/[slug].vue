@@ -14,6 +14,7 @@ const text = renderMarkdown(reading.text)
 
 const answers = ref<Record<string, string>>({})
 const submitted = ref(false)
+useFocusOnChange(submitted)
 const recorded = new Set<string>()
 
 /**
@@ -149,6 +150,7 @@ useSeo({
                   :disabled="submitted"
                   lang="en"
                   :ui="{ fieldset: 'gap-y-2' }"
+                  data-focus-input
                 />
 
                 <UFormField
@@ -159,6 +161,7 @@ useSeo({
                   <UInput
                     v-model="answers[result.question.id]"
                     :disabled="submitted"
+                    data-focus-input
                     lang="en"
                     autocapitalize="off"
                     autocomplete="off"
@@ -204,6 +207,7 @@ useSeo({
               </p>
 
               <UButton
+                data-focus-target
                 label="Volver a intentarlo"
                 icon="i-lucide-rotate-ccw"
                 class="mt-6"

@@ -31,6 +31,7 @@ const round = ref<Question[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, question: Question } | null>(null)
+useFocusOnChange(checked)
 const results = ref<{ question: Question, answer: string, correct: boolean }[]>([])
 
 const question = computed(() => round.value[index.value])
@@ -198,6 +199,7 @@ function onUnavailable(videoId: string) {
               />
 
               <UButton
+                data-focus-target
                 type="submit"
                 :label="checked ? 'Siguiente' : 'Comprobar'"
                 :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"

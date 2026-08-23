@@ -32,6 +32,7 @@ const quiz = ref<Question[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, solution: string } | null>(null)
+useFocusOnChange(checked)
 const results = ref<{ question: Question, answer: string, correct: boolean }[]>([])
 
 const question = computed(() => quiz.value[index.value])
@@ -160,6 +161,7 @@ function submit() {
                 :key="index"
                 v-model="answer"
                 :disabled="!!checked"
+                data-focus-input
                 lang="en"
                 autofocus
                 autocapitalize="off"
@@ -171,6 +173,7 @@ function submit() {
               />
 
               <UButton
+                data-focus-target
                 type="submit"
                 :label="checked ? 'Siguiente' : 'Comprobar'"
                 :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"

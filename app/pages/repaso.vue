@@ -9,6 +9,7 @@ const session = ref<Item[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, item: Item } | null>(null)
+useFocusOnChange(checked)
 const results = ref<{ item: Item, answer: string, correct: boolean }[]>([])
 
 const item = computed(() => session.value[index.value])
@@ -175,6 +176,7 @@ useSeo({
                 :disabled="!!checked"
                 lang="en"
                 :ui="{ fieldset: 'gap-y-2' }"
+                data-focus-input
               />
 
               <!-- The label is the prompt, and only the verbs ask it in Spanish ("Pasado
@@ -189,6 +191,7 @@ useSeo({
                 <UInput
                   v-model="answer"
                   :disabled="!!checked"
+                  data-focus-input
                   lang="en"
                   autofocus
                   autocapitalize="off"
@@ -200,6 +203,7 @@ useSeo({
               </UFormField>
 
               <UButton
+                data-focus-target
                 type="submit"
                 :label="checked ? 'Siguiente' : 'Comprobar'"
                 :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"

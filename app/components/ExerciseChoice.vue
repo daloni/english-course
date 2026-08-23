@@ -25,6 +25,7 @@ const items = computed(() => (props.exercise.options ?? []).map(option => ({ lab
       v-model="answer"
       :items="items"
       :disabled="disabled"
+      data-focus-input
       legend="Elige el tiempo verbal"
       :ui="{ fieldset: 'gap-y-2' }"
       class="mt-4"

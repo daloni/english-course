@@ -158,6 +158,27 @@ describe('accesibilidad', () => {
     expect(page.text()).toContain('Pregunta 2 de')
   })
 
+  it('/verbos/practica keeps the keyboard cycle focused after correcting', async () => {
+    const page = await mountSuspended(VerbPractice, { attachTo: document.body })
+    await flushPromises()
+
+    const input = page.find('input')
+    const form = page.find('form').element as HTMLFormElement
+
+    await input.setValue('whatever')
+    input.element.focus()
+    form.requestSubmit()
+    await flushPromises()
+
+    expect(document.activeElement).toBe(page.find('button[type="submit"]').element)
+
+    form.requestSubmit()
+    await flushPromises()
+
+    expect(page.text()).toContain('Pregunta 2 de')
+    expect(document.activeElement).toBe(page.find('input').element)
+  })
+
   it('contains table overflow in a keyboard-accessible region', async () => {
     const tense = tenseById('past-simple')!
     const verbos = await mountSuspended(VerbosIndex)
