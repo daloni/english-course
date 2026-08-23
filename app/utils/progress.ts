@@ -1,7 +1,7 @@
 // Progress lives in the browser localStorage: there are no accounts and no backend, so what
 // is stored here is all there is. One attempt per exercise, with its Leitner box.
 import { thirdPerson } from './check'
-import { clips, exercises, readings, verbs, type Clip, type Exercise, type Question, type Reading, type Verb } from './content'
+import { clips, exercises, readings, tenses, verbs, type Clip, type Exercise, type Example, type Question, type Reading, type Tense, type Verb } from './content'
 
 export const storageKey = 'ingles:progress'
 
@@ -241,7 +241,7 @@ export function clear() {
   }
 }
 
-export const itemKinds = ['frases', 'verbos', 'reading', 'clips'] as const
+export const itemKinds = ['frases', 'verbos', 'reading', 'clips', 'speaking'] as const
 
 export type ItemKind = typeof itemKinds[number]
 
@@ -249,7 +249,8 @@ export const itemKindLabels: Record<ItemKind, string> = {
   frases: 'Frases',
   verbos: 'Verbos',
   reading: 'Reading',
-  clips: 'Clips'
+  clips: 'Clips',
+  speaking: 'Speaking'
 }
 
 /** What can be reviewed: an exercise of any section, tagged with the section it comes from. */
@@ -279,6 +280,7 @@ export const frasesItemId = (exercise: Exercise) => `frases:${exercise.id}`
 export const verbItemId = (verb: Verb, form: VerbForm) => `verbos:${verb.infinitive}:${form.key}`
 export const readingItemId = (reading: Reading, question: Question) => `reading:${reading.id}:${question.id}`
 export const clipItemId = (clip: Clip, exercise: Exercise) => `clips:${clip.id}:${exercise.id}`
+export const speakingItemId = (tense: Tense, example: Example) => `speaking:${tense.id}:${example.form}:${example.en}`
 
 /** Everything reviewable in the site, which is versioned content: built once on load. */
 export const items: Item[] = [
@@ -299,6 +301,13 @@ export const items: Item[] = [
     options: question.options,
     solution: question.answer,
     explanation: question.explanation
+  }))),
+  ...tenses.flatMap(tense => tense.examples.map(example => ({
+    id: speakingItemId(tense, example),
+    kind: 'speaking' as const,
+    tenseId: tense.id,
+    prompt: example.en,
+    solution: example.en
   }))),
   // A clip carries its own tenses in its exercises, and the clip travels with them: the
   // review has to play the video back, not just show the sentence.

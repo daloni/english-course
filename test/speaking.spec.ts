@@ -1,8 +1,10 @@
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils'
 import SpeakingPage from '../app/pages/speaking.vue'
 import { tenses } from '../app/utils/content'
+import { load, speakingItemId, storageKey } from '../app/utils/progress'
 
 /** The browser recogniser, just enough to know whether it is still recording and what was said. */
 class FakeRecognition {
@@ -90,6 +92,24 @@ afterEach(() => {
   }
 })
 
+beforeEach(() => {
+  localStorage.removeItem(storageKey)
+})
+
+function sentenceOn(page: VueWrapper) {
+  const text = page.find('p.text-2xl').text()
+
+  for (const tense of tenses) {
+    const example = tense.examples.find(candidate => candidate.en === text)
+
+    if (example) {
+      return { tense, example }
+    }
+  }
+
+  throw new Error(`No se reconoce la frase en pantalla: ${text}`)
+}
+
 // happy-dom has neither SpeechRecognition nor speechSynthesis, so mounting the page here is
 // the browser without support: it has to warn and still show the sentence to listen to.
 describe('/speaking', () => {
@@ -106,11 +126,11 @@ describe('/speaking', () => {
 
   it('shows the first sentence with its translation and tense', async () => {
     const page = await mountSuspended(SpeakingPage)
-    const first = tenses[0]!.examples[0]!
+    const current = sentenceOn(page)
 
-    expect(page.text()).toContain(first.en)
-    expect(page.text()).toContain(first.es)
-    expect(page.text()).toContain(tenses[0]!.name)
+    expect(page.text()).toContain(current.example.en)
+    expect(page.text()).toContain(current.example.es)
+    expect(page.text()).toContain(current.tense.name)
   })
 
   it('explains that speech recognition may process audio remotely before recording', async () => {
@@ -195,5 +215,50 @@ describe('/speaking', () => {
 
     expect(fakeSynthesis.spoken).toHaveLength(1)
     expect(page.text()).toContain('Sonando…')
+  })
+
+  it('records a correct and a clearly incorrect transcription separately', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const first = sentenceOn(page)
+    await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+    FakeRecognition.last!.say(first.example.en)
+    await flushPromises()
+
+    expect(load()[speakingItemId(first.tense, first.example)]).toMatchObject({ hits: 1, misses: 0 })
+
+    await page.findAll('button').find(button => button.text().includes('Otra frase'))!.trigger('click')
+    await flushPromises()
+
+    const second = sentenceOn(page)
+    await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+    FakeRecognition.last!.say('this is clearly not the requested sentence')
+    await flushPromises()
+
+    expect(load()[speakingItemId(second.tense, second.example)]).toMatchObject({ hits: 0, misses: 1 })
+  })
+
+  it('does not record listening without a transcription or after microphone errors', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    await page.find('[aria-label="Escuchar la frase en inglés"]').trigger('click')
+    expect(load()).toEqual({})
+
+    const mic = page.find('[aria-label="Repetir la frase al micrófono"]')
+    await mic.trigger('click')
+    FakeRecognition.last!.onerror?.({ error: 'no-speech' })
+    await flushPromises()
+    expect(load()).toEqual({})
+
+    await mic.trigger('click')
+    FakeRecognition.last!.onerror?.({ error: 'not-allowed' })
+    await flushPromises()
+    expect(load()).toEqual({})
   })
 })

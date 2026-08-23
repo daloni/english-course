@@ -18,7 +18,9 @@ const done = computed(() => session.value.length > 0 && index.value >= session.v
 
 /** Another round: the queue is snapshotted again, already bringing back what was missed. */
 function restart() {
-  session.value = pending.value.filter(item => !item.clip || isPlayable(item.clip))
+  // Speaking needs the Web Speech API and has no written exercise for this shared queue. It is
+  // practised from /speaking instead, so unsupported browsers can never get stuck here.
+  session.value = pending.value.filter(item => item.kind !== 'speaking' && (!item.clip || isPlayable(item.clip)))
   index.value = 0
   answer.value = ''
   checked.value = null
