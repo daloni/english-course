@@ -6,7 +6,7 @@ import TensePractice from '../app/pages/frases/[tiempo].vue'
 import Progreso from '../app/pages/progreso.vue'
 import Repaso from '../app/pages/repaso.vue'
 import { useProgress } from '../app/composables/useProgress'
-import { exercisesOf, formLabels, tenseById } from '../app/utils/content'
+import { exercisesOf, formLabels, tenseById, tenses } from '../app/utils/content'
 import { formOf } from '../app/utils/explain'
 import {
   addDays,
@@ -24,6 +24,7 @@ import {
   review,
   save,
   serialize,
+  speakingItemId,
   storageKey,
   type Attempt,
   type Progress
@@ -875,6 +876,20 @@ describe('practising', () => {
     expect(reviewPage.text()).toContain(exercise.prompt)
   })
 
+  it('keeps speaking attempts out of the shared review queue', async () => {
+    const tense = tenses[0]!
+    const example = tense.examples[0]!
+    const id = speakingItemId(tense, example)
+
+    save({ [id]: review(undefined, id, false, today) })
+
+    const page = await mountSuspended(Repaso)
+    await flushPromises()
+
+    expect(page.text()).toContain('Hoy no toca repasar nada')
+    expect(page.text()).not.toContain('Ejercicio 1 de 1')
+  })
+
   it('rejects an empty import without changing saved progress', async () => {
     const existing = review(undefined, 'x', false, today)
 
@@ -930,7 +945,9 @@ describe('items', () => {
     const ids = items.map(item => item.id)
 
     expect(new Set(ids).size).toBe(ids.length)
-    expect(new Set(items.map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading', 'clips']))
+    expect(new Set(items.map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading', 'clips', 'speaking']))
+    expect(items.filter(item => item.kind === 'speaking')).toHaveLength(312)
+    expect(items.filter(item => item.kind === 'speaking').every(item => item.tenseId !== '')).toBe(true)
   })
 
   it('finds back the exercise of a stored attempt', () => {
@@ -939,5 +956,16 @@ describe('items', () => {
     expect(itemById(attempt.id)?.solution).toBe('went')
     expect(itemById('verbos:go:third')?.solution).toBe('goes')
     expect(itemById('frases:does-not-exist')).toBeUndefined()
+  })
+
+  it('finds a speaking example by its tense and sentence', () => {
+    const tense = tenses[0]!
+    const example = tense.examples[0]!
+
+    expect(itemById(speakingItemId(tense, example))).toMatchObject({
+      kind: 'speaking',
+      tenseId: tense.id,
+      solution: example.en
+    })
   })
 })
