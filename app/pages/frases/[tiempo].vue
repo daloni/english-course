@@ -16,6 +16,7 @@ const round = ref<Exercise[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, exercise: Exercise } | null>(null)
+useFocusOnChange(checked)
 const results = ref<{ exercise: Exercise, answer: string, correct: boolean }[]>([])
 
 const exercise = computed(() => round.value[index.value])
@@ -156,6 +157,7 @@ useSeo({
               />
 
               <UButton
+                data-focus-target
                 type="submit"
                 :label="checked ? 'Siguiente' : 'Comprobar'"
                 :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"

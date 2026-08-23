@@ -19,6 +19,7 @@ const gapLabel = computed(() => gaps.value === 2 ? 'dos' : String(gaps.value))
     <UInput
       v-model="answer"
       :disabled="disabled"
+      data-focus-input
       lang="en"
       autofocus
       autocapitalize="off"

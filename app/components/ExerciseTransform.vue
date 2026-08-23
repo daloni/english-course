@@ -21,6 +21,7 @@ const answer = defineModel<string>({ required: true })
     <UInput
       v-model="answer"
       :disabled="disabled"
+      data-focus-input
       lang="en"
       autofocus
       autocapitalize="off"
