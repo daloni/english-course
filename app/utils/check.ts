@@ -1,5 +1,6 @@
 // Correction of the written answers: what the learner types is compared with the solution
 // after normalizing what is not a mistake (capitals, extra spaces, contractions).
+import type { Exercise } from './content'
 
 /**
  * Contractions expanded so that "don't" and "do not" are the same answer.
@@ -62,6 +63,14 @@ export function isCorrect(answer: string, solution: string, gaps = 1): boolean {
 
   return given !== '' && (given === normalize(solution) || alternatives(solution).includes(given))
 }
+
+/**
+ * Corrects an answer against an exercise, gap count included: the single entry point every
+ * screen that grades an `Exercise` must go through, so a prompt with two `___` is never graded
+ * as if it had one.
+ */
+export const checkExercise = (answer: string, exercise: Exercise): boolean =>
+  isCorrect(answer, exercise.solution, gapCount(exercise.prompt))
 
 /** Third person singular of the present simple: goes, studies, watches. */
 const irregularThirdPerson: Record<string, string> = { be: 'is', have: 'has' }

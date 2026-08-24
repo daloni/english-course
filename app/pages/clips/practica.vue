@@ -64,7 +64,7 @@ function submit() {
     return
   }
 
-  const correct = isCorrect(answer.value, question.value.exercise.solution)
+  const correct = checkExercise(answer.value, question.value.exercise)
 
   record(question.value.id, correct)
   results.value.push({ question: question.value, answer: answer.value, correct })

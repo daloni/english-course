@@ -5,7 +5,7 @@ import { defineComponent, onUnmounted } from 'vue'
 import ClipsIndex from '../app/pages/clips/index.vue'
 import ClipsPractice from '../app/pages/clips/practica.vue'
 import { clipFiles, clips, levels, tenses } from '../app/utils/content'
-import { normalize } from '../app/utils/check'
+import { gapCount, normalize } from '../app/utils/check'
 import { clipItemId, day, items, load, review, save, storageKey } from '../app/utils/progress'
 import { loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
 import { useProgress } from '../app/composables/useProgress'
@@ -87,6 +87,17 @@ describe('content/clips', () => {
         if (exercise.tenseId !== '') {
           expect(tenses.map(tense => tense.id), `${exercise.id}.tenseId`).toContain(exercise.tenseId)
         }
+      }
+    })
+
+    // #94: a prompt with two ___ needs a solution with two slash-separated parts, or checkExercise
+    // grades against the wrong gap count and a half-right answer is marked correct.
+    it('has as many solution parts as gaps in its prompt', () => {
+      for (const exercise of clip.exercises) {
+        const gaps = gapCount(exercise.prompt)
+        const parts = gaps > 1 ? exercise.solution.split(/\s*\/\s*/) : [exercise.solution]
+
+        expect(parts.length, `${exercise.id}: ${gaps} gap(s) but solution "${exercise.solution}"`).toBe(gaps)
       }
     })
   })
