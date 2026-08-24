@@ -3,8 +3,9 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import DefaultLayout from '../app/layouts/default.vue'
 import IndexPage from '../app/pages/index.vue'
-import { day, items, review, save, storageKey } from '../app/utils/progress'
+import { day, items, review, save, speakingItemId, storageKey } from '../app/utils/progress'
 import { sections } from '../app/utils/sections'
+import { tenses } from '../app/utils/content'
 
 describe('home', () => {
   beforeEach(() => localStorage.removeItem(storageKey))
@@ -29,6 +30,20 @@ describe('home', () => {
     const pending = await mountSuspended(IndexPage)
 
     expect(pending.text()).toContain('1 ejercicios te tocan hoy')
+  })
+
+  // Speaking has no written exercise for the shared queue, so a due speaking attempt cannot
+  // promise a review that /repaso will not have.
+  it('says nothing is pending when only a speaking attempt is due', async () => {
+    const tense = tenses[0]!
+    const example = tense.examples[0]!
+    const id = speakingItemId(tense, example)
+
+    save({ [id]: review(undefined, id, false, day()) })
+    const page = await mountSuspended(IndexPage)
+
+    expect(page.text()).toContain('Nada pendiente por ahora')
+    expect(page.text()).not.toContain('ejercicios te tocan hoy')
   })
 })
 
@@ -55,5 +70,18 @@ describe('review navigation', () => {
     expect(layout.findAll('a[href="/repaso"]')).toHaveLength(1)
     expect(layout.findAll('[aria-label="ejercicios pendientes"]')).toHaveLength(1)
     expect(layout.find('[aria-label="ejercicios pendientes"]').text()).toBe('1')
+  })
+
+  it('keeps the badge hidden when only a speaking attempt is due', async () => {
+    const tense = tenses[0]!
+    const example = tense.examples[0]!
+    const id = speakingItemId(tense, example)
+
+    save({ [id]: review(undefined, id, false, day()) })
+    const layout = await mountSuspended(DefaultLayout)
+    await layout.find('button[aria-label="Open menu"]').trigger('click')
+    await flushPromises()
+
+    expect(layout.findAll('[aria-label="ejercicios pendientes"]')).toHaveLength(0)
   })
 })

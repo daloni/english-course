@@ -90,14 +90,21 @@ export function useProgress() {
 
   const attempts = computed(() => Object.values(progress.value))
 
+  const { isPlayable } = useClips()
+
   /**
    * What is due for review today, in the order it was first practised, which already mixes
-   * the sections. An attempt whose content no longer exists drops out of the queue.
+   * the sections. An attempt whose content no longer exists drops out of the queue, and so
+   * does anything /repaso could not ask: speaking needs the Web Speech API instead of a written
+   * exercise, and a clip whose video died has nothing left to play. This is the single source
+   * of truth for "how many reviews are pending" - the badge, the home card, /progreso and the
+   * /repaso session all read it, so none of them can promise a review that does not exist.
    */
   const pending = computed(() => attempts.value
     .filter(attempt => isDue(attempt))
     .map(attempt => itemById(attempt.id))
-    .filter((item): item is Item => item !== undefined))
+    .filter((item): item is Item => item !== undefined)
+    .filter(item => item.kind !== 'speaking' && (!item.clip || isPlayable(item.clip))))
 
   /** The missed ones, from the most missed to the least. */
   const failed = computed(() => attempts.value
