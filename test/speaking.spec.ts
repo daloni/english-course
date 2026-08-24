@@ -241,6 +241,44 @@ describe('/speaking', () => {
     expect(load()[speakingItemId(second.tense, second.example)]).toMatchObject({ hits: 0, misses: 1 })
   })
 
+  it('shows a summary after the last sentence and restarts on a fresh round', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const roundSize = 10
+
+    for (let i = 0; i < roundSize; i++) {
+      const current = sentenceOn(page)
+
+      await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+
+      // Fail the first sentence on purpose, get the rest right: one mistake among the hits.
+      FakeRecognition.last!.say(i === 0 ? 'this is clearly not the requested sentence' : current.example.en)
+      await flushPromises()
+
+      // The counter must climb steadily to the end of the round, never back to 1.
+      expect(page.text()).toContain(`Frase ${i + 1} de ${roundSize}`)
+
+      await page.findAll('button').find(button => button.text().includes('Otra frase'))!.trigger('click')
+      await flushPromises()
+    }
+
+    expect(page.text()).toContain(`Resultado: ${roundSize - 1} de ${roundSize}`)
+    expect(page.text()).toContain(`1 error`)
+    expect(page.text()).toContain('Para repasar')
+    expect(page.findAll('button').some(button => button.text().includes('Otra frase'))).toBe(false)
+
+    const restart = page.findAll('button').find(button => button.text().includes('Otra ronda'))!
+
+    await restart.trigger('click')
+    await flushPromises()
+
+    expect(page.text()).toContain(`Frase 1 de ${roundSize}`)
+    expect(page.findAll('button').some(button => button.text().includes('Otra frase'))).toBe(true)
+  })
+
   it('does not record listening without a transcription or after microphone errors', async () => {
     supportSpeech()
 
