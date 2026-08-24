@@ -773,6 +773,35 @@ describe('practising', () => {
     expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(true)
   })
 
+  // A speaking attempt due today cannot fill another round: it never enters the shared queue.
+  it('does not offer another round when only speaking is left pending', async () => {
+    const tense = tenses[0]!
+    const example = tense.examples[0]!
+    const speaking = speakingItemId(tense, example)
+    const frasesId = frasesItemId(exercise)
+
+    // A miss from yesterday: today's hit is the first one, so it clears the box for good
+    // instead of the same-day cap that keeps a same-day correction still due.
+    save({
+      [frasesId]: review(undefined, frasesId, false, addDays(today, -1)),
+      [speaking]: review(undefined, speaking, false, today)
+    })
+
+    const page = await mountSuspended(Repaso)
+    await flushPromises()
+
+    expect(page.text()).toContain('Ejercicio 1 de 1')
+
+    await page.find('input').setValue(exercise.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('Repaso terminado: 1 de 1')
+    expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(false)
+  })
+
   // Saving is the only thing that can fail for outside reasons, and it saves on every answer.
   it('corrects and carries on when the progress cannot be stored', async () => {
     refuseToStore()
@@ -888,6 +917,23 @@ describe('practising', () => {
 
     expect(page.text()).toContain('Hoy no toca repasar nada')
     expect(page.text()).not.toContain('Ejercicio 1 de 1')
+  })
+
+  it('shows nothing to review on /progreso when only speaking is due', async () => {
+    const tense = tenses[0]!
+    const example = tense.examples[0]!
+    const id = speakingItemId(tense, example)
+
+    save({ [id]: review(undefined, id, false, today) })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    expect(page.text()).toContain('Nada que repasar hoy')
+
+    const link = page.findAll('a').find(a => a.text().includes('Nada que repasar hoy'))
+
+    expect(link?.attributes('aria-disabled')).toBe('true')
   })
 
   it('rejects an empty import without changing saved progress', async () => {

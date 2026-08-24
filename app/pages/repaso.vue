@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // The review session: only what is due today, mixing sentences, verbs, reading and clips.
 const { pending, record } = useProgress()
-const { isPlayable, markUnavailable } = useClips()
+const { markUnavailable } = useClips()
 
 // The queue is frozen when the session starts: correcting moves the boxes, and without the
 // snapshot the session would shrink underfoot as you answer.
@@ -18,9 +18,7 @@ const done = computed(() => session.value.length > 0 && index.value >= session.v
 
 /** Another round: the queue is snapshotted again, already bringing back what was missed. */
 function restart() {
-  // Speaking needs the Web Speech API and has no written exercise for this shared queue. It is
-  // practised from /speaking instead, so unsupported browsers can never get stuck here.
-  session.value = pending.value.filter(item => item.kind !== 'speaking' && (!item.clip || isPlayable(item.clip)))
+  session.value = [...pending.value]
   index.value = 0
   answer.value = ''
   checked.value = null
