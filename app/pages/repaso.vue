@@ -42,7 +42,7 @@ function submit() {
     return
   }
 
-  const correct = isCorrect(answer.value, item.value.solution, gapCount(item.value.prompt))
+  const correct = checkExercise(answer.value, item.value)
 
   record(item.value.id, correct)
   results.value.push({ item: item.value, answer: answer.value, correct })

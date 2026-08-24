@@ -50,7 +50,7 @@ function submit() {
     return
   }
 
-  const correct = isCorrect(answer.value, exercise.value.solution, gapCount(exercise.value.prompt))
+  const correct = checkExercise(answer.value, exercise.value)
 
   record(frasesItemId(exercise.value), correct)
   results.value.push({ exercise: exercise.value, answer: answer.value, correct })
