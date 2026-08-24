@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { isCorrect, normalize, thirdPerson } from '../app/utils/check'
+import { checkExercise, isCorrect, normalize, thirdPerson } from '../app/utils/check'
+import type { Exercise } from '../app/utils/content'
 
 describe('normalize', () => {
   it('ignores capitals and surrounding spaces', () => {
@@ -86,6 +87,22 @@ describe('isCorrect', () => {
     expect(isCorrect('', 'went')).toBe(false)
     expect(isCorrect('   ', 'was / were')).toBe(false)
     expect(isCorrect('go', 'went')).toBe(false)
+  })
+})
+
+describe('checkExercise', () => {
+  const twoGaps: Exercise = {
+    id: 'two-gaps',
+    tenseId: 'past-simple',
+    prompt: 'It ___ raining, so they ___ inside.',
+    solution: 'was / were'
+  }
+
+  it('counts a clip with two gaps by the gaps in its prompt, not the whole exercise', () => {
+    // The regression of #84: this used to fall through to the single-gap branch, which reads
+    // " / " as alternatives instead of positional answers.
+    expect(checkExercise('was / were', twoGaps)).toBe(true)
+    expect(checkExercise('was', twoGaps)).toBe(false)
   })
 })
 
