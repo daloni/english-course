@@ -6,8 +6,9 @@ import ClipsIndex from '../app/pages/clips/index.vue'
 import ClipsPractice from '../app/pages/clips/practica.vue'
 import { clipFiles, clips, levels, tenses } from '../app/utils/content'
 import { normalize } from '../app/utils/check'
-import { clipItemId, items, load, storageKey } from '../app/utils/progress'
-import { loadUnavailable, unavailableKey } from '../app/utils/unavailable'
+import { clipItemId, day, items, load, review, save, storageKey } from '../app/utils/progress'
+import { loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
+import { useProgress } from '../app/composables/useProgress'
 
 // Guards content/clips/ and the pages that play it: a window that does not last, a gap that
 // does not fill back into the sentence, or a tense nobody teaches fails here.
@@ -102,6 +103,36 @@ describe('the review queue', () => {
       expect(item.clip, `${item.id} must carry its clip`).toBeDefined()
       expect(item.id, 'the id has to name the clip it belongs to').toContain(`clips:${item.clip!.id}:`)
     }
+  })
+
+  // A dead video cannot be replayed, so its due gap must not promise a review /repaso can't ask.
+  it('drops a due exercise from the queue once its clip is marked unavailable', async () => {
+    localStorage.removeItem(storageKey)
+    localStorage.removeItem(unavailableKey)
+    onTestFinished(() => {
+      localStorage.removeItem(storageKey)
+      localStorage.removeItem(unavailableKey)
+    })
+
+    const clip = clips[0]!
+    const exercise = clip.exercises[0]!
+    const id = clipItemId(clip, exercise)
+
+    save({ [id]: review(undefined, id, false, day()) })
+    saveUnavailable([clip.videoId])
+
+    let session!: ReturnType<typeof useProgress>
+    const Harness = defineComponent({
+      setup() {
+        session = useProgress()
+        return () => null
+      }
+    })
+
+    await mountSuspended(Harness)
+    await flushPromises()
+
+    expect(session.pending.value.some(item => item.id === id)).toBe(false)
   })
 })
 
