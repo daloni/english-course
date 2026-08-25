@@ -1,0 +1,4719 @@
+[
+  {
+    "id": "2jLhZjfu5-o:160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 160,
+    "endMs": 4080,
+    "text": "Ryan, is he bugging you?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Ryan, is he ___?",
+        "solution": "bugging you",
+        "id": "bug-you",
+        "tenseId": "",
+        "explanation": "«Bug someone» significa molestarle o irritarle."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2159",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2159,
+    "endMs": 4720,
+    "text": "Dwight, dude, you got to take a chill pill, man.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Dwight, dude, you got to ___, man.",
+        "solution": "take a chill pill",
+        "id": "chill-pill",
+        "tenseId": "",
+        "explanation": "«Take a chill pill» es una forma coloquial de decirle a alguien que se calme."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:7359",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 7359,
+    "endMs": 12719,
+    "text": "You know, you're you're totally harshen the office mellow.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You know, you ___ you're totally harshen the office mellow.",
+        "solution": "are",
+        "id": "verb-3",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:13599",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 13599,
+    "endMs": 16240,
+    "text": "You are a volunteer.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ a volunteer.",
+        "solution": "are",
+        "id": "verb-5",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:20320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 20320,
+    "endMs": 24720,
+    "text": "I have six more interviews to go and then I will reveal what I know.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I have six more interviews to go and then I ___ reveal what I know.",
+        "solution": "will",
+        "id": "modal-9",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:40960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 40960,
+    "endMs": 46800,
+    "text": "I totally lost it cuz I was half baked smoking doobies.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I totally lost it cuz I ___ half baked smoking doobies.",
+        "solution": "was",
+        "id": "verb-13",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:47680",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 47680,
+    "endMs": 50719,
+    "text": "I was smoking doobies with my brothers.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ smoking doobies with my brothers.",
+        "solution": "was",
+        "id": "verb-14",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:77759",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 77759,
+    "endMs": 80159,
+    "text": "Okay, I will let them know.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Okay, I ___ let them know.",
+        "solution": "will",
+        "id": "modal-21",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:133920",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 133920,
+    "endMs": 139040,
+    "text": "Instead, I will be going around to each of you and doing a visual inspection.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Instead, I ___ be going around to each of you and doing a visual inspection.",
+        "solution": "will",
+        "id": "modal-34",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:138319",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 138319,
+    "endMs": 141040,
+    "text": "No, you can't do that.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "No, you ___'t do that.",
+        "solution": "can",
+        "id": "modal-35",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:164319",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 164319,
+    "endMs": 170239,
+    "text": "You were the one joking around calling Twark.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ the one joking around calling Twark.",
+        "solution": "were",
+        "id": "verb-40",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:169360",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 169360,
+    "endMs": 177599,
+    "text": "I was testing you and you all failed miserably when I said that Dwight was a narc.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ testing you and you all failed miserably when I said that Dwight was a narc.",
+        "solution": "was",
+        "id": "verb-42",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:178959",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 178959,
+    "endMs": 183040,
+    "text": "How many of you said, \"Hey, you know what?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How many of you said, \"Hey, you ___ what?",
+        "solution": "know",
+        "id": "verb-43",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:187120",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 187120,
+    "endMs": 188959,
+    "text": "I am ridiculously anti-drug.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ ridiculously anti-drug.",
+        "solution": "am",
+        "id": "verb-45",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:188959",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 188959,
+    "endMs": 197280,
+    "text": "I am so anti-drug that I am above suspicion in any way that involves suspicion or testing of any kind.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ so anti-drug that I am above suspicion in any way that involves suspicion or testing of any kind.",
+        "solution": "am",
+        "id": "verb-46",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:204400",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 204400,
+    "endMs": 211440,
+    "text": "Everybody knows that Chichin Chong are funny, but just imagine how funny they would be if they didn't smoke pot.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Everybody knows that Chichin Chong are funny, but just imagine how funny they ___ be if they didn't smoke pot.",
+        "solution": "would",
+        "id": "modal-48",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:211440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 211440,
+    "endMs": 216319,
+    "text": "I want everybody to take a look to their left.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ everybody to take a look to their left.",
+        "solution": "want",
+        "id": "verb-49",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:214959",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 214959,
+    "endMs": 222400,
+    "text": "Now, I want everybody to take a look to their right.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Now, I ___ everybody to take a look to their right.",
+        "solution": "want",
+        "id": "verb-50",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:218879",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 218879,
+    "endMs": 229599,
+    "text": "One of those people will be dead from drug use at some point in their lives.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "One of those people ___ be dead from drug use at some point in their lives.",
+        "solution": "will",
+        "id": "modal-51",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:237040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 237040,
+    "endMs": 243120,
+    "text": "Do you think that smoking drugs is cool?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Do you ___ that smoking drugs is cool?",
+        "solution": "think",
+        "id": "verb-55",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:240319",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 240319,
+    "endMs": 245360,
+    "text": "Do you think that doing alcohol is cool?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Do you ___ that doing alcohol is cool?",
+        "solution": "think",
+        "id": "verb-56",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:243920",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 243920,
+    "endMs": 252720,
+    "text": "I have a glass of red wine with dinner about once a week for the antioxidants.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ a glass of red wine with dinner about once a week for the antioxidants.",
+        "solution": "have",
+        "id": "verb-57",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:251200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 251200,
+    "endMs": 258880,
+    "text": "I have written down a list of illegal drugs.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ written down a list of illegal drugs.",
+        "solution": "have",
+        "id": "verb-58",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:266400",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 266400,
+    "endMs": 272320,
+    "text": "You can fill it with tobacco, often mixed with fruit or flavor.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ fill it with tobacco, often mixed with fruit or flavor.",
+        "solution": "can",
+        "id": "modal-2",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:270240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 270240,
+    "endMs": 271759,
+    "text": "You know what, Toby?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ what, Toby?",
+        "solution": "know",
+        "id": "verb-3",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:271759",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 271759,
+    "endMs": 273280,
+    "text": "Pam, could you take this down?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Pam, ___ you take this down?",
+        "solution": "could",
+        "id": "modal-4",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:278880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 278880,
+    "endMs": 284240,
+    "text": "I can test anyone randomly and I have chosen you randomly.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ test anyone randomly and I have chosen you randomly.",
+        "solution": "can",
+        "id": "modal-6",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:287840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 287840,
+    "endMs": 291360,
+    "text": "Michael, you go to parties all the time.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Michael, you ___ to parties all the time.",
+        "solution": "go",
+        "id": "verb-8",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:316160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 316160,
+    "endMs": 318960,
+    "text": "I think Karen and I will take my car.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I think Karen and I ___ take my car.",
+        "solution": "will",
+        "id": "modal-15",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:319199",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 319199,
+    "endMs": 320720,
+    "text": "We could save some gas, have fun.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "We ___ save some gas, have fun.",
+        "solution": "could",
+        "id": "modal-16",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:326400",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 326400,
+    "endMs": 328639,
+    "text": "Why don't I want to go?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Why don't I ___ to go?",
+        "solution": "want",
+        "id": "verb-18",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:348720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 348720,
+    "endMs": 352600,
+    "text": "Wait, should you be going?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Wait, ___ you be going?",
+        "solution": "should",
+        "id": "modal-22",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:356800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 356800,
+    "endMs": 359840,
+    "text": "Should be there in about 15.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ be there in about 15.",
+        "solution": "Should",
+        "id": "modal-23",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:405039",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 405039,
+    "endMs": 407360,
+    "text": "I don't think yours will fit me.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I don't think yours ___ fit me.",
+        "solution": "will",
+        "id": "modal-36",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:430800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 430800,
+    "endMs": 438240,
+    "text": "Oh, you know, you probably want to leave the cover on until the guests get here.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Oh, you ___, you probably want to leave the cover on until the guests get here.",
+        "solution": "know",
+        "id": "verb-42",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:463919",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 463919,
+    "endMs": 465710,
+    "text": "Do you have any ice?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Do you ___ any ice?",
+        "solution": "have",
+        "id": "verb-49",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:474479",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 474479,
+    "endMs": 479440,
+    "text": "You and the misses should join us at Sandals Jamaica next Christmas.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You and the misses ___ join us at Sandals Jamaica next Christmas.",
+        "solution": "should",
+        "id": "modal-52",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:479440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 479440,
+    "endMs": 486160,
+    "text": "I Michael, I think David probably wants to spend Christmas here with his family.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I Michael, I ___ David probably wants to spend Christmas here with his family.",
+        "solution": "think",
+        "id": "verb-53",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:493680",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 493680,
+    "endMs": 497120,
+    "text": "You would not believe how low this girl can limbo.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ not believe how low this girl can limbo.",
+        "solution": "would",
+        "id": "modal-56",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:497599",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 497599,
+    "endMs": 500479,
+    "text": "You're just going to have to excuse us for just a couple minutes.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ just going to have to excuse us for just a couple minutes.",
+        "solution": "are",
+        "id": "verb-57",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:501840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 501840,
+    "endMs": 503919,
+    "text": "What did I come here?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "What did I ___ here?",
+        "solution": "come",
+        "id": "verb-58",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:512240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 512240,
+    "endMs": 516560,
+    "text": "Don't you know what I'm doing?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Don't you know what I ___ doing?",
+        "solution": "am",
+        "id": "verb-0",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:514240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 514240,
+    "endMs": 518880,
+    "text": "Yes, but you could tell me.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yes, but you ___ tell me.",
+        "solution": "could",
+        "id": "modal-1",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:531680",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 531680,
+    "endMs": 533440,
+    "text": "I'm not going to slam you against anything.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ not going to slam you against anything.",
+        "solution": "am",
+        "id": "verb-5",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:535839",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 535839,
+    "endMs": 537600,
+    "text": "I'm acting in a Forget it.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ acting in a Forget it.",
+        "solution": "am",
+        "id": "verb-6",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:550800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 550800,
+    "endMs": 552880,
+    "text": "I wish I could make potato salad that good.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I wish I ___ make potato salad that good.",
+        "solution": "could",
+        "id": "modal-10",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:564800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 564800,
+    "endMs": 568399,
+    "text": "You have to stop.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ to stop.",
+        "solution": "have",
+        "id": "verb-13",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:568160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 568160,
+    "endMs": 569680,
+    "text": "We can't start without Michael.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "We ___'t start without Michael.",
+        "solution": "can",
+        "id": "modal-14",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:577519",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 577519,
+    "endMs": 583680,
+    "text": "Well, actually, I think it's not loud enough.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, actually, I ___ it's not loud enough.",
+        "solution": "think",
+        "id": "verb-16",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:594160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 594160,
+    "endMs": 600959,
+    "text": "Well, some of us are trying to I'll just turn the captions on.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, some of us are trying to I ___ just turn the captions on.",
+        "solution": "will",
+        "id": "verb-21",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:598480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 598480,
+    "endMs": 602399,
+    "text": "Well, I will turn the volume up.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, I ___ turn the volume up.",
+        "solution": "will",
+        "id": "modal-22",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:614880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 614880,
+    "endMs": 617120,
+    "text": "Here's what we're going to do.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Here's what we ___ going to do.",
+        "solution": "are",
+        "id": "verb-25",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:618720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 618720,
+    "endMs": 624560,
+    "text": "All the real Glee fans are going to go down the hall to the real Glee party in the bedroom.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "All the real Glee fans ___ go down the hall to the real Glee party in the bedroom.",
+        "solution": "are going to",
+        "id": "going-to-27",
+        "tenseId": "be-going-to"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:623040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 623040,
+    "endMs": 628320,
+    "text": "Follow me where we can crank it.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Follow me where we ___ crank it.",
+        "solution": "can",
+        "id": "modal-28",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:627600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 627600,
+    "endMs": 634800,
+    "text": "Michael, you're probably not going to be Maybe you should try going in the other room again.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Michael, you ___ probably not going to be Maybe you should try going in the other room again.",
+        "solution": "are",
+        "id": "verb-29",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:637600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 637600,
+    "endMs": 641440,
+    "text": "Pam, I have a loaded gun my desk at work.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Pam, I ___ a loaded gun my desk at work.",
+        "solution": "have",
+        "id": "verb-31",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:646160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 646160,
+    "endMs": 648240,
+    "text": "a hundred times in the groin till I'm dead.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "a hundred times in the groin till I ___ dead.",
+        "solution": "am",
+        "id": "verb-33",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:648880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 648880,
+    "endMs": 654079,
+    "text": "You have a gun in your desk somewhere.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ a gun in your desk somewhere.",
+        "solution": "have",
+        "id": "verb-34",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:678720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 678720,
+    "endMs": 681600,
+    "text": "What's the longest thing you've ever seen?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "What's the longest thing you ___ ever seen?",
+        "solution": "have",
+        "id": "verb-44",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:681600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 681600,
+    "endMs": 683920,
+    "text": "For me, it was the tail from a jet.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "For me, it ___ the tail from a jet.",
+        "solution": "was",
+        "id": "verb-45",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:684720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 684720,
+    "endMs": 687680,
+    "text": "You do have to go.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ have to go.",
+        "solution": "do",
+        "id": "verb-47",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:685440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 685440,
+    "endMs": 692200,
+    "text": "Michael, you were making this harder than it has to be.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Michael, you ___ making this harder than it has to be.",
+        "solution": "were",
+        "id": "verb-48",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:730880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 730880,
+    "endMs": 736480,
+    "text": "I can't believe we're missing that.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I can't believe we ___ missing that.",
+        "solution": "are",
+        "id": "verb-56",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:733040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 733040,
+    "endMs": 738399,
+    "text": "Boy, I wish I could see that.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Boy, I wish I ___ see that.",
+        "solution": "could",
+        "id": "modal-57",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:741600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 741600,
+    "endMs": 744800,
+    "text": "Okay, I'm going to give it a shot.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Okay, I ___ going to give it a shot.",
+        "solution": "am",
+        "id": "verb-59",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:765440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 765440,
+    "endMs": 769000,
+    "text": "I'm not your father.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ not your father.",
+        "solution": "am",
+        "id": "verb-5",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:798800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 798800,
+    "endMs": 805920,
+    "text": "You are not to see that boy anymore.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ not to see that boy anymore.",
+        "solution": "are",
+        "id": "verb-10",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:804160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 804160,
+    "endMs": 808000,
+    "text": "You are not to tell me what to do.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ not to tell me what to do.",
+        "solution": "are",
+        "id": "verb-11",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:812959",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 812959,
+    "endMs": 815839,
+    "text": "I'LL raise the roof.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ raise the roof.",
+        "solution": "will",
+        "id": "verb-15",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:814000",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 814000,
+    "endMs": 818880,
+    "text": "I will pull this car over.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ pull this car over.",
+        "solution": "will",
+        "id": "modal-16",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:846160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 846160,
+    "endMs": 849440,
+    "text": "Ever since March Madness ended, I am so bored.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Ever since March Madness ended, I ___ so bored.",
+        "solution": "am",
+        "id": "verb-25",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:865120",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 865120,
+    "endMs": 868399,
+    "text": "You're a professional accountant.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ a professional accountant.",
+        "solution": "are",
+        "id": "verb-29",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:869440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 869440,
+    "endMs": 872240,
+    "text": "I'm going to say 50.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ going to say 50.",
+        "solution": "am",
+        "id": "verb-31",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:907519",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 907519,
+    "endMs": 909600,
+    "text": "You are my little teddy bear.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ my little teddy bear.",
+        "solution": "are",
+        "id": "verb-38",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:915600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 915600,
+    "endMs": 918639,
+    "text": "I never realized I could profit from it.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I never realized I ___ profit from it.",
+        "solution": "could",
+        "id": "modal-40",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:939680",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 939680,
+    "endMs": 942720,
+    "text": "Now I want to see Love Actually again, but it's at the bottom of the queue.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Now I ___ to see Love Actually again, but it's at the bottom of the queue.",
+        "solution": "want",
+        "id": "verb-47",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:959759",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 959759,
+    "endMs": 965199,
+    "text": "You're such a dick.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ such a dick.",
+        "solution": "are",
+        "id": "verb-51",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:973040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 973040,
+    "endMs": 978720,
+    "text": "One of them was Uptown Girls, which is neither romantic nor comedic, so we should dispute that.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "One of them was Uptown Girls, which is neither romantic nor comedic, so we ___ dispute that.",
+        "solution": "should",
+        "id": "modal-55",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1008560",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1008560,
+    "endMs": 1011440,
+    "text": "I don't know this place as well as I thought I did.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I don't know this place as well as I thought I ___.",
+        "solution": "did",
+        "id": "verb-59",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1011440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1011440,
+    "endMs": 1015040,
+    "text": "I'm getting cleaned out.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ getting cleaned out.",
+        "solution": "am",
+        "id": "verb-0",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1037439",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1037439,
+    "endMs": 1039919,
+    "text": "So, I think I'm done.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, I think I ___ done.",
+        "solution": "am",
+        "id": "verb-6",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1044160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1044160,
+    "endMs": 1052720,
+    "text": "Well, there's chatting time and there's working time and I'm still on working time.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, there's chatting time and there's working time and I ___ still on working time.",
+        "solution": "am",
+        "id": "verb-8",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1066160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1066160,
+    "endMs": 1071000,
+    "text": "means, you should toot on home.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "means, you ___ toot on home.",
+        "solution": "should",
+        "id": "modal-11",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1073840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1073840,
+    "endMs": 1080919,
+    "text": "Well, is there something else I can help you with?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, is there something else I ___ help you with?",
+        "solution": "can",
+        "id": "modal-12",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1100960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1100960,
+    "endMs": 1104160,
+    "text": "I think Ryan has a life.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ Ryan has a life.",
+        "solution": "think",
+        "id": "verb-15",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1113039",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1113039,
+    "endMs": 1114880,
+    "text": "I've been here since 3.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ been here since 3.",
+        "solution": "have",
+        "id": "verb-17",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1119600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1119600,
+    "endMs": 1124080,
+    "text": "You might actually have a chance.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ actually have a chance.",
+        "solution": "might",
+        "id": "modal-20",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1124080",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1124080,
+    "endMs": 1130240,
+    "text": "Unfortunately, I am stuck here because my boss is making us work late.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Unfortunately, I ___ stuck here because my boss is making us work late.",
+        "solution": "am",
+        "id": "verb-22",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1127840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1127840,
+    "endMs": 1129520,
+    "text": "Oh, here's what you do.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Oh, here's what you ___.",
+        "solution": "do",
+        "id": "verb-23",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1184799",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1184799,
+    "endMs": 1186720,
+    "text": "You know, you go ahead and push some printers.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___, you go ahead and push some printers.",
+        "solution": "know",
+        "id": "verb-34",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1196720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1196720,
+    "endMs": 1204720,
+    "text": "Well, you see, I actually do have a meeting with a client.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, you ___, I actually do have a meeting with a client.",
+        "solution": "see",
+        "id": "verb-36",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1202480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1202480,
+    "endMs": 1208559,
+    "text": "I'm going to just reschedule for next week.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ going to just reschedule for next week.",
+        "solution": "am",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1210720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1210720,
+    "endMs": 1214880,
+    "text": "I'm carrying nothing but my sable gloves.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ carrying nothing but my sable gloves.",
+        "solution": "am",
+        "id": "verb-39",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1212720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1212720,
+    "endMs": 1214640,
+    "text": "I've had it with Homeland Security.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ had it with Homeland Security.",
+        "solution": "have",
+        "id": "verb-40",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1221600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1221600,
+    "endMs": 1223360,
+    "text": "Sometimes we're here till midnight.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Sometimes we ___ here till midnight.",
+        "solution": "are",
+        "id": "verb-44",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1235760",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1235760,
+    "endMs": 1239329,
+    "text": "I will date when I'm dead.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I will date when I ___ dead.",
+        "solution": "am",
+        "id": "verb-50",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1248960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1248960,
+    "endMs": 1252799,
+    "text": "I want to have been married by the time I would have turned 30.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I want to have been married by the time I ___ have turned 30.",
+        "solution": "would",
+        "id": "modal-53",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1258320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1258320,
+    "endMs": 1263600,
+    "text": "Well, Joe, anything I can do for you, Pudding?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, Joe, anything I ___ do for you, Pudding?",
+        "solution": "can",
+        "id": "modal-55",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1269840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1269840,
+    "endMs": 1274799,
+    "text": "So, I have decided I'm going to dismiss my employees.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, I have decided I ___ going to dismiss my employees.",
+        "solution": "am",
+        "id": "verb-59",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1273520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1273520,
+    "endMs": 1276400,
+    "text": "H I'm thrilled with the work they've done today.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "H I ___ thrilled with the work they've done today.",
+        "solution": "am",
+        "id": "verb-0",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1304080",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1304080,
+    "endMs": 1310440,
+    "text": "Yes, I look forward to that, too.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yes, I ___ that, too.",
+        "solution": "look forward to",
+        "id": "look-forward",
+        "tenseId": "",
+        "explanation": "«Look forward to» expresa que esperas algo con ilusión."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1324640",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1324640,
+    "endMs": 1335679,
+    "text": "Well, my goal was to learn a new word every single day, and I must say that it is going immensely.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, my goal was to learn a new word every single day, and I ___ say that it is going immensely.",
+        "solution": "must",
+        "id": "modal-7",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1353120",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1353120,
+    "endMs": 1357200,
+    "text": "I'm having a little trouble motivating.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ having a little trouble motivating.",
+        "solution": "am",
+        "id": "verb-12",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1368799",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1368799,
+    "endMs": 1375200,
+    "text": "In fact, why don't we go around and confess some of the ways that we've already fudged on our resolutions?",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "In fact, why don't we go around and confess some of the ways that we ___ already fudged on our resolutions?",
+        "solution": "have",
+        "id": "verb-17",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1373440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1373440,
+    "endMs": 1377760,
+    "text": "Well, I said that I would eat more vegetables, and I haven't yet.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, I said that I ___ eat more vegetables, and I haven't yet.",
+        "solution": "would",
+        "id": "modal-18",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1382320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1382320,
+    "endMs": 1385919,
+    "text": "Well, my confession is that today I had a sip of coffee.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, my confession is that today I ___ a sip of coffee.",
+        "solution": "had",
+        "id": "verb-20",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1395200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1395200,
+    "endMs": 1396720,
+    "text": "I mean, what is the point?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___, what is the point?",
+        "solution": "mean",
+        "id": "verb-22",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1398159",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1398159,
+    "endMs": 1403679,
+    "text": "I made a resolution to floss and I did it.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I made a resolution to floss and I ___ it.",
+        "solution": "did",
+        "id": "verb-23",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1407840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1407840,
+    "endMs": 1409679,
+    "text": "Can't you stick to anything?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___'t you stick to anything?",
+        "solution": "Can",
+        "id": "modal-25",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1409679",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1409679,
+    "endMs": 1413200,
+    "text": "Erin, I want you to go to the kitchen and get me some vegetables.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Erin, I ___ you to go to the kitchen and get me some vegetables.",
+        "solution": "want",
+        "id": "verb-26",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1413200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1413200,
+    "endMs": 1415200,
+    "text": "Creed, you say you want to do a cartwheel?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Creed, you ___ you want to do a cartwheel?",
+        "solution": "say",
+        "id": "verb-27",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1419280",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1419280,
+    "endMs": 1421760,
+    "text": "You're just going to somersault around for the rest of your life.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ just going to somersault around for the rest of your life.",
+        "solution": "are",
+        "id": "verb-29",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1434559",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1434559,
+    "endMs": 1438400,
+    "text": "I'm glad this is happening.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ glad this is happening.",
+        "solution": "am",
+        "id": "verb-34",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1441120",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1441120,
+    "endMs": 1446480,
+    "text": "How else should I eat it?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How else ___ I eat it?",
+        "solution": "should",
+        "id": "modal-36",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1446480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1446480,
+    "endMs": 1451440,
+    "text": "Can I get some cheese whiz or Hollandsays?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ I get some cheese whiz or Hollandsays?",
+        "solution": "Can",
+        "id": "modal-37",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1466400",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1466400,
+    "endMs": 1470799,
+    "text": "You're killing him, Michael.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ killing him, Michael.",
+        "solution": "are",
+        "id": "verb-40",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1472080",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1472080,
+    "endMs": 1474559,
+    "text": "Can I be bl Let me see if you swallowed it.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ I be bl Let me see if you swallowed it.",
+        "solution": "Can",
+        "id": "modal-41",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1486480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1486480,
+    "endMs": 1489679,
+    "text": "Can I get some candy or something?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ I get some candy or something?",
+        "solution": "Can",
+        "id": "modal-43",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1488240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1488240,
+    "endMs": 1490320,
+    "text": "No, you can't have any candy.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "No, you ___'t have any candy.",
+        "solution": "can",
+        "id": "modal-44",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1520480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1520480,
+    "endMs": 1524480,
+    "text": "I have a lot to deal with today.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ a lot to deal with today.",
+        "solution": "have",
+        "id": "verb-52",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1525520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1525520,
+    "endMs": 1527760,
+    "text": "I could be pregnant.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ be pregnant.",
+        "solution": "could",
+        "id": "modal-54",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1540799",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1540799,
+    "endMs": 1544559,
+    "text": "I did a cartwheel.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ a cartwheel.",
+        "solution": "did",
+        "id": "verb-56",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1556400",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1556400,
+    "endMs": 1559679,
+    "text": "Look at where you're going to be doing the cartwheel.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Look at where you ___ going to be doing the cartwheel.",
+        "solution": "are",
+        "id": "verb-57",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1559679",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1559679,
+    "endMs": 1561279,
+    "text": "So, look where you're going to be placing your hand.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, look where you ___ going to be placing your hand.",
+        "solution": "are",
+        "id": "verb-58",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1565039",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1565039,
+    "endMs": 1567440,
+    "text": "I'm going to stay here as long as it takes.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ going to stay here as long as it takes.",
+        "solution": "am",
+        "id": "verb-0",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1580720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1580720,
+    "endMs": 1584240,
+    "text": "That's all I had to do all year.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "That's all I ___ to do all year.",
+        "solution": "had",
+        "id": "verb-2",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1596799",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1596799,
+    "endMs": 1598799,
+    "text": "Yeah, it was good.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yeah, it ___ good.",
+        "solution": "was",
+        "id": "verb-5",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1598799",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1598799,
+    "endMs": 1602240,
+    "text": "I think I should just get right to the point, you know.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I think I ___ just get right to the point, you know.",
+        "solution": "should",
+        "id": "modal-6",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1619919",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1619919,
+    "endMs": 1623799,
+    "text": "I want us to get back together.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I want us to ___.",
+        "solution": "get back together",
+        "id": "get-back-together",
+        "tenseId": "",
+        "explanation": "«Get back together» significa volver a estar en una relación con alguien."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1637279",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1637279,
+    "endMs": 1639200,
+    "text": "That's why you're here.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "That's why you ___ here.",
+        "solution": "are",
+        "id": "verb-14",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1639200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1639200,
+    "endMs": 1643440,
+    "text": "You want to get back together with her?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You want to ___ with her?",
+        "solution": "get back together",
+        "id": "get-back-together",
+        "tenseId": "",
+        "explanation": "«Get back together» significa volver a estar en una relación con alguien."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1643440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1643440,
+    "endMs": 1646080,
+    "text": "Just don't get back together with her.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Just don't ___ with her.",
+        "solution": "get back together",
+        "id": "get-back-together",
+        "tenseId": "",
+        "explanation": "«Get back together» significa volver a estar en una relación con alguien."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1646080",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1646080,
+    "endMs": 1649840,
+    "text": "How can she make you get back together with her?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How can she make you ___ with her?",
+        "solution": "get back together",
+        "id": "get-back-together",
+        "tenseId": "",
+        "explanation": "«Get back together» significa volver a estar en una relación con alguien."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1653039",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1653039,
+    "endMs": 1657679,
+    "text": "You were not happy when you were with her.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ not happy when you were with her.",
+        "solution": "were",
+        "id": "verb-22",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1655360",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1655360,
+    "endMs": 1659760,
+    "text": "You're so much happier now.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ so much happier now.",
+        "solution": "are",
+        "id": "verb-23",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1661360",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1661360,
+    "endMs": 1663760,
+    "text": "You are absolutely right.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ absolutely right.",
+        "solution": "are",
+        "id": "verb-25",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1662320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1662320,
+    "endMs": 1666880,
+    "text": "I need to go in there and tell her that we can't be together.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I need to go in there and tell her that we ___'t be together.",
+        "solution": "can",
+        "id": "modal-26",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1668080",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1668080,
+    "endMs": 1670960,
+    "text": "I'm in a very good place right now.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ in a very good place right now.",
+        "solution": "am",
+        "id": "verb-27",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1679840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1679840,
+    "endMs": 1683399,
+    "text": "We need to talk.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "We ___ to talk.",
+        "solution": "need",
+        "id": "verb-28",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1687600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1687600,
+    "endMs": 1699080,
+    "text": "Jan is in a different place right now and it is a sign of maturity to give people second chances.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Jan is in a different place right now and it ___ a sign of maturity to give people second chances.",
+        "solution": "is",
+        "id": "verb-29",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1694799",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1694799,
+    "endMs": 1699080,
+    "text": "So, I'm going to hear her out.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, I ___ going to hear her out.",
+        "solution": "am",
+        "id": "verb-30",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1716240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1716240,
+    "endMs": 1719279,
+    "text": "Can you believe that?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ you believe that?",
+        "solution": "Can",
+        "id": "modal-31",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1724080",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1724080,
+    "endMs": 1732679,
+    "text": "I'm sure it must have been weird for Jim when Roy and I were joking around that one time.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ sure it must have been weird for Jim when Roy and I were joking around that one time.",
+        "solution": "am",
+        "id": "verb-33",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1741520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1741520,
+    "endMs": 1743600,
+    "text": "I love fake boobs.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ fake boobs.",
+        "solution": "love",
+        "id": "verb-35",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1743600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1743600,
+    "endMs": 1749279,
+    "text": "Often times you find them on strippers.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Often times you ___ them on strippers.",
+        "solution": "find",
+        "id": "verb-36",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1746240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1746240,
+    "endMs": 1751760,
+    "text": "I find it offensive on natural baby.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ it offensive on natural baby.",
+        "solution": "find",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1767120",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1767120,
+    "endMs": 1771360,
+    "text": "Let's get back together.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Let's ___.",
+        "solution": "get back together",
+        "id": "get-back-together",
+        "tenseId": "",
+        "explanation": "«Get back together» significa volver a estar en una relación con alguien."
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1773039",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1773039,
+    "endMs": 1775760,
+    "text": "I'll tell you this.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ tell you this.",
+        "solution": "will",
+        "id": "verb-44",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1821360",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1821360,
+    "endMs": 1826000,
+    "text": "So, I guess we're getting back together.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, I guess we ___ getting back together.",
+        "solution": "are",
+        "id": "verb-51",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1831520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1831520,
+    "endMs": 1838080,
+    "text": "Two weeks ago, I was in the worst relationship of my life.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Two weeks ago, I ___ in the worst relationship of my life.",
+        "solution": "was",
+        "id": "verb-53",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1840640",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1840640,
+    "endMs": 1850960,
+    "text": "Now I'm in the best relationship of my life with the same woman.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Now I ___ in the best relationship of my life with the same woman.",
+        "solution": "am",
+        "id": "verb-55",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1869760",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1869760,
+    "endMs": 1875919,
+    "text": "May I enter the room?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ I enter the room?",
+        "solution": "May",
+        "id": "modal-1",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1875919",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1875919,
+    "endMs": 1880240,
+    "text": "See how I did that?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "See how I ___ that?",
+        "solution": "did",
+        "id": "verb-2",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1878720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1878720,
+    "endMs": 1881520,
+    "text": "That's the way you should enter a room.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "That's the way you ___ enter a room.",
+        "solution": "should",
+        "id": "modal-3",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1883840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1883840,
+    "endMs": 1888159,
+    "text": "Yes, but I have an office, so why would I do that?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yes, but I have an office, so why ___ I do that?",
+        "solution": "would",
+        "id": "modal-6",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1901840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1901840,
+    "endMs": 1903440,
+    "text": "You're an artist, right?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ an artist, right?",
+        "solution": "are",
+        "id": "verb-13",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1922960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1922960,
+    "endMs": 1926799,
+    "text": "I do not recommend this strategy.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ not recommend this strategy.",
+        "solution": "do",
+        "id": "verb-20",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1926240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1926240,
+    "endMs": 1932640,
+    "text": "Before we get started, I want to say a few words about this deadly disease called rabies.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Before we get started, I ___ to say a few words about this deadly disease called rabies.",
+        "solution": "want",
+        "id": "verb-21",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1953519",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1953519,
+    "endMs": 1959519,
+    "text": "How many of you know someone who has been afflicted or affected by rabies?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How many of you ___ someone who has been afflicted or affected by rabies?",
+        "solution": "know",
+        "id": "verb-26",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1965360",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1965360,
+    "endMs": 1968880,
+    "text": "No, it is the foaming barking killer.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "No, it ___ the foaming barking killer.",
+        "solution": "is",
+        "id": "verb-28",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1972559",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1972559,
+    "endMs": 1976799,
+    "text": "I'm giving him peanuts.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ giving him peanuts.",
+        "solution": "am",
+        "id": "verb-30",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1973600",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1973600,
+    "endMs": 1979039,
+    "text": "No, don't give him just Did you hear anything I said?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "No, don't give him just Did you ___ anything I said?",
+        "solution": "hear",
+        "id": "verb-31",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1977840",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1977840,
+    "endMs": 1981039,
+    "text": "Look how happy he is.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Look how happy he ___.",
+        "solution": "is",
+        "id": "verb-32",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1981279",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1981279,
+    "endMs": 1988799,
+    "text": "That's a perfect example of the kind of awareness we need to generate.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "That's a perfect example of the kind of awareness we ___ to generate.",
+        "solution": "need",
+        "id": "verb-34",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:1991360",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 1991360,
+    "endMs": 1993120,
+    "text": "I know you, Elizabeth.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ you, Elizabeth.",
+        "solution": "know",
+        "id": "verb-36",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2016880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2016880,
+    "endMs": 2019388,
+    "text": "I put emodium in Toby's coffee before the race.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ emodium in Toby's coffee before the race.",
+        "solution": "put",
+        "id": "verb-41",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2027440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2027440,
+    "endMs": 2029200,
+    "text": "I'm making great time.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ making great time.",
+        "solution": "am",
+        "id": "verb-43",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2035440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2035440,
+    "endMs": 2039480,
+    "text": "I am not going to finish.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ not going to finish.",
+        "solution": "am",
+        "id": "verb-45",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2039919",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2039919,
+    "endMs": 2044640,
+    "text": "I can't beat rabies.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___'t beat rabies.",
+        "solution": "can",
+        "id": "modal-46",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2047039",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2047039,
+    "endMs": 2052280,
+    "text": "I was a fool to think that I could beat it.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I was a fool to think that I ___ beat it.",
+        "solution": "could",
+        "id": "modal-48",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2061599",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2061599,
+    "endMs": 2067440,
+    "text": "Did you come back for us or I can't finish?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Did you come back for us or I ___'t finish?",
+        "solution": "can",
+        "id": "modal-50",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2066800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2066800,
+    "endMs": 2070639,
+    "text": "I just We're probably dehydrated.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I just We ___ probably dehydrated.",
+        "solution": "are",
+        "id": "verb-51",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2068960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2068960,
+    "endMs": 2072800,
+    "text": "What do you want me to do, Jim?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "What do you ___ me to do, Jim?",
+        "solution": "want",
+        "id": "verb-52",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2079919",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2079919,
+    "endMs": 2088560,
+    "text": "They're deformed and they're abnormal and they're illiterate and ugly.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "They ___ deformed and they're abnormal and they're illiterate and ugly.",
+        "solution": "are",
+        "id": "verb-54",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2094320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2094320,
+    "endMs": 2103680,
+    "text": "I can't, you know, there's just one of me and there's a thousand of them and rabies wins.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___'t, you know, there's just one of me and there's a thousand of them and rabies wins.",
+        "solution": "can",
+        "id": "modal-57",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2103680",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2103680,
+    "endMs": 2112119,
+    "text": "Finishing that 5K was the hardest thing I have ever had to do.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Finishing that 5K was the hardest thing I ___ ever had to do.",
+        "solution": "have",
+        "id": "verb-58",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2112320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2112320,
+    "endMs": 2122800,
+    "text": "I ate more fetuccini alfredo and drank less water than I have in my entire life.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ate more fetuccini alfredo and drank less water than I ___ in my entire life.",
+        "solution": "have",
+        "id": "verb-59",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2123680",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2123680,
+    "endMs": 2128800,
+    "text": "Well, today I had a triumph of the human body.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, today I ___ a triumph of the human body.",
+        "solution": "had",
+        "id": "verb-1",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2160320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2160320,
+    "endMs": 2164079,
+    "text": "I think they called your name.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ they called your name.",
+        "solution": "think",
+        "id": "verb-7",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2170079",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2170079,
+    "endMs": 2173970,
+    "text": "I'm going to cover for you.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ going to cover for you.",
+        "solution": "am",
+        "id": "verb-9",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2186640",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2186640,
+    "endMs": 2194000,
+    "text": "I am not Dwight Shroo.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ not Dwight Shroo.",
+        "solution": "am",
+        "id": "verb-10",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2191359",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2191359,
+    "endMs": 2195520,
+    "text": "I am Michael Scott, his mentor and boss.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ Michael Scott, his mentor and boss.",
+        "solution": "am",
+        "id": "verb-11",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2195520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2195520,
+    "endMs": 2198880,
+    "text": "Some of you, I'm sure, know me.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Some of you, I ___ sure, know me.",
+        "solution": "am",
+        "id": "verb-12",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2198880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2198880,
+    "endMs": 2203200,
+    "text": "I have been honored by this illustrious group twice.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ been honored by this illustrious group twice.",
+        "solution": "have",
+        "id": "verb-13",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2232320",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2232320,
+    "endMs": 2240000,
+    "text": "Well, there are many things I believe that do such of thing of that nature.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, there are many things I ___ that do such of thing of that nature.",
+        "solution": "believe",
+        "id": "verb-18",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2250800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2250800,
+    "endMs": 2261200,
+    "text": "I did not know that you were wearing a hearing aid and I just thought you were speaking abnormally.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ not know that you were wearing a hearing aid and I just thought you were speaking abnormally.",
+        "solution": "did",
+        "id": "verb-21",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2307280",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2307280,
+    "endMs": 2308960,
+    "text": "Could you shut him up, please?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ you shut him up, please?",
+        "solution": "Could",
+        "id": "modal-25",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2308960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2308960,
+    "endMs": 2314000,
+    "text": "I mean, who brings a baby to a sales conference?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___, who brings a baby to a sales conference?",
+        "solution": "mean",
+        "id": "verb-26",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2372160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2372160,
+    "endMs": 2380839,
+    "text": "I say to you and you will understand that it is a privilege to fight.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I say to you and you ___ understand that it is a privilege to fight.",
+        "solution": "will",
+        "id": "modal-31",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2392079",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2392079,
+    "endMs": 2403277,
+    "text": "SALESMEN OF NORTHEASTERN PENNSYLVANIA, I ASK YOU once more rise and be WORTHY OF THIS HISTORICAL HOUR.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "SALESMEN OF NORTHEASTERN PENNSYLVANIA, I ___ YOU once more rise and be WORTHY OF THIS HISTORICAL HOUR.",
+        "solution": "ASK",
+        "id": "verb-32",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2408960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2408960,
+    "endMs": 2414357,
+    "text": "No revolution is worth anything unless it can defend itself.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "No revolution is worth anything unless it ___ defend itself.",
+        "solution": "can",
+        "id": "modal-33",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2417920",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2417920,
+    "endMs": 2424800,
+    "text": "Some people will tell you salesman is a bad word.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Some people ___ tell you salesman is a bad word.",
+        "solution": "will",
+        "id": "modal-34",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2421839",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2421839,
+    "endMs": 2430560,
+    "text": "They'll conjure up images of used car dealers and door-to-door charlatans.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "They ___ conjure up images of used car dealers and door-to-door charlatans.",
+        "solution": "will",
+        "id": "verb-35",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2432560",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2432560,
+    "endMs": 2440079,
+    "text": "I say, salesmen and women of the world, UNITE.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___, salesmen and women of the world, UNITE.",
+        "solution": "say",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2440079",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2440079,
+    "endMs": 2451440,
+    "text": "WE MUST NEVER ACQUIES, for it IS TOGETHER, TOGETHER THAT WE PREVAIL.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "WE ___ NEVER ACQUIES, for it IS TOGETHER, TOGETHER THAT WE PREVAIL.",
+        "solution": "MUST",
+        "id": "modal-38",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2448880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2448880,
+    "endMs": 2460263,
+    "text": "WE MUST NEVER seed control of the motherland for it is to never",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "WE ___ NEVER seed control of the motherland for it is to never",
+        "solution": "MUST",
+        "id": "modal-39",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2470480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2470480,
+    "endMs": 2476400,
+    "text": "Some of you may have heard some rumors about the branch closing.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Some of you ___ have heard some rumors about the branch closing.",
+        "solution": "may",
+        "id": "modal-40",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2480480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2480480,
+    "endMs": 2482800,
+    "text": "I have a plan and I am going to save our job.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I have a plan and I ___ save our job.",
+        "solution": "am going to",
+        "id": "going-to-43",
+        "tenseId": "be-going-to"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2535760",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2535760,
+    "endMs": 2540079,
+    "text": "Do you know what you're going to say when he shows up?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Do you know what you ___ going to say when he shows up?",
+        "solution": "are",
+        "id": "verb-50",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2539200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2539200,
+    "endMs": 2543920,
+    "text": "I will speak from the heart.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ speak from the heart.",
+        "solution": "will",
+        "id": "modal-51",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2541839",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2541839,
+    "endMs": 2544319,
+    "text": "You need an attack plan here.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ an attack plan here.",
+        "solution": "need",
+        "id": "verb-52",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2551200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2551200,
+    "endMs": 2558720,
+    "text": "Can you tell us why you are shutting down Scranton and putting 15 people out of work?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ you tell us why you are shutting down Scranton and putting 15 people out of work?",
+        "solution": "Can",
+        "id": "modal-54",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2567760",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2567760,
+    "endMs": 2569359,
+    "text": "We're losing money, okay?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "We ___ losing money, okay?",
+        "solution": "are",
+        "id": "verb-59",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2588160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2588160,
+    "endMs": 2592160,
+    "text": "I'm Michael Scott from Dunder Mifflin Scranton.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ Michael Scott from Dunder Mifflin Scranton.",
+        "solution": "am",
+        "id": "verb-6",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2593520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2593520,
+    "endMs": 2596160,
+    "text": "You're putting 15 employees out of work, sir.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ putting 15 employees out of work, sir.",
+        "solution": "are",
+        "id": "verb-7",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2596160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2596160,
+    "endMs": 2599839,
+    "text": "Did you realize you were doing that?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Did you realize you ___ doing that?",
+        "solution": "were",
+        "id": "verb-8",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2600560",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2600560,
+    "endMs": 2604720,
+    "text": "How does that make you feel?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How does that make you ___?",
+        "solution": "feel",
+        "id": "verb-10",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2613040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2613040,
+    "endMs": 2615119,
+    "text": "So, I was Yeah, I just He might know something.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, I was Yeah, I just He ___ know something.",
+        "solution": "might",
+        "id": "modal-13",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2615119",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2615119,
+    "endMs": 2619560,
+    "text": "I will improvise in the moment.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ improvise in the moment.",
+        "solution": "will",
+        "id": "modal-14",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2623440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2623440,
+    "endMs": 2628280,
+    "text": "You can learn a great deal about a man from his trash.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ learn a great deal about a man from his trash.",
+        "solution": "can",
+        "id": "modal-15",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2680480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2680480,
+    "endMs": 2685000,
+    "text": "Not until I have some good news for them.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Not until I ___ some good news for them.",
+        "solution": "have",
+        "id": "verb-20",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2685440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2685440,
+    "endMs": 2690240,
+    "text": "Not until I have some good news.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Not until I ___ some good news.",
+        "solution": "have",
+        "id": "verb-21",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2706079",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2706079,
+    "endMs": 2708720,
+    "text": "I am such a stupid idiot.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ such a stupid idiot.",
+        "solution": "am",
+        "id": "verb-25",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2708720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2708720,
+    "endMs": 2710640,
+    "text": "I let everybody down.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ everybody down.",
+        "solution": "let",
+        "id": "verb-26",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2721520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2721520,
+    "endMs": 2723599,
+    "text": "MICHAEL, WE'RE NOT CLOSED.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "MICHAEL, WE ___ NOT CLOSED.",
+        "solution": "are",
+        "id": "verb-29",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2750319",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2750319,
+    "endMs": 2752240,
+    "text": "How did we do it?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How did we ___ it?",
+        "solution": "do",
+        "id": "verb-30",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2760480",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2760480,
+    "endMs": 2765640,
+    "text": "You think that'll be enough?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ that'll be enough?",
+        "solution": "think",
+        "id": "verb-32",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2802319",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2802319,
+    "endMs": 2806319,
+    "text": "Well, I say an empty desk means an empty.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Well, I ___ an empty desk means an empty.",
+        "solution": "say",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2806319",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2806319,
+    "endMs": 2808240,
+    "text": "That's not No, that's not what I was going to say.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "That's not No, that's not what I ___ going to say.",
+        "solution": "was",
+        "id": "verb-38",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2815440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2815440,
+    "endMs": 2819520,
+    "text": "No, I am the king bee.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "No, I ___ the king bee.",
+        "solution": "am",
+        "id": "verb-41",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2823280",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2823280,
+    "endMs": 2828800,
+    "text": "I am the ace bee.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ the ace bee.",
+        "solution": "am",
+        "id": "verb-43",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2846720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2846720,
+    "endMs": 2848960,
+    "text": "I will finish later.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ finish later.",
+        "solution": "will",
+        "id": "modal-46",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2850240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2850240,
+    "endMs": 2857680,
+    "text": "Yeah, I know when it's from Ryan.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yeah, I ___ when it's from Ryan.",
+        "solution": "know",
+        "id": "verb-47",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2867680",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2867680,
+    "endMs": 2869839,
+    "text": "Can I do some of the talking?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ I do some of the talking?",
+        "solution": "Can",
+        "id": "modal-50",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2868800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2868800,
+    "endMs": 2870960,
+    "text": "I will do the talking.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ do the talking.",
+        "solution": "will",
+        "id": "modal-51",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2870079",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2870079,
+    "endMs": 2872480,
+    "text": "Let him know that I'm here, though.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Let him know that I ___ here, though.",
+        "solution": "am",
+        "id": "verb-52",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2871359",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2871359,
+    "endMs": 2873920,
+    "text": "What difference does it make whether you're here?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "What difference does it make whether you ___ here?",
+        "solution": "are",
+        "id": "verb-53",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2879839",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2879839,
+    "endMs": 2884319,
+    "text": "Yeah, I think I came down with the flu.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yeah, I ___ I came down with the flu.",
+        "solution": "think",
+        "id": "verb-56",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2884079",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2884079,
+    "endMs": 2886240,
+    "text": "You know, it's cleaning day here today.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___, it's cleaning day here today.",
+        "solution": "know",
+        "id": "verb-57",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2886240",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2886240,
+    "endMs": 2890560,
+    "text": "Could have used some of that famous Hispanic cleaning ethic.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ have used some of that famous Hispanic cleaning ethic.",
+        "solution": "Could",
+        "id": "modal-58",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2889040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2889040,
+    "endMs": 2892640,
+    "text": "Yeah, I feel terrible about it.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yeah, I ___ terrible about it.",
+        "solution": "feel",
+        "id": "verb-59",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2896000",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2896000,
+    "endMs": 2900599,
+    "text": "I'm feeling nauseous and my head's killing.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ feeling nauseous and my head's killing.",
+        "solution": "am",
+        "id": "verb-2",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2910559",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2910559,
+    "endMs": 2916960,
+    "text": "So, I was wondering if you could explain.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, I was wondering if you ___ explain.",
+        "solution": "could",
+        "id": "modal-5",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2923599",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2923599,
+    "endMs": 2929760,
+    "text": "The liar will avoid direct eye contact.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "The liar ___ avoid direct eye contact.",
+        "solution": "will",
+        "id": "modal-8",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2926960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2926960,
+    "endMs": 2933119,
+    "text": "The liar will cover part of his or her face with his hand, especially the mouth.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "The liar ___ cover part of his or her face with his hand, especially the mouth.",
+        "solution": "will",
+        "id": "modal-9",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2933119",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2933119,
+    "endMs": 2938640,
+    "text": "The liar will persspire.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "The liar ___ persspire.",
+        "solution": "will",
+        "id": "modal-10",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2958960",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2958960,
+    "endMs": 2962800,
+    "text": "Okay, it was the second one.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Okay, it ___ the second one.",
+        "solution": "was",
+        "id": "verb-16",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2970640",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2970640,
+    "endMs": 2974240,
+    "text": "I have conducted interviews with everyone in the office.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ conducted interviews with everyone in the office.",
+        "solution": "have",
+        "id": "verb-18",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2981119",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2981119,
+    "endMs": 2984160,
+    "text": "Oh man, you are so busted.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Oh man, you ___ so busted.",
+        "solution": "are",
+        "id": "verb-21",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:2986880",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 2986880,
+    "endMs": 2991520,
+    "text": "I think I know what's going on here.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ I know what's going on here.",
+        "solution": "think",
+        "id": "verb-23",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3017440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3017440,
+    "endMs": 3020240,
+    "text": "Should I have reported Oscar's malfeasants?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ I have reported Oscar's malfeasants?",
+        "solution": "Should",
+        "id": "modal-31",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3041200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3041200,
+    "endMs": 3044960,
+    "text": "We just want to say how grateful we are.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "We just want to say how grateful we ___.",
+        "solution": "are",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3064000",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3064000,
+    "endMs": 3069040,
+    "text": "I wonder if these presents would be under as much scrutiny if I were white.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I wonder if these presents ___ be under as much scrutiny if I were white.",
+        "solution": "would",
+        "id": "modal-45",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3069920",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3069920,
+    "endMs": 3073280,
+    "text": "I didn't say I think.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I didn't say I ___.",
+        "solution": "think",
+        "id": "verb-46",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3075839",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3075839,
+    "endMs": 3082319,
+    "text": "Erin and I make great use of ours.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Erin and I ___ great use of ours.",
+        "solution": "make",
+        "id": "verb-49",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3079520",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3079520,
+    "endMs": 3082000,
+    "text": "Yes, Erin and I are still dating.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Yes, Erin and I ___ still dating.",
+        "solution": "are",
+        "id": "verb-50",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3082000",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3082000,
+    "endMs": 3087839,
+    "text": "Why do you ask me so often if we're still dating?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Why do you ask me so often if we ___ still dating?",
+        "solution": "are",
+        "id": "verb-51",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3085040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3085040,
+    "endMs": 3090480,
+    "text": "I'll take one of those pink pouches.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ take one of those pink pouches.",
+        "solution": "will",
+        "id": "verb-52",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3093200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3093200,
+    "endMs": 3095839,
+    "text": "Two years ago, I had her and we had the best time.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Two years ago, I ___ her and we had the best time.",
+        "solution": "had",
+        "id": "verb-54",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3121839",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3121839,
+    "endMs": 3126960,
+    "text": "Can you not wait to have a hot chocolate and cuddle up with Papa and tell him about all your Christmas dreams?",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ you not wait to have a hot chocolate and cuddle up with Papa and tell him about all your Christmas dreams?",
+        "solution": "Can",
+        "id": "modal-2",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3155280",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3155280,
+    "endMs": 3157839,
+    "text": "You could have killed me.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ have killed me.",
+        "solution": "could",
+        "id": "modal-6",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3180800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3180800,
+    "endMs": 3183760,
+    "text": "Can we all do it?",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "___ we all do it?",
+        "solution": "Can",
+        "id": "modal-12",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3213280",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3213280,
+    "endMs": 3215760,
+    "text": "You've reached the voicemail of Dwight Kurt Shroo.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ reached the voicemail of Dwight Kurt Shroo.",
+        "solution": "have",
+        "id": "verb-13",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3239040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3239040,
+    "endMs": 3245800,
+    "text": "I have no feeling in my fingers or penis, but I think it was worth it.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ no feeling in my fingers or penis, but I think it was worth it.",
+        "solution": "have",
+        "id": "verb-14",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3295760",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3295760,
+    "endMs": 3301760,
+    "text": "Oh, let me take a Well, how about we do the short tour and then I'll start dinner.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Oh, let me take a Well, how about we do the short tour and then I ___ start dinner.",
+        "solution": "will",
+        "id": "verb-22",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3299359",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3299359,
+    "endMs": 3303599,
+    "text": "Oh, I can help starting dinner if you need it.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Oh, I ___ help starting dinner if you need it.",
+        "solution": "can",
+        "id": "modal-23",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3310720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3310720,
+    "endMs": 3317119,
+    "text": "You know, Pam, in Spain, they often don't even start eating until midnight.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___, Pam, in Spain, they often don't even start eating until midnight.",
+        "solution": "know",
+        "id": "verb-27",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3319040",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3319040,
+    "endMs": 3321280,
+    "text": "Whatever you say, babe.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Whatever you ___, babe.",
+        "solution": "say",
+        "id": "verb-29",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3325760",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3325760,
+    "endMs": 3329359,
+    "text": "So, we keep a very tidy house.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "So, we ___ a very tidy house.",
+        "solution": "keep",
+        "id": "verb-30",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3327760",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3327760,
+    "endMs": 3333359,
+    "text": "You should see our bathroom after Michael takes a bath.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ see our bathroom after Michael takes a bath.",
+        "solution": "should",
+        "id": "modal-31",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3342720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3342720,
+    "endMs": 3350799,
+    "text": "Michael told me a little bit about it, but I see the way you look at him.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Michael told me a little bit about it, but I ___ the way you look at him.",
+        "solution": "see",
+        "id": "verb-35",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3346800",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3346800,
+    "endMs": 3355680,
+    "text": "I have never ever dated or wanted to do anything resembling dating Michael.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ never ever dated or wanted to do anything resembling dating Michael.",
+        "solution": "have",
+        "id": "verb-36",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3358160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3358160,
+    "endMs": 3363559,
+    "text": "Notice how you look at him at the office.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "Notice how you ___ at him at the office.",
+        "solution": "look",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3389280",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3389280,
+    "endMs": 3392799,
+    "text": "I've seen you eat it many times.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ seen you eat it many times.",
+        "solution": "have",
+        "id": "verb-42",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3399359",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3399359,
+    "endMs": 3406559,
+    "text": "I hope she didn't do anything to the food.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ she didn't do anything to the food.",
+        "solution": "hope",
+        "id": "verb-44",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3404160",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3404160,
+    "endMs": 3410839,
+    "text": "I can't prove it, but I think she might be trying to poison me.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___'t prove it, but I think she might be trying to poison me.",
+        "solution": "can",
+        "id": "modal-45",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3416799",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3416799,
+    "endMs": 3418799,
+    "text": "I know Jan didn't poison the food.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ Jan didn't poison the food.",
+        "solution": "know",
+        "id": "verb-47",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3440400",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3440400,
+    "endMs": 3445160,
+    "text": "How could you say that?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How ___ you say that?",
+        "solution": "could",
+        "id": "modal-49",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3457200",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3457200,
+    "endMs": 3461520,
+    "text": "I was his babysitter.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ his babysitter.",
+        "solution": "was",
+        "id": "verb-52",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3462720",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3462720,
+    "endMs": 3466240,
+    "text": "That's all you need to know.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "That's all you ___ to know.",
+        "solution": "need",
+        "id": "verb-54",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3498079",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3498079,
+    "endMs": 3504559,
+    "text": "How about we take the beer sign down until our guests leave and then we can discuss it?",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "How about we take the beer sign down until our guests leave and then we ___ discuss it?",
+        "solution": "can",
+        "id": "modal-57",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3504319",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3504319,
+    "endMs": 3510680,
+    "text": "I think it ties the whole room together.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ it ties the whole room together.",
+        "solution": "think",
+        "id": "verb-58",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3523440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3523440,
+    "endMs": 3526480,
+    "text": "I'm a screenwriter and I'm a candle maker.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ a screenwriter and I'm a candle maker.",
+        "solution": "am",
+        "id": "verb-2",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3528559",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3528559,
+    "endMs": 3538000,
+    "text": "ALL YOU DO IS YOU GET me to try to work on my rich FRIENDS FOR AN INVESTMENT OPPORTUNITY.",
+    "level": "B2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "ALL YOU ___ IS YOU GET me to try to work on my rich FRIENDS FOR AN INVESTMENT OPPORTUNITY.",
+        "solution": "DO",
+        "id": "verb-4",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3535440",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3535440,
+    "endMs": 3539680,
+    "text": "MAN, I would love to burn your candles.",
+    "level": "B1",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "MAN, I ___ love to burn your candles.",
+        "solution": "would",
+        "id": "modal-5",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3540640",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3540640,
+    "endMs": 3544559,
+    "text": "I'LL BE YOUR FIRST CUSTOMER.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "I ___ BE YOUR FIRST CUSTOMER.",
+        "solution": "will",
+        "id": "verb-7",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "2jLhZjfu5-o:3542400",
+    "videoId": "2jLhZjfu5-o",
+    "startMs": 3542400,
+    "endMs": 3546865,
+    "text": "You're hardly my first.",
+    "level": "A2",
+    "channel": "The Office",
+    "exercises": [
+      {
+        "prompt": "You ___ hardly my first.",
+        "solution": "are",
+        "id": "verb-8",
+        "tenseId": "present-simple"
+      }
+    ]
+  }
+]

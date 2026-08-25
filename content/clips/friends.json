@@ -1,0 +1,2953 @@
+[
+  {
+    "id": "V05ucvVhkIk:2560",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2560,
+    "endMs": 4400,
+    "text": "Hey, what's going on?",
+    "level": "A1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "going-on",
+        "tenseId": "",
+        "prompt": "Hey, what's ___?",
+        "solution": "going on",
+        "explanation": "«What's going on?» es una forma coloquial de preguntar qué ocurre o cómo está alguien."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:13679",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 13679,
+    "endMs": 19480,
+    "text": "Monica and I are engaged.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "Monica and I ___ engaged.",
+        "solution": "are"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:41280",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 41280,
+    "endMs": 47760,
+    "text": "I'm going to be a bride.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "be-going-to",
+        "prompt": "I ___ a bride.",
+        "solution": "am going to be"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:45120",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 45120,
+    "endMs": 52160,
+    "text": "No, I will NOT SHUT UP BECAUSE I'M ENGAGED.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "future-simple",
+        "prompt": "No, I ___ BECAUSE I'M ENGAGED.",
+        "solution": "will not shut up"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:51680",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 51680,
+    "endMs": 54239,
+    "text": "Why don't you come over here and say that to me, huh, buddy?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "why-dont-you",
+        "tenseId": "",
+        "prompt": "___ come over here and say that to me, huh, buddy?",
+        "solution": "Why don't you",
+        "explanation": "«Why don't you...?» puede ser una sugerencia, aunque en este contexto también suena desafiante."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:85439",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 85439,
+    "endMs": 90240,
+    "text": "Can I ask you just a little question?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "ask-a-question",
+        "tenseId": "",
+        "prompt": "Can I ___ just a little question?",
+        "solution": "ask you",
+        "explanation": "«Can I ask you a question?» es una petición educada para obtener permiso antes de preguntar."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:90640",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 90640,
+    "endMs": 93200,
+    "text": "See, I've been waiting my whole life to be engaged.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-perfect-continuous",
+        "prompt": "See, I ___ my whole life to be engaged.",
+        "solution": "have been waiting"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:108720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 108720,
+    "endMs": 113840,
+    "text": "Um, you kind of stole my thunder.",
+    "level": "C1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "steal-my-thunder",
+        "tenseId": "",
+        "prompt": "Um, you kind of ___ my thunder.",
+        "solution": "stole",
+        "explanation": "«Steal someone's thunder» significa quitarle protagonismo o arruinarle un momento especial."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:123119",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 123119,
+    "endMs": 125680,
+    "text": "I swear we just kissed.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "I ___ we just kissed.",
+        "solution": "swear"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:124880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 124880,
+    "endMs": 128381,
+    "text": "It was just a kiss.",
+    "level": "A1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "past-simple",
+        "prompt": "It ___ just a kiss.",
+        "solution": "was"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:128479",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 128479,
+    "endMs": 132319,
+    "text": "WHAT DOES THIS MEAN?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "WHAT ___?",
+        "solution": "DOES THIS MEAN"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:132319",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 132319,
+    "endMs": 136400,
+    "text": "Can I sing at your wedding?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "sing-at",
+        "tenseId": "",
+        "prompt": "Can I ___ your wedding?",
+        "solution": "sing at",
+        "explanation": "«Sing at a wedding» significa actuar o cantar durante la celebración de una boda."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:138879",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 138879,
+    "endMs": 143920,
+    "text": "Let's not make a big deal out of this.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "make-a-big-deal",
+        "tenseId": "",
+        "prompt": "Let's ___ this.",
+        "solution": "not make a big deal out of",
+        "explanation": "«Make a big deal out of something» es darle demasiada importancia."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:143200",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 143200,
+    "endMs": 146721,
+    "text": "It doesn't even matter.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "It ___ even matter.",
+        "solution": "does not"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:147360",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 147360,
+    "endMs": 150560,
+    "text": "I cannot believe you guys are talking about this.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "cannot-believe",
+        "tenseId": "",
+        "prompt": "I ___ you guys are talking about this.",
+        "solution": "cannot believe",
+        "explanation": "«I can't believe...» expresa sorpresa o incredulidad ante algo que está ocurriendo."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:159200",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 159200,
+    "endMs": 161920,
+    "text": "I know what I want.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "I ___ what I want.",
+        "solution": "know"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:164160",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 164160,
+    "endMs": 168800,
+    "text": "I want to have your grandmother's cookie recipe.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "I ___ your grandmother's cookie recipe.",
+        "solution": "want to have"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:167200",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 167200,
+    "endMs": 171200,
+    "text": "You mean the chocolate chip cookie recipe?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "You ___ the chocolate chip cookie recipe?",
+        "solution": "mean"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:176720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 176720,
+    "endMs": 183040,
+    "text": "Dying people say the craziest things.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "Dying people ___ the craziest things.",
+        "solution": "say"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:192959",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 192959,
+    "endMs": 198640,
+    "text": "I wish you health and happiness.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "wish-you",
+        "tenseId": "",
+        "prompt": "I ___ health and happiness.",
+        "solution": "wish you",
+        "explanation": "«I wish you...» es una fórmula para expresar buenos deseos."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:215040",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 215040,
+    "endMs": 217360,
+    "text": "I think I can figure out the recipe from this cookie.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "figure-out",
+        "tenseId": "",
+        "prompt": "I think I can ___ the recipe from this cookie.",
+        "solution": "figure out",
+        "explanation": "«Figure out» significa averiguar o deducir la respuesta mediante razonamiento."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:222879",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 222879,
+    "endMs": 228000,
+    "text": "I I definitely taste nutmeg.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "taste",
+        "tenseId": "present-simple",
+        "prompt": "I I definitely ___ nutmeg.",
+        "solution": "taste"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:237280",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 237280,
+    "endMs": 241697,
+    "text": "Hey, how was sailing?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "past-simple",
+        "prompt": "Hey, how ___ sailing?",
+        "solution": "was"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:257040",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 257040,
+    "endMs": 263799,
+    "text": "Now, the only thing that's left of my grandmother's legacy is this crumb.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "Now, the only thing that's left of my grandmother's legacy ___ this crumb.",
+        "solution": "is"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:263919",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 263919,
+    "endMs": 268240,
+    "text": "I wish you a long and happy marriage.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "id": "wish-you",
+        "tenseId": "",
+        "prompt": "I ___ a long and happy marriage.",
+        "solution": "wish you",
+        "explanation": "«I wish you...» también se usa para felicitar o desearle algo bueno a alguien."
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:276800",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 276800,
+    "endMs": 282160,
+    "text": "Well, I've not made this many cookies since I was in the ninth grade.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, I ___ not made this many cookies since I was in the ninth grade.",
+        "solution": "have",
+        "id": "verb-2",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:294240",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 294240,
+    "endMs": 301120,
+    "text": "The ones we had right after you almost threw up.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "The ones we ___ right after you almost threw up.",
+        "solution": "had",
+        "id": "verb-8",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:311360",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 311360,
+    "endMs": 313840,
+    "text": "I think there's one from batch 17 left.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ there's one from batch 17 left.",
+        "solution": "think",
+        "id": "verb-13",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:336000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 336000,
+    "endMs": 341479,
+    "text": "No, she was really nice to me.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "No, she ___ really nice to me.",
+        "solution": "was",
+        "id": "verb-17",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:344000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 344000,
+    "endMs": 347360,
+    "text": "I guess I'm not going to be the mom who makes the world's best chocolate chip cookies.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I guess I ___ not going to be the mom who makes the world's best chocolate chip cookies.",
+        "solution": "am",
+        "id": "verb-19",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:357199",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 357199,
+    "endMs": 361199,
+    "text": "Isn't there any relative that would have the recipe?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Isn't there any relative that ___ have the recipe?",
+        "solution": "would",
+        "id": "modal-22",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:362320",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 362320,
+    "endMs": 370720,
+    "text": "I made a promise to myself that the next time I would talk to Ursula is over my dead body.",
+    "level": "B2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I made a promise to myself that the next time I ___ talk to Ursula is over my dead body.",
+        "solution": "would",
+        "id": "modal-24",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:373840",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 373840,
+    "endMs": 375520,
+    "text": "That's the day you're going to die.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "That's the day you ___ going to die.",
+        "solution": "are",
+        "id": "verb-26",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:376479",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 376479,
+    "endMs": 382524,
+    "text": "I've got shuffle board that day.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ got shuffle board that day.",
+        "solution": "have",
+        "id": "verb-27",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:380000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 380000,
+    "endMs": 384544,
+    "text": "That's what you think.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "That's what you ___.",
+        "solution": "think",
+        "id": "verb-28",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:385199",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 385199,
+    "endMs": 387440,
+    "text": "Well, I mean, what about friends of your grandmothers?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, I ___, what about friends of your grandmothers?",
+        "solution": "mean",
+        "id": "verb-29",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:450319",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 450319,
+    "endMs": 454720,
+    "text": "Actually, I'm here about the assistant job.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Actually, I ___ here about the assistant job.",
+        "solution": "am",
+        "id": "verb-38",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:456720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 456720,
+    "endMs": 458560,
+    "text": "We'll just have a seat there.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "We ___ just have a seat there.",
+        "solution": "will",
+        "id": "verb-40",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:485759",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 485759,
+    "endMs": 488319,
+    "text": "I know, but I'm a goal oriented person.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I know, but I ___ a goal oriented person.",
+        "solution": "am",
+        "id": "verb-48",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:498240",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 498240,
+    "endMs": 499759,
+    "text": "Would you just stand up, please?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ you just stand up, please?",
+        "solution": "Would",
+        "id": "modal-52",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:499759",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 499759,
+    "endMs": 503440,
+    "text": "I do not have any secrets from you.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ not have any secrets from you.",
+        "solution": "do",
+        "id": "verb-53",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:502720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 502720,
+    "endMs": 508879,
+    "text": "So, why don't you tell me what happened to Ross junior year at Disneyland?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "So, why don't you ___ me what happened to Ross junior year at Disneyland?",
+        "solution": "tell",
+        "id": "verb-54",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:506879",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 506879,
+    "endMs": 510160,
+    "text": "I can't do that.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___'t do that.",
+        "solution": "can",
+        "id": "modal-55",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:513200",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 513200,
+    "endMs": 518000,
+    "text": "So, Ross and I are going to Disneyland, and we stop at this restaurant for tacos.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "So, Ross and I ___ Disneyland, and we stop at this restaurant for tacos.",
+        "solution": "are going to",
+        "id": "going-to-57",
+        "tenseId": "be-going-to"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:571760",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 571760,
+    "endMs": 573680,
+    "text": "Either way, I'll pass.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Either way, I ___ pass.",
+        "solution": "will",
+        "id": "verb-8",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:573680",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 573680,
+    "endMs": 575751,
+    "text": "Still can't eat those.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Still ___'t eat those.",
+        "solution": "can",
+        "id": "modal-9",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:622160",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 622160,
+    "endMs": 625532,
+    "text": "I should be laying down papers for you.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ be laying down papers for you.",
+        "solution": "should",
+        "id": "modal-14",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:627760",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 627760,
+    "endMs": 630880,
+    "text": "How could you tell her?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "How ___ you tell her?",
+        "solution": "could",
+        "id": "modal-15",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:630880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 630880,
+    "endMs": 635360,
+    "text": "Married couples can't keep secrets from one another.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Married couples ___'t keep secrets from one another.",
+        "solution": "can",
+        "id": "modal-16",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:640720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 640720,
+    "endMs": 645760,
+    "text": "Well, Chandler and I are in a bar.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, Chandler and I ___ in a bar.",
+        "solution": "are",
+        "id": "verb-19",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:692880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 692880,
+    "endMs": 696272,
+    "text": "Well, maybe Chandler should know some of your secrets, too.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, maybe Chandler ___ know some of your secrets, too.",
+        "solution": "should",
+        "id": "modal-30",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:715519",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 715519,
+    "endMs": 720320,
+    "text": "Monica couldn't tell time until SHE WAS 13.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Monica couldn't tell time until SHE ___ 13.",
+        "solution": "WAS",
+        "id": "verb-34",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:723440",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 723440,
+    "endMs": 727519,
+    "text": "Of course it is.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Of course it ___.",
+        "solution": "is",
+        "id": "verb-36",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:756079",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 756079,
+    "endMs": 758399,
+    "text": "They're going to run our engagement announcement in the local paper.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "They ___ going to run our engagement announcement in the local paper.",
+        "solution": "are",
+        "id": "verb-43",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:758399",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 758399,
+    "endMs": 763083,
+    "text": "So, we're looking for a good picture of us.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "So, we ___ looking for a good picture of us.",
+        "solution": "are",
+        "id": "verb-44",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:760079",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 760079,
+    "endMs": 763920,
+    "text": "Ooh, I'm afraid that does not exist.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Ooh, I ___ afraid that does not exist.",
+        "solution": "am",
+        "id": "verb-45",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:764639",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 764639,
+    "endMs": 767279,
+    "text": "They're great pictures of us.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "They ___ great pictures of us.",
+        "solution": "are",
+        "id": "verb-46",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:772399",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 772399,
+    "endMs": 778639,
+    "text": "That's the creep that you're with at the Statue of Liberty.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "That's the creep that you ___ with at the Statue of Liberty.",
+        "solution": "are",
+        "id": "verb-48",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:778079",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 778079,
+    "endMs": 781920,
+    "text": "I just can't take a good picture.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I just ___'t take a good picture.",
+        "solution": "can",
+        "id": "modal-49",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:781920",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 781920,
+    "endMs": 786009,
+    "text": "Yeah, I'm not in that.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Yeah, I ___ not in that.",
+        "solution": "am",
+        "id": "verb-51",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:783519",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 783519,
+    "endMs": 786480,
+    "text": "I know, but look at me all tan.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___, but look at me all tan.",
+        "solution": "know",
+        "id": "verb-52",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:816399",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 816399,
+    "endMs": 822120,
+    "text": "Now, Chandler, you want to give us a smile?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Now, Chandler, you ___ to give us a smile?",
+        "solution": "want",
+        "id": "verb-57",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:827680",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 827680,
+    "endMs": 829680,
+    "text": "Can see I know you can do this.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ see I know you can do this.",
+        "solution": "Can",
+        "id": "modal-59",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:830000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 830000,
+    "endMs": 835000,
+    "text": "You have a beautiful smile.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ a beautiful smile.",
+        "solution": "have",
+        "id": "verb-0",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:859839",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 859839,
+    "endMs": 864880,
+    "text": "Okay, we'll we'll gaze into our future and we'll think about our marriage and the days to come.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Okay, we ___ we'll gaze into our future and we'll think about our marriage and the days to come.",
+        "solution": "will",
+        "id": "verb-3",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:902880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 902880,
+    "endMs": 904880,
+    "text": "Can't all be bad.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___'t all be bad.",
+        "solution": "Can",
+        "id": "modal-8",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:904880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 904880,
+    "endMs": 909440,
+    "text": "Find the one where you make your bedroom eyes.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Find the one where you ___ your bedroom eyes.",
+        "solution": "make",
+        "id": "verb-9",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:908160",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 908160,
+    "endMs": 913440,
+    "text": "Oh, there it is.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Oh, there it ___.",
+        "solution": "is",
+        "id": "verb-10",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:925600",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 925600,
+    "endMs": 929519,
+    "text": "Now, pretend I have a camera.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Now, pretend I ___ a camera.",
+        "solution": "have",
+        "id": "verb-15",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:930639",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 930639,
+    "endMs": 933040,
+    "text": "I can't help it.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___'t help it.",
+        "solution": "can",
+        "id": "modal-17",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:933600",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 933600,
+    "endMs": 939120,
+    "text": "You want to know what I do when I take resume shots?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ to know what I do when I take resume shots?",
+        "solution": "want",
+        "id": "verb-18",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:940800",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 940800,
+    "endMs": 946880,
+    "text": "First, first of all, you want to make it look spontaneous, right?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "First, first of all, you ___ to make it look spontaneous, right?",
+        "solution": "want",
+        "id": "verb-20",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:967600",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 967600,
+    "endMs": 970240,
+    "text": "Hey, there you are.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Hey, there you ___.",
+        "solution": "are",
+        "id": "verb-24",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:986560",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 986560,
+    "endMs": 990240,
+    "text": "Don't worry because I know how to take a picture now.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Don't worry because I ___ how to take a picture now.",
+        "solution": "know",
+        "id": "verb-28",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1022320",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1022320,
+    "endMs": 1026559,
+    "text": "Yeah, we look great together.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Yeah, we ___ great together.",
+        "solution": "look",
+        "id": "verb-31",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1030880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1030880,
+    "endMs": 1034760,
+    "text": "You know, we don't have to imagine.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___, we don't have to imagine.",
+        "solution": "know",
+        "id": "verb-33",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1047280",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1047280,
+    "endMs": 1051200,
+    "text": "Hey, what do you say we make it a double feature?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Hey, what do you ___ we make it a double feature?",
+        "solution": "say",
+        "id": "verb-34",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1057679",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1057679,
+    "endMs": 1065280,
+    "text": "Oh, well, we watch it a second time and it's Die Hard 2.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Oh, well, we ___ it a second time and it's Die Hard 2.",
+        "solution": "watch",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1126000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1126000,
+    "endMs": 1129760,
+    "text": "Yeah, I think that would be best.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Yeah, I think that ___ be best.",
+        "solution": "would",
+        "id": "modal-45",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1128720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1128720,
+    "endMs": 1131520,
+    "text": "I'll talk to you later.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ talk to you later.",
+        "solution": "will",
+        "id": "verb-46",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1189280",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1189280,
+    "endMs": 1196698,
+    "text": "JOEY, I want to do it again.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "JOEY, I ___ to do it again.",
+        "solution": "want",
+        "id": "verb-58",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1198480",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1198480,
+    "endMs": 1200320,
+    "text": "We can't do it again.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "We ___'t do it again.",
+        "solution": "can",
+        "id": "modal-59",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1207120",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1207120,
+    "endMs": 1209600,
+    "text": "You want something to drink?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ something to drink?",
+        "solution": "want",
+        "id": "verb-0",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1217919",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1217919,
+    "endMs": 1222400,
+    "text": "Boy, I'll tell you that judging stuff took a lot out of me.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Boy, I ___ tell you that judging stuff took a lot out of me.",
+        "solution": "will",
+        "id": "verb-3",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1230960",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1230960,
+    "endMs": 1238400,
+    "text": "Why would I care about that?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Why ___ I care about that?",
+        "solution": "would",
+        "id": "modal-5",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1361440",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1361440,
+    "endMs": 1363840,
+    "text": "I am so sorry, sweetie.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ so sorry, sweetie.",
+        "solution": "am",
+        "id": "verb-15",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1366960",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1366960,
+    "endMs": 1370400,
+    "text": "You didn't tell her we're getting married, did you?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You didn't tell her we ___ getting married, did you?",
+        "solution": "are",
+        "id": "verb-16",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1371679",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1371679,
+    "endMs": 1376799,
+    "text": "Well, she was shocked when I told her, but then again, so were most people.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, she ___ shocked when I told her, but then again, so were most people.",
+        "solution": "was",
+        "id": "verb-19",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1376799",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1376799,
+    "endMs": 1379919,
+    "text": "Well, she actually has a boyfriend, you know, herself.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, she actually has a boyfriend, you ___, herself.",
+        "solution": "know",
+        "id": "verb-20",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1399039",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1399039,
+    "endMs": 1402559,
+    "text": "I mean, what was I supposed to do?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___, what was I supposed to do?",
+        "solution": "mean",
+        "id": "verb-25",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1448720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1448720,
+    "endMs": 1452880,
+    "text": "Would have really been that easy.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ have really been that easy.",
+        "solution": "Would",
+        "id": "modal-40",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1459279",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1459279,
+    "endMs": 1462559,
+    "text": "We're going to take Clunkers to Ross's.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "We ___ going to take Clunkers to Ross's.",
+        "solution": "are",
+        "id": "verb-42",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1462559",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1462559,
+    "endMs": 1466559,
+    "text": "Before you guys go, can I just ask you a question?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Before you guys go, ___ I just ask you a question?",
+        "solution": "can",
+        "id": "modal-43",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1524400",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1524400,
+    "endMs": 1526480,
+    "text": "I mean, he's he's obviously depressed.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___, he's he's obviously depressed.",
+        "solution": "mean",
+        "id": "verb-54",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1534480",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1534480,
+    "endMs": 1538640,
+    "text": "Okay, that's what I'm going to do.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Okay, that's what I ___ going to do.",
+        "solution": "am",
+        "id": "verb-56",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1552400",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1552400,
+    "endMs": 1554480,
+    "text": "No, we are playing this game I learned at work.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "No, we ___ playing this game I learned at work.",
+        "solution": "are",
+        "id": "verb-2",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1554480",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1554480,
+    "endMs": 1559520,
+    "text": "You have to name all the states in six minutes.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ to name all the states in six minutes.",
+        "solution": "have",
+        "id": "verb-3",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1613279",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1613279,
+    "endMs": 1618159,
+    "text": "Oo, this may be a new world's record.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Oo, this ___ be a new world's record.",
+        "solution": "may",
+        "id": "modal-17",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1647120",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1647120,
+    "endMs": 1650240,
+    "text": "Look, Ross, if you don't know them by now, you will never know them.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Look, Ross, if you don't know them by now, you ___ never know them.",
+        "solution": "will",
+        "id": "modal-25",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1661039",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1661039,
+    "endMs": 1666240,
+    "text": "Okay, but if you can't, no dinner.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Okay, but if you ___'t, no dinner.",
+        "solution": "can",
+        "id": "modal-29",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1689279",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1689279,
+    "endMs": 1696799,
+    "text": "I have 49 states and there are no more.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ 49 states and there are no more.",
+        "solution": "have",
+        "id": "verb-34",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1727520",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1727520,
+    "endMs": 1733799,
+    "text": "I want my turkey now.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ my turkey now.",
+        "solution": "want",
+        "id": "verb-37",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1762880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1762880,
+    "endMs": 1766080,
+    "text": "How can I help you?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "How ___ I help you?",
+        "solution": "can",
+        "id": "modal-41",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1780880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1780880,
+    "endMs": 1785605,
+    "text": "I'm the holiday armadillo.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ the holiday armadillo.",
+        "solution": "am",
+        "id": "verb-47",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1786159",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1786159,
+    "endMs": 1797520,
+    "text": "I'm a friend of Santa's and he sent me here to wish you a merry Christmas.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ a friend of Santa's and he sent me here to wish you a merry Christmas.",
+        "solution": "am",
+        "id": "verb-48",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1808159",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1808159,
+    "endMs": 1814039,
+    "text": "You must be exhausted coming all the way from Texas.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ be exhausted coming all the way from Texas.",
+        "solution": "must",
+        "id": "modal-51",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1817760",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1817760,
+    "endMs": 1828559,
+    "text": "I'm Santa's representative for all the southern states and Mexico.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ Santa's representative for all the southern states and Mexico.",
+        "solution": "am",
+        "id": "verb-52",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1834159",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1834159,
+    "endMs": 1836641,
+    "text": "Maybe the lady will help ME WITH THESE PRESENTS.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Maybe the lady ___ help ME WITH THESE PRESENTS.",
+        "solution": "will",
+        "id": "modal-54",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1875679",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1875679,
+    "endMs": 1877919,
+    "text": "You take half and I take half.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ half and I take half.",
+        "solution": "take",
+        "id": "verb-59",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1877600",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1877600,
+    "endMs": 1879919,
+    "text": "You've already had some.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ already had some.",
+        "solution": "have",
+        "id": "verb-0",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1879679",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1879679,
+    "endMs": 1886399,
+    "text": "I think Monica would be very interested to know that you called her cheesecake dry and mealy.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I think Monica ___ be very interested to know that you called her cheesecake dry and mealy.",
+        "solution": "would",
+        "id": "modal-1",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1884799",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1884799,
+    "endMs": 1889399,
+    "text": "What do we use to split it?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "What do we ___ to split it?",
+        "solution": "use",
+        "id": "verb-2",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1903679",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1903679,
+    "endMs": 1908799,
+    "text": "All right, I'll pick that.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "All right, I ___ pick that.",
+        "solution": "will",
+        "id": "verb-7",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1908799",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1908799,
+    "endMs": 1910640,
+    "text": "Okay, there you go.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Okay, there you ___.",
+        "solution": "go",
+        "id": "verb-9",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1913919",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1913919,
+    "endMs": 1922279,
+    "text": "No sharing, no switching, and don't come crying to me if you eat YOUR PIECE TOO FAST.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "No sharing, no switching, and don't come crying to me if you ___ YOUR PIECE TOO FAST.",
+        "solution": "eat",
+        "id": "verb-11",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1938720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1938720,
+    "endMs": 1941679,
+    "text": "I may just sit here and have my cake all day.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ just sit here and have my cake all day.",
+        "solution": "may",
+        "id": "modal-15",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:1983679",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 1983679,
+    "endMs": 1992640,
+    "text": "Hey, she's not as pretty as she was when she was 29.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Hey, she's not as pretty as she ___ when she was 29.",
+        "solution": "was",
+        "id": "verb-20",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2025200",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2025200,
+    "endMs": 2031760,
+    "text": "Well, can I keep the presents and still be 29?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, ___ I keep the presents and still be 29?",
+        "solution": "can",
+        "id": "modal-25",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2042799",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2042799,
+    "endMs": 2044799,
+    "text": "How hot do I look in this?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "How hot do I ___ in this?",
+        "solution": "look",
+        "id": "verb-30",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2057839",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2057839,
+    "endMs": 2059679,
+    "text": "I've always been into cars.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ always been into cars.",
+        "solution": "have",
+        "id": "verb-34",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2066399",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2066399,
+    "endMs": 2068480,
+    "text": "I can't believe you bought this.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___'t believe you bought this.",
+        "solution": "can",
+        "id": "modal-37",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2116800",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2116800,
+    "endMs": 2121760,
+    "text": "I think it's the dying cat parade.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ it's the dying cat parade.",
+        "solution": "think",
+        "id": "verb-39",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2128079",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2128079,
+    "endMs": 2130880,
+    "text": "You know that thing that Ross was going to do at our wedding?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ that thing that Ross was going to do at our wedding?",
+        "solution": "know",
+        "id": "verb-41",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2157040",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2157040,
+    "endMs": 2158720,
+    "text": "I mean, everyone will leave.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I mean, everyone ___ leave.",
+        "solution": "will",
+        "id": "modal-46",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2158720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2158720,
+    "endMs": 2162240,
+    "text": "I mean, come on.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___, come on.",
+        "solution": "mean",
+        "id": "verb-47",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2166320",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2166320,
+    "endMs": 2172660,
+    "text": "I think it's Celebration by Cool in the Gang.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ it's Celebration by Cool in the Gang.",
+        "solution": "think",
+        "id": "verb-50",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2178480",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2178480,
+    "endMs": 2180079,
+    "text": "Do you want some shortbread?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Do you ___ some shortbread?",
+        "solution": "want",
+        "id": "verb-52",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2202000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2202000,
+    "endMs": 2206000,
+    "text": "You can't play bag pipes at the wedding.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___'t play bag pipes at the wedding.",
+        "solution": "can",
+        "id": "modal-57",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2206000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2206000,
+    "endMs": 2209440,
+    "text": "How did you know about that?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "How did you ___ about that?",
+        "solution": "know",
+        "id": "verb-58",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2207440",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2207440,
+    "endMs": 2213839,
+    "text": "We heard you play all the way from your apartment.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "We heard you ___ all the way from your apartment.",
+        "solution": "play",
+        "id": "verb-59",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2245599",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2245599,
+    "endMs": 2250040,
+    "text": "Remember, I'm I'm still learning.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Remember, I ___ I'm still learning.",
+        "solution": "am",
+        "id": "verb-7",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2303680",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2303680,
+    "endMs": 2310211,
+    "text": "No, but horny for Monica Minister called wanting to know if we were still together.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "No, but horny for Monica Minister called wanting to know if we ___ still together.",
+        "solution": "were",
+        "id": "verb-10",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2311760",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2311760,
+    "endMs": 2314560,
+    "text": "We're never going to find anybody.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "We ___ never going to find anybody.",
+        "solution": "are",
+        "id": "verb-11",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2324160",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2324160,
+    "endMs": 2329359,
+    "text": "You know, everyone knows I'm an assman.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You know, everyone knows I ___ an assman.",
+        "solution": "am",
+        "id": "verb-15",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2343920",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2343920,
+    "endMs": 2346800,
+    "text": "Might be kind of cool.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ be kind of cool.",
+        "solution": "Might",
+        "id": "modal-19",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2345440",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2345440,
+    "endMs": 2347920,
+    "text": "So, I can do it?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "So, I ___ do it?",
+        "solution": "can",
+        "id": "modal-20",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2346800",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2346800,
+    "endMs": 2350960,
+    "text": "Yeah, you can do it.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Yeah, you ___ do it.",
+        "solution": "can",
+        "id": "modal-21",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2355520",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2355520,
+    "endMs": 2361720,
+    "text": "Internet ministers can still have sex, right?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Internet ministers ___ still have sex, right?",
+        "solution": "can",
+        "id": "modal-24",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2370480",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2370480,
+    "endMs": 2373520,
+    "text": "So, when they open those doors, fan out.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "So, when they ___ those doors, fan out.",
+        "solution": "open",
+        "id": "verb-28",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2437040",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2437040,
+    "endMs": 2439920,
+    "text": "You saw me wearing it and now you'll see me buying it.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You saw me wearing it and now you ___ see me buying it.",
+        "solution": "will",
+        "id": "verb-35",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2468240",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2468240,
+    "endMs": 2472240,
+    "text": "Did you find the dress?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Did you ___ the dress?",
+        "solution": "find",
+        "id": "verb-39",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2471040",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2471040,
+    "endMs": 2473440,
+    "text": "Did you find the dress?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Did you ___ the dress?",
+        "solution": "find",
+        "id": "verb-40",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2504800",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2504800,
+    "endMs": 2506400,
+    "text": "Remember, if you win, you have to hug me.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Remember, if you win, you ___ to hug me.",
+        "solution": "have",
+        "id": "verb-47",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2507680",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2507680,
+    "endMs": 2509333,
+    "text": "Can I squeeze your ass",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ I squeeze your ass",
+        "solution": "Can",
+        "id": "modal-48",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2554960",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2554960,
+    "endMs": 2563760,
+    "text": "Well, we were just talking about you guys getting married and how great it is.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Well, we ___ just talking about you guys getting married and how great it is.",
+        "solution": "were",
+        "id": "verb-51",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2560960",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2560960,
+    "endMs": 2565009,
+    "text": "Yeah, you can get a Volvo if that's what you really want.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Yeah, you ___ get a Volvo if that's what you really want.",
+        "solution": "can",
+        "id": "modal-52",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2592800",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2592800,
+    "endMs": 2597079,
+    "text": "Monica, will you marry me?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Monica, ___ you marry me?",
+        "solution": "will",
+        "id": "modal-56",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2608319",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2608319,
+    "endMs": 2612800,
+    "text": "We'll make yours funnier.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "We ___ make yours funnier.",
+        "solution": "will",
+        "id": "verb-0",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2620640",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2620640,
+    "endMs": 2622880,
+    "text": "Listen, if you want to borrow money, it's kind of a bad time.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Listen, if you ___ to borrow money, it's kind of a bad time.",
+        "solution": "want",
+        "id": "verb-3",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2622880",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2622880,
+    "endMs": 2626560,
+    "text": "I'm buying dinner for 128 people tomorrow night.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ buying dinner for 128 people tomorrow night.",
+        "solution": "am",
+        "id": "verb-4",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2632720",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2632720,
+    "endMs": 2636400,
+    "text": "I'm I'm saying it as Monica's older brother.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ I'm saying it as Monica's older brother.",
+        "solution": "am",
+        "id": "verb-6",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2639040",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2639040,
+    "endMs": 2645119,
+    "text": "During this time, are you are you still my best man?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "During this time, are you ___ you still my best man?",
+        "solution": "are",
+        "id": "verb-9",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2682240",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2682240,
+    "endMs": 2684220,
+    "text": "I'M I'M I'M SERIOUS.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ I'M I'M SERIOUS.",
+        "solution": "am",
+        "id": "verb-13",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2688000",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2688000,
+    "endMs": 2691200,
+    "text": "OKAY, I'm I'm not kidding here.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "OKAY, I ___ I'm not kidding here.",
+        "solution": "am",
+        "id": "verb-14",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2689440",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2689440,
+    "endMs": 2692319,
+    "text": "Hey, I hear what you're saying, okay?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Hey, I hear what you ___ saying, okay?",
+        "solution": "are",
+        "id": "verb-15",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2710079",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2710079,
+    "endMs": 2714240,
+    "text": "I THINK I JUST CRACKED A RIB, BUT I DON'T CARE BECAUSE today is my wedding day.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ I JUST CRACKED A RIB, BUT I DON'T CARE BECAUSE today is my wedding day.",
+        "solution": "THINK",
+        "id": "verb-19",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2719359",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2719359,
+    "endMs": 2722211,
+    "text": "You know, she might not even notice he's gone.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You know, she ___ not even notice he's gone.",
+        "solution": "might",
+        "id": "modal-21",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2723760",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2723760,
+    "endMs": 2729040,
+    "text": "I'm going to start getting ready.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "I ___ going to start getting ready.",
+        "solution": "am",
+        "id": "verb-22",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2727200",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2727200,
+    "endMs": 2729440,
+    "text": "God, we can't let her start getting ready.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "God, we ___'t let her start getting ready.",
+        "solution": "can",
+        "id": "modal-23",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2739119",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2739119,
+    "endMs": 2742760,
+    "text": "You can't do this here.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___'t do this here.",
+        "solution": "can",
+        "id": "modal-26",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2746960",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2746960,
+    "endMs": 2750400,
+    "text": "You've got to pull yourself together.",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ got to pull yourself together.",
+        "solution": "have",
+        "id": "verb-28",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2756400",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2756400,
+    "endMs": 2758720,
+    "text": "Can you grab me some toilet paper?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ you grab me some toilet paper?",
+        "solution": "Can",
+        "id": "modal-32",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2775440",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2775440,
+    "endMs": 2781871,
+    "text": "Can I have another one?",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ I have another one?",
+        "solution": "Can",
+        "id": "modal-34",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2782800",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2782800,
+    "endMs": 2786319,
+    "text": "Do you NEED SOME FLOSS?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Do you ___ SOME FLOSS?",
+        "solution": "NEED",
+        "id": "verb-35",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2786319",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2786319,
+    "endMs": 2792480,
+    "text": "OH, I just cannot imagine what is going to happen if Chandler doesn't show up.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "OH, I just cannot imagine what ___ happen if Chandler doesn't show up.",
+        "solution": "is going to",
+        "id": "going-to-36",
+        "tenseId": "be-going-to"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2791760",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2791760,
+    "endMs": 2798480,
+    "text": "Oh, I mean, she's going to be at the wedding waiting for him and people will be whispering, \"Oh, that poor girl.\"",
+    "level": "B2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Oh, I mean, she's going to be at the wedding waiting for him and people ___ be whispering, \"Oh, that poor girl.\"",
+        "solution": "will",
+        "id": "modal-37",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2798480",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2798480,
+    "endMs": 2802000,
+    "text": "You know, and then she'll have to come back here and live all alone.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You know, and then she ___ have to come back here and live all alone.",
+        "solution": "will",
+        "id": "verb-38",
+        "tenseId": "future-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2820560",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2820560,
+    "endMs": 2826440,
+    "text": "Dearly beloved, I'm sorry I'm a little late.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Dearly beloved, I ___ sorry I'm a little late.",
+        "solution": "am",
+        "id": "verb-41",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2827359",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2827359,
+    "endMs": 2831200,
+    "text": "May be confused by this now, but you won't be.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "___ be confused by this now, but you won't be.",
+        "solution": "May",
+        "id": "modal-42",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2966960",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2966960,
+    "endMs": 2975240,
+    "text": "Any surprises that come our way, it's okay because I will always love you.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Any surprises that come our way, it's okay because I ___ always love you.",
+        "solution": "will",
+        "id": "modal-54",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2975920",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2975920,
+    "endMs": 2984280,
+    "text": "You are the person I was meant to spend the rest of my life with.",
+    "level": "B1",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You ___ the person I was meant to spend the rest of my life with.",
+        "solution": "are",
+        "id": "verb-55",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:2980240",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 2980240,
+    "endMs": 2984280,
+    "text": "You want to know if I'm sure?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "You want to know if I ___ sure?",
+        "solution": "am",
+        "id": "verb-56",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "V05ucvVhkIk:3007839",
+    "videoId": "V05ucvVhkIk",
+    "startMs": 3007839,
+    "endMs": 3010400,
+    "text": "Do you take each other?",
+    "level": "A2",
+    "channel": "Friends",
+    "exercises": [
+      {
+        "prompt": "Do you ___ each other?",
+        "solution": "take",
+        "id": "verb-58",
+        "tenseId": "present-simple"
+      }
+    ]
+  }
+]

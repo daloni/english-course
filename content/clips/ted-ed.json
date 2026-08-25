@@ -1,0 +1,53 @@
+[
+  {
+    "id": "l29K-ZkARmE:78440",
+    "videoId": "l29K-ZkARmE",
+    "startMs": 78440,
+    "endMs": 87880,
+    "text": "From that day on, Cassandra would be able to precisely see and describe the future, but her prophecies would never be believed.",
+    "level": "B2",
+    "channel": "TED-Ed",
+    "exercises": [
+      {
+        "prompt": "From that day on, Cassandra ___ be able to precisely see and describe the future, but her prophecies would never be believed.",
+        "solution": "would",
+        "id": "modal-10",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "l29K-ZkARmE:156000",
+    "videoId": "l29K-ZkARmE",
+    "startMs": 156000,
+    "endMs": 163520,
+    "text": "Instead of heeding Cassandra's warnings, they wrestled her to the ground and scoffed that she was getting more paranoid with age.",
+    "level": "B2",
+    "channel": "TED-Ed",
+    "exercises": [
+      {
+        "prompt": "Instead of heeding Cassandra's warnings, they wrestled her to the ground and scoffed that she ___ getting more paranoid with age.",
+        "solution": "was",
+        "id": "verb-20",
+        "tenseId": "past-simple"
+      }
+    ]
+  },
+  {
+    "id": "l29K-ZkARmE:214760",
+    "videoId": "l29K-ZkARmE",
+    "startMs": 214760,
+    "endMs": 225322,
+    "text": "Earlier in the years of battle, Agamemnon had sacrificed his daughter to the war effort, hoping the gods would favor the Greeks in return.",
+    "level": "B2",
+    "channel": "TED-Ed",
+    "exercises": [
+      {
+        "prompt": "Earlier in the years of battle, Agamemnon had sacrificed his daughter to the war effort, hoping the gods ___ favor the Greeks in return.",
+        "solution": "would",
+        "id": "modal-28",
+        "tenseId": ""
+      }
+    ]
+  }
+]

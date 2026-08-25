@@ -1,0 +1,669 @@
+[
+  {
+    "id": "v8ecvyglvJ8:27760",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 27760,
+    "endMs": 33120,
+    "text": "I'm sorry to interrupt your day um but could you help me?",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "could-you-help",
+        "tenseId": "",
+        "prompt": "I'm sorry to interrupt your day um but ___ me?",
+        "solution": "could you help",
+        "explanation": "«Could you help me?» es una forma educada de pedir ayuda a otra persona."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:35000",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 35000,
+    "endMs": 37800,
+    "text": "Excuse me, I'm sorry to interrupt your day.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "sorry-to-interrupt",
+        "tenseId": "",
+        "prompt": "Excuse me, I'm ___ your day.",
+        "solution": "sorry to interrupt",
+        "explanation": "«Sorry to interrupt» sirve para disculparse educadamente antes de interrumpir a alguien."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:37800",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 37800,
+    "endMs": 43520,
+    "text": "Uh I'm kind of new to the city um are you from here?",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "new-to",
+        "tenseId": "",
+        "prompt": "Uh I'm kind of ___ the city um are you from here?",
+        "solution": "new to",
+        "explanation": "«Be new to» indica que alguien acaba de llegar a un lugar o todavía no lo conoce bien."
+      },
+      {
+        "id": "from-here",
+        "tenseId": "present-simple",
+        "prompt": "Uh I'm kind of new to the city um ___ from here?",
+        "solution": "are you",
+        "explanation": "El presente simple con «be» pregunta por el origen de una persona."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:52720",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 52720,
+    "endMs": 57680,
+    "text": "Hi, uh sorry to interrupt you um are you from around here?",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "around-here",
+        "tenseId": "",
+        "prompt": "Hi, uh sorry to interrupt you um are you from ___?",
+        "solution": "around here",
+        "explanation": "«Around here» significa de esta zona o de algún lugar cercano."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:56640",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 56640,
+    "endMs": 60360,
+    "text": "Yeah, I'm from Munster.",
+    "level": "A1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "Yeah, ___ from Munster.",
+        "solution": "I am"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:66520",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 66520,
+    "endMs": 73080,
+    "text": "and I would like to know something that I should really go and see first.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "would-like-to",
+        "tenseId": "",
+        "prompt": "and I ___ know something that I should really go and see first.",
+        "solution": "would like to",
+        "explanation": "«Would like to» expresa un deseo de manera más cortés que «want to»."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:89600",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 89600,
+    "endMs": 93480,
+    "text": "It's pretty uh famous.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "pretty",
+        "tenseId": "",
+        "prompt": "It's ___ uh famous.",
+        "solution": "pretty",
+        "explanation": "Aquí «pretty» significa bastante, no bonito."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:91520",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 91520,
+    "endMs": 94160,
+    "text": "Yeah, I think Munster is a typical student city.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "Yeah, I ___ Munster is a typical student city.",
+        "solution": "think"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:98440",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 98440,
+    "endMs": 99960,
+    "text": "We have a lot of churches.",
+    "level": "A1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "We ___ a lot of churches.",
+        "solution": "have"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:105560",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 105560,
+    "endMs": 110120,
+    "text": "Old town is also quite interesting because it was not destroyed in the World War II.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "past-simple",
+        "prompt": "Old town is also quite interesting because it ___ in the World War II.",
+        "solution": "was not destroyed"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:117800",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 117800,
+    "endMs": 122200,
+    "text": "Could you tell me something I should really see here?",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "could-you-tell-me",
+        "tenseId": "",
+        "prompt": "___ something I should really see here?",
+        "solution": "Could you tell me",
+        "explanation": "«Could you tell me...?» introduce una petición de información de forma educada."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:120600",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 120600,
+    "endMs": 123400,
+    "text": "Yeah, maybe I think you should start with sightseeing.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "start-with",
+        "tenseId": "",
+        "prompt": "Yeah, maybe I think you should ___ sightseeing.",
+        "solution": "start with",
+        "explanation": "«Start with» señala la primera actividad o elemento de una secuencia."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:130479",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 130479,
+    "endMs": 135120,
+    "text": "You can have a like 1-hour walk around the Aasee.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "walk-around",
+        "tenseId": "",
+        "prompt": "You can have a like 1-hour ___ the Aasee.",
+        "solution": "walk around",
+        "explanation": "«A walk around» es un paseo por los alrededores o bordeando un lugar."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:149080",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 149080,
+    "endMs": 154320,
+    "text": "And of course you must see the important churches, the Dom.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "must-see",
+        "tenseId": "",
+        "prompt": "And of course you ___ the important churches, the Dom.",
+        "solution": "must see",
+        "explanation": "«You must see» presenta una visita como una recomendación muy enfática."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:187160",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 187160,
+    "endMs": 195360,
+    "text": "Before we carry on with this week's episode, if you're someone who's looking to improve your confidence and fluency speaking English, then look no further",
+    "level": "B2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "look-no-further",
+        "tenseId": "",
+        "prompt": "Before we carry on with this week's episode, if you're someone who's looking to improve your confidence and fluency speaking English, then ___",
+        "solution": "look no further",
+        "explanation": "«Look no further» afirma que ya has encontrado exactamente lo que buscabas."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:197640",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 197640,
+    "endMs": 202920,
+    "text": "We're offering a 7-day free trial of our conversation membership.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-continuous",
+        "prompt": "We ___ a 7-day free trial of our conversation membership.",
+        "solution": "are offering"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:213519",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 213519,
+    "endMs": 220280,
+    "text": "Perhaps you're starting a new job soon or you want to start a job and they require you to have a certain level of English.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-continuous",
+        "prompt": "Perhaps you ___ a new job soon or you want to start a job and they require you to have a certain level of English.",
+        "solution": "are starting"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:228400",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 228400,
+    "endMs": 234080,
+    "text": "We create preset topics that we speak about for 1 hour in our Zoom themed pub.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "We ___ preset topics that we speak about for 1 hour in our Zoom themed pub.",
+        "solution": "create"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:234080",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 234080,
+    "endMs": 242680,
+    "text": "If this is something that interests you, then why don't you join our conversation membership with our 7-day free trial by going to easyenglish.video/membership.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "why-dont-you",
+        "tenseId": "",
+        "prompt": "If this is something that interests you, then ___ join our conversation membership with our 7-day free trial by going to easyenglish.video/membership.",
+        "solution": "why don't you",
+        "explanation": "«Why don't you...?» se usa aquí para hacer una sugerencia o invitación."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:257840",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 257840,
+    "endMs": 259840,
+    "text": "I'm pretty new to the city.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "pretty-new",
+        "tenseId": "",
+        "prompt": "I'm ___ the city.",
+        "solution": "pretty new to",
+        "explanation": "«Pretty new to» significa bastante nuevo en un lugar o actividad."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:263600",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 263600,
+    "endMs": 265320,
+    "text": "Um but, I'm a bit hungry.",
+    "level": "A1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "a-bit",
+        "tenseId": "",
+        "prompt": "Um but, I'm ___ hungry.",
+        "solution": "a bit",
+        "explanation": "«A bit» suaviza la idea y significa un poco."
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:265320",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 265320,
+    "endMs": 271280,
+    "text": "Do you know any good place to get like typical German food or food from this area, maybe?",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-simple",
+        "prompt": "___ any good place to get like typical German food or food from this area, maybe?",
+        "solution": "Do you know"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:271280",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 271280,
+    "endMs": 274120,
+    "text": "We've been to Krawummel today.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "id": "verb",
+        "tenseId": "present-perfect",
+        "prompt": "We ___ to Krawummel today.",
+        "solution": "have been"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:274120",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 274120,
+    "endMs": 275760,
+    "text": "So, they have vegan food.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "So, they ___ vegan food.",
+        "solution": "have",
+        "id": "verb-0",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:287960",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 287960,
+    "endMs": 293200,
+    "text": "So, I mean, it's kind of German food.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "So, I ___, it's kind of German food.",
+        "solution": "mean",
+        "id": "verb-3",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:293200",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 293200,
+    "endMs": 301400,
+    "text": "Maybe here are a lot of nice cafes where you could go just and grab a coffee.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "Maybe here are a lot of nice cafes where you ___ go just and grab a coffee.",
+        "solution": "could",
+        "id": "modal-4",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:303640",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 303640,
+    "endMs": 305360,
+    "text": "We've been there yesterday, actually.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "We ___ been there yesterday, actually.",
+        "solution": "have",
+        "id": "verb-7",
+        "tenseId": "present-perfect"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:307320",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 307320,
+    "endMs": 308960,
+    "text": "Maybe you can stop by.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "Maybe you ___ stop by.",
+        "solution": "can",
+        "id": "modal-8",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:310480",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 310480,
+    "endMs": 314160,
+    "text": "I'm not from Münster, but it was really great.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "I ___ not from Münster, but it was really great.",
+        "solution": "am",
+        "id": "verb-9",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:312400",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 312400,
+    "endMs": 314760,
+    "text": "Yeah, you can go down the street on the left side.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "Yeah, you ___ go down the street on the left side.",
+        "solution": "can",
+        "id": "modal-10",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:326640",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 326640,
+    "endMs": 330778,
+    "text": "Maybe you can eat something there.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "Maybe you ___ eat something there.",
+        "solution": "can",
+        "id": "modal-12",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:370520",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 370520,
+    "endMs": 373520,
+    "text": "I'm going often to a bagel shop.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "I ___ going often to a bagel shop.",
+        "solution": "am",
+        "id": "verb-20",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:417680",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 417680,
+    "endMs": 421080,
+    "text": "Do you get a good deal because you know the owner?",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "Do you get a good deal because you ___ the owner?",
+        "solution": "know",
+        "id": "verb-32",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:435320",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 435320,
+    "endMs": 439600,
+    "text": "you can go there Okay.",
+    "level": "A2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "you ___ go there Okay.",
+        "solution": "can",
+        "id": "modal-35",
+        "tenseId": ""
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:481320",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 481320,
+    "endMs": 482840,
+    "text": "I know we don't have a subway.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "I ___ we don't have a subway.",
+        "solution": "know",
+        "id": "verb-46",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:499760",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 499760,
+    "endMs": 502800,
+    "text": "I don't know how long you are here.",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "I don't know how long you ___ here.",
+        "solution": "are",
+        "id": "verb-52",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:560960",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 560960,
+    "endMs": 570040,
+    "text": "Don't forget that if you want to improve your confidence speaking English, then join our conversation course with a 7-day free trial.",
+    "level": "B2",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "Don't forget that if you ___ to improve your confidence speaking English, then join our conversation course with a 7-day free trial.",
+        "solution": "want",
+        "id": "verb-12",
+        "tenseId": "present-simple"
+      }
+    ]
+  },
+  {
+    "id": "v8ecvyglvJ8:570800",
+    "videoId": "v8ecvyglvJ8",
+    "startMs": 570800,
+    "endMs": 574839,
+    "text": "What's something that I should do when I'm in Germany or in Münster?",
+    "level": "B1",
+    "channel": "Easy British English",
+    "exercises": [
+      {
+        "prompt": "What's something that I should do when I ___ in Germany or in Münster?",
+        "solution": "am",
+        "id": "verb-14",
+        "tenseId": "present-simple"
+      }
+    ]
+  }
+]
