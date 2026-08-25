@@ -138,6 +138,12 @@ export const readingById = (id: string) => readings.find(reading => reading.id =
 
 export const clipById = (id: string) => clips.find(clip => clip.id === id)
 
+/**
+ * Captions often begin just after the speaker starts. Give the learner half a second of context
+ * without changing the clip's canonical timestamp or id (which keeps review history stable).
+ */
+export const clipPlayStartMs = (clip: Pick<Clip, 'startMs'>) => Math.max(0, clip.startMs - 500)
+
 /** The channels that have clips, for the filter of the list. */
 export const clipChannels = [...new Set(clips.map(clip => clip.channel))].sort()
 

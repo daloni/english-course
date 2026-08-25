@@ -81,7 +81,7 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
           </template>
 
           <template #description>
-            {{ clip.channel }} · {{ Math.round((clip.endMs - clip.startMs) / 1000) }} s
+            {{ clip.channel }} · {{ Math.round((clip.endMs - clipPlayStartMs(clip)) / 1000) }} s
           </template>
 
           <template #footer>

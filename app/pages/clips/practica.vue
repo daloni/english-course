@@ -181,7 +181,7 @@ function onUnavailable(videoId: string) {
 
             <ClipPlayer
               :video-id="question.clip.videoId"
-              :start-ms="question.clip.startMs"
+              :start-ms="clipPlayStartMs(question.clip)"
               :end-ms="question.clip.endMs"
               class="mt-4"
               @unavailable="onUnavailable"

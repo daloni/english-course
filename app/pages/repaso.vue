@@ -147,7 +147,7 @@ useSeo({
             <ClipPlayer
               v-if="item.clip"
               :video-id="item.clip.videoId"
-              :start-ms="item.clip.startMs"
+              :start-ms="clipPlayStartMs(item.clip)"
               :end-ms="item.clip.endMs"
               class="mt-4"
               @unavailable="onUnavailable"
