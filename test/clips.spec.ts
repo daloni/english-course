@@ -148,26 +148,62 @@ describe('the review queue', () => {
 })
 
 describe('/clips', () => {
-  it('lists every clip with its channel', async () => {
+  it('renders the initial batch and reports the filtered total', async () => {
     const page = await mountSuspended(ClipsIndex)
-    const text = page.text()
+    const cards = page.findAll('[data-testid="clip-card"]')
 
-    for (const clip of clips) {
-      expect(text).toContain(clip.text)
-      expect(text).toContain(clip.channel)
-    }
+    expect(cards).toHaveLength(30)
+    expect(page.text()).toContain(`Mostrando 30 de ${clips.length} clips`)
+    expect(cards[0]!.text()).toContain(clips[0]!.text)
+    expect(page.text()).not.toContain(clips[30]!.text)
   })
 
   it('filters by level', async () => {
     const level = clips[0]!.level
     const page = await mountSuspended(ClipsIndex)
+    const focus = vi.spyOn(HTMLElement.prototype, 'focus')
+    onTestFinished(() => focus.mockRestore())
 
     await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === level)!.trigger('click')
     await flushPromises()
 
-    for (const clip of clips) {
-      expect(page.text().includes(clip.text), `${clip.id} on level ${level}`).toBe(clip.level === level)
-    }
+    const matching = clips.filter(clip => clip.level === level)
+    const cards = page.findAll('[data-testid="clip-card"]')
+
+    expect(cards).toHaveLength(Math.min(30, matching.length))
+    expect(page.text()).toContain(`Mostrando ${Math.min(30, matching.length)} de ${matching.length} clips`)
+    expect(cards.every((card, i) => card.text().includes(matching[i]!.text))).toBe(true)
+
+    const status = page.find('[role="status"]')
+    expect(status.attributes('tabindex')).toBe('-1')
+    expect(focus.mock.instances.at(-1)).toBe(status.element)
+  })
+
+  it('loads another batch without duplicating cards and resets after filtering', async () => {
+    const page = await mountSuspended(ClipsIndex)
+    const loadMore = () => page.findAll('button').find(button => button.text() === 'Mostrar más')!
+
+    await loadMore().trigger('click')
+    await flushPromises()
+
+    expect(page.findAll('[data-testid="clip-card"]')).toHaveLength(60)
+    expect(page.text()).toContain(`Mostrando 60 de ${clips.length} clips`)
+
+    const level = clips[0]!.level
+    await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === level)!.trigger('click')
+    await flushPromises()
+
+    const matching = clips.filter(clip => clip.level === level)
+    expect(page.findAll('[data-testid="clip-card"]')).toHaveLength(Math.min(30, matching.length))
+    expect(page.text()).toContain(`Mostrando ${Math.min(30, matching.length)} de ${matching.length} clips`)
+
+    const channel = clips[0]!.channel
+    await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === channel)!.trigger('click')
+    await flushPromises()
+
+    const matchingChannel = matching.filter(clip => clip.channel === channel)
+    expect(page.findAll('[data-testid="clip-card"]')).toHaveLength(Math.min(30, matchingChannel.length))
+    expect(page.text()).toContain(`Mostrando ${Math.min(30, matchingChannel.length)} de ${matchingChannel.length} clips`)
   })
 })
 

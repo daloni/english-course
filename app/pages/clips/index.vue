@@ -17,9 +17,21 @@ const channelItems = [
   ...clipChannels.map(value => ({ label: value, value }))
 ]
 
+const pageSize = 30
+const visibleCount = ref(pageSize)
+const resultsSummary = ref<HTMLElement>()
+
 const shown = computed(() => clips.filter(clip =>
   (level.value === 'all' || clip.level === level.value)
   && (channel.value === 'all' || clip.channel === channel.value)))
+
+const visibleClips = computed(() => shown.value.slice(0, visibleCount.value))
+
+watch([level, channel], async () => {
+  visibleCount.value = pageSize
+  await nextTick()
+  resultsSummary.value?.focus()
+})
 
 /** The tenses a clip drills, for its badges. An expression gap drills none. */
 const tensesOf = (clip: Clip) => [...new Set(clip.exercises
@@ -63,6 +75,15 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
       />
 
       <p
+        ref="resultsSummary"
+        role="status"
+        tabindex="-1"
+        class="mb-6 text-muted"
+      >
+        Mostrando {{ visibleClips.length }} de {{ shown.length }} clips
+      </p>
+
+      <p
         v-if="shown.length === 0"
         class="text-muted"
       >
@@ -71,8 +92,9 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
 
       <UPageGrid v-else>
         <UPageCard
-          v-for="clip in shown"
+          v-for="clip in visibleClips"
           :key="clip.id"
+          data-testid="clip-card"
           icon="i-lucide-clapperboard"
           spotlight
         >
@@ -107,6 +129,17 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
           </template>
         </UPageCard>
       </UPageGrid>
+
+      <div
+        v-if="visibleClips.length < shown.length"
+        class="mt-8 flex justify-center"
+      >
+        <UButton
+          type="button"
+          label="Mostrar más"
+          @click="visibleCount += pageSize"
+        />
+      </div>
     </UPageSection>
   </UPage>
 </template>
