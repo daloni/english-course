@@ -292,18 +292,18 @@ export const itemsVersion = ref(0)
 function buildItems(clips?: Clip[]): Item[] {
   const clipItems = clips
     ? clips.flatMap(clip => clip.exercises.map(exercise => ({
-      ...exercise,
-      id: clipItemId(clip, exercise),
-      kind: 'clips' as const,
-      clip
-    })))
+        ...exercise,
+        id: clipItemId(clip, exercise),
+        kind: 'clips' as const,
+        clip
+      })))
     : (clipIndex as ClipIndexItem[]).map(item => ({
-      id: item.id,
-      kind: 'clips' as const,
-      tenseId: item.tenseId,
-      prompt: '',
-      solution: ''
-    }))
+        id: item.id,
+        kind: 'clips' as const,
+        tenseId: item.tenseId,
+        prompt: '',
+        solution: ''
+      }))
 
   return [
     ...exercises.map(exercise => ({ ...exercise, id: frasesItemId(exercise), kind: 'frases' as const })),
@@ -354,7 +354,6 @@ export function setClipItems(clips: Clip[]) {
 
 /** The exercise of a stored attempt, or nothing if that content no longer exists. */
 export const itemById = (id: string) => {
-  itemsVersion.value
   return (byId ?? (items(), byId))!.get(id)
 }
 

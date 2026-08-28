@@ -1,3 +1,5 @@
+import { isPlayable, loadUnavailable, unavailable } from '../utils/unavailable'
+
 // There is a single progress for the whole site: a module ref filled from localStorage as
 // soon as the browser mounts the first page that uses it. On the server it is empty, so
 // whatever depends on it is rendered inside <ClientOnly>.
@@ -65,9 +67,8 @@ export function useProgress() {
   const mounted = ref(false)
 
   onMounted(() => {
-    if (listening === 0) {
-      progress.value = currentProgress()
-    }
+    progress.value = currentProgress()
+    unavailable.value = loadUnavailable()
     mounted.value = true
     refreshPending()
 
@@ -95,11 +96,8 @@ export function useProgress() {
   }
 
   const attempts = computed(() => {
-    mounted.value
-    return Object.values(progress.value)
+    return mounted.value ? Object.values(progress.value) : []
   })
-
-  const { unavailable, isPlayable } = useClips({ load: false })
 
   /**
    * What is due for review today, in the order it was first practised, which already mixes

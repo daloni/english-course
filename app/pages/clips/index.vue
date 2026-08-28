@@ -66,91 +66,91 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
       </p>
 
       <template v-else>
-      <URadioGroup
-        v-model="level"
-        :items="levelItems"
-        legend="Nivel"
-        orientation="horizontal"
-        class="mb-6"
-        :ui="{ fieldset: 'gap-x-4' }"
-      />
-
-      <URadioGroup
-        v-if="channelItems.length > 2"
-        v-model="channel"
-        :items="channelItems"
-        legend="Canal"
-        orientation="horizontal"
-        class="mb-8"
-        :ui="{ fieldset: 'gap-x-4' }"
-      />
-
-      <p
-        ref="resultsSummary"
-        role="status"
-        tabindex="-1"
-        class="mb-6 text-muted"
-      >
-        Mostrando {{ visibleClips.length }} de {{ shown.length }} clips
-      </p>
-
-      <p
-        v-if="shown.length === 0"
-        class="text-muted"
-      >
-        No hay clips con ese filtro todavía.
-      </p>
-
-      <UPageGrid v-else>
-        <UPageCard
-          v-for="clip in visibleClips"
-          :key="clip.id"
-          data-testid="clip-card"
-          icon="i-lucide-clapperboard"
-          spotlight
-        >
-          <template #title>
-            <span lang="en">{{ clip.text }}</span>
-          </template>
-
-          <template #description>
-            {{ clip.channel }} · {{ Math.round((clip.endMs - clipPlayStartMs(clip)) / 1000) }} s
-          </template>
-
-          <template #footer>
-            <div class="flex flex-wrap gap-2">
-              <UBadge
-                :label="`Nivel ${clip.level}`"
-                variant="subtle"
-                color="neutral"
-              />
-              <UBadge
-                v-for="tense in tensesOf(clip)"
-                :key="tense"
-                :label="tense"
-                variant="subtle"
-                color="neutral"
-              />
-              <UBadge
-                :label="`${clip.exercises.length} ${clip.exercises.length === 1 ? 'hueco' : 'huecos'}`"
-                variant="subtle"
-                color="neutral"
-              />
-            </div>
-          </template>
-        </UPageCard>
-      </UPageGrid>
-
-      <div
-        v-if="visibleClips.length < shown.length"
-        class="mt-8 flex justify-center"
-      >
-        <UButton
-          type="button"
-          label="Mostrar más"
-          @click="visibleCount += pageSize"
+        <URadioGroup
+          v-model="level"
+          :items="levelItems"
+          legend="Nivel"
+          orientation="horizontal"
+          class="mb-6"
+          :ui="{ fieldset: 'gap-x-4' }"
         />
-      </div>
+
+        <URadioGroup
+          v-if="channelItems.length > 2"
+          v-model="channel"
+          :items="channelItems"
+          legend="Canal"
+          orientation="horizontal"
+          class="mb-8"
+          :ui="{ fieldset: 'gap-x-4' }"
+        />
+
+        <p
+          ref="resultsSummary"
+          role="status"
+          tabindex="-1"
+          class="mb-6 text-muted"
+        >
+          Mostrando {{ visibleClips.length }} de {{ shown.length }} clips
+        </p>
+
+        <p
+          v-if="shown.length === 0"
+          class="text-muted"
+        >
+          No hay clips con ese filtro todavía.
+        </p>
+
+        <UPageGrid v-else>
+          <UPageCard
+            v-for="clip in visibleClips"
+            :key="clip.id"
+            data-testid="clip-card"
+            icon="i-lucide-clapperboard"
+            spotlight
+          >
+            <template #title>
+              <span lang="en">{{ clip.text }}</span>
+            </template>
+
+            <template #description>
+              {{ clip.channel }} · {{ Math.round((clip.endMs - clipPlayStartMs(clip)) / 1000) }} s
+            </template>
+
+            <template #footer>
+              <div class="flex flex-wrap gap-2">
+                <UBadge
+                  :label="`Nivel ${clip.level}`"
+                  variant="subtle"
+                  color="neutral"
+                />
+                <UBadge
+                  v-for="tense in tensesOf(clip)"
+                  :key="tense"
+                  :label="tense"
+                  variant="subtle"
+                  color="neutral"
+                />
+                <UBadge
+                  :label="`${clip.exercises.length} ${clip.exercises.length === 1 ? 'hueco' : 'huecos'}`"
+                  variant="subtle"
+                  color="neutral"
+                />
+              </div>
+            </template>
+          </UPageCard>
+        </UPageGrid>
+
+        <div
+          v-if="visibleClips.length < shown.length"
+          class="mt-8 flex justify-center"
+        >
+          <UButton
+            type="button"
+            label="Mostrar más"
+            @click="visibleCount += pageSize"
+          />
+        </div>
       </template>
     </UPageSection>
   </UPage>

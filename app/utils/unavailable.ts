@@ -1,8 +1,12 @@
+import { ref } from 'vue'
+import type { Clip } from './content'
+
 // Videos that no longer play: deleted, made private or with embedding turned off. The player
 // finds out only when it tries, so what it learns is kept here instead of asking again on every
 // round. It is the one thing outside `ingles:progress`, and it is not progress: it is a fact
 // about the video, and it must not travel in the exported backup.
 export const unavailableKey = 'ingles:clips-unavailable'
+export const unavailable = ref<string[]>([])
 
 /** Without a readable localStorage (prerender, blocked storage, a test with no DOM), none. */
 export function loadUnavailable(): string[] {
@@ -28,3 +32,6 @@ export function saveUnavailable(videoIds: string[]) {
     // Nowhere to store it: the dead video comes back next session, which is survivable.
   }
 }
+
+export const isPlayable = (clip: Pick<Clip, 'videoId'> | string) =>
+  !unavailable.value.includes(typeof clip === 'string' ? clip.slice('clips:'.length).split(':')[0] ?? '' : clip.videoId)
