@@ -756,6 +756,10 @@ describe('practising', () => {
     await play(false)
 
     expect(page.text()).toContain('Repaso terminado: 0 de 1')
+    expect(page.text()).toContain('Para repasar')
+    expect(page.text()).toContain(exercise.prompt)
+    expect(page.text()).toContain(exercise.solution)
+    expect(page.find('a[href="/teoria/present-simple"]').attributes('lang')).toBe('en')
 
     const again = page.findAll('button').find(button => button.text().includes('Otra ronda'))
 
@@ -770,6 +774,7 @@ describe('practising', () => {
     await play(true)
 
     expect(page.text()).toContain('Repaso terminado: 1 de 1')
+    expect(page.text()).not.toContain('Para repasar')
     expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(true)
   })
 
