@@ -241,6 +241,44 @@ describe('/speaking', () => {
     expect(load()[speakingItemId(second.tense, second.example)]).toMatchObject({ hits: 0, misses: 1 })
   })
 
+  it('records only the first transcription when the retry is incorrect', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const current = sentenceOn(page)
+    const id = speakingItemId(current.tense, current.example)
+    await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+
+    FakeRecognition.last!.say(current.example.en)
+    await flushPromises()
+    FakeRecognition.last!.say('this is clearly not the requested sentence')
+    await flushPromises()
+
+    expect(load()[id]).toMatchObject({ hits: 1, misses: 0 })
+    expect(page.text()).toContain('No se te ha oído')
+  })
+
+  it('records only the first transcription when the retry is correct', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const current = sentenceOn(page)
+    const id = speakingItemId(current.tense, current.example)
+    await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+
+    FakeRecognition.last!.say('this is clearly not the requested sentence')
+    await flushPromises()
+    FakeRecognition.last!.say(current.example.en)
+    await flushPromises()
+
+    expect(load()[id]).toMatchObject({ hits: 0, misses: 1 })
+    expect(page.text()).toContain('Frase completa, palabra por palabra.')
+  })
+
   it('shows a summary after the last sentence and restarts on a fresh round', async () => {
     supportSpeech()
 
