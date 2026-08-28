@@ -256,7 +256,10 @@ describe('/speaking', () => {
     FakeRecognition.last!.say('this is clearly not the requested sentence')
     await flushPromises()
 
-    expect(load()[id]).toMatchObject({ hits: 1, misses: 0 })
+    const attempt = load()[id]!
+
+    expect(attempt).toMatchObject({ hits: 1, misses: 0, box: 2 })
+    expect(attempt.hits + attempt.misses).toBe(1)
     expect(page.text()).toContain('No se te ha oído')
   })
 
@@ -275,7 +278,10 @@ describe('/speaking', () => {
     FakeRecognition.last!.say(current.example.en)
     await flushPromises()
 
-    expect(load()[id]).toMatchObject({ hits: 0, misses: 1 })
+    const attempt = load()[id]!
+
+    expect(attempt).toMatchObject({ hits: 0, misses: 1, box: 1 })
+    expect(attempt.hits + attempt.misses).toBe(1)
     expect(page.text()).toContain('Frase completa, palabra por palabra.')
   })
 
