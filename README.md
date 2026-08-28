@@ -13,7 +13,7 @@ else — code, comments and this documentation — is in English.
 ## Requirements
 
 - Node 22+
-- pnpm
+- pnpm 12+
 
 ## Getting started
 
