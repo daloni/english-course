@@ -544,7 +544,7 @@ describe('several tabs', () => {
     otherTabSaves({ [id]: review(undefined, id, false, today) })
     await flushPromises()
 
-    expect(back.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+    expect(back.text()).toContain(`1 de ${items().length} ejercicios practicados`)
   })
 
   /** What another tab writing progress looks like from this one: the storage and its event. */
@@ -597,12 +597,12 @@ describe('several tabs', () => {
     const page = await mountSuspended(Progreso)
     await flushPromises()
 
-    expect(page.text()).toContain(`0 de ${items.length} ejercicios practicados`)
+    expect(page.text()).toContain(`0 de ${items().length} ejercicios practicados`)
 
     otherTabSaves({ [id]: review(undefined, id, false, today) })
     await flushPromises()
 
-    expect(page.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+    expect(page.text()).toContain(`1 de ${items().length} ejercicios practicados`)
     expect(page.text()).toContain('Repasar hoy (1)')
     expect(page.text()).toContain(exercise.prompt)
   })
@@ -619,7 +619,7 @@ describe('several tabs', () => {
     window.dispatchEvent(new StorageEvent('storage', { key: 'ingles:otra-cosa', newValue: 'x' }))
     await flushPromises()
 
-    expect(page.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+    expect(page.text()).toContain(`1 de ${items().length} ejercicios practicados`)
   })
 
   it('imports without dropping what another tab saved in the meantime', async () => {
@@ -650,13 +650,13 @@ describe('several tabs', () => {
     const page = await mountSuspended(Progreso)
     await flushPromises()
 
-    expect(page.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+    expect(page.text()).toContain(`1 de ${items().length} ejercicios practicados`)
 
     otherTabSaves(null)
     await flushPromises()
 
     expect(load()).toEqual({})
-    expect(page.text()).toContain(`0 de ${items.length} ejercicios practicados`)
+    expect(page.text()).toContain(`0 de ${items().length} ejercicios practicados`)
     expect(page.text()).not.toContain('Repasar hoy (1)')
   })
 
@@ -846,7 +846,7 @@ describe('practising', () => {
     const page = await mountSuspended(Progreso)
     await flushPromises()
 
-    expect(page.text()).toContain(`1 de ${items.length} ejercicios practicados`)
+    expect(page.text()).toContain(`1 de ${items().length} ejercicios practicados`)
     expect(page.text()).toContain('Repasar hoy (1)')
     expect(page.text()).toContain(exercise.prompt)
     expect(page.text()).toContain(exercise.solution)
@@ -988,12 +988,12 @@ describe('practising', () => {
 
 describe('items', () => {
   it('gives every exercise of every section a unique id', () => {
-    const ids = items.map(item => item.id)
+    const ids = items().map(item => item.id)
 
     expect(new Set(ids).size).toBe(ids.length)
-    expect(new Set(items.map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading', 'clips', 'speaking']))
-    expect(items.filter(item => item.kind === 'speaking')).toHaveLength(312)
-    expect(items.filter(item => item.kind === 'speaking').every(item => item.tenseId !== '')).toBe(true)
+    expect(new Set(items().map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading', 'clips', 'speaking']))
+    expect(items().filter(item => item.kind === 'speaking')).toHaveLength(312)
+    expect(items().filter(item => item.kind === 'speaking').every(item => item.tenseId !== '')).toBe(true)
   })
 
   it('finds back the exercise of a stored attempt', () => {

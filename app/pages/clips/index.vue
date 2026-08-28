@@ -6,22 +6,23 @@ useSeo({
 
 const level = ref<Level | 'all'>('all')
 const channel = ref('all')
+const { clips, loading } = useClips()
 
-const levelItems = [
+const levelItems = computed(() => [
   { label: 'Todos', value: 'all' },
-  ...levels.filter(value => clips.some(clip => clip.level === value)).map(value => ({ label: value, value }))
-]
+  ...levels.filter(value => clips.value.some(clip => clip.level === value)).map(value => ({ label: value, value }))
+])
 
-const channelItems = [
+const channelItems = computed(() => [
   { label: 'Todos', value: 'all' },
-  ...clipChannels.map(value => ({ label: value, value }))
-]
+  ...[...new Set(clips.value.map(clip => clip.channel))].sort().map(value => ({ label: value, value }))
+])
 
 const pageSize = 30
 const visibleCount = ref(pageSize)
 const resultsSummary = ref<HTMLElement>()
 
-const shown = computed(() => clips.filter(clip =>
+const shown = computed(() => clips.value.filter(clip =>
   (level.value === 'all' || clip.level === level.value)
   && (channel.value === 'all' || clip.channel === channel.value)))
 
@@ -55,6 +56,16 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
     </UPageHero>
 
     <UPageSection>
+      <p
+        v-if="loading"
+        role="status"
+        aria-live="polite"
+        class="text-muted"
+      >
+        Cargando clips…
+      </p>
+
+      <template v-else>
       <URadioGroup
         v-model="level"
         :items="levelItems"
@@ -140,6 +151,7 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
           @click="visibleCount += pageSize"
         />
       </div>
+      </template>
     </UPageSection>
   </UPage>
 </template>

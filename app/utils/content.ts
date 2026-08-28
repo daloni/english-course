@@ -117,7 +117,6 @@ export interface Clip {
 export const tenseFiles = import.meta.glob<Tense>('../../content/tenses/*.json', { eager: true, import: 'default' })
 export const exerciseFiles = import.meta.glob<Exercise[]>('../../content/exercises/*.json', { eager: true, import: 'default' })
 export const readingFiles = import.meta.glob<Reading>('../../content/readings/*.json', { eager: true, import: 'default' })
-export const clipFiles = import.meta.glob<Clip[]>('../../content/clips/*.json', { eager: true, import: 'default' })
 
 export const tenses: Tense[] = Object.values(tenseFiles)
   .sort((a, b) => a.level.localeCompare(b.level) || a.name.localeCompare(b.name))
@@ -129,23 +128,15 @@ export const exercises: Exercise[] = Object.values(exerciseFiles).flat()
 export const readings: Reading[] = Object.values(readingFiles)
   .sort((a, b) => a.level.localeCompare(b.level) || a.title.localeCompare(b.title))
 
-/** In file order, which is the order the source was ingested in. */
-export const clips: Clip[] = Object.values(clipFiles).flat()
-
 export const tenseById = (id: string) => tenses.find(tense => tense.id === id)
 
 export const readingById = (id: string) => readings.find(reading => reading.id === id)
-
-export const clipById = (id: string) => clips.find(clip => clip.id === id)
 
 /**
  * Captions often begin just after the speaker starts. Give the learner half a second of context
  * without changing the clip's canonical timestamp or id (which keeps review history stable).
  */
 export const clipPlayStartMs = (clip: Pick<Clip, 'startMs'>) => Math.max(0, clip.startMs - 500)
-
-/** The channels that have clips, for the filter of the list. */
-export const clipChannels = [...new Set(clips.map(clip => clip.channel))].sort()
 
 /** Estimated reading time at ~150 wpm, the pace of a learner reading in English. */
 export const readingMinutes = (reading: Reading) =>

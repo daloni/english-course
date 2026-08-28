@@ -7,7 +7,7 @@ const error = ref('')
 const importMessage = ref('')
 const resetModalOpen = ref(false)
 
-const total = computed(() => statsOf(items))
+const total = computed(() => statsOf(items()))
 
 const byTense = computed(() => tenses
   .map(tense => ({ tense, stats: statsOf(itemsOfTense(tense.id)) }))

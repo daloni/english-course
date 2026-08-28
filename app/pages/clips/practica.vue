@@ -5,7 +5,7 @@ useSeo({
 })
 
 const { record, attemptOf } = useProgress()
-const { playable, markUnavailable } = useClips()
+const { playable, markUnavailable, load } = useClips()
 
 const size = 10
 
@@ -49,7 +49,10 @@ function restart() {
 
 // The round depends on the progress and on chance, so it is drawn in the browser: building it
 // during the prerender too would ship a different clip than the one the page hydrates with.
-onMounted(restart)
+onMounted(async () => {
+  await load()
+  restart()
+})
 
 /** The same button corrects first and moves on to the next clip afterwards. */
 function submit() {
