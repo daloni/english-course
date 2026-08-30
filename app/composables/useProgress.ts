@@ -120,11 +120,16 @@ export function useProgress() {
   watch([progress, itemsVersion, unavailable], refreshPending)
 
   /** The missed ones, from the most missed to the least. */
-  const failed = computed(() => attempts.value
-    .filter(attempt => attempt.misses > 0)
-    .sort((a, b) => b.misses - a.misses || a.box - b.box)
-    .map(attempt => ({ attempt, item: itemById(attempt.id) }))
-    .filter((failure): failure is { attempt: Attempt, item: Item } => failure.item !== undefined))
+  const failed = computed(() => {
+    // Clip content replaces the light index after its lazy load.
+    void itemsVersion.value
+
+    return attempts.value
+      .filter(attempt => attempt.misses > 0)
+      .sort((a, b) => b.misses - a.misses || a.box - b.box)
+      .map(attempt => ({ attempt, item: itemById(attempt.id) }))
+      .filter((failure): failure is { attempt: Attempt, item: Item } => failure.item !== undefined)
+  })
 
   function statsOf(items: Item[]): Stats {
     const done = items.map(item => progress.value[item.id]).filter(attempt => attempt !== undefined)

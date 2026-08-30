@@ -2,6 +2,7 @@
 // What has been practised in this browser: what is mastered, what is missed and what is due
 // for review today.
 const { attempts, pending, failed, persistenceFailed, statsOf, exportFile, importFile, reset } = useProgress()
+const { load } = useClips({ load: false })
 
 const error = ref('')
 const importMessage = ref('')
@@ -46,6 +47,12 @@ function confirmReset(close: () => void) {
   reset()
   close()
 }
+
+onMounted(async () => {
+  if (failed.value.some(failure => failure.item.kind === 'clips')) {
+    await load()
+  }
+})
 
 useSeo({
   title: 'Progreso',
