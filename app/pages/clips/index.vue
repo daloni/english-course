@@ -6,23 +6,23 @@ useSeo({
 
 const level = ref<Level | 'all'>('all')
 const channel = ref('all')
-const { clips, loading } = useClips()
+const { playable, loading } = useClips()
 
 const levelItems = computed(() => [
   { label: 'Todos', value: 'all' },
-  ...levels.filter(value => clips.value.some(clip => clip.level === value)).map(value => ({ label: value, value }))
+  ...levels.filter(value => playable.value.some(clip => clip.level === value)).map(value => ({ label: value, value }))
 ])
 
 const channelItems = computed(() => [
   { label: 'Todos', value: 'all' },
-  ...[...new Set(clips.value.map(clip => clip.channel))].sort().map(value => ({ label: value, value }))
+  ...[...new Set(playable.value.map(clip => clip.channel))].sort().map(value => ({ label: value, value }))
 ])
 
 const pageSize = 30
 const visibleCount = ref(pageSize)
 const resultsSummary = ref<HTMLElement>()
 
-const shown = computed(() => clips.value.filter(clip =>
+const shown = computed(() => playable.value.filter(clip =>
   (level.value === 'all' || clip.level === level.value)
   && (channel.value === 'all' || clip.channel === channel.value)))
 
@@ -48,7 +48,7 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
     >
       <template #links>
         <UButton
-          to="/clips/practica"
+          :to="{ path: '/clips/practica', query: { ...(level !== 'all' && { nivel: level }), ...(channel !== 'all' && { canal: channel }) } }"
           label="Practicar"
           icon="i-lucide-play"
         />

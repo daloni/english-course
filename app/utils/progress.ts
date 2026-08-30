@@ -3,6 +3,7 @@
 import { thirdPerson } from './check'
 import clipIndex from '../../content/clip-index.json'
 import { exercises, readings, tenses, verbs, type Clip, type Exercise, type Example, type Question, type Reading, type Tense, type Verb } from './content'
+import { clearUnavailable } from './unavailable'
 
 export const storageKey = 'ingles:progress'
 
@@ -226,11 +227,12 @@ export function save(progress: Progress): boolean {
 }
 
 /**
- * Wipes the stored progress: the key disappears instead of being left as an empty object, so
- * a reset reads back as "nothing stored" and not as an unreadable progress. It fails for the
- * same outside reasons as `save`, and just as silently.
+ * Wipes the stored progress and unavailable clips: both keys disappear instead of being left as
+ * empty objects, so a reset reads back as "nothing stored".
  */
 export function clear() {
+  clearUnavailable()
+
   try {
     if (typeof localStorage === 'undefined') {
       return

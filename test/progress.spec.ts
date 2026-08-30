@@ -31,6 +31,7 @@ import {
   type Progress
 } from '../app/utils/progress'
 import { clips } from './fixtures/clips'
+import { clearUnavailable, loadUnavailable, saveUnavailable } from '../app/utils/unavailable'
 
 const today = '2026-08-14'
 
@@ -982,6 +983,7 @@ describe('practising', () => {
     const attempt = review(undefined, 'x', false, today)
 
     save({ x: attempt })
+    saveUnavailable(['video-id'])
 
     const page = await mountSuspended(Progreso)
     await flushPromises()
@@ -992,6 +994,7 @@ describe('practising', () => {
     await flushPromises()
 
     expect(page.text()).toContain('¿Reiniciar progreso?')
+    expect(page.text()).toContain('recuperarán los vídeos ocultos')
 
     const cancel = page.findAll('button').find(button => button.text().trim() === 'Cancelar')!
 
@@ -1006,6 +1009,26 @@ describe('practising', () => {
 
     await confirm.trigger('click')
     expect(load()).toEqual({})
+    expect(loadUnavailable()).toEqual([])
+  })
+
+  it('shows and restores unavailable clips from progress', async () => {
+    saveUnavailable(['video-id'])
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+    onTestFinished(() => {
+      clearUnavailable()
+      page.unmount()
+    })
+
+    expect(page.text()).toContain('1 clip oculto porque el vídeo no se pudo reproducir')
+
+    await page.findAll('button').find(button => button.text().trim() === 'Recuperar clips ocultos')!.trigger('click')
+    await flushPromises()
+
+    expect(loadUnavailable()).toEqual([])
+    expect(page.text()).not.toContain('clip oculto porque el vídeo no se pudo reproducir')
   })
 })
 

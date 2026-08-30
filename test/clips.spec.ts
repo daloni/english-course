@@ -9,7 +9,8 @@ import { clipFiles as lazyClipFiles } from '../app/utils/clips'
 import { clipFiles, clips } from './fixtures/clips'
 import { gapCount, normalize } from '../app/utils/check'
 import { clipItemId, day, items, load, review, save, setClipItems, storageKey } from '../app/utils/progress'
-import { loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
+import { clearUnavailable, loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
+import { useClips } from '../app/composables/useClips'
 import { useProgress } from '../app/composables/useProgress'
 
 // Guards content/clips/ and the pages that play it: a window that does not last, a gap that
@@ -153,11 +154,64 @@ describe('the review queue', () => {
 
     expect(session.pending.value.some(item => item.id === id)).toBe(false)
   })
+
+  it('restores a marked clip to playable and pending after clearing the list', async () => {
+    localStorage.removeItem(storageKey)
+    localStorage.removeItem(unavailableKey)
+
+    const clip = clips[0]!
+    const exercise = clip.exercises[0]!
+    const id = clipItemId(clip, exercise)
+
+    save({ [id]: review(undefined, id, false, day()) })
+    saveUnavailable([clip.videoId])
+
+    let clipSession!: ReturnType<typeof useClips>
+    let progressSession!: ReturnType<typeof useProgress>
+    const Harness = defineComponent({
+      setup() {
+        clipSession = useClips({ load: false })
+        progressSession = useProgress()
+        return () => null
+      }
+    })
+
+    const page = await mountSuspended(Harness)
+    await clipSession.load()
+    await flushPromises()
+    onTestFinished(() => {
+      clearUnavailable()
+      page.unmount()
+    })
+
+    expect(clipSession.playable.value.some(candidate => candidate.videoId === clip.videoId)).toBe(false)
+    expect(progressSession.pending.value.some(item => item.id === id)).toBe(false)
+
+    clearUnavailable()
+    await flushPromises()
+
+    expect(clipSession.playable.value.some(candidate => candidate.videoId === clip.videoId)).toBe(true)
+    expect(progressSession.pending.value.some(item => item.id === id)).toBe(true)
+  })
 })
 
 describe('/clips', () => {
+  it('excludes unavailable clips from the catalogue count and cards', async () => {
+    const hiddenVideo = clips[0]!.videoId
+    const available = clips.filter(clip => clip.videoId !== hiddenVideo)
+
+    saveUnavailable([hiddenVideo])
+    const page = await mountSuspended(ClipsIndex)
+    await flushPromises()
+    onTestFinished(() => clearUnavailable())
+
+    expect(page.text()).toContain(`Mostrando ${Math.min(30, available.length)} de ${available.length} clips`)
+    expect(page.findAll('[data-testid="clip-card"]').every(card => !card.text().includes(clips[0]!.text))).toBe(true)
+  })
+
   it('renders the initial batch and reports the filtered total', async () => {
     const page = await mountSuspended(ClipsIndex)
+    onTestFinished(() => page.unmount())
     await flushPromises()
     const cards = page.findAll('[data-testid="clip-card"]')
 
@@ -170,6 +224,7 @@ describe('/clips', () => {
   it('filters by level', async () => {
     const level = clips[0]!.level
     const page = await mountSuspended(ClipsIndex)
+    onTestFinished(() => page.unmount())
     await flushPromises()
     const focus = vi.spyOn(HTMLElement.prototype, 'focus')
     onTestFinished(() => focus.mockRestore())
@@ -191,6 +246,7 @@ describe('/clips', () => {
 
   it('loads another batch without duplicating cards and resets after filtering', async () => {
     const page = await mountSuspended(ClipsIndex)
+    onTestFinished(() => page.unmount())
     await flushPromises()
     const loadMore = () => page.findAll('button').find(button => button.text() === 'Mostrar más')!
 
@@ -233,6 +289,7 @@ describe('/clips/practica', () => {
   it('asks a gap per clip and records the attempt under its clip id', async () => {
     const round = clips.slice(0, roundSize)
     const page = await mountSuspended(ClipsPractice, { global: { stubs } })
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     for (const [i, clip] of round.entries()) {
@@ -262,8 +319,82 @@ describe('/clips/practica', () => {
     }
   })
 
+  it('passes the active catalog filters to practice', async () => {
+    const clip = clips[0]!
+    const page = await mountSuspended(ClipsIndex)
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === clip.level)!.trigger('click')
+    await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === clip.channel)!.trigger('click')
+    await flushPromises()
+
+    const practiceUrl = new URL(page.find('a[href*="/clips/practica?nivel="]').attributes('href')!, 'https://example.test')
+
+    expect(practiceUrl.searchParams.get('nivel')).toBe(clip.level)
+    expect(practiceUrl.searchParams.get('canal')).toBe(clip.channel)
+  })
+
+  it('only asks clips matching the practice filters', async () => {
+    const clip = clips[0]!
+    const matching = clips.filter(candidate => candidate.level === clip.level && candidate.channel === clip.channel)
+    const page = await mountSuspended(ClipsPractice, {
+      route: `/clips/practica?nivel=${clip.level}&canal=${encodeURIComponent(clip.channel)}`,
+      global: { stubs }
+    })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(`Filtro activo: Nivel ${clip.level} · ${clip.channel}`)
+
+    for (let i = 0; i < Math.min(roundSize, matching.length); i++) {
+      const shown = matching.find(candidate => candidate.exercises.some(exercise => page.text().includes(exercise.prompt)))!
+
+      expect(shown, 'the question must belong to the filtered catalog').toBeDefined()
+      expect(page.text()).toContain(`Clip ${i + 1} de ${Math.min(roundSize, matching.length)}`)
+
+      const exercise = shown.exercises.find(candidate => page.text().includes(candidate.prompt))!
+
+      await page.find('input').setValue(exercise.solution)
+      await page.find('form').trigger('submit')
+      await flushPromises()
+      await page.find('form').trigger('submit')
+      await flushPromises()
+    }
+  })
+
+  it('keeps all clips for missing or invalid filters', async () => {
+    const page = await mountSuspended(ClipsPractice, {
+      route: '/clips/practica?nivel=C9&canal=not-a-channel',
+      global: { stubs }
+    })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(`Clip 1 de ${roundSize}`)
+    expect(page.text()).not.toContain('Filtro activo:')
+  })
+
+  it('explains when a valid filter has no playable clips and offers to clear it', async () => {
+    const channel = [...new Set(clips.map(clip => clip.channel))].find(channel =>
+      !clips.some(clip => clip.level === levels[0] && clip.channel === channel))!
+
+    expect(channel, 'the fixture needs an empty level/channel combination').toBeDefined()
+
+    const page = await mountSuspended(ClipsPractice, {
+      route: `/clips/practica?nivel=${levels[0]}&canal=${encodeURIComponent(channel)}`,
+      global: { stubs }
+    })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(`No hay clips practicables con el filtro «Nivel ${levels[0]} · ${channel}»`)
+    expect(page.findAll('a[href="/clips/practica"]').some(link => link.text().includes('Quitar filtros'))).toBe(true)
+  })
+
   it('reuses the player while moving to the next question', async () => {
     const page = await mountSuspended(ClipsPractice, { global: { stubs } })
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     expect(playerMounts).toBe(1)
@@ -282,6 +413,7 @@ describe('/clips/practica', () => {
 
   it('never asks the same clip twice in a round', async () => {
     const page = await mountSuspended(ClipsPractice, { global: { stubs } })
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     const asked: string[] = []
@@ -304,6 +436,7 @@ describe('/clips/practica', () => {
   it('drops a dead video from the round and remembers it', async () => {
     const dead = clips[0]!
     const page = await mountSuspended(ClipsPractice, { global: { stubs } })
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     page.findComponent({ name: 'ClipPlayer' }).vm.$emit('unavailable', dead.videoId)
