@@ -14,6 +14,7 @@ const results = ref<{ item: Item, answer: string, correct: boolean }[]>([])
 
 const item = computed(() => session.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
+const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => session.value.length > 0 && index.value >= session.value.length)
 
 /** Another round: the queue is snapshotted again, already bringing back what was missed. */
@@ -124,6 +125,58 @@ useSeo({
             <p class="mt-2 text-muted">
               Lo acertado sube de caja y tardará más en volver; lo fallado sigue en la cola de hoy.
             </p>
+
+            <div
+              v-if="mistakes.length > 0"
+              class="mt-8"
+            >
+              <h3 class="mb-3 font-medium">
+                Para repasar
+              </h3>
+
+              <ul class="space-y-4 text-sm">
+                <li
+                  v-for="mistake in mistakes"
+                  :key="mistake.item.id"
+                >
+                  <p class="flex flex-wrap items-center gap-2">
+                    <UBadge
+                      :label="itemKindLabels[mistake.item.kind]"
+                      variant="subtle"
+                      color="neutral"
+                    />
+                    <ULink
+                      v-if="mistake.item.tenseId"
+                      :to="`/teoria/${mistake.item.tenseId}`"
+                      :lang="mistake.item.kind === 'verbos' ? undefined : 'en'"
+                      class="font-medium"
+                    >
+                      {{ mistake.item.prompt }}
+                    </ULink>
+                    <span
+                      v-else
+                      :lang="mistake.item.kind === 'verbos' ? undefined : 'en'"
+                      class="font-medium"
+                    >
+                      {{ mistake.item.prompt }}
+                    </span>
+                  </p>
+                  <p class="text-muted">
+                    Escribiste “{{ mistake.answer }}”, la respuesta correcta es
+                    <strong
+                      lang="en"
+                      class="font-semibold"
+                    >{{ mistake.item.solution }}</strong>.
+                  </p>
+                  <p
+                    v-if="explain(mistake.item)"
+                    class="text-muted"
+                  >
+                    {{ explain(mistake.item) }}
+                  </p>
+                </li>
+              </ul>
+            </div>
 
             <div class="mt-8 flex flex-wrap gap-3">
               <UButton
