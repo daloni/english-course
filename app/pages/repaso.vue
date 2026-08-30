@@ -2,6 +2,7 @@
 // The review session: only what is due today, mixing sentences, verbs, reading and clips.
 const { pending, record } = useProgress()
 const { markUnavailable, load } = useClips({ load: false })
+const size = 10
 
 // The queue is frozen when the session starts: correcting moves the boxes, and without the
 // snapshot the session would shrink underfoot as you answer.
@@ -19,7 +20,7 @@ const done = computed(() => session.value.length > 0 && index.value >= session.v
 
 /** Another round: the queue is snapshotted again, already bringing back what was missed. */
 function restart() {
-  session.value = [...pending.value]
+  session.value = pending.value.slice(0, size)
   index.value = 0
   answer.value = ''
   checked.value = null
@@ -76,7 +77,7 @@ useSeo({
   <UPage>
     <UPageHero
       title="Repaso de hoy"
-      description="Los ejercicios que ya has practicado y hoy vuelven a tocar, de todas las secciones."
+      :description="`Tandas de hasta ${size} ejercicios. Hoy te tocan ${pending.length} en total.`"
     >
       <template #links>
         <UButton
@@ -181,7 +182,7 @@ useSeo({
             <div class="mt-8 flex flex-wrap gap-3">
               <UButton
                 v-if="pending.length > 0"
-                label="Otra ronda"
+                :label="`Otra ronda (quedan ${pending.length})`"
                 icon="i-lucide-rotate-ccw"
                 @click="restart"
               />
