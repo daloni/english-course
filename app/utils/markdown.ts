@@ -23,7 +23,7 @@ const htmlEntities: Record<string, string> = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
-  "'": '&#39;'
+  '\u0027': '&#39;'
 }
 
 const escapeHtml = (text: string) => text.replace(/[&<>"']/g, character => htmlEntities[character] ?? character)
