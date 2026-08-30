@@ -5,7 +5,29 @@ useSeo({
 })
 
 const { record, attemptOf } = useProgress()
-const { playable, markUnavailable, load } = useClips()
+const { clips, playable, markUnavailable, load } = useClips()
+const route = useRoute()
+
+const levelFilter = computed(() => {
+  const value = route.query.nivel
+
+  return typeof value === 'string' && levels.includes(value as Level) ? value as Level : undefined
+})
+
+const channelFilter = computed(() => {
+  const value = route.query.canal
+
+  return typeof value === 'string' && clips.value.some(clip => clip.channel === value) ? value : undefined
+})
+
+const filterLabel = computed(() => [
+  levelFilter.value && `Nivel ${levelFilter.value}`,
+  channelFilter.value
+].filter(Boolean).join(' · '))
+
+const filteredPlayable = computed(() => playable.value.filter(clip =>
+  (!levelFilter.value || clip.level === levelFilter.value)
+  && (!channelFilter.value || clip.channel === channelFilter.value)))
 
 const size = 10
 
@@ -18,7 +40,7 @@ interface Question {
 
 /** Ten gaps, never two from the same clip: hearing the same line twice teaches nothing new. */
 function newRound(): Question[] {
-  const questions = playable.value.flatMap(clip => clip.exercises.map(exercise => ({
+  const questions = filteredPlayable.value.flatMap(clip => clip.exercises.map(exercise => ({
     id: clipItemId(clip, exercise),
     clip,
     exercise
@@ -33,6 +55,7 @@ const answer = ref('')
 const checked = ref<{ correct: boolean, question: Question } | null>(null)
 useFocusOnChange(checked)
 const results = ref<{ question: Question, answer: string, correct: boolean }[]>([])
+let mounted = false
 
 const question = computed(() => round.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
@@ -52,6 +75,11 @@ function restart() {
 onMounted(async () => {
   await load()
   restart()
+  mounted = true
+})
+
+watch([levelFilter, channelFilter], () => {
+  if (mounted) restart()
 })
 
 /** The same button corrects first and moves on to the next clip afterwards. */
@@ -94,9 +122,16 @@ function onUnavailable(videoId: string) {
   <UPage>
     <UPageHero
       title="Practicar con clips"
-      :description="`Escucha la frase y escribe lo que falta. ${size} clips por ronda, corrección al instante.`"
+      :description="`${filterLabel ? `Filtro activo: ${filterLabel}. ` : ''}Escucha la frase y escribe lo que falta. ${size} clips por ronda, corrección al instante.`"
     >
       <template #links>
+        <UButton
+          v-if="filterLabel"
+          to="/clips/practica"
+          label="Quitar filtros"
+          icon="i-lucide-filter-x"
+          color="neutral"
+        />
         <UButton
           to="/clips"
           label="Ver los clips"
@@ -121,8 +156,21 @@ function onUnavailable(videoId: string) {
             </h2>
 
             <p class="mt-2 text-muted">
-              Todavía no hay material, o los vídeos que había ya no se pueden reproducir.
+              <template v-if="filterLabel">
+                No hay clips practicables con el filtro «{{ filterLabel }}».
+              </template>
+              <template v-else>
+                Todavía no hay material, o los vídeos que había ya no se pueden reproducir.
+              </template>
             </p>
+
+            <UButton
+              v-if="filterLabel"
+              to="/clips/practica"
+              label="Quitar filtros y ver todos"
+              icon="i-lucide-filter-x"
+              class="mt-6"
+            />
           </template>
 
           <template v-else-if="done">
