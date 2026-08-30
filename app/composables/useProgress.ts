@@ -1,3 +1,5 @@
+import { isPlayable, loadUnavailable, unavailable } from '../utils/unavailable'
+
 // There is a single progress for the whole site: a module ref filled from localStorage as
 // soon as the browser mounts the first page that uses it. On the server it is empty, so
 // whatever depends on it is rendered inside <ClientOnly>.
@@ -62,8 +64,13 @@ export interface Stats {
 }
 
 export function useProgress() {
+  const mounted = ref(false)
+
   onMounted(() => {
     progress.value = currentProgress()
+    unavailable.value = loadUnavailable()
+    mounted.value = true
+    refreshPending()
 
     if (listening++ === 0) {
       window.addEventListener('storage', onStorage)
@@ -88,9 +95,9 @@ export function useProgress() {
     return progress.value[id]
   }
 
-  const attempts = computed(() => Object.values(progress.value))
-
-  const { isPlayable } = useClips()
+  const attempts = computed(() => {
+    return mounted.value ? Object.values(progress.value) : []
+  })
 
   /**
    * What is due for review today, in the order it was first practised, which already mixes
@@ -100,11 +107,17 @@ export function useProgress() {
    * of truth for "how many reviews are pending" - the badge, the home card, /progreso and the
    * /repaso session all read it, so none of them can promise a review that does not exist.
    */
-  const pending = computed(() => attempts.value
-    .filter(attempt => isDue(attempt))
-    .map(attempt => itemById(attempt.id))
-    .filter((item): item is Item => item !== undefined)
-    .filter(item => item.kind !== 'speaking' && (!item.clip || isPlayable(item.clip))))
+  const pending = ref<Item[]>([])
+
+  function refreshPending() {
+    pending.value = Object.values(progress.value)
+      .filter(attempt => isDue(attempt))
+      .map(attempt => itemById(attempt.id))
+      .filter((item): item is Item => item !== undefined)
+      .filter(item => item.kind !== 'speaking' && (item.kind !== 'clips' || isPlayable(item.id)))
+  }
+
+  watch([progress, itemsVersion, unavailable], refreshPending)
 
   /** The missed ones, from the most missed to the least. */
   const failed = computed(() => attempts.value

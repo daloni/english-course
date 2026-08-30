@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // The review session: only what is due today, mixing sentences, verbs, reading and clips.
 const { pending, record } = useProgress()
-const { markUnavailable } = useClips()
+const { markUnavailable, load } = useClips({ load: false })
 
 // The queue is frozen when the session starts: correcting moves the boxes, and without the
 // snapshot the session would shrink underfoot as you answer.
@@ -25,7 +25,13 @@ function restart() {
   results.value = []
 }
 
-onMounted(restart)
+onMounted(async () => {
+  if (pending.value.some(item => item.kind === 'clips')) {
+    await load()
+  }
+
+  restart()
+})
 
 /** The same button corrects first and moves on to the next exercise afterwards. */
 function submit() {

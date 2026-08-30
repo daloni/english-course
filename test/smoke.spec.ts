@@ -26,7 +26,7 @@ describe('home', () => {
     expect(empty.text()).toContain('Nada pendiente por ahora')
     expect(empty.text()).not.toContain('ejercicios te tocan hoy')
 
-    save({ [items[0]!.id]: review(undefined, items[0]!.id, false, day()) })
+    save({ [items()[0]!.id]: review(undefined, items()[0]!.id, false, day()) })
     const pending = await mountSuspended(IndexPage)
 
     expect(pending.text()).toContain('1 ejercicios te tocan hoy')
@@ -60,7 +60,7 @@ describe('review navigation', () => {
   })
 
   it('shows the pending count in the navigation', async () => {
-    const item = items[0]!
+    const item = items()[0]!
     save({ [item.id]: review(undefined, item.id, false, day()) })
     const layout = await mountSuspended(DefaultLayout)
     await layout.find('button[aria-label="Open menu"]').trigger('click')

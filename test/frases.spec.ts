@@ -226,7 +226,7 @@ describe('explain', () => {
 
   it('leaves no dangling dot when there is nothing to explain', () => {
     // Reading questions drill no tense at all, so there is no structure to fall back on.
-    const question = items.find(item => item.kind === 'reading')!
+    const question = items().find(item => item.kind === 'reading')!
 
     expect(explain({ ...question, explanation: undefined })).toBe('')
     expect(correction({ ...question, explanation: undefined }))

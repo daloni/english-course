@@ -1,7 +1,8 @@
 // Progress lives in the browser localStorage: there are no accounts and no backend, so what
 // is stored here is all there is. One attempt per exercise, with its Leitner box.
 import { thirdPerson } from './check'
-import { clips, exercises, readings, tenses, verbs, type Clip, type Exercise, type Example, type Question, type Reading, type Tense, type Verb } from './content'
+import clipIndex from '../../content/clip-index.json'
+import { exercises, readings, tenses, verbs, type Clip, type Exercise, type Example, type Question, type Reading, type Tense, type Verb } from './content'
 
 export const storageKey = 'ingles:progress'
 
@@ -282,48 +283,80 @@ export const readingItemId = (reading: Reading, question: Question) => `reading:
 export const clipItemId = (clip: Clip, exercise: Exercise) => `clips:${clip.id}:${exercise.id}`
 export const speakingItemId = (tense: Tense, example: Example) => `speaking:${tense.id}:${example.form}:${example.en}`
 
-/** Everything reviewable in the site, which is versioned content: built once on load. */
-export const items: Item[] = [
-  ...exercises.map(exercise => ({ ...exercise, id: frasesItemId(exercise), kind: 'frases' as const })),
-  ...verbs.flatMap(verb => verbForms.map(form => ({
-    id: verbItemId(verb, form),
-    kind: 'verbos' as const,
-    tenseId: form.tenseId,
-    prompt: `${form.label} de «${verb.infinitive}» (${verb.es})`,
-    solution: form.of(verb)
-  }))),
-  ...readings.flatMap(reading => reading.questions.map(question => ({
-    id: readingItemId(reading, question),
-    kind: 'reading' as const,
-    // Reading questions do not drill any particular tense: they only count by section.
-    tenseId: '',
-    prompt: question.question,
-    options: question.options,
-    solution: question.answer,
-    explanation: question.explanation
-  }))),
-  ...tenses.flatMap(tense => tense.examples.map(example => ({
-    id: speakingItemId(tense, example),
-    kind: 'speaking' as const,
-    tenseId: tense.id,
-    prompt: example.en,
-    solution: example.en
-  }))),
-  // A clip carries its own tenses in its exercises, and the clip travels with them: the
-  // review has to play the video back, not just show the sentence.
-  ...clips.flatMap(clip => clip.exercises.map(exercise => ({
-    ...exercise,
-    id: clipItemId(clip, exercise),
-    kind: 'clips' as const,
-    clip
-  })))
-]
+type ClipIndexItem = { id: string, tenseId: string }
 
-const byId = new Map(items.map(item => [item.id, item]))
+let itemCache: Item[] | undefined
+let byId: Map<string, Item> | undefined
+export const itemsVersion = ref(0)
+
+function buildItems(clips?: Clip[]): Item[] {
+  const clipItems = clips
+    ? clips.flatMap(clip => clip.exercises.map(exercise => ({
+        ...exercise,
+        id: clipItemId(clip, exercise),
+        kind: 'clips' as const,
+        clip
+      })))
+    : (clipIndex as ClipIndexItem[]).map(item => ({
+        id: item.id,
+        kind: 'clips' as const,
+        tenseId: item.tenseId,
+        prompt: '',
+        solution: ''
+      }))
+
+  return [
+    ...exercises.map(exercise => ({ ...exercise, id: frasesItemId(exercise), kind: 'frases' as const })),
+    ...verbs.flatMap(verb => verbForms.map(form => ({
+      id: verbItemId(verb, form),
+      kind: 'verbos' as const,
+      tenseId: form.tenseId,
+      prompt: `${form.label} de «${verb.infinitive}» (${verb.es})`,
+      solution: form.of(verb)
+    }))),
+    ...readings.flatMap(reading => reading.questions.map(question => ({
+      id: readingItemId(reading, question),
+      kind: 'reading' as const,
+      // Reading questions do not drill any particular tense: they only count by section.
+      tenseId: '',
+      prompt: question.question,
+      options: question.options,
+      solution: question.answer,
+      explanation: question.explanation
+    }))),
+    ...tenses.flatMap(tense => tense.examples.map(example => ({
+      id: speakingItemId(tense, example),
+      kind: 'speaking' as const,
+      tenseId: tense.id,
+      prompt: example.en,
+      solution: example.en
+    }))),
+    ...clipItems
+  ]
+}
+
+/** Builds review items on first use; clip pages replace the light index with full exercises. */
+export function items() {
+  if (!itemCache) {
+    itemCache = buildItems()
+    byId = new Map(itemCache.map(item => [item.id, item]))
+  }
+
+  return itemCache
+}
+
+/** Replaces the light clip index after a clip page has loaded the full corpus. */
+export function setClipItems(clips: Clip[]) {
+  itemCache = buildItems(clips)
+  byId = new Map(itemCache.map(item => [item.id, item]))
+  itemsVersion.value++
+}
 
 /** The exercise of a stored attempt, or nothing if that content no longer exists. */
-export const itemById = (id: string) => byId.get(id)
+export const itemById = (id: string) => {
+  return (byId ?? (items(), byId))!.get(id)
+}
 
-export const itemsOfKind = (kind: ItemKind) => items.filter(item => item.kind === kind)
+export const itemsOfKind = (kind: ItemKind) => items().filter(item => item.kind === kind)
 
-export const itemsOfTense = (tenseId: string) => items.filter(item => item.tenseId === tenseId)
+export const itemsOfTense = (tenseId: string) => items().filter(item => item.tenseId === tenseId)

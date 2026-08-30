@@ -4,9 +4,11 @@ import { flushPromises } from '@vue/test-utils'
 import { defineComponent, onUnmounted } from 'vue'
 import ClipsIndex from '../app/pages/clips/index.vue'
 import ClipsPractice from '../app/pages/clips/practica.vue'
-import { clipFiles, clips, levels, tenses } from '../app/utils/content'
+import { levels, tenses } from '../app/utils/content'
+import { clipFiles as lazyClipFiles } from '../app/utils/clips'
+import { clipFiles, clips } from './fixtures/clips'
 import { gapCount, normalize } from '../app/utils/check'
-import { clipItemId, day, items, load, review, save, storageKey } from '../app/utils/progress'
+import { clipItemId, day, items, load, review, save, setClipItems, storageKey } from '../app/utils/progress'
 import { loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
 import { useProgress } from '../app/composables/useProgress'
 
@@ -17,6 +19,8 @@ import { useProgress } from '../app/composables/useProgress'
 const roundSize = 10
 
 const duplicates = (values: string[]) => values.filter((value, i) => values.indexOf(value) !== i)
+
+setClipItems(clips)
 
 function expectText(value: unknown, label: string) {
   expect(typeof value, `${label} must be a string`).toBe('string')
@@ -41,6 +45,10 @@ const stubs = {
 }
 
 describe('content/clips', () => {
+  it('keeps clip JSON behind async loaders', () => {
+    expect(Object.values(lazyClipFiles).every(load => typeof load === 'function')).toBe(true)
+  })
+
   it('has unique ids across every file', () => {
     expect(clips).toHaveLength(Object.values(clipFiles).flat().length)
     expect(duplicates(clips.map(clip => clip.id))).toEqual([])
@@ -105,7 +113,7 @@ describe('content/clips', () => {
 
 describe('the review queue', () => {
   it('carries every clip gap, with its clip', () => {
-    const clipItems = items.filter(item => item.kind === 'clips')
+    const clipItems = items().filter(item => item.kind === 'clips')
 
     expect(clipItems).toHaveLength(clips.flatMap(clip => clip.exercises).length)
 
@@ -150,6 +158,7 @@ describe('the review queue', () => {
 describe('/clips', () => {
   it('renders the initial batch and reports the filtered total', async () => {
     const page = await mountSuspended(ClipsIndex)
+    await flushPromises()
     const cards = page.findAll('[data-testid="clip-card"]')
 
     expect(cards).toHaveLength(30)
@@ -161,6 +170,7 @@ describe('/clips', () => {
   it('filters by level', async () => {
     const level = clips[0]!.level
     const page = await mountSuspended(ClipsIndex)
+    await flushPromises()
     const focus = vi.spyOn(HTMLElement.prototype, 'focus')
     onTestFinished(() => focus.mockRestore())
 
@@ -181,6 +191,7 @@ describe('/clips', () => {
 
   it('loads another batch without duplicating cards and resets after filtering', async () => {
     const page = await mountSuspended(ClipsIndex)
+    await flushPromises()
     const loadMore = () => page.findAll('button').find(button => button.text() === 'Mostrar más')!
 
     await loadMore().trigger('click')

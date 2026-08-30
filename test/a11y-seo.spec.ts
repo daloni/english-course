@@ -183,7 +183,7 @@ describe('accesibilidad', () => {
     const tense = tenseById('past-simple')!
     const verbos = await mountSuspended(VerbosIndex)
 
-    const verb = items.find(item => item.kind === 'verbos')!
+    const verb = items().find(item => item.kind === 'verbos')!
     save({ [verb.id]: review(undefined, verb.id, false, day()) })
     const progreso = await mountSuspended(Progreso)
     const teoria = await mountSuspended(TenseTheory, { route: `/teoria/${tense.id}` })
@@ -206,9 +206,9 @@ describe('accesibilidad', () => {
 // The document is Spanish, so `lang="en"` is what tells a screen reader to switch voices.
 // Marking Spanish text with it makes the reader pronounce it as if it were English.
 describe('el idioma del contenido', () => {
-  const verb = items.find(item => item.kind === 'verbos')!
+  const verb = items().find(item => item.kind === 'verbos')!
   // Reading questions with options are asked in a radio group; the rest, in a plain field.
-  const reading = items.find(item => item.kind === 'reading' && !item.options)!
+  const reading = items().find(item => item.kind === 'reading' && !item.options)!
 
   /** What the page announces as English: the text of every element marked with `lang="en"`. */
   const inEnglish = (page: VueWrapper) => page.findAll('[lang="en"]').map(node => node.text())
