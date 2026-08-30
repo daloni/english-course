@@ -48,7 +48,7 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
     >
       <template #links>
         <UButton
-          to="/clips/practica"
+          :to="{ path: '/clips/practica', query: { ...(level !== 'all' && { nivel: level }), ...(channel !== 'all' && { canal: channel }) } }"
           label="Practicar"
           icon="i-lucide-play"
         />
