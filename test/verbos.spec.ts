@@ -6,7 +6,7 @@ import VerbosIndex from '../app/pages/verbos/index.vue'
 import Practica from '../app/pages/verbos/practica.vue'
 import { thirdPerson } from '../app/utils/check'
 import { verbs } from '../app/utils/content'
-import { addDays, day, review, save, storageKey, verbForms, verbItemId } from '../app/utils/progress'
+import { addDays, day, load, review, save, storageKey, verbForms, verbItemId } from '../app/utils/progress'
 
 describe('/verbos', () => {
   it('lists every verb with its forms', async () => {
@@ -99,6 +99,25 @@ describe('/verbos/practica', () => {
 
     expect(page.text()).toContain('Pregunta 1 de 10')
     expect(page.text()).not.toContain('No es esa')
+  })
+
+  it('lets learners skip an unknown answer and records it as a miss', async () => {
+    const page = await mountSuspended(Practica, { attachTo: document.body })
+    await flushPromises()
+
+    const skip = page.findAll('button').find(button => button.text() === 'No lo sé')!
+    const solution = solutionOf(page.find('h2').text())
+
+    await skip.trigger('click')
+    await flushPromises()
+
+    expect(page.text()).toContain('No es esa')
+    expect(page.text()).toContain(solution)
+    expect(page.findAll('button').some(button => button.text() === 'No lo sé')).toBe(false)
+    expect(document.activeElement).toBe(page.find('button[type="submit"]').element)
+    expect(Object.values(load())).toEqual([
+      expect.objectContaining({ box: 1, hits: 0, misses: 1, due: day() })
+    ])
   })
 
   it('starts with a verb that is due and does not repeat verbs', async () => {

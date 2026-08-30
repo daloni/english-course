@@ -53,7 +53,7 @@ function restart() {
 onMounted(restart)
 
 /** Same action for both steps: correct the answer, then move on to the next question. */
-function submit() {
+function submit(skip = false) {
   if (checked.value) {
     index.value += 1
     answer.value = ''
@@ -61,11 +61,11 @@ function submit() {
     return
   }
 
-  if (!question.value || !answer.value.trim()) {
+  if (!question.value || (!skip && !answer.value.trim())) {
     return
   }
 
-  const correct = isCorrect(answer.value, question.value.solution)
+  const correct = !skip && isCorrect(answer.value, question.value.solution)
 
   record(question.value.id, correct)
   results.value.push({ question: question.value, answer: answer.value, correct })
@@ -119,7 +119,7 @@ function submit() {
                     >{{ mistake.question.verb.infinitive }}</em>
                   </p>
                   <p class="text-muted">
-                    Escribiste «{{ mistake.answer }}», la forma correcta es
+                    <template v-if="mistake.answer">Escribiste «{{ mistake.answer }}», </template>la forma correcta es
                     <strong
                       lang="en"
                       class="font-semibold"
@@ -172,12 +172,23 @@ function submit() {
                 class="flex-1"
               />
 
-              <UButton
-                data-focus-target
-                type="submit"
-                :label="checked ? 'Siguiente' : 'Comprobar'"
-                :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
-              />
+              <div class="flex flex-wrap gap-3">
+                <UButton
+                  data-focus-target
+                  type="submit"
+                  :label="checked ? 'Siguiente' : 'Comprobar'"
+                  :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                />
+                <UButton
+                  v-if="!checked"
+                  type="button"
+                  label="No lo sé"
+                  icon="i-lucide-circle-help"
+                  color="neutral"
+                  variant="outline"
+                  @click="submit(true)"
+                />
+              </div>
             </form>
 
             <div

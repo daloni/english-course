@@ -35,7 +35,7 @@ onMounted(async () => {
 })
 
 /** The same button corrects first and moves on to the next exercise afterwards. */
-function submit() {
+function submit(skip = false) {
   if (checked.value) {
     index.value += 1
     answer.value = ''
@@ -43,11 +43,11 @@ function submit() {
     return
   }
 
-  if (!item.value || !answer.value.trim()) {
+  if (!item.value || (!skip && !answer.value.trim())) {
     return
   }
 
-  const correct = checkExercise(answer.value, item.value)
+  const correct = !skip && checkExercise(answer.value, item.value)
 
   record(item.value.id, correct)
   results.value.push({ item: item.value, answer: answer.value, correct })
@@ -162,7 +162,7 @@ useSeo({
                     </span>
                   </p>
                   <p class="text-muted">
-                    Escribiste “{{ mistake.answer }}”, la respuesta correcta es
+                    <template v-if="mistake.answer">Escribiste “{{ mistake.answer }}”, </template>la respuesta correcta es
                     <strong
                       lang="en"
                       class="font-semibold"
@@ -261,13 +261,23 @@ useSeo({
                 />
               </UFormField>
 
-              <UButton
-                data-focus-target
-                type="submit"
-                :label="checked ? 'Siguiente' : 'Comprobar'"
-                :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
-                class="mt-6"
-              />
+              <div class="mt-6 flex flex-wrap gap-3">
+                <UButton
+                  data-focus-target
+                  type="submit"
+                  :label="checked ? 'Siguiente' : 'Comprobar'"
+                  :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                />
+                <UButton
+                  v-if="!checked"
+                  type="button"
+                  label="No lo sé"
+                  icon="i-lucide-circle-help"
+                  color="neutral"
+                  variant="outline"
+                  @click="submit(true)"
+                />
+              </div>
             </form>
 
             <div
