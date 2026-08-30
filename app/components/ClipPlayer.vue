@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
           class="size-8 text-neutral-400"
         />
         <p class="px-6 text-sm text-neutral-400">
-          Este vídeo ya no está disponible. Se excluirá del repaso.
+          Este vídeo ya no está disponible. Se excluirá del repaso, pero puedes recuperarlo desde Progreso.
         </p>
       </template>
       <template v-else-if="loadError">

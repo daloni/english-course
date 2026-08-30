@@ -33,5 +33,20 @@ export function saveUnavailable(videoIds: string[]) {
   }
 }
 
+/** Makes every clip playable again and removes the device-only list. */
+export function clearUnavailable() {
+  unavailable.value = []
+
+  try {
+    if (typeof localStorage === 'undefined') {
+      return
+    }
+
+    localStorage.removeItem(unavailableKey)
+  } catch {
+    // Storage blocked: the in-memory list is still restored for this session.
+  }
+}
+
 export const isPlayable = (clip: Pick<Clip, 'videoId'> | string) =>
   !unavailable.value.includes(typeof clip === 'string' ? clip.slice('clips:'.length).split(':')[0] ?? '' : clip.videoId)
