@@ -873,8 +873,10 @@ describe('practising', () => {
     const page = await mountSuspended(Progreso)
     await flushPromises()
 
-    expect(page.text()).toContain(exercise.prompt)
-    expect(page.text()).toContain(exercise.solution)
+    await vi.waitFor(() => {
+      expect(page.text()).toContain(exercise.prompt)
+      expect(page.text()).toContain(exercise.solution)
+    })
   })
 
   it('reports imported attempts and keeps existing progress', async () => {
