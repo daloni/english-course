@@ -119,7 +119,10 @@ function submit(skip = false) {
                     >{{ mistake.question.verb.infinitive }}</em>
                   </p>
                   <p class="text-muted">
-                    <template v-if="mistake.answer">Escribiste «{{ mistake.answer }}», </template>la forma correcta es
+                    <template v-if="mistake.answer">
+                      Escribiste «{{ mistake.answer }}»,
+                    </template>
+                    la forma correcta es
                     <strong
                       lang="en"
                       class="font-semibold"
@@ -155,7 +158,7 @@ function submit(skip = false) {
 
             <form
               class="mt-6 flex items-start gap-3"
-              @submit.prevent="submit"
+              @submit.prevent="submit()"
             >
               <UInput
                 :key="index"

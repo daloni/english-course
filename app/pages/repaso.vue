@@ -162,7 +162,10 @@ useSeo({
                     </span>
                   </p>
                   <p class="text-muted">
-                    <template v-if="mistake.answer">Escribiste “{{ mistake.answer }}”, </template>la respuesta correcta es
+                    <template v-if="mistake.answer">
+                      Escribiste “{{ mistake.answer }}”,
+                    </template>
+                    la respuesta correcta es
                     <strong
                       lang="en"
                       class="font-semibold"
@@ -214,7 +217,7 @@ useSeo({
 
             <form
               class="mt-4"
-              @submit.prevent="submit"
+              @submit.prevent="submit()"
             >
               <!-- Sentences and clips carry their own exercise type; the rest is asked plainly. -->
               <component

@@ -203,7 +203,10 @@ function onUnavailable(videoId: string) {
                     {{ mistake.question.clip.text }}
                   </p>
                   <p class="text-muted">
-                    <template v-if="mistake.answer">Escribiste «{{ mistake.answer }}», </template>la respuesta correcta es
+                    <template v-if="mistake.answer">
+                      Escribiste «{{ mistake.answer }}»,
+                    </template>
+                    la respuesta correcta es
                     <strong
                       lang="en"
                       class="font-semibold"
@@ -240,7 +243,7 @@ function onUnavailable(videoId: string) {
 
             <form
               class="mt-6"
-              @submit.prevent="submit"
+              @submit.prevent="submit()"
             >
               <ExerciseGap
                 :key="question.id"
