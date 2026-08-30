@@ -11,6 +11,7 @@ import { formOf } from '../app/utils/explain'
 import {
   addDays,
   clear,
+  clipItemId,
   day,
   frasesItemId,
   isDue,
@@ -29,6 +30,7 @@ import {
   type Attempt,
   type Progress
 } from '../app/utils/progress'
+import { clips } from './fixtures/clips'
 import { clearUnavailable, loadUnavailable, saveUnavailable } from '../app/utils/unavailable'
 
 const today = '2026-08-14'
@@ -860,6 +862,22 @@ describe('practising', () => {
     const row = page.findAll('tbody tr').find(candidate => candidate.text().startsWith('Present Simple'))!
 
     expect(row.text()).toBe(`Present Simple1 / ${itemsOfTense('present-simple').length}0101`)
+  })
+
+  it('loads clip content before showing failed clips', async () => {
+    const clip = clips[0]!
+    const exercise = clip.exercises[0]!
+    const id = clipItemId(clip, exercise)
+
+    save({ [id]: review(undefined, id, false, today) })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    await vi.waitFor(() => {
+      expect(page.text()).toContain(exercise.prompt)
+      expect(page.text()).toContain(exercise.solution)
+    })
   })
 
   it('reports imported attempts and keeps existing progress', async () => {
