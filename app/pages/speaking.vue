@@ -20,6 +20,7 @@ const index = ref(0)
 const sentence = computed(() => round.value[index.value])
 const done = computed(() => round.value.length > 0 && index.value >= round.value.length)
 const results = ref<{ sentence: typeof drill[number], correct: boolean, missing: string[] }[]>([])
+const recorded = new Set<string>()
 
 const diff = computed(() => sentence.value && transcript.value ? compare(sentence.value.en, transcript.value) : [])
 const correct = computed(() => score(diff.value) >= SPEAKING_SCORE_THRESHOLD)
@@ -51,6 +52,7 @@ function restart() {
   round.value = pickRound(drill, item => attemptOf(speakingItemId(item.tense, item)), size)
   index.value = 0
   results.value = []
+  recorded.clear()
 }
 
 watch(transcript, (value) => {
@@ -58,7 +60,14 @@ watch(transcript, (value) => {
     return
   }
 
-  record(speakingItemId(sentence.value.tense, sentence.value), correct.value)
+  const id = speakingItemId(sentence.value.tense, sentence.value)
+
+  if (recorded.has(id)) {
+    return
+  }
+
+  recorded.add(id)
+  record(id, correct.value)
   results.value.push({ sentence: sentence.value, correct: correct.value, missing: missing.value })
 })
 
