@@ -9,7 +9,8 @@ import { clipFiles as lazyClipFiles } from '../app/utils/clips'
 import { clipFiles, clips } from './fixtures/clips'
 import { gapCount, normalize } from '../app/utils/check'
 import { clipItemId, day, items, load, review, save, setClipItems, storageKey } from '../app/utils/progress'
-import { loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
+import { clearUnavailable, loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
+import { useClips } from '../app/composables/useClips'
 import { useProgress } from '../app/composables/useProgress'
 
 // Guards content/clips/ and the pages that play it: a window that does not last, a gap that
@@ -153,9 +154,61 @@ describe('the review queue', () => {
 
     expect(session.pending.value.some(item => item.id === id)).toBe(false)
   })
+
+  it('restores a marked clip to playable and pending after clearing the list', async () => {
+    localStorage.removeItem(storageKey)
+    localStorage.removeItem(unavailableKey)
+
+    const clip = clips[0]!
+    const exercise = clip.exercises[0]!
+    const id = clipItemId(clip, exercise)
+
+    save({ [id]: review(undefined, id, false, day()) })
+    saveUnavailable([clip.videoId])
+
+    let clipSession!: ReturnType<typeof useClips>
+    let progressSession!: ReturnType<typeof useProgress>
+    const Harness = defineComponent({
+      setup() {
+        clipSession = useClips({ load: false })
+        progressSession = useProgress()
+        return () => null
+      }
+    })
+
+    const page = await mountSuspended(Harness)
+    await clipSession.load()
+    await flushPromises()
+    onTestFinished(() => {
+      clearUnavailable()
+      page.unmount()
+    })
+
+    expect(clipSession.playable.value.some(candidate => candidate.videoId === clip.videoId)).toBe(false)
+    expect(progressSession.pending.value.some(item => item.id === id)).toBe(false)
+
+    clearUnavailable()
+    await flushPromises()
+
+    expect(clipSession.playable.value.some(candidate => candidate.videoId === clip.videoId)).toBe(true)
+    expect(progressSession.pending.value.some(item => item.id === id)).toBe(true)
+  })
 })
 
 describe('/clips', () => {
+  it('excludes unavailable clips from the catalogue count and cards', async () => {
+    const hiddenVideo = clips[0]!.videoId
+    const available = clips.filter(clip => clip.videoId !== hiddenVideo)
+
+    saveUnavailable([hiddenVideo])
+    const page = await mountSuspended(ClipsIndex)
+    await flushPromises()
+    onTestFinished(() => clearUnavailable())
+
+    expect(page.text()).toContain(`Mostrando ${Math.min(30, available.length)} de ${available.length} clips`)
+    expect(page.findAll('[data-testid="clip-card"]').every(card => !card.text().includes(clips[0]!.text))).toBe(true)
+  })
+
   it('renders the initial batch and reports the filtered total', async () => {
     const page = await mountSuspended(ClipsIndex)
     await flushPromises()

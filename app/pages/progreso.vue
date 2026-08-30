@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { clearUnavailable, unavailable } from '../utils/unavailable'
+
 // What has been practised in this browser: what is mastered, what is missed and what is due
 // for review today.
 const { attempts, pending, failed, persistenceFailed, statsOf, exportFile, importFile, reset } = useProgress()
@@ -278,6 +280,25 @@ useSeo({
               El progreso solo existe en este navegador. Expórtalo para guardarlo o llevártelo a otro.
             </p>
 
+            <aside
+              v-if="unavailable.length > 0"
+              role="status"
+              aria-live="polite"
+              class="mt-4 rounded-lg border border-warning p-4"
+            >
+              <p>
+                {{ unavailable.length }} clip{{ unavailable.length === 1 ? '' : 's' }} oculto{{ unavailable.length === 1 ? '' : 's' }} porque el vídeo no se pudo reproducir.
+              </p>
+              <UButton
+                label="Recuperar clips ocultos"
+                icon="i-lucide-rotate-ccw"
+                color="neutral"
+                variant="subtle"
+                class="mt-3"
+                @click="clearUnavailable"
+              />
+            </aside>
+
             <div class="mt-4 flex flex-wrap items-end gap-4">
               <UButton
                 label="Exportar JSON"
@@ -329,14 +350,14 @@ useSeo({
                 v-model:open="resetModalOpen"
                 :portal="false"
                 title="¿Reiniciar progreso?"
-                description="Se borrará todo el progreso guardado en este navegador. Esta acción no se puede deshacer."
+                description="Se borrará todo el progreso guardado en este navegador y se recuperarán los vídeos ocultos. Esta acción no se puede deshacer."
               >
                 <UButton
                   label="Reiniciar"
                   icon="i-lucide-trash-2"
                   color="error"
                   variant="subtle"
-                  :disabled="attempts.length === 0"
+                  :disabled="attempts.length === 0 && unavailable.length === 0"
                   @click="onReset"
                 />
 
