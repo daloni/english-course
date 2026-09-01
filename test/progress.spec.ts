@@ -606,7 +606,7 @@ describe('several tabs', () => {
     await flushPromises()
 
     expect(page.text()).toContain(`1 de ${items().length} ejercicios practicados`)
-    expect(page.text()).toContain('Repasar hoy (1)')
+    expect(page.text()).toContain('Repasar hoy (1) · tandas de 10')
     expect(page.text()).toContain(exercise.prompt)
   })
 
@@ -779,6 +779,49 @@ describe('practising', () => {
     expect(page.text()).toContain('Repaso terminado: 1 de 1')
     expect(page.text()).not.toContain('Para repasar')
     expect(page.findAll('button').some(button => button.text().includes('Otra ronda'))).toBe(true)
+  })
+
+  it('limits a review round and keeps the remaining exercises pending', async () => {
+    const candidates = items().filter(item => item.kind === 'frases').slice(0, 11)
+
+    expect(candidates).toHaveLength(11)
+
+    save(Object.fromEntries(candidates.map(item => [
+      item.id,
+      review(undefined, item.id, false, addDays(today, -1))
+    ])))
+
+    const page = await mountSuspended(Repaso)
+    await flushPromises()
+
+    expect(page.text()).toContain('Tandas de hasta 10 ejercicios. Hoy te tocan 11 en total.')
+    expect(page.text()).toContain('Ejercicio 1 de 10')
+
+    for (const candidate of candidates.slice(0, 10)) {
+      expect(page.text()).toContain(candidate.prompt)
+
+      const radio = page.findAll('[role="radio"]').find(option => option.attributes('value') === candidate.solution)
+
+      if (radio) {
+        await radio.trigger('click')
+      } else {
+        await page.find('input').setValue(candidate.solution)
+      }
+
+      await page.find('form').trigger('submit')
+      await flushPromises()
+      await page.find('form').trigger('submit')
+      await flushPromises()
+    }
+
+    expect(page.text()).toContain('Repaso terminado: 10 de 10')
+    expect(page.text()).toContain('Otra ronda (quedan 1)')
+
+    await page.findAll('button').find(button => button.text().includes('Otra ronda'))!.trigger('click')
+    await flushPromises()
+
+    expect(page.text()).toContain('Ejercicio 1 de 1')
+    expect(page.text()).toContain(candidates[10]!.prompt)
   })
 
   // A speaking attempt due today cannot fill another round: it never enters the shared queue.

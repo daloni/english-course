@@ -100,7 +100,7 @@ useSeo({
             <div class="flex flex-wrap items-center gap-4">
               <UButton
                 to="/repaso"
-                :label="pending.length > 0 ? `Repasar hoy (${pending.length})` : 'Nada que repasar hoy'"
+                :label="pending.length > 0 ? `Repasar hoy (${pending.length}) · tandas de 10` : 'Nada que repasar hoy'"
                 icon="i-lucide-repeat"
                 size="lg"
                 :disabled="pending.length === 0"
