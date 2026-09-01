@@ -18,9 +18,23 @@ export function isSafeUrl(url: string): boolean {
   return allowedUrl.test(url.replace(/[\u0000-\u0020\u007F-\u009F]/g, ''))
 }
 
+const htmlEntities: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  '\u0027': '&#39;'
+}
+
+const escapeHtml = (text: string) => text.replace(/[&<>"']/g, character => htmlEntities[character] ?? character)
+
 // Returning false from a renderer method falls back to the default renderer of marked.
 const renderer = new Marked({
   renderer: {
+    /** Raw HTML is displayed as text, so content cannot add executable DOM. */
+    html({ text }) {
+      return escapeHtml(text)
+    },
     /** An unsafe link keeps its text without the anchor: inert, and nothing disappears. */
     link(token) {
       return isSafeUrl(token.href) ? false : this.parser.parseInline(token.tokens)
@@ -34,7 +48,7 @@ const renderer = new Marked({
 
 /**
  * Renders the Markdown of content/ (theory and readings) as HTML for v-html. Raw HTML in the
- * content is rejected by test/content.spec.ts and test/reading.spec.ts; this renderer covers
- * the links, which Markdown alone can turn into executable URLs.
+ * content is escaped here; the content tests reject it earlier as a CI guard. Links and images
+ * also go through a scheme allowlist because Markdown alone can turn their URLs executable.
  */
 export const renderMarkdown = (markdown: string) => renderer.parse(markdown, { async: false })

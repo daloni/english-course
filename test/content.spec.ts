@@ -13,7 +13,7 @@ function expectText(value: unknown, label: string) {
   expect((value as string).trim(), `${label} must not be empty`).not.toBe('')
 }
 
-const rawHtmlTag = /<\/?[A-Za-z][A-Za-z0-9:-]*(?:\s+[^<>]*)?\s*\/?>/
+const rawHtmlTag = /<\/?[A-Za-z]/
 
 function expectNoRawHtml(value: unknown, label: string) {
   expect(value as string, `${label} must not contain raw HTML tags; use Markdown instead`).not.toMatch(rawHtmlTag)
@@ -99,7 +99,13 @@ describe('tenses', () => {
 })
 
 describe('Markdown content', () => {
-  it.each(['<script>alert(1)</script>', '<img src=x onerror=alert(1)>', '<b>bold</b>'])('rejects raw HTML: %s', (value) => {
+  it.each([
+    '<script>alert(1)</script>',
+    '<img src=x onerror=alert(1)>',
+    '<b>bold</b>',
+    '<img src=x onerror="if(1<2)alert(1)">',
+    '<svg onload="a=1<2">'
+  ])('rejects raw HTML: %s', (value) => {
     expect(value).toMatch(rawHtmlTag)
   })
 
