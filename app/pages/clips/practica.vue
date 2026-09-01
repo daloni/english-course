@@ -83,7 +83,7 @@ watch([levelFilter, channelFilter], () => {
 })
 
 /** The same button corrects first and moves on to the next clip afterwards. */
-function submit() {
+function submit(skip = false) {
   if (checked.value) {
     index.value += 1
     answer.value = ''
@@ -91,11 +91,11 @@ function submit() {
     return
   }
 
-  if (!question.value || !answer.value.trim()) {
+  if (!question.value || (!skip && !answer.value.trim())) {
     return
   }
 
-  const correct = checkExercise(answer.value, question.value.exercise)
+  const correct = !skip && checkExercise(answer.value, question.value.exercise)
 
   record(question.value.id, correct)
   results.value.push({ question: question.value, answer: answer.value, correct })
@@ -203,7 +203,10 @@ function onUnavailable(videoId: string) {
                     {{ mistake.question.clip.text }}
                   </p>
                   <p class="text-muted">
-                    Escribiste «{{ mistake.answer }}», la respuesta correcta es
+                    <template v-if="mistake.answer">
+                      Escribiste «{{ mistake.answer }}»,
+                    </template>
+                    la respuesta correcta es
                     <strong
                       lang="en"
                       class="font-semibold"
@@ -240,7 +243,7 @@ function onUnavailable(videoId: string) {
 
             <form
               class="mt-6"
-              @submit.prevent="submit"
+              @submit.prevent="submit()"
             >
               <ExerciseGap
                 :key="question.id"
@@ -249,13 +252,23 @@ function onUnavailable(videoId: string) {
                 :disabled="!!checked"
               />
 
-              <UButton
-                data-focus-target
-                type="submit"
-                :label="checked ? 'Siguiente' : 'Comprobar'"
-                :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
-                class="mt-6"
-              />
+              <div class="mt-6 flex flex-wrap gap-3">
+                <UButton
+                  data-focus-target
+                  type="submit"
+                  :label="checked ? 'Siguiente' : 'Comprobar'"
+                  :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                />
+                <UButton
+                  v-if="!checked"
+                  type="button"
+                  label="No lo sé"
+                  icon="i-lucide-circle-help"
+                  color="neutral"
+                  variant="outline"
+                  @click="submit(true)"
+                />
+              </div>
             </form>
 
             <div
