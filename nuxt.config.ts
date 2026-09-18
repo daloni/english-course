@@ -47,7 +47,9 @@ export default defineNuxtConfig({
     public: {
       siteUrl: '',
       siteName: '',
-      siteDescription: ''
+      siteDescription: '',
+      // Optional: the Google Search Console verification token
+      googleSiteVerification: ''
     }
   },
 

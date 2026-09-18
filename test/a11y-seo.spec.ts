@@ -45,7 +45,7 @@ describe('SEO', () => {
 
     expect(meta, 'no useSeo').not.toBe('')
     expect(meta).toMatch(/\btitle:/)
-    expect(meta).toMatch(/\bdescription:/)
+    expect(meta).toMatch(/\bdescription\b/)
   })
 
   // What shows up when the link is shared belongs to the page, not to the home: without this
@@ -74,6 +74,27 @@ describe('SEO', () => {
     expect(content('og:type')).toBe('website')
     expect(content('og:locale')).toBe('es_ES')
     expect(content('twitter:card')).toBe('summary_large_image')
+  })
+
+  it('makes the canonical end in a slash, the URL GitHub Pages serves without redirecting', () => {
+    expect(readFileSync('app/app.vue', 'utf8')).toContain('route.path.replace(/\\/?$/, \'/\')')
+  })
+
+  it.each(['progreso', 'repaso', 'verbos/practica', 'clips/practica'])('/%s is noindex', (name) => {
+    expect(readFileSync(`${pagesDir}/${name}.vue`, 'utf8')).toMatch(/useSeo\(\{[\s\S]*?noindex: true/)
+  })
+
+  it('emits noindex only where asked and a LearningResource JSON-LD on a theory page', async () => {
+    await mountSuspended(TenseTheory, { route: `/teoria/past-simple` })
+    await flushPromises()
+    await new Promise(resolve => setTimeout(resolve))
+
+    expect(document.head.querySelector('meta[name="robots"][content^="noindex"]')).toBeNull()
+
+    const data = JSON.parse(document.head.querySelector('script[type="application/ld+json"]')!.textContent!)
+
+    expect(data['@type']).toBe('LearningResource')
+    expect(data.url).toMatch(/\/teoria\/past-simple\/$/)
   })
 
   it('ships the default social image', () => {

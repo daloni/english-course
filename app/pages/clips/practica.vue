@@ -1,6 +1,7 @@
 <script setup lang="ts">
 useSeo({
   title: 'Practicar con clips',
+  noindex: true,
   description: 'Escucha un trozo de vídeo real, escribe lo que falta en la frase y comprueba la respuesta al instante.'
 })
 

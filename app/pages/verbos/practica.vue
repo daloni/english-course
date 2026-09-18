@@ -1,6 +1,7 @@
 <script setup lang="ts">
 useSeo({
   title: 'Practicar conjugación',
+  noindex: true,
   description: 'Ejercicio de conjugación: escribe el pasado simple, el participio o la tercera persona del verbo y comprueba la respuesta al instante.'
 })
 

@@ -69,6 +69,7 @@ function onUnavailable(videoId: string) {
 
 useSeo({
   title: 'Repaso de hoy',
+  noindex: true,
   description: 'Sesión de repaso espaciado con los ejercicios de frases, verbos y reading que hoy te toca volver a ver.'
 })
 </script>

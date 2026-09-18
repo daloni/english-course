@@ -16,9 +16,23 @@ const examplesByForm = forms
 
 const hasExercises = exercises.some(exercise => exercise.tenseId === tense.id)
 
+const { siteUrl } = useRuntimeConfig().public
+const description = `${tense.name} (${tense.nameEs}), nivel ${tense.level}: cuándo se usa, cómo se forma, marcadores temporales y ejemplos.`
+
 useSeo({
   title: tense.name,
-  description: `${tense.name} (${tense.nameEs}), nivel ${tense.level}: cuándo se usa, cómo se forma, marcadores temporales y ejemplos.`
+  description,
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    'name': tense.name,
+    'description': description,
+    'url': `${siteUrl.replace(/\/$/, '')}${route.path.replace(/\/?$/, '/')}`,
+    'inLanguage': 'es',
+    'educationalLevel': tense.level,
+    'learningResourceType': 'Teoría',
+    'isAccessibleForFree': true
+  }
 })
 </script>
 

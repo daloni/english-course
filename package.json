@@ -11,6 +11,7 @@
     "postinstall": "nuxt prepare",
     "prebuild": "node scripts/generate-clip-index.mjs",
     "pregenerate": "node scripts/generate-clip-index.mjs",
+    "postgenerate": "node scripts/generate-sitemap.mjs",
     "test": "vitest run",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck"
