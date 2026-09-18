@@ -5,7 +5,7 @@
  *
  * The og:url and the canonical live in app.vue, which is the one that knows the current route.
  */
-export function useSeo(page: { title: string, description: string }) {
+export function useSeo(page: { title: string, description: string, noindex?: boolean, jsonLd?: object }) {
   const { siteName } = useRuntimeConfig().public
 
   useSeoMeta({
@@ -17,6 +17,13 @@ export function useSeo(page: { title: string, description: string }) {
     ogDescription: page.description,
     ogType: 'website',
     ogLocale: 'es_ES',
-    twitterCard: 'summary_large_image'
+    twitterCard: 'summary_large_image',
+    // Personal or ephemeral pages: built in the browser, thin and duplicate as prerendered HTML.
+    ...(page.noindex && { robots: 'noindex, follow' })
   })
+
+  if (page.jsonLd) {
+    // `<` is escaped so content can never close the script tag.
+    useHead({ script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(page.jsonLd).replace(/</g, '\\u003c') }] })
+  }
 }

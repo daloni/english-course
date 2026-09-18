@@ -17,6 +17,7 @@ const description = computed(() => notFound.value
 const leave = (to: string) => clearError({ redirect: to })
 
 useSeo({
+  noindex: true,
   title: title.value,
   description: description.value
 })

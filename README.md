@@ -34,8 +34,9 @@ declares the keys empty and Nuxt fills them from the matching `NUXT_PUBLIC_*` va
 | `NUXT_PUBLIC_SITE_URL` | The public URL of the site, for the `<link rel="canonical">` and the `og:url` | `http://localhost:3000` |
 | `NUXT_PUBLIC_SITE_NAME` | The name of the site, in the `<title>` of every page and in the share cards | `Aprender inglés` |
 | `NUXT_PUBLIC_SITE_DESCRIPTION` | The description of the home and its social card | the one of the course |
+| `NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional: Google Search Console token, emitted as `<meta name="google-site-verification">` | empty |
 
-If any of them is missing the build stops naming it instead of publishing a site with no
+If any of the first three is missing the build stops naming it instead of publishing a site with no
 canonical. What comes from the environment wins over the file, which is how the workflow passes
 the `NUXT_PUBLIC_SITE_URL` of GitHub Pages.
 
@@ -80,6 +81,24 @@ that subpath to Nuxt with `NUXT_APP_BASE_URL` and the full public URL with `NUXT
 which is the one the `<link rel="canonical">` and the `og:url` of every page carry; locally
 nothing is needed. To serve it from somewhere else (Netlify, an `nginx`…) it is enough to upload
 `.output/public` as it is, passing `NUXT_PUBLIC_SITE_URL` with the new domain.
+
+## SEO
+
+- The `<link rel="canonical">` and the `og:url` end in a slash, the URL GitHub Pages serves
+  without a redirect.
+- `pnpm generate` runs `scripts/generate-sitemap.mjs` afterwards (`postgenerate`), which writes
+  `sitemap.xml` and `robots.txt` (with its `Sitemap:` line) into `.output/public`.
+- `/progreso`, `/repaso`, `/verbos/practica`, `/clips/practica` and the error page are
+  `noindex, follow` and left out of the sitemap: they are built in the browser from the
+  user's `localStorage`, so the prerendered HTML is empty.
+- The home has a `WebSite` JSON-LD; `/teoria/<slug>` and `/reading/<slug>` a `LearningResource`.
+- The Search Console token goes in the `GOOGLE_SITE_VERIFICATION` repository variable (it
+  reaches the build as `NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION`).
+
+Manual steps after merging: add `https://daloni.github.io/english-course/` as a URL-prefix
+property in Google Search Console, verify it with the meta tag, submit `sitemap.xml` and request
+indexing of the home. Optionally do the same in Bing Webmaster Tools. Search engines only read
+`robots.txt` at the domain root, so the sitemap must be submitted by hand.
 
 ## Installable app
 

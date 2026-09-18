@@ -65,9 +65,23 @@ function retry() {
   submitted.value = false
 }
 
+const { siteUrl } = useRuntimeConfig().public
+const description = `${reading.title}: lectura de nivel ${reading.level} sobre ${reading.topic.toLowerCase()}, con glosario y ${reading.questions.length} preguntas de comprensión.`
+
 useSeo({
   title: reading.title,
-  description: `${reading.title}: lectura de nivel ${reading.level} sobre ${reading.topic.toLowerCase()}, con glosario y ${reading.questions.length} preguntas de comprensión.`
+  description,
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    'name': reading.title,
+    'description': description,
+    'url': `${siteUrl.replace(/\/$/, '')}${route.path.replace(/\/?$/, '/')}`,
+    'inLanguage': 'es',
+    'educationalLevel': reading.level,
+    'learningResourceType': 'Lectura con preguntas',
+    'isAccessibleForFree': true
+  }
 })
 </script>
 

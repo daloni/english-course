@@ -1,10 +1,24 @@
 <script setup lang="ts">
 const { pending } = useProgress()
+const { siteName, siteUrl } = useRuntimeConfig().public
+const homeTitle = 'Aprender inglés: tiempos verbales, verbos, frases y reading'
+const homeDescription = 'Plataforma personal para aprender inglés por tiempos verbales: teoría, conjugación de verbos, frases, reading con preguntas y speaking, sin cuentas ni instalaciones.'
 
 useSeo({
-  title: 'Inicio',
-  description: 'Plataforma personal para aprender inglés por tiempos verbales: teoría, conjugación de verbos, frases, reading con preguntas y speaking, sin cuentas ni instalaciones.'
+  title: homeTitle,
+  description: homeDescription,
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    'name': siteName,
+    'url': `${siteUrl.replace(/\/$/, '')}/`,
+    'inLanguage': 'es',
+    'description': homeDescription
+  }
 })
+
+// The home title already says what the site is: no "· site name" after it.
+useSeoMeta({ titleTemplate: '%s', ogTitle: homeTitle })
 </script>
 
 <template>

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 // The site is published under a subpath on GitHub Pages, so the icon hangs off the base.
-const { app, public: { siteUrl, siteName, siteDescription: description } } = useRuntimeConfig()
+const { app, public: { siteUrl, siteName, siteDescription: description, googleSiteVerification } } = useRuntimeConfig()
 const route = useRoute()
 
-/** The public URL of the page being viewed, without a trailing slash: canonical and og:url. */
-const url = computed(() => `${siteUrl.replace(/\/$/, '')}${route.path.replace(/\/$/, '')}`)
+/**
+ * The public URL of the page being viewed, with a trailing slash: GitHub Pages serves every
+ * route as `route/index.html` and redirects the slashless URL, and a canonical must not redirect.
+ */
+const url = computed(() => `${siteUrl.replace(/\/$/, '')}${route.path.replace(/\/?$/, '/')}`)
 
 useHead({
   link: [
@@ -12,6 +15,10 @@ useHead({
     { rel: 'canonical', href: url }
   ]
 })
+
+if (googleSiteVerification) {
+  useHead({ meta: [{ name: 'google-site-verification', content: googleSiteVerification }] })
+}
 
 useSeoMeta({
   title: siteName,
