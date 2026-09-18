@@ -97,6 +97,12 @@ describe('SEO', () => {
     expect(data.url).toMatch(/\/teoria\/past-simple\/$/)
   })
 
+  it('ships the Search Console verification file', () => {
+    const file = readFileSync('public/google01b97013ce9be168.html', 'utf8')
+
+    expect(file.trim()).toBe('google-site-verification: google01b97013ce9be168.html')
+  })
+
   it('ships the default social image', () => {
     const app = readFileSync('app/app.vue', 'utf8')
     const image = readFileSync('public/og-image.png')
