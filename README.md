@@ -94,6 +94,8 @@ nothing is needed. To serve it from somewhere else (Netlify, an `nginx`…) it i
 - The home has a `WebSite` JSON-LD; `/teoria/<slug>` and `/reading/<slug>` a `LearningResource`.
 - The Search Console token goes in the `GOOGLE_SITE_VERIFICATION` repository variable (it
   reaches the build as `NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION`).
+- The site is also verified with the file `public/google01b97013ce9be168.html`; don't delete it
+  while the property must stay verified.
 
 Manual steps after merging: add `https://daloni.github.io/english-course/` as a URL-prefix
 property in Google Search Console, verify it with the meta tag, submit `sitemap.xml` and request
