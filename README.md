@@ -39,8 +39,9 @@ declares the keys empty and Nuxt fills them from the matching `NUXT_PUBLIC_*` va
 | `NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional: Google Search Console token, emitted as `<meta name="google-site-verification">` | empty |
 
 If any required variable is missing the build stops and names it. What comes from the environment
-wins over the file. For publishing, set the repository variables `LEGAL_OWNER` and `LEGAL_EMAIL`
-to the real owner's details; the example values are only for local development and CI checks.
+wins over the file. For publishing, set `NUXT_PUBLIC_LEGAL_OWNER` and `NUXT_PUBLIC_LEGAL_EMAIL`
+(and optionally `NUXT_PUBLIC_SITE_NAME` and `NUXT_PUBLIC_SITE_DESCRIPTION`) in the
+`github-pages` environment; the example values are only for local development and CI checks.
 
 ## Commands
 

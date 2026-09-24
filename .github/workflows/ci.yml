@@ -72,8 +72,7 @@ jobs:
         env:
           NUXT_APP_BASE_URL: /
 
-  # Preparing the deployment needs Pages metadata. Keeping it in a main-only job means code
-  # from pull requests still runs with contents read and no Pages or OIDC credentials.
+  # This main-only job reads publication configuration from the github-pages environment.
   pages:
     needs: ci
     if: github.ref == 'refs/heads/main' && github.event.repository.has_pages
@@ -83,6 +82,10 @@ jobs:
     permissions:
       contents: read
       pages: read
+
+    environment:
+      name: github-pages
+      deployment: false
 
     steps:
       - name: Checkout
@@ -113,8 +116,10 @@ jobs:
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
           NUXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
           NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
-          NUXT_PUBLIC_LEGAL_OWNER: ${{ vars.LEGAL_OWNER }}
-          NUXT_PUBLIC_LEGAL_EMAIL: ${{ vars.LEGAL_EMAIL }}
+          NUXT_PUBLIC_SITE_NAME: ${{ vars.NUXT_PUBLIC_SITE_NAME }}
+          NUXT_PUBLIC_SITE_DESCRIPTION: ${{ vars.NUXT_PUBLIC_SITE_DESCRIPTION }}
+          NUXT_PUBLIC_LEGAL_OWNER: ${{ vars.NUXT_PUBLIC_LEGAL_OWNER }}
+          NUXT_PUBLIC_LEGAL_EMAIL: ${{ vars.NUXT_PUBLIC_LEGAL_EMAIL }}
 
       - name: Check the generated PWA artifact
         run: pnpm run check-pwa
