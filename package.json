@@ -17,8 +17,8 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "@iconify-json/lucide": "^1.2.122",
-    "@iconify-json/simple-icons": "^1.2.93",
+    "@iconify-json/lucide": "^1.2.135",
+    "@iconify-json/simple-icons": "^1.2.97",
     "@nuxt/ui": "^4.10.0",
     "marked": "^17.0.6",
     "nuxt": "^4.5.2",
@@ -29,7 +29,7 @@
     "@nuxt/test-utils": "^4.1.0",
     "@vite-pwa/nuxt": "^1.1.1",
     "@vue/test-utils": "^2.4.11",
-    "eslint": "^10.8.1",
+    "eslint": "^10.11.0",
     "happy-dom": "^20.11.2",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10",
