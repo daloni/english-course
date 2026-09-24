@@ -71,7 +71,7 @@ const description = `${reading.title}: lectura de nivel ${reading.level} sobre $
 useSeo({
   title: reading.title,
   description,
-  jsonLd: {
+  jsonLd: [{
     '@context': 'https://schema.org',
     '@type': 'LearningResource',
     'name': reading.title,
@@ -81,7 +81,15 @@ useSeo({
     'educationalLevel': reading.level,
     'learningResourceType': 'Lectura con preguntas',
     'isAccessibleForFree': true
-  }
+  }, {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Inicio', 'item': `${siteUrl.replace(/\/$/, '')}/` },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Reading', 'item': `${siteUrl.replace(/\/$/, '')}/reading/` },
+      { '@type': 'ListItem', 'position': 3, 'name': reading.title, 'item': `${siteUrl.replace(/\/$/, '')}/reading/${reading.id}/` }
+    ]
+  }]
 })
 </script>
 

@@ -113,6 +113,8 @@ jobs:
           NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
           NUXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
           NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          NUXT_PUBLIC_LEGAL_OWNER: ${{ vars.LEGAL_OWNER }}
+          NUXT_PUBLIC_LEGAL_EMAIL: ${{ vars.LEGAL_EMAIL }}
 
       - name: Check the generated PWA artifact
         run: pnpm run check-pwa

@@ -1,7 +1,21 @@
 <script setup lang="ts">
+const { siteUrl } = useRuntimeConfig().public
 useSeo({
   title: 'Teoría',
-  description: 'Los tiempos verbales del inglés explicados en español: cuándo se usa cada uno, cómo se forma y ejemplos.'
+  description: 'Los tiempos verbales del inglés explicados en español: cuándo se usa cada uno, cómo se forma y ejemplos.',
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    'name': 'Teoría de los tiempos verbales',
+    'url': `${siteUrl.replace(/\/$/, '')}/teoria/`,
+    'mainEntity': {
+      '@type': 'ItemList',
+      'itemListElement': tenses.map((tense, index) => ({
+        '@type': 'ListItem', 'position': index + 1, 'name': tense.name,
+        'url': `${siteUrl.replace(/\/$/, '')}/teoria/${tense.id}/`
+      }))
+    }
+  }
 })
 
 const query = ref('')

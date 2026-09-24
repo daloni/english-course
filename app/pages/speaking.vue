@@ -209,6 +209,13 @@ useSeo({
                 color="neutral"
                 variant="subtle"
               />
+              <p class="mt-2 text-sm text-muted">
+                El reconocimiento de voz lo procesa el navegador o su proveedor.
+                <ULink
+                  to="/privacidad"
+                  class="underline"
+                >Consulta la política de privacidad</ULink>.
+              </p>
 
               <div class="mt-6 flex flex-wrap gap-3">
                 <UButton

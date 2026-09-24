@@ -212,6 +212,10 @@ onBeforeUnmount(() => {
           class="px-6 text-sm text-neutral-400"
         >
           Al reproducir, este vídeo se conectará con YouTube.
+          <ULink
+            to="/cookies"
+            class="underline"
+          >Consulta la política de cookies</ULink>.
         </p>
         <UButton
           icon="i-lucide-play"

@@ -1,7 +1,21 @@
 <script setup lang="ts">
+const { siteUrl } = useRuntimeConfig().public
 useSeo({
   title: 'Reading',
-  description: 'Lecturas cortas en inglés con glosario de vocabulario y preguntas de comprensión corregidas al instante.'
+  description: 'Lecturas cortas en inglés con glosario de vocabulario y preguntas de comprensión corregidas al instante.',
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    'name': 'Lecturas en inglés',
+    'url': `${siteUrl.replace(/\/$/, '')}/reading/`,
+    'mainEntity': {
+      '@type': 'ItemList',
+      'itemListElement': readings.map((reading, index) => ({
+        '@type': 'ListItem', 'position': index + 1, 'name': reading.title,
+        'url': `${siteUrl.replace(/\/$/, '')}/reading/${reading.id}/`
+      }))
+    }
+  }
 })
 </script>
 

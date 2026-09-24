@@ -57,9 +57,31 @@ function submit(skip = false) {
   checked.value = { correct, exercise: exercise.value }
 }
 
+const { siteUrl } = useRuntimeConfig().public
+const description = `Ejercicios de ${tense.name} (${tense.nameEs}) en frases: rellena huecos, transforma frases y reconoce el tiempo con corrección.`
+
 useSeo({
   title: `Frases de ${tense.name}`,
-  description: `Ejercicios de ${tense.name} (${tense.nameEs}) en frases: rellena el hueco, transforma la frase y reconoce el tiempo, con corrección y explicación.`
+  description,
+  jsonLd: [{
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    'name': `Frases de ${tense.name}`,
+    'description': description,
+    'url': `${siteUrl.replace(/\/$/, '')}${route.path.replace(/\/?$/, '/')}`,
+    'inLanguage': 'es',
+    'educationalLevel': tense.level,
+    'learningResourceType': 'Ejercicios',
+    'isAccessibleForFree': true
+  }, {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Inicio', 'item': `${siteUrl.replace(/\/$/, '')}/` },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Frases', 'item': `${siteUrl.replace(/\/$/, '')}/frases/` },
+      { '@type': 'ListItem', 'position': 3, 'name': `Frases de ${tense.name}`, 'item': `${siteUrl.replace(/\/$/, '')}/frases/${tense.id}/` }
+    ]
+  }]
 })
 </script>
 

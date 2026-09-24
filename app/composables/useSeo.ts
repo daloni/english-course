@@ -5,7 +5,7 @@
  *
  * The og:url and the canonical live in app.vue, which is the one that knows the current route.
  */
-export function useSeo(page: { title: string, description: string, noindex?: boolean, jsonLd?: object }) {
+export function useSeo(page: { title: string, description: string, noindex?: boolean, jsonLd?: object | object[] }) {
   const { siteName } = useRuntimeConfig().public
 
   useSeoMeta({
@@ -24,6 +24,7 @@ export function useSeo(page: { title: string, description: string, noindex?: boo
 
   if (page.jsonLd) {
     // `<` is escaped so content can never close the script tag.
-    useHead({ script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(page.jsonLd).replace(/</g, '\\u003c') }] })
+    const data = Array.isArray(page.jsonLd) ? page.jsonLd : [page.jsonLd]
+    useHead({ script: data.map(item => ({ type: 'application/ld+json', innerHTML: JSON.stringify(item).replace(/</g, '\\u003c') })) })
   }
 }

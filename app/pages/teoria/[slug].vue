@@ -22,7 +22,7 @@ const description = `${tense.name} (${tense.nameEs}), nivel ${tense.level}: cuá
 useSeo({
   title: tense.name,
   description,
-  jsonLd: {
+  jsonLd: [{
     '@context': 'https://schema.org',
     '@type': 'LearningResource',
     'name': tense.name,
@@ -32,7 +32,15 @@ useSeo({
     'educationalLevel': tense.level,
     'learningResourceType': 'Teoría',
     'isAccessibleForFree': true
-  }
+  }, {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Inicio', 'item': `${siteUrl.replace(/\/$/, '')}/` },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Teoría', 'item': `${siteUrl.replace(/\/$/, '')}/teoria/` },
+      { '@type': 'ListItem', 'position': 3, 'name': tense.name, 'item': `${siteUrl.replace(/\/$/, '')}/teoria/${tense.id}/` }
+    ]
+  }]
 })
 </script>
 
