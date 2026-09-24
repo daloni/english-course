@@ -24,6 +24,18 @@ describe('legal pages', () => {
     expect(layout.find('footer a[href="/progreso"]').exists()).toBe(false)
   })
 
+  it('groups footer links under distinct section and legal headings', async () => {
+    const layout = await mountSuspended(DefaultLayout)
+    const nav = layout.find('nav[aria-label="Enlaces del sitio"]')
+    const columns = nav.findAll('[data-slot="center"] > div')
+
+    expect(columns.map(column => column.find('h3').text())).toEqual(['Secciones', 'Legal'])
+    expect(columns[0]!.find('a[href="/teoria"]').exists()).toBe(true)
+    expect(columns[0]!.find('a[href="/cookies"]').exists()).toBe(false)
+    expect(columns[1]!.find('a[href="/cookies"]').exists()).toBe(true)
+    expect(columns[1]!.find('a[href="/teoria"]').exists()).toBe(false)
+  })
+
   it.each([
     ['/aviso-legal', AvisoLegal],
     ['/privacidad', Privacidad],
@@ -36,6 +48,15 @@ describe('legal pages', () => {
     expect(page.text()).toContain(legalEmail)
     expect(page.find(`a[href="mailto:${legalEmail}"]`).exists()).toBe(true)
     expect(page.findAll('h1')).toHaveLength(1)
+    expect(page.find('article.prose').exists()).toBe(false)
+  })
+
+  it('keeps the cookie table caption and scoped headers', async () => {
+    const page = await mountSuspended(Cookies, { route: '/cookies' })
+
+    expect(page.find('table caption').exists()).toBe(true)
+    expect(page.findAll('table th[scope="col"]')).toHaveLength(3)
+    expect(page.findAll('table th[scope="row"]')).toHaveLength(4)
   })
 })
 

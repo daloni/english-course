@@ -8,6 +8,125 @@
   outline-offset: 2px;
 }
 
+.legal-text {
+  min-width: 0;
+  max-width: 48rem;
+  margin-inline: auto;
+  overflow-wrap: anywhere;
+}
+
+.legal-text h2 {
+  margin-top: 2rem;
+  margin-bottom: .75rem;
+  color: var(--ui-text-highlighted);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.legal-text p {
+  margin-block: .75rem;
+  color: var(--ui-text);
+  line-height: 1.625;
+}
+
+.legal-text a {
+  color: var(--ui-primary);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-text code {
+  border-radius: .25rem;
+  background: var(--ui-bg-elevated);
+  padding-inline: .25rem;
+  font-size: .875rem;
+  overflow-wrap: anywhere;
+}
+
+.legal-text strong {
+  font-weight: 600;
+}
+
+.cookie-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: .875rem;
+}
+
+.cookie-table :is(th, td) {
+  padding: .5rem .75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.cookie-table thead,
+.cookie-table tr {
+  border-bottom: 1px solid var(--ui-border);
+}
+
+.cookie-table thead,
+.cookie-table tbody {
+  vertical-align: top;
+}
+
+.cookie-table thead {
+  font-weight: 600;
+}
+
+.cookie-table-label {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  .legal-text h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 39.999rem) {
+  .cookie-table,
+  .cookie-table thead,
+  .cookie-table tbody,
+  .cookie-table tr,
+  .cookie-table th,
+  .cookie-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .cookie-table tr {
+    margin-bottom: .75rem;
+    border: 1px solid var(--ui-border);
+    border-radius: .5rem;
+    padding: .25rem .75rem;
+  }
+
+  .cookie-table :is(th, td) {
+    padding: .5rem 0;
+  }
+
+  .cookie-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .cookie-table-label {
+    display: block;
+    margin-bottom: .25rem;
+    color: var(--ui-text-highlighted);
+    font-weight: 600;
+  }
+}
+
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
 

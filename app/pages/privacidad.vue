@@ -14,7 +14,7 @@ useSeo({
       description="Qué ocurre con tus datos al utilizar el curso."
     />
     <UPageBody>
-      <article class="prose dark:prose-invert mx-auto max-w-3xl">
+      <article class="legal-text">
         <p><strong>Última actualización:</strong> 24 de septiembre de 2026.</p>
         <h2>Responsable y contacto</h2>
         <p>El responsable de este sitio es {{ legalOwner }}. Para cualquier consulta sobre privacidad, escribe a <a :href="`mailto:${legalEmail}`">{{ legalEmail }}</a>.</p>

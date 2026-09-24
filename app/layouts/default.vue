@@ -14,6 +14,17 @@ const items = sections.map(({ label, to, icon }) => ({
   ...(to === '/repaso' ? { slot: 'review' } : {})
 }))
 const footerSections = sections.filter(({ to }) => to !== '/repaso' && to !== '/progreso')
+const footerColumns = [
+  { label: 'Secciones', children: footerSections.map(({ label, to }) => ({ label, to })) },
+  {
+    label: 'Legal',
+    children: [
+      { label: 'Aviso legal', to: '/aviso-legal' },
+      { label: 'Privacidad', to: '/privacidad' },
+      { label: 'Cookies', to: '/cookies' }
+    ]
+  }
+]
 const installPrompt = ref<InstallPromptEvent | null>(null)
 const installing = ref(false)
 
@@ -116,25 +127,22 @@ onUnmounted(() => {
     </UMain>
 
     <UFooter>
+      <template #top>
+        <UFooterColumns
+          :columns="footerColumns"
+          aria-label="Enlaces del sitio"
+          :ui="{
+            center: 'grid grid-cols-2 gap-8',
+            label: 'text-base font-semibold',
+            list: 'mt-2 space-y-1 lg:flex lg:flex-wrap lg:gap-x-4 lg:gap-y-1 lg:space-y-0',
+            link: 'min-h-8 px-1.5 py-1.5 text-sm rounded-sm focus-visible:outline-primary/25 focus-visible:outline-3'
+          }"
+        />
+      </template>
       <template #left>
-        <p class="text-sm text-muted">
+        <p class="text-center text-sm text-muted lg:text-left">
           Plataforma personal para aprender inglés
         </p>
-      </template>
-      <template #right>
-        <nav
-          aria-label="Enlaces del sitio"
-          class="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm"
-        >
-          <ULink
-            v-for="section in footerSections"
-            :key="section.to"
-            :to="section.to"
-          >{{ section.label }}</ULink>
-          <ULink to="/aviso-legal">Aviso legal</ULink>
-          <ULink to="/privacidad">Privacidad</ULink>
-          <ULink to="/cookies">Cookies</ULink>
-        </nav>
       </template>
     </UFooter>
   </div>
