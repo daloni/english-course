@@ -13,6 +13,7 @@ const items = sections.map(({ label, to, icon }) => ({
   icon,
   ...(to === '/repaso' ? { slot: 'review' } : {})
 }))
+const footerSections = sections.filter(({ to }) => to !== '/repaso' && to !== '/progreso')
 const installPrompt = ref<InstallPromptEvent | null>(null)
 const installing = ref(false)
 
@@ -119,6 +120,21 @@ onUnmounted(() => {
         <p class="text-sm text-muted">
           Plataforma personal para aprender inglés
         </p>
+      </template>
+      <template #right>
+        <nav
+          aria-label="Enlaces del sitio"
+          class="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm"
+        >
+          <ULink
+            v-for="section in footerSections"
+            :key="section.to"
+            :to="section.to"
+          >{{ section.label }}</ULink>
+          <ULink to="/aviso-legal">Aviso legal</ULink>
+          <ULink to="/privacidad">Privacidad</ULink>
+          <ULink to="/cookies">Cookies</ULink>
+        </nav>
       </template>
     </UFooter>
   </div>

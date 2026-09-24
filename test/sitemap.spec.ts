@@ -14,6 +14,9 @@ it('lists the indexable pages and points robots.txt at the sitemap', () => {
 
   try {
     page('.')
+    page('aviso-legal')
+    page('privacidad')
+    page('cookies')
     page('teoria/past-simple')
     page('progreso', '<meta name="robots" content="noindex, follow">')
     writeFileSync(join(dir, '404.html'), '')
@@ -21,6 +24,9 @@ it('lists the indexable pages and points robots.txt at the sitemap', () => {
 
     expect(generateSitemap(dir, 'https://x.io/course/')).toEqual([
       'https://x.io/course/',
+      'https://x.io/course/aviso-legal/',
+      'https://x.io/course/cookies/',
+      'https://x.io/course/privacidad/',
       'https://x.io/course/teoria/past-simple/'
     ])
     const xml = readFileSync(join(dir, 'sitemap.xml'), 'utf8')

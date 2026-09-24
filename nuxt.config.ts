@@ -2,7 +2,7 @@
 
 // Without its variables the site ships with no canonical, so the build stops here naming what
 // is missing instead of publishing something unusable.
-const missing = ['SITE_URL', 'SITE_NAME', 'SITE_DESCRIPTION']
+const missing = ['SITE_URL', 'SITE_NAME', 'SITE_DESCRIPTION', 'LEGAL_OWNER', 'LEGAL_EMAIL']
   .map(name => `NUXT_PUBLIC_${name}`).filter(key => !process.env[key])
 
 if (missing.length > 0) {
@@ -48,6 +48,8 @@ export default defineNuxtConfig({
       siteUrl: '',
       siteName: '',
       siteDescription: '',
+      legalOwner: '',
+      legalEmail: '',
       // Optional: the Google Search Console verification token
       googleSiteVerification: ''
     }

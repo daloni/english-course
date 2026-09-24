@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const { pending } = useProgress()
-const { siteName, siteUrl } = useRuntimeConfig().public
+const { siteName, siteUrl, legalOwner } = useRuntimeConfig().public
 const homeTitle = 'Aprender inglés: tiempos verbales, verbos, frases y reading'
-const homeDescription = 'Plataforma personal para aprender inglés por tiempos verbales: teoría, conjugación de verbos, frases, reading con preguntas y speaking, sin cuentas ni instalaciones.'
+const homeDescription = 'Plataforma personal para aprender inglés: teoría, conjugación de verbos, frases, reading con preguntas y speaking, sin cuentas ni instalaciones.'
 
 useSeo({
   title: homeTitle,
@@ -13,7 +13,10 @@ useSeo({
     'name': siteName,
     'url': `${siteUrl.replace(/\/$/, '')}/`,
     'inLanguage': 'es',
-    'description': homeDescription
+    'description': homeDescription,
+    'publisher': { '@type': 'Person', 'name': legalOwner, 'url': `${siteUrl.replace(/\/$/, '')}/aviso-legal/` },
+    'about': { '@type': 'Thing', 'name': 'Aprendizaje del inglés' },
+    'educationalUse': 'Aprendizaje autónomo'
   }
 })
 
