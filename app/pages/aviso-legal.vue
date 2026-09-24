@@ -14,7 +14,7 @@ useSeo({
       description="Información general y condiciones de uso del sitio."
     />
     <UPageBody>
-      <article class="prose dark:prose-invert mx-auto max-w-3xl">
+      <article class="legal-text">
         <h2>Titular y contacto</h2>
         <p>El titular de este sitio es {{ legalOwner }}. Puedes contactar por correo electrónico en <a :href="`mailto:${legalEmail}`">{{ legalEmail }}</a>.</p>
 
