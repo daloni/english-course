@@ -36,6 +36,26 @@ describe('legal pages', () => {
     expect(columns[1]!.find('a[href="/teoria"]').exists()).toBe(false)
   })
 
+  it('keeps footer links and legal page content inside a UContainer', async () => {
+    const layout = await mountSuspended(DefaultLayout)
+    const nav = layout.find('nav[aria-label="Enlaces del sitio"]')
+
+    expect(nav.element.closest('[class*="max-w-"]')).not.toBeNull()
+
+    for (const [path, component] of [
+      ['/aviso-legal', AvisoLegal],
+      ['/privacidad', Privacidad],
+      ['/cookies', Cookies]
+    ] as const) {
+      const page = await mountSuspended(component, { route: path })
+      const headerContainer = page.find('h1').element.closest('[class*="max-w-"]')
+      const bodyContainer = page.find('article.legal-text').element.closest('[class*="max-w-"]')
+
+      expect(headerContainer, `${path} h1 container`).not.toBeNull()
+      expect(bodyContainer, `${path} article container`).toBe(headerContainer)
+    }
+  })
+
   it.each([
     ['/aviso-legal', AvisoLegal],
     ['/privacidad', Privacidad],

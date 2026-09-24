@@ -128,16 +128,18 @@ onUnmounted(() => {
 
     <UFooter>
       <template #top>
-        <UFooterColumns
-          :columns="footerColumns"
-          aria-label="Enlaces del sitio"
-          :ui="{
-            center: 'grid grid-cols-2 gap-8',
-            label: 'text-base font-semibold',
-            list: 'mt-2 space-y-1 lg:flex lg:flex-wrap lg:gap-x-4 lg:gap-y-1 lg:space-y-0',
-            link: 'min-h-8 px-1.5 py-1.5 text-sm rounded-sm focus-visible:outline-primary/25 focus-visible:outline-3'
-          }"
-        />
+        <UContainer>
+          <UFooterColumns
+            :columns="footerColumns"
+            aria-label="Enlaces del sitio"
+            :ui="{
+              center: 'grid grid-cols-2 gap-8',
+              label: 'text-base font-semibold',
+              list: 'mt-2 space-y-1 lg:flex lg:flex-wrap lg:gap-x-4 lg:gap-y-1 lg:space-y-0',
+              link: 'min-h-8 px-1.5 py-1.5 text-sm rounded-sm focus-visible:outline-primary/25 focus-visible:outline-3'
+            }"
+          />
+        </UContainer>
       </template>
       <template #left>
         <p class="text-center text-sm text-muted lg:text-left">
