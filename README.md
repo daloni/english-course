@@ -323,6 +323,8 @@ node scripts/merge-content.mjs content/exercises/present-simple.json < patch.jso
 .env.example               the configuration variables, with their development values
 public/.nojekyll           so GitHub Pages serves the _nuxt/ directory
 public/icon*.png|svg       icons of the installable app, generated from icon.svg
+                           Google muestra el favicon del host `daloni.github.io`, no el de `/english-course/`.
+                           Se elige la opción B: crear `daloni/daloni.github.io` con un `index.html` mínimo e icono.
 app/
   app.vue                 root: layout + page, canonical and og:url of every route
   error.vue               error page of its own, in Spanish and inside the layout
