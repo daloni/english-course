@@ -11,7 +11,11 @@ const url = computed(() => `${siteUrl.replace(/\/$/, '')}${route.path.replace(/\
 
 useHead({
   link: [
+    { rel: 'icon', type: 'image/svg+xml', href: `${app.baseURL}icon.svg` },
+    // Google requires favicon dimensions in multiples of 48px, so use the 192px app icon.
+    { rel: 'icon', type: 'image/png', sizes: '192x192', href: `${app.baseURL}icon-192.png` },
     { rel: 'icon', href: `${app.baseURL}favicon.ico` },
+    { rel: 'apple-touch-icon', href: `${app.baseURL}icon-192.png` },
     { rel: 'canonical', href: url }
   ]
 })
