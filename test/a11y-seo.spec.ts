@@ -119,6 +119,26 @@ describe('SEO', () => {
     expect(image.readUInt32BE(16)).toBe(1200)
     expect(image.readUInt32BE(20)).toBe(630)
   })
+
+  it('declara un favicon que Google puede usar', () => {
+    const app = readFileSync('app/app.vue', 'utf8')
+    const png = readFileSync('public/icon-192.png')
+    const svg = readFileSync('public/icon.svg', 'utf8')
+    const svgRoot = svg.match(/^<svg\b[^>]*>/)?.[0]
+
+    expect(app).toContain('{ rel: \'icon\', type: \'image/svg+xml\', href: `${app.baseURL}icon.svg` }')
+    expect(app).toContain('{ rel: \'icon\', type: \'image/png\', sizes: \'192x192\', href: `${app.baseURL}icon-192.png` }')
+    expect(app).toContain('{ rel: \'icon\', href: `${app.baseURL}favicon.ico` }')
+    expect(app).toContain('{ rel: \'apple-touch-icon\', href: `${app.baseURL}icon-192.png` }')
+    expect(png.subarray(0, 8)).toEqual(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
+    expect(png.readUInt32BE(16)).toBe(192)
+    expect(png.readUInt32BE(20)).toBe(192)
+    expect(svgRoot).toBeDefined()
+    expect(svgRoot).toMatch(/\bwidth="(\d+)"/)
+    expect(svgRoot).toMatch(/\bheight="(\d+)"/)
+    expect(Number(svgRoot?.match(/\bwidth="(\d+)"/)?.[1])).toBeGreaterThan(0)
+    expect(svgRoot?.match(/\bheight="(\d+)"/)?.[1]).toBe(svgRoot?.match(/\bwidth="(\d+)"/)?.[1])
+  })
 })
 
 describe('accesibilidad', () => {
