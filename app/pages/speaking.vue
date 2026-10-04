@@ -19,11 +19,12 @@ const round = ref<typeof drill>([])
 const index = ref(0)
 const sentence = computed(() => round.value[index.value])
 const done = computed(() => round.value.length > 0 && index.value >= round.value.length)
-const results = ref<{ sentence: typeof drill[number], correct: boolean, missing: string[] }[]>([])
+const results = ref<{ sentence: typeof drill[number], correct: boolean, missing: string[], extra: string[] }[]>([])
 const recorded = new Set<string>()
 
 const diff = computed(() => sentence.value && transcript.value ? compare(sentence.value.en, transcript.value) : [])
-const correct = computed(() => score(diff.value) >= SPEAKING_SCORE_THRESHOLD)
+const correct = computed(() => isRepeated(diff.value, SPEAKING_SCORE_THRESHOLD))
+const negation = computed(() => negationChanged(diff.value))
 const hits = computed(() => diff.value.filter(word => word.status === 'ok').length)
 const expected = computed(() => diff.value.filter(word => word.status !== 'extra').length)
 const missing = computed(() => diff.value.filter(word => word.status === 'missing').map(word => word.word))
@@ -68,7 +69,7 @@ watch(transcript, (value) => {
 
   recorded.add(id)
   record(id, correct.value)
-  results.value.push({ sentence: sentence.value, correct: correct.value, missing: missing.value })
+  results.value.push({ sentence: sentence.value, correct: correct.value, missing: missing.value, extra: extra.value })
 })
 
 // The round depends on localStorage and chance, so it is drawn in the browser: building it
@@ -168,6 +169,13 @@ useSeo({
                       class="text-muted"
                     >
                       No se te ha oído: {{ mistake.missing.join(', ') }}.
+                    </p>
+
+                    <p
+                      v-if="mistake.extra.length > 0"
+                      class="text-muted"
+                    >
+                      Has dicho de más: {{ mistake.extra.join(', ') }}.
                     </p>
                   </li>
                 </ul>
@@ -289,6 +297,13 @@ useSeo({
                   class="mt-1 text-sm text-muted"
                 >
                   Has dicho de más: {{ extra.join(', ') }}.
+                </p>
+
+                <p
+                  v-if="negation"
+                  class="mt-1 text-sm text-error"
+                >
+                  La negación no coincide con la frase: cambia el sentido.
                 </p>
 
                 <p

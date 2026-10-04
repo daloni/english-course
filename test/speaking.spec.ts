@@ -241,6 +241,27 @@ describe('/speaking', () => {
     expect(load()[speakingItemId(second.tense, second.example)]).toMatchObject({ hits: 0, misses: 1 })
   })
 
+  it('records a repetition that flips the negation as a miss', async () => {
+    supportSpeech()
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const current = sentenceOn(page)
+    const id = speakingItemId(current.tense, current.example)
+    const negated = /\b(not|never)\b|n't/i.test(current.example.en)
+    const flipped = negated
+      ? current.example.en.replace(/\s*\b(not|never)\b|n't/i, '')
+      : `${current.example.en.split(' ')[0]} do not ${current.example.en.split(' ').slice(1).join(' ')}`
+
+    await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+    FakeRecognition.last!.say(flipped)
+    await flushPromises()
+
+    expect(load()[id]).toMatchObject({ hits: 0, misses: 1, box: 1 })
+    expect(page.text()).toContain('La negación no coincide')
+  })
+
   it('records only the first transcription when the retry is incorrect', async () => {
     supportSpeech()
 
