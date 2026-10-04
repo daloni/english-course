@@ -9,19 +9,29 @@ export function useClips(options: { load?: boolean } = {}) {
   const shouldLoad = options.load !== false
   const clips = shallowRef<Clip[]>([])
   const loading = ref(false)
+  const error = ref(false)
   let loadPromise: Promise<void> | undefined
 
-  async function load() {
+  /** Never rejects: a failed download sets `error` and the next call tries again. */
+  function load() {
     if (loadPromise) {
       return loadPromise
     }
 
     loading.value = true
-    loadPromise = loadClips().then((value) => {
-      clips.value = value
-      setClipItems(value)
-      loading.value = false
-    })
+    error.value = false
+    loadPromise = loadClips()
+      .then((value) => {
+        clips.value = value
+        setClipItems(value)
+      })
+      .catch(() => {
+        error.value = true
+        loadPromise = undefined
+      })
+      .finally(() => {
+        loading.value = false
+      })
 
     return loadPromise
   }
@@ -45,5 +55,5 @@ export function useClips(options: { load?: boolean } = {}) {
   /** What can still be studied. Empty until mounted, so the pages render it inside ClientOnly. */
   const playable = computed(() => clips.value.filter(isPlayable))
 
-  return { clips, loading, load, playable, unavailable, isPlayable, markUnavailable }
+  return { clips, loading, error, load, playable, unavailable, isPlayable, markUnavailable }
 }

@@ -5,6 +5,17 @@ export const clipFiles = import.meta.glob<Clip[]>('../../content/clips/*.json', 
 
 let clipsPromise: Promise<Clip[]> | undefined
 
+/** Concurrent callers share one load; a failure is not kept, so the next call tries again. */
 export function loadClips() {
-  return clipsPromise ??= Promise.all(Object.values(clipFiles).map(load => load())).then(files => files.flat())
+  return clipsPromise ??= Promise.all(Object.values(clipFiles).map(load => load()))
+    .then(files => files.flat())
+    .catch((failure) => {
+      clipsPromise = undefined
+      throw failure
+    })
+}
+
+/** Drops the memoized load, so the next call downloads again. */
+export function forgetClips() {
+  clipsPromise = undefined
 }

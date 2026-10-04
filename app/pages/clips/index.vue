@@ -6,7 +6,7 @@ useSeo({
 
 const level = ref<Level | 'all'>('all')
 const channel = ref('all')
-const { playable, loading } = useClips()
+const { playable, loading, error, load } = useClips()
 
 const levelItems = computed(() => [
   { label: 'Todos', value: 'all' },
@@ -64,6 +64,12 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
       >
         Cargando clips…
       </p>
+
+      <ClipsLoadError
+        v-else-if="error"
+        :loading="loading"
+        @retry="load"
+      />
 
       <template v-else>
         <URadioGroup

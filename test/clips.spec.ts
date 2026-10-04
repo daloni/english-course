@@ -5,7 +5,7 @@ import { defineComponent, onUnmounted } from 'vue'
 import ClipsIndex from '../app/pages/clips/index.vue'
 import ClipsPractice from '../app/pages/clips/practica.vue'
 import { levels, tenses } from '../app/utils/content'
-import { clipFiles as lazyClipFiles } from '../app/utils/clips'
+import { clipFiles as lazyClipFiles, forgetClips, loadClips } from '../app/utils/clips'
 import { clipFiles, clips } from './fixtures/clips'
 import { gapCount, normalize } from '../app/utils/check'
 import { clipItemId, day, items, load, review, save, setClipItems, storageKey } from '../app/utils/progress'
@@ -452,5 +452,108 @@ describe('/clips/practica', () => {
     } else {
       expect(page.text()).not.toContain(dead.exercises[0]!.prompt)
     }
+  })
+})
+
+describe('a failed download of the clip content', () => {
+  /** The first call of one chunk fails like a dropped connection; the next ones go through. */
+  function failOnce() {
+    forgetClips()
+
+    const [first] = Object.keys(lazyClipFiles)
+    const real = lazyClipFiles[first!]!
+    const importer = vi.fn(real).mockRejectedValueOnce(new Error('Failed to fetch dynamically imported module'))
+
+    vi.spyOn(lazyClipFiles, first!).mockImplementation(importer)
+    onTestFinished(() => {
+      vi.restoreAllMocks()
+      forgetClips()
+    })
+
+    return importer
+  }
+
+  const retry = (page: Awaited<ReturnType<typeof mountSuspended>>) =>
+    page.findAll('button').find(button => button.text().trim() === 'Reintentar')!
+
+  it('downloads again on the next call, and shares what is already in flight', async () => {
+    const importer = failOnce()
+
+    await expect(loadClips()).rejects.toThrow('Failed to fetch')
+    expect(importer).toHaveBeenCalledTimes(1)
+
+    const [one, two] = [loadClips(), loadClips()]
+
+    expect(one).toBe(two)
+    expect(await one).toHaveLength(clips.length)
+    expect(importer).toHaveBeenCalledTimes(2)
+
+    await loadClips()
+    expect(importer).toHaveBeenCalledTimes(2)
+  })
+
+  it('ends the loading state with an error and recovers on retry', async () => {
+    failOnce()
+
+    let session!: ReturnType<typeof useClips>
+    const page = await mountSuspended(defineComponent({
+      setup() {
+        session = useClips({ load: false })
+        return () => null
+      }
+    }))
+    onTestFinished(() => page.unmount())
+
+    await expect(session.load()).resolves.toBeUndefined()
+    expect(session.loading.value).toBe(false)
+    expect(session.error.value).toBe(true)
+    expect(session.clips.value).toHaveLength(0)
+
+    await session.load()
+    expect(session.error.value).toBe(false)
+    expect(session.clips.value).toHaveLength(clips.length)
+  })
+
+  it('shows the error on /clips instead of an empty catalogue, and the retry brings the cards', async () => {
+    failOnce()
+
+    const page = await mountSuspended(ClipsIndex)
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain('No se han podido cargar los clips')
+    expect(page.text()).not.toContain('Cargando clips…')
+    expect(page.text()).not.toContain('No hay clips')
+    expect(page.find('[data-testid="clip-card"]').exists()).toBe(false)
+
+    await retry(page).trigger('click')
+    await flushPromises()
+
+    expect(page.text()).not.toContain('No se han podido cargar los clips')
+    expect(page.findAll('[data-testid="clip-card"]').length).toBeGreaterThan(0)
+  })
+
+  it('builds the round on /clips/practica after the retry, keeping the filter and the progress', async () => {
+    const level = clips[0]!.level
+    const id = clipItemId(clips[0]!, clips[0]!.exercises[0]!)
+
+    localStorage.removeItem(unavailableKey)
+    save({ [id]: review(undefined, id, false, day()) })
+    failOnce()
+
+    const page = await mountSuspended(ClipsPractice, { route: `/clips/practica?nivel=${level}`, global: { stubs } })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain('No se han podido cargar los clips')
+    expect(page.text()).not.toContain('No hay clips que practicar')
+    expect(page.text()).toContain(`Filtro activo: Nivel ${level}`)
+    expect(loadUnavailable()).toEqual([])
+
+    await retry(page).trigger('click')
+    await vi.waitFor(() => expect(page.text()).toContain('Clip 1 de'))
+
+    expect(page.text()).toContain(`Filtro activo: Nivel ${level}`)
+    expect(load()[id]).toBeDefined()
   })
 })

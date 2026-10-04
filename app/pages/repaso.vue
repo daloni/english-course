@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // The review session: only what is due today, mixing sentences, verbs, reading and clips.
 const { pending, record } = useProgress()
-const { markUnavailable, load } = useClips({ load: false })
+const { markUnavailable, load, loading, error } = useClips({ load: false })
 const size = 10
 
 // The queue is frozen when the session starts: correcting moves the boxes, and without the
@@ -27,13 +27,16 @@ function restart() {
   results.value = []
 }
 
-onMounted(async () => {
+/** Clips are lazy: a session with any due clip needs them downloaded before it starts. */
+async function start() {
   if (pending.value.some(item => item.kind === 'clips')) {
     await load()
   }
 
-  restart()
-})
+  if (!error.value) restart()
+}
+
+onMounted(start)
 
 /** The same button corrects first and moves on to the next exercise afterwards. */
 function submit(skip = false) {
@@ -99,7 +102,21 @@ useSeo({
             </p>
           </template>
 
-          <template v-if="session.length === 0">
+          <p
+            v-if="loading"
+            role="status"
+            aria-live="polite"
+            class="text-muted"
+          >
+            Preparando el repaso…
+          </p>
+
+          <ClipsLoadError
+            v-else-if="error"
+            @retry="start"
+          />
+
+          <template v-else-if="session.length === 0">
             <h2 class="text-xl font-semibold">
               Hoy no toca repasar nada
             </h2>
