@@ -354,6 +354,13 @@ export function setClipItems(clips: Clip[]) {
   itemsVersion.value++
 }
 
+/** Back to the light clip index, as on a fresh visit that has not downloaded the clips yet. */
+export function forgetClipItems() {
+  itemCache = undefined
+  byId = undefined
+  itemsVersion.value++
+}
+
 /** The exercise of a stored attempt, or nothing if that content no longer exists. */
 export const itemById = (id: string) => {
   return (byId ?? (items(), byId))!.get(id)
