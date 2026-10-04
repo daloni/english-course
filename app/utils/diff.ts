@@ -74,10 +74,23 @@ export function compare(sentence: string, spoken: string): WordDiff[] {
   return diff
 }
 
-/** Share of the sentence that was said right, 0 to 1. An empty sentence scores 0. */
+/**
+ * Share of the words involved that were said right, 0 to 1. Words said on top count against
+ * it like the omitted ones do, so an insertion never scores a perfect repetition.
+ * An empty sentence scores 0.
+ */
 export function score(diff: WordDiff[]): number {
   const expected = diff.filter(word => word.status !== 'extra').length
   const hits = diff.filter(word => word.status === 'ok').length
+  const extra = diff.length - expected
 
-  return expected === 0 ? 0 : hits / expected
+  return expected === 0 ? 0 : hits / (expected + extra)
 }
+
+/** True when "not" or "never" was added or left out: the sentence now says the opposite. */
+export const negationChanged = (diff: WordDiff[]): boolean =>
+  diff.some(word => word.status !== 'ok' && (word.word === 'not' || word.word === 'never'))
+
+/** What counts as a good repetition: enough of the words, and the same negation. */
+export const isRepeated = (diff: WordDiff[], threshold = 0.8): boolean =>
+  score(diff) >= threshold && !negationChanged(diff)
