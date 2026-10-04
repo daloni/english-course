@@ -6,7 +6,7 @@ useSeo({
 })
 
 const { record, attemptOf } = useProgress()
-const { clips, playable, markUnavailable, load } = useClips()
+const { clips, playable, loading, error, markUnavailable, load } = useClips()
 const route = useRoute()
 
 const levelFilter = computed(() => {
@@ -73,11 +73,16 @@ function restart() {
 
 // The round depends on the progress and on chance, so it is drawn in the browser: building it
 // during the prerender too would ship a different clip than the one the page hydrates with.
-onMounted(async () => {
+async function start() {
   await load()
-  restart()
-  mounted = true
-})
+
+  if (!error.value) {
+    restart()
+    mounted = true
+  }
+}
+
+onMounted(start)
 
 watch([levelFilter, channelFilter], () => {
   if (mounted) restart()
@@ -151,7 +156,21 @@ function onUnavailable(videoId: string) {
             </p>
           </template>
 
-          <template v-if="round.length === 0">
+          <p
+            v-if="loading"
+            role="status"
+            aria-live="polite"
+            class="text-sm text-muted"
+          >
+            Cargando la ronda…
+          </p>
+
+          <ClipsLoadError
+            v-else-if="error"
+            @retry="start"
+          />
+
+          <template v-else-if="round.length === 0">
             <h2 class="text-xl font-semibold">
               No hay clips que practicar
             </h2>

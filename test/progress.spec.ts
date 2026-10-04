@@ -30,6 +30,7 @@ import {
   type Attempt,
   type Progress
 } from '../app/utils/progress'
+import { clipFiles as lazyClipFiles, forgetClips } from '../app/utils/clips'
 import { clips } from './fixtures/clips'
 import { clearUnavailable, loadUnavailable, saveUnavailable } from '../app/utils/unavailable'
 
@@ -920,6 +921,63 @@ describe('practising', () => {
     await vi.waitFor(() => {
       expect(page.text()).toContain(exercise.prompt)
       expect(page.text()).toContain(exercise.solution)
+    })
+  })
+
+  describe('when the clip content fails to download', () => {
+    const clip = clips[0]!
+    const exercise = clip.exercises[0]!
+    const id = clipItemId(clip, exercise)
+    let importer: ReturnType<typeof vi.spyOn>
+
+    beforeEach(() => {
+      forgetClips()
+
+      const [first] = Object.keys(lazyClipFiles)
+      const real = lazyClipFiles[first!]!
+
+      importer = vi.spyOn(lazyClipFiles, first!)
+        .mockImplementationOnce(() => Promise.reject(new Error('Failed to fetch dynamically imported module')))
+        .mockImplementation(real)
+      onTestFinished(() => {
+        vi.restoreAllMocks()
+        forgetClips()
+      })
+    })
+
+    const retry = (page: Awaited<ReturnType<typeof mountSuspended>>) =>
+      page.findAll('button').find(button => button.text().trim() === 'Reintentar')!
+
+    it('shows the error on /progreso and loads the failed clips on retry', async () => {
+      save({ [id]: review(undefined, id, false, today) })
+
+      const page = await mountSuspended(Progreso)
+      await flushPromises()
+
+      expect(page.text()).toContain('No se han podido cargar los clips')
+      expect(importer).toHaveBeenCalledTimes(1)
+
+      await retry(page).trigger('click')
+
+      await vi.waitFor(() => expect(page.text()).not.toContain('No se han podido cargar los clips'))
+      expect(importer).toHaveBeenCalledTimes(2)
+      expect(page.text()).toContain(exercise.prompt)
+    })
+
+    it('shows the error on /repaso instead of an empty queue and starts the session on retry', async () => {
+      save({ [id]: review(undefined, id, false, today) })
+
+      const page = await mountSuspended(Repaso)
+      await flushPromises()
+
+      expect(page.text()).toContain('No se han podido cargar los clips')
+      expect(page.text()).not.toContain('Hoy no toca repasar nada')
+      expect(load()[id]!.misses).toBe(1)
+
+      await retry(page).trigger('click')
+      await vi.waitFor(() => expect(page.text()).toContain('Ejercicio 1 de'))
+
+      expect(load()[id]!.misses).toBe(1)
     })
   })
 

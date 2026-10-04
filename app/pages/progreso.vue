@@ -4,7 +4,7 @@ import { clearUnavailable, unavailable } from '../utils/unavailable'
 // What has been practised in this browser: what is mastered, what is missed and what is due
 // for review today.
 const { attempts, pending, failed, persistenceFailed, statsOf, exportFile, importFile, reset } = useProgress()
-const { load } = useClips({ load: false })
+const { load, loading: clipsLoading, error: clipsError } = useClips({ load: false })
 
 const error = ref('')
 const importMessage = ref('')
@@ -50,11 +50,14 @@ function confirmReset(close: () => void) {
   close()
 }
 
-onMounted(async () => {
+// The failed clips only get a prompt once their content is downloaded.
+async function loadFailedClips() {
   if (failed.value.some(failure => failure.item.kind === 'clips')) {
     await load()
   }
-})
+}
+
+onMounted(loadFailedClips)
 
 useSeo({
   title: 'Progreso',
@@ -96,6 +99,12 @@ useSeo({
               antes de salir.
             </p>
           </aside>
+
+          <ClipsLoadError
+            v-if="clipsError"
+            :loading="clipsLoading"
+            @retry="loadFailedClips"
+          />
 
           <section>
             <div class="flex flex-wrap items-center gap-4">
