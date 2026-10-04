@@ -18,9 +18,24 @@ const hits = computed(() => results.value.filter(result => result.correct).lengt
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => session.value.length > 0 && index.value >= session.value.length)
 
-/** Another round: the queue is snapshotted again, already bringing back what was missed. */
+// What this visit has already asked: a missed exercise stays due today, so without this the
+// first ten would fill every round and the rest would never come up.
+const asked = new Set<string>()
+
+/**
+ * Another round: the queue is snapshotted again, taking first what has not been asked yet.
+ * Once everything has been covered, whatever is still pending starts a new lap.
+ */
 function restart() {
-  session.value = pending.value.slice(0, size)
+  let fresh = pending.value.filter(item => !asked.has(item.id))
+
+  if (fresh.length === 0) {
+    asked.clear()
+    fresh = pending.value
+  }
+
+  session.value = fresh.slice(0, size)
+  session.value.forEach(item => asked.add(item.id))
   index.value = 0
   answer.value = ''
   checked.value = null

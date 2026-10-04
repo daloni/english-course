@@ -825,6 +825,64 @@ describe('practising', () => {
     expect(page.text()).toContain(candidates[10]!.prompt)
   })
 
+  // A miss keeps the exercise due today, so the first ten used to fill every round.
+  it.each([
+    { total: 11, correct: false, sizes: [10, 1, 10] },
+    { total: 11, correct: true, sizes: [10, 1, 10] },
+    { total: 30, correct: false, sizes: [10, 10, 10, 10] }
+  ])('covers $total pending exercises before repeating (answering right: $correct)', async ({ total, correct, sizes }) => {
+    const candidates = items().filter(item => item.kind === 'frases').slice(0, total)
+
+    expect(candidates).toHaveLength(total)
+
+    // Every attempt is a miss from today, so it stays due whatever happens in the session.
+    save(Object.fromEntries(candidates.map(item => [item.id, review(undefined, item.id, false, day())])))
+
+    const page = await mountSuspended(Repaso)
+    await flushPromises()
+
+    /** Plays the round on screen and returns the ids it asked. */
+    async function round() {
+      const ids: string[] = []
+
+      while (!page.text().includes('Repaso terminado')) {
+        const current = (page.vm as unknown as { item: Item }).item
+        const options = page.findAll('[role="radio"]')
+        const wrong = options.find(option => option.attributes('value') !== current.solution)
+        const right = options.find(option => option.attributes('value') === current.solution)
+
+        ids.push(current.id)
+
+        if (options.length > 0) {
+          await (correct ? right : wrong)!.trigger('click')
+        } else {
+          await page.find('input').setValue(correct ? current.solution : 'nope')
+        }
+
+        await page.find('form').trigger('submit')
+        await flushPromises()
+        await page.find('form').trigger('submit')
+        await flushPromises()
+      }
+
+      await page.findAll('button').find(button => button.text().includes('Otra ronda'))!.trigger('click')
+      await flushPromises()
+
+      return ids
+    }
+
+    const rounds: string[][] = []
+
+    for (const _ of sizes) {
+      rounds.push(await round())
+    }
+
+    expect(rounds.map(ids => ids.length)).toEqual(sizes)
+    rounds.forEach(ids => expect(new Set(ids).size).toBe(ids.length))
+    // Nothing is asked twice until the first lap has covered all of them.
+    expect(new Set(rounds.slice(0, Math.ceil(total / 10)).flat()).size).toBe(total)
+  })
+
   // A speaking attempt due today cannot fill another round: it never enters the shared queue.
   it('does not offer another round when only speaking is left pending', async () => {
     const tense = tenses[0]!
