@@ -5,6 +5,9 @@ import { isPlayable, loadUnavailable, unavailable } from '../utils/unavailable'
 // whatever depends on it is rendered inside <ClientOnly>.
 const progress = ref<Progress>({})
 const persistenceFailed = ref(false)
+// "Today" as a reactive value: `day()` is always right, but nothing tells Vue it changed, so
+// everything that depends on the date reads it from here and `syncDay` bumps it.
+const today = ref(day())
 let volatile: Progress | undefined
 
 /** Latest durable progress plus anything this tab could not persist yet. */
@@ -47,8 +50,36 @@ function onStorage(event: StorageEvent) {
   }
 }
 
-// One listener for the whole app instead of one per component: `useProgress` is called from
-// every page that shows progress, and it goes away with the last of them.
+/** Re-reads the date: the due queue and the stats recompute only if it actually changed. */
+function syncDay() {
+  today.value = day()
+}
+
+let midnightTimer: ReturnType<typeof setTimeout> | undefined
+
+/** Ticks at the next local midnight, for a page left open overnight. */
+function scheduleMidnight() {
+  const next = new Date()
+
+  next.setHours(24, 0, 0, 0)
+  midnightTimer = setTimeout(() => {
+    syncDay()
+    scheduleMidnight()
+  }, next.getTime() - Date.now())
+}
+
+// A suspended tab or PWA may have slept through its timer (or several days), so coming back to
+// it checks the date again.
+function onVisible() {
+  if (document.visibilityState === 'visible') {
+    syncDay()
+    clearTimeout(midnightTimer)
+    scheduleMidnight()
+  }
+}
+
+// One set of listeners and one timer for the whole app instead of one per component:
+// `useProgress` is called from every page that shows progress, and they go away with the last.
 let listening = 0
 
 export interface Stats {
@@ -70,10 +101,13 @@ export function useProgress() {
     progress.value = currentProgress()
     unavailable.value = loadUnavailable()
     mounted.value = true
+    syncDay()
     refreshPending()
 
     if (listening++ === 0) {
       window.addEventListener('storage', onStorage)
+      document.addEventListener('visibilitychange', onVisible)
+      scheduleMidnight()
     }
   })
 
@@ -81,6 +115,8 @@ export function useProgress() {
     // Guarded because a component that never mounted still unmounts: it never added anything.
     if (listening > 0 && --listening === 0) {
       window.removeEventListener('storage', onStorage)
+      document.removeEventListener('visibilitychange', onVisible)
+      clearTimeout(midnightTimer)
     }
   })
 
@@ -111,13 +147,13 @@ export function useProgress() {
 
   function refreshPending() {
     pending.value = Object.values(progress.value)
-      .filter(attempt => isDue(attempt))
+      .filter(attempt => isDue(attempt, today.value))
       .map(attempt => itemById(attempt.id))
       .filter((item): item is Item => item !== undefined)
       .filter(item => item.kind !== 'speaking' && (item.kind !== 'clips' || isPlayable(item.id)))
   }
 
-  watch([progress, itemsVersion, unavailable], refreshPending)
+  watch([progress, itemsVersion, unavailable, today], refreshPending)
 
   /** The missed ones, from the most missed to the least. */
   const failed = computed(() => {
@@ -140,7 +176,7 @@ export function useProgress() {
       hits: done.reduce((sum, attempt) => sum + attempt.hits, 0),
       misses: done.reduce((sum, attempt) => sum + attempt.misses, 0),
       mastered: done.filter(attempt => attempt.box === 3).length,
-      due: done.filter(attempt => isDue(attempt)).length
+      due: done.filter(attempt => isDue(attempt, today.value)).length
     }
   }
 
@@ -180,6 +216,7 @@ export function useProgress() {
 
   return {
     attempts,
+    today,
     pending,
     failed,
     persistenceFailed,

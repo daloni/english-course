@@ -3,7 +3,7 @@ import { clearUnavailable, unavailable } from '../utils/unavailable'
 
 // What has been practised in this browser: what is mastered, what is missed and what is due
 // for review today.
-const { attempts, pending, failed, persistenceFailed, statsOf, exportFile, importFile, reset } = useProgress()
+const { attempts, today, pending, failed, persistenceFailed, statsOf, exportFile, importFile, reset } = useProgress()
 const { load, loading: clipsLoading, error: clipsError } = useClips({ load: false })
 
 const error = ref('')
@@ -294,7 +294,7 @@ useSeo({
                   </template>
                   {{ failure.attempt.hits }} aciertos y {{ failure.attempt.misses }} fallos ·
                   {{ boxLabels[failure.attempt.box] }} ·
-                  {{ isDue(failure.attempt) ? 'toca hoy' : `vuelve el ${failure.attempt.due}` }}
+                  {{ isDue(failure.attempt, today) ? 'toca hoy' : `vuelve el ${failure.attempt.due}` }}
                 </p>
               </li>
             </ul>

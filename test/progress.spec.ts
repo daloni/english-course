@@ -510,6 +510,102 @@ describe('volatile progress', () => {
   })
 })
 
+describe('the date changing under an open page', () => {
+  const id = frasesItemId(exercisesOf('present-simple')[0]!)
+  const stored = review(undefined, id, true, '2026-10-02')
+  const dueOn3rd = review(undefined, id, true, '2026-10-01')
+
+  /** Opens /progreso at `now` with a single attempt due on the 4th, with only the clock faked. */
+  async function openAt(now: string) {
+    vi.useFakeTimers({ toFake: ['Date', 'setTimeout', 'clearTimeout'] })
+    vi.setSystemTime(new Date(now))
+    localStorage.removeItem(storageKey)
+    save({ [id]: stored })
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+    onTestFinished(() => {
+      page.unmount()
+      vi.useRealTimers()
+      localStorage.removeItem(storageKey)
+    })
+
+    return page
+  }
+
+  it('shows the reviews that fall due at midnight without a reload or an answer', async () => {
+    const page = await openAt('2026-10-03T23:59:00')
+
+    expect(page.text()).toContain('Nada que repasar hoy')
+
+    await vi.advanceTimersByTimeAsync(2 * 60_000)
+    await flushPromises()
+
+    expect(page.text()).toContain('Repasar hoy (1)')
+    expect(page.text()).not.toContain('Nada que repasar hoy')
+    // The stored attempt is untouched: only the date moved.
+    expect(load()[id]).toEqual(stored)
+  })
+
+  it('recomputes when a suspended tab becomes visible again days later', async () => {
+    const page = await openAt('2026-10-02T12:00:00')
+
+    expect(page.text()).toContain('Nada que repasar hoy')
+
+    // The timer slept through: only the clock moved, then the tab came back.
+    vi.setSystemTime(new Date('2026-10-06T08:00:00'))
+    document.dispatchEvent(new Event('visibilitychange'))
+    await flushPromises()
+
+    expect(page.text()).toContain('Repasar hoy (1)')
+    expect(load()[id]).toEqual(stored)
+  })
+
+  it('keeps the frozen round of a running review when the day changes', async () => {
+    save({ [id]: dueOn3rd })
+    vi.useFakeTimers({ toFake: ['Date', 'setTimeout', 'clearTimeout'] })
+    vi.setSystemTime(new Date('2026-10-03T23:59:00'))
+
+    const page = await mountSuspended(Repaso)
+    await flushPromises()
+    onTestFinished(() => {
+      page.unmount()
+      vi.useRealTimers()
+      localStorage.removeItem(storageKey)
+    })
+
+    expect(page.text()).toContain('Ejercicio 1 de 1')
+
+    await vi.advanceTimersByTimeAsync(2 * 60_000)
+    await flushPromises()
+
+    expect(page.text()).toContain('Ejercicio 1 de 1')
+    expect(load()[id]).toEqual(dueOn3rd)
+  })
+
+  it('shares one visibility listener and one timer, and removes them with the last page', async () => {
+    const add = vi.spyOn(document, 'addEventListener')
+    const remove = vi.spyOn(document, 'removeEventListener')
+    onTestFinished(() => {
+      add.mockRestore()
+      remove.mockRestore()
+    })
+    const count = (spy: typeof add) => spy.mock.calls.filter(([type]) => type === 'visibilitychange').length
+
+    const first = await mountSuspended(Progreso)
+    const second = await mountSuspended(Progreso)
+    await flushPromises()
+
+    expect(count(add)).toBe(1)
+
+    first.unmount()
+    expect(count(remove)).toBe(0)
+
+    second.unmount()
+    expect(count(remove)).toBe(1)
+  })
+})
+
 describe('several tabs', () => {
   const exercise = exercisesOf('present-simple')[0]!
   const id = frasesItemId(exercise)
