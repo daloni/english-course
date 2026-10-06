@@ -50,14 +50,18 @@ function confirmReset(close: () => void) {
   close()
 }
 
-// The failed clips only get a prompt once their content is downloaded.
+// The failed clips only get a prompt once their content is downloaded. Whatever brings them in
+// (stored progress, an import, another tab) raises this count and asks for it: the shared
+// loader dedupes the calls, and progress without failed clips never downloads the corpus.
+const clipsWithoutContent = computed(() => failed.value.filter(({ item }) => item.kind === 'clips' && !item.prompt).length)
+
 async function loadFailedClips() {
-  if (failed.value.some(failure => failure.item.kind === 'clips')) {
+  if (clipsWithoutContent.value > 0) {
     await load()
   }
 }
 
-onMounted(loadFailedClips)
+watch(clipsWithoutContent, loadFailedClips)
 
 useSeo({
   title: 'Progreso',
@@ -271,15 +275,23 @@ useSeo({
                   <!-- The prompt of a verb is Spanish ("Participio de «go»"); the sentences
                        and the reading questions are English, and so is every solution. -->
                   <span
+                    v-if="failure.item.prompt"
                     :lang="failure.item.kind === 'verbos' ? undefined : 'en'"
                     class="font-medium"
                   >{{ failure.item.prompt }}</span>
+                  <span
+                    v-else
+                    role="status"
+                    class="text-muted"
+                  >{{ clipsLoading ? 'Cargando el enunciado del clip…' : 'Enunciado pendiente de cargar' }}</span>
                 </p>
                 <p class="mt-1 text-muted">
-                  Respuesta: <strong
-                    lang="en"
-                    class="font-semibold"
-                  >{{ failure.item.solution }}</strong> ·
+                  <template v-if="failure.item.solution">
+                    Respuesta: <strong
+                      lang="en"
+                      class="font-semibold"
+                    >{{ failure.item.solution }}</strong> ·
+                  </template>
                   {{ failure.attempt.hits }} aciertos y {{ failure.attempt.misses }} fallos ·
                   {{ boxLabels[failure.attempt.box] }} ·
                   {{ isDue(failure.attempt) ? 'toca hoy' : `vuelve el ${failure.attempt.due}` }}

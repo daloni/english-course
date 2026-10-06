@@ -13,6 +13,7 @@ import {
   clear,
   clipItemId,
   day,
+  forgetClipItems,
   frasesItemId,
   isDue,
   items,
@@ -972,6 +973,7 @@ describe('practising', () => {
     const id = clipItemId(clip, exercise)
 
     save({ [id]: review(undefined, id, false, today) })
+    forgetClipItems()
 
     const page = await mountSuspended(Progreso)
     await flushPromises()
@@ -990,6 +992,7 @@ describe('practising', () => {
 
     beforeEach(() => {
       forgetClips()
+      forgetClipItems()
 
       const [first] = Object.keys(lazyClipFiles)
       const real = lazyClipFiles[first!]!
@@ -1017,9 +1020,9 @@ describe('practising', () => {
 
       await retry(page).trigger('click')
 
-      await vi.waitFor(() => expect(page.text()).not.toContain('No se han podido cargar los clips'))
+      await vi.waitFor(() => expect(page.text()).toContain(exercise.prompt))
+      expect(page.text()).not.toContain('No se han podido cargar los clips')
       expect(importer).toHaveBeenCalledTimes(2)
-      expect(page.text()).toContain(exercise.prompt)
     })
 
     it('shows the error on /repaso instead of an empty queue and starts the session on retry', async () => {
@@ -1188,6 +1191,119 @@ describe('practising', () => {
 
     expect(loadUnavailable()).toEqual([])
     expect(page.text()).not.toContain('clip oculto porque el vídeo no se pudo reproducir')
+  })
+})
+
+describe('clips that fail while /progreso is open', () => {
+  const clip = clips[0]!
+  const exercise = clip.exercises[0]!
+  const id = clipItemId(clip, exercise)
+  let importer: ReturnType<typeof vi.spyOn>
+  let real: () => Promise<unknown>
+
+  beforeEach(() => {
+    clear()
+    forgetClips()
+    forgetClipItems()
+
+    const [first] = Object.keys(lazyClipFiles)
+
+    real = lazyClipFiles[first!]!
+    importer = vi.spyOn(lazyClipFiles, first!)
+    onTestFinished(() => {
+      vi.restoreAllMocks()
+      forgetClips()
+    })
+  })
+
+  const retry = (page: Awaited<ReturnType<typeof mountSuspended>>) =>
+    page.findAll('button').find(button => button.text().trim() === 'Reintentar')!
+
+  async function importFailure(page: Awaited<ReturnType<typeof mountSuspended>>) {
+    const input = page.find<HTMLInputElement>('input[type="file"]')
+    const file = new File([serialize({ [id]: review(undefined, id, false, today) })], 'progreso.json', { type: 'application/json' })
+
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await flushPromises()
+  }
+
+  it('does not download the clips while there are no failed clips', async () => {
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    expect(importer).not.toHaveBeenCalled()
+    expect(itemById(id)!.prompt).toBe('')
+    expect(page.text()).not.toContain('Cargando el enunciado')
+  })
+
+  it('completes an imported failed clip without leaving the page', async () => {
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    await importFailure(page)
+
+    expect(page.text()).toContain('Importados 1 intentos, 1 nuevos')
+    await vi.waitFor(() => {
+      expect(page.text()).toContain(exercise.prompt)
+      expect(page.text()).toContain(exercise.solution)
+    })
+    expect(page.text()).not.toContain('Cargando el enunciado')
+    expect(load()[id]).toMatchObject({ hits: 0, misses: 1, box: 1 })
+  })
+
+  it('completes a failed clip that arrives from another tab, loading once for repeated changes', async () => {
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+
+    const otherId = clipItemId(clips[1]!, clips[1]!.exercises[0]!)
+    const write = (progress: Progress) => {
+      save(progress)
+      window.dispatchEvent(new StorageEvent('storage', { key: storageKey, newValue: serialize(progress), storageArea: localStorage }))
+    }
+    const first = { [id]: review(undefined, id, false, today) }
+
+    write(first)
+    write({ ...first, [otherId]: review(undefined, otherId, false, today) })
+    await flushPromises()
+
+    await vi.waitFor(() => expect(page.text()).toContain(exercise.prompt))
+    expect(importer).toHaveBeenCalledTimes(1)
+  })
+
+  it('shows a loading state while the clips download', async () => {
+    let release!: () => void
+
+    importer.mockImplementation(() => new Promise(resolve => (release = () => resolve(real()))))
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+    await importFailure(page)
+
+    expect(page.text()).toContain('Cargando el enunciado del clip…')
+
+    release()
+    await vi.waitFor(() => expect(page.text()).toContain(exercise.prompt))
+    expect(page.text()).not.toContain('Cargando el enunciado')
+  })
+
+  it('shows the error after a failed download and recovers on retry', async () => {
+    importer
+      .mockImplementationOnce(() => Promise.reject(new Error('Failed to fetch dynamically imported module')))
+      .mockImplementation(real)
+
+    const page = await mountSuspended(Progreso)
+    await flushPromises()
+    await importFailure(page)
+
+    expect(page.text()).toContain('No se han podido cargar los clips')
+    expect(importer).toHaveBeenCalledTimes(1)
+
+    await retry(page).trigger('click')
+
+    await vi.waitFor(() => expect(page.text()).toContain(exercise.prompt))
+    expect(page.text()).not.toContain('No se han podido cargar los clips')
+    expect(load()[id]).toMatchObject({ hits: 0, misses: 1, box: 1 })
   })
 })
 
