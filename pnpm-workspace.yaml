@@ -5,8 +5,8 @@ allowBuilds:
   unrs-resolver: false
   vue-demi: false
 
-# Two transitive dependencies carry advisories that `pnpm update` cannot resolve on its own,
-# so they are pinned here and nowhere else. Both are build tooling: nothing of this reaches
+# Transitive dependencies carry advisories that `pnpm update` cannot resolve on its own,
+# so they are pinned here and nowhere else. These are build tooling: nothing of this reaches
 # the generated site.
 overrides:
   # postcss asks for nanoid ^3.3.16 and pnpm keeps resolving 3.3.16, which is the version
@@ -16,17 +16,45 @@ overrides:
   # no version inside its range is patched. 0.28.2 is what the rest of the tree already
   # uses, so this deduplicates esbuild instead of adding another copy of it.
   esbuild@^0.27.0: ^0.28.2
+  # postcss and Vue resolve source-map-js 1.2.1; 1.2.2 fixes the source-map denial of service
+  # and is inside their declared range.
+  source-map-js@^1.2.1: ^1.2.2
+  # launch-editor (@nuxt/devtools) resolves shell-quote 1.10.0; 1.11.0 fixes command injection
+  # and is inside its declared range.
+  shell-quote: ^1.11.0
+  # @nuxt/eslint's config inspector pulls in the MCP client; 2.2.0 fixes OAuth credential
+  # disclosure to an authorization server chosen by an untrusted MCP server.
+  '@modelcontextprotocol/client': ^2.2.0
 
 # Temporary audit exceptions, one per advisory, so any new high or critical advisory still
-# fails `pnpm audit --audit-level high` in CI. Both have no patched release on npm. Owner:
-# @daloni. Review by 2026-11-04: drop each entry as soon as a fix ships (see the README).
+# fails `pnpm audit --audit-level high` in CI. Drop each entry as soon as a compatible fix
+# ships (see the README).
 auditConfig:
   ignoreGhsas:
     # node-forge, through listhen (nuxt dev server). Only the RSA PKCS#1 v1.5 signature
     # verification is affected; listhen uses forge to generate the self-signed certificate of
     # `nuxt dev --https`, and nothing verifies a signature. Not part of the generated site.
+    # No patched release on npm. Owner: @daloni. Review by 2026-11-04.
     - GHSA-86w9-cpqp-85rv
     # braces, through micromatch (nitropack's globby). A stack overflow on deeply nested brace
     # patterns; the patterns come from the repo's own build configuration, never from a
     # request or from user input, and the site is static. Not part of the generated site.
+    # No patched release on npm. Owner: @daloni. Review by 2026-11-04.
     - GHSA-vfj7-8cjw-p6xm
+    # simple-git's trailer command guard bypass, through @nuxt/devtools. Development only,
+    # not part of the generated site. 4.x removes the default export and breaks devtools.
+    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
+    - GHSA-x6jw-m9v5-85vh
+    # simple-git's unblocked Git configuration includes, through @nuxt/devtools. Development
+    # only, not part of the generated site. 4.x removes the default export and breaks devtools.
+    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
+    - GHSA-g4wm-2vf7-vfgr
+    # simple-git's long-option abbreviation guard bypass, through @nuxt/devtools. Development
+    # only, not part of the generated site. 4.x removes the default export and breaks devtools.
+    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
+    - GHSA-858h-whjf-mvg5
+    # @simple-git/argv-parser's VISUAL editor guard bypass, through devtools' simple-git 3.x.
+    # Development only, not part of the generated site. Moving to simple-git 4.x removes the
+    # default export and breaks devtools; do not override the parser independently either.
+    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
+    - GHSA-v5rq-49vh-5v5c
