@@ -527,10 +527,9 @@ describe('a failed download of the clip content', () => {
     expect(page.find('[data-testid="clip-card"]').exists()).toBe(false)
 
     await retry(page).trigger('click')
-    await flushPromises()
+    await vi.waitFor(() => expect(page.findAll('[data-testid="clip-card"]').length).toBeGreaterThan(0))
 
     expect(page.text()).not.toContain('No se han podido cargar los clips')
-    expect(page.findAll('[data-testid="clip-card"]').length).toBeGreaterThan(0)
   })
 
   it('builds the round on /clips/practica after the retry, keeping the filter and the progress', async () => {

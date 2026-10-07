@@ -798,6 +798,7 @@ describe('practising', () => {
   /** Answers the first sentence of /frases/present-simple wrong, as the learner would. */
   async function fail() {
     const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     await page.find('input').setValue('nope')
@@ -819,6 +820,7 @@ describe('practising', () => {
     await fail()
 
     const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     expect(page.text()).toContain('Ejercicio 1 de 1')
@@ -832,6 +834,7 @@ describe('practising', () => {
     expect(load()[frasesItemId(exercise)]!.box).toBe(1)
 
     const stillPending = await mountSuspended(Repaso)
+    onTestFinished(() => stillPending.unmount())
     await flushPromises()
 
     expect(stillPending.text()).toContain('Ejercicio 1 de 1')
@@ -843,6 +846,7 @@ describe('practising', () => {
     await fail()
 
     const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     /** Answers the exercise on screen right or wrong and moves on to the next one. */
@@ -890,6 +894,7 @@ describe('practising', () => {
     ])))
 
     const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     expect(page.text()).toContain('Tandas de hasta 10 ejercicios. Hoy te tocan 11 en total.')
@@ -936,6 +941,7 @@ describe('practising', () => {
     save(Object.fromEntries(candidates.map(item => [item.id, review(undefined, item.id, false, day())])))
 
     const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     /** Plays the round on screen and returns the ids it asked. */
@@ -943,6 +949,8 @@ describe('practising', () => {
       const ids: string[] = []
 
       while (!page.text().includes('Repaso terminado')) {
+        expect(ids.length, `Review round did not finish within ${total + 1} exercises`).toBeLessThan(total + 1)
+
         const current = (page.vm as unknown as { item: Item }).item
         const options = page.findAll('[role="radio"]')
         const wrong = options.find(option => option.attributes('value') !== current.solution)
@@ -995,6 +1003,7 @@ describe('practising', () => {
     })
 
     const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     expect(page.text()).toContain('Ejercicio 1 de 1')
@@ -1014,6 +1023,7 @@ describe('practising', () => {
     refuseToStore()
 
     const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     await page.find('input').setValue(exercise.solution)
@@ -1033,6 +1043,7 @@ describe('practising', () => {
     await fail()
 
     const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     await page.find('input').setValue('nope')
@@ -1051,6 +1062,7 @@ describe('practising', () => {
     await fail()
 
     const page = await mountSuspended(Progreso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     expect(page.text()).toContain(`1 de ${items().length} ejercicios practicados`)
@@ -1072,6 +1084,7 @@ describe('practising', () => {
     forgetClipItems()
 
     const page = await mountSuspended(Progreso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     await vi.waitFor(() => {
@@ -1109,6 +1122,7 @@ describe('practising', () => {
       save({ [id]: review(undefined, id, false, today) })
 
       const page = await mountSuspended(Progreso)
+      onTestFinished(() => page.unmount())
       await flushPromises()
 
       expect(page.text()).toContain('No se han podido cargar los clips')
@@ -1125,6 +1139,7 @@ describe('practising', () => {
       save({ [id]: review(undefined, id, false, today) })
 
       const page = await mountSuspended(Repaso)
+      onTestFinished(() => page.unmount())
       await flushPromises()
 
       expect(page.text()).toContain('No se han podido cargar los clips')
@@ -1145,6 +1160,7 @@ describe('practising', () => {
     save({ x: existing })
 
     const page = await mountSuspended(Progreso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     const input = page.find<HTMLInputElement>('input[type="file"]')
@@ -1170,6 +1186,7 @@ describe('practising', () => {
     save({ [id]: existing })
 
     const progress = await mountSuspended(Progreso)
+    onTestFinished(() => progress.unmount())
     await flushPromises()
 
     const input = progress.find<HTMLInputElement>('input[type="file"]')
@@ -1182,6 +1199,7 @@ describe('practising', () => {
     expect(load()).toEqual({ [id]: existing })
 
     const reviewPage = await mountSuspended(Repaso)
+    onTestFinished(() => reviewPage.unmount())
     await flushPromises()
 
     expect(reviewPage.text()).toContain(exercise.prompt)
@@ -1195,6 +1213,7 @@ describe('practising', () => {
     save({ [id]: review(undefined, id, false, today) })
 
     const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     expect(page.text()).toContain('Hoy no toca repasar nada')
@@ -1209,6 +1228,7 @@ describe('practising', () => {
     save({ [id]: review(undefined, id, false, today) })
 
     const page = await mountSuspended(Progreso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     expect(page.text()).toContain('Nada que repasar hoy')
@@ -1224,6 +1244,7 @@ describe('practising', () => {
     save({ x: existing })
 
     const page = await mountSuspended(Progreso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     const input = page.find<HTMLInputElement>('input[type="file"]')
@@ -1244,6 +1265,7 @@ describe('practising', () => {
     saveUnavailable(['video-id'])
 
     const page = await mountSuspended(Progreso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     const resetButton = page.findAll('button').find(button => button.text().trim() === 'Reiniciar')!
@@ -1274,11 +1296,9 @@ describe('practising', () => {
     saveUnavailable(['video-id'])
 
     const page = await mountSuspended(Progreso)
+    onTestFinished(() => page.unmount())
     await flushPromises()
-    onTestFinished(() => {
-      clearUnavailable()
-      page.unmount()
-    })
+    onTestFinished(() => clearUnavailable())
 
     expect(page.text()).toContain('1 clip oculto porque el vídeo no se pudo reproducir')
 
