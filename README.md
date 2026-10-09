@@ -87,14 +87,23 @@ nothing is needed. To serve it from somewhere else (Netlify, an `nginx`…) it i
 
 ### Dependency audit
 
-CI runs `pnpm audit --audit-level high` on the lockfile: a new high or critical advisory fails
-the build. Two advisories have no patched release yet, so they are ignored one by one in
-`auditConfig.ignoreGhsas` of `pnpm-workspace.yaml`, each with its exposure assessment:
+CI runs `pnpm audit --audit-level high` on the lockfile after lint, typecheck, tests, generation
+and the PWA artifact check: a new high or critical advisory fails the build without hiding
+code regressions. Six advisories have no compatible patched release yet, so they are ignored
+one by one in `auditConfig.ignoreGhsas` of `pnpm-workspace.yaml`, each with its exposure assessment:
 
 | Advisory | Package | Why it does not apply | Owner | Review by |
 | --- | --- | --- | --- | --- |
 | [GHSA-86w9-cpqp-85rv](https://github.com/advisories/GHSA-86w9-cpqp-85rv) | `node-forge` (via `listhen`) | Only used to make the self-signed certificate of `nuxt dev --https`; no signature is verified and it is not in the generated site. | @daloni | 2026-11-04 |
 | [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) | `braces` (via `micromatch`) | Only globs the repo's own build configuration at build time; no request or user input reaches it. | @daloni | 2026-11-04 |
+| [GHSA-x6jw-m9v5-85vh](https://github.com/advisories/GHSA-x6jw-m9v5-85vh) | `simple-git` (via `@nuxt/devtools`) | Trailer command guard bypass; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
+| [GHSA-g4wm-2vf7-vfgr](https://github.com/advisories/GHSA-g4wm-2vf7-vfgr) | `simple-git` (via `@nuxt/devtools`) | Unblocked Git configuration includes; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
+| [GHSA-858h-whjf-mvg5](https://github.com/advisories/GHSA-858h-whjf-mvg5) | `simple-git` (via `@nuxt/devtools`) | Long-option abbreviation guard bypass; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
+| [GHSA-v5rq-49vh-5v5c](https://github.com/advisories/GHSA-v5rq-49vh-5v5c) | `@simple-git/argv-parser` (via `simple-git` 3.x) | Missing `VISUAL` editor guard; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
+
+Do not override `simple-git` or `@simple-git/argv-parser`: `simple-git` 4.x removes the default
+export that `@nuxt/devtools` imports, breaking `nuxt prepare` during installation. Remove these
+four exceptions when `@nuxt/devtools` migrates to `simple-git` 4.
 
 On the review date run `pnpm audit` without the exceptions: delete every entry that already has
 a fix, update the dependency, and extend the date of the rest only if the assessment still holds.
