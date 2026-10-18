@@ -6,7 +6,7 @@ interface InstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed', platform: string }>
 }
 
-const { pending } = useProgress()
+const { pending, persistenceFailed } = useProgress()
 const items = sections.map(({ label, to, icon }) => ({
   label,
   to,
@@ -123,6 +123,38 @@ onUnmounted(() => {
     </UHeader>
 
     <UMain id="contenido">
+      <ClientOnly>
+        <!-- Shown on every page, not just /progreso: whoever is practising is the one about to
+             lose answers on reload. The live region stays mounted so the warning is announced
+             when it shows up, and the link is a client-side navigation, which keeps the
+             in-memory progress that a full page load would drop. -->
+        <div
+          role="status"
+          aria-live="polite"
+        >
+          <UContainer
+            v-if="persistenceFailed"
+            class="pt-4"
+          >
+            <div class="rounded-lg border border-warning p-4">
+              <p class="font-semibold">
+                El progreso solo se conserva en esta sesión
+              </p>
+              <p class="mt-1 text-sm text-muted">
+                El navegador no permite guardarlo: no se guardará al recargar o cerrar la página.
+                <ULink
+                  to="/progreso#exportar-progreso"
+                  class="underline"
+                >
+                  Exporta una copia JSON
+                </ULink>
+                antes de salir.
+              </p>
+            </div>
+          </UContainer>
+        </div>
+      </ClientOnly>
+
       <slot />
     </UMain>
 

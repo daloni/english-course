@@ -3,7 +3,7 @@ import { clearUnavailable, unavailable } from '../utils/unavailable'
 
 // What has been practised in this browser: what is mastered, what is missed and what is due
 // for review today.
-const { attempts, today, pending, failed, persistenceFailed, statsOf, exportFile, importFile, reset } = useProgress()
+const { attempts, today, pending, failed, statsOf, exportFile, importFile, reset } = useProgress()
 const { load, loading: clipsLoading, error: clipsError } = useClips({ load: false })
 
 const error = ref('')
@@ -85,24 +85,6 @@ useSeo({
               Cargando tu progreso…
             </p>
           </template>
-
-          <aside
-            v-if="persistenceFailed"
-            role="status"
-            aria-live="polite"
-            class="rounded-lg border border-warning p-4"
-          >
-            <h2 class="font-semibold">
-              El progreso solo se conserva en esta sesión
-            </h2>
-            <p class="mt-1 text-sm text-muted">
-              El navegador no permite guardarlo: no se guardará al recargar o cerrar la página.
-              <ULink href="#exportar-progreso">
-                Exporta una copia JSON
-              </ULink>
-              antes de salir.
-            </p>
-          </aside>
 
           <ClipsLoadError
             v-if="clipsError"
