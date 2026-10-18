@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import { flushPromises } from '@vue/test-utils'
+import { flushPromises, type VueWrapper } from '@vue/test-utils'
 import { defineComponent } from 'vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
 import Progreso from '../app/pages/progreso.vue'
 import Repaso from '../app/pages/repaso.vue'
 import { useProgress } from '../app/composables/useProgress'
-import { exercisesOf, formLabels, tenseById, tenses } from '../app/utils/content'
+import { exercisesOf, formLabels, readingById, tenseById, tenses, type Question } from '../app/utils/content'
 import { formOf } from '../app/utils/explain'
 import {
   addDays,
@@ -23,6 +23,7 @@ import {
   merge,
   parse,
   pickRound,
+  readingItemId,
   review,
   save,
   serialize,
@@ -1056,6 +1057,131 @@ describe('practising', () => {
     expect(page.text()).toContain(`La respuesta correcta es: ${exercise.solution}. ${formLabels[formOf(exercise)]}: ${structure}`)
     // With no explanation, the solution showed up with a stray period trailing behind.
     expect(page.text()).not.toContain(`${exercise.solution}. .`)
+  })
+
+  describe('a reading question', () => {
+    const travel = readingById('travel')!
+    const food = readingById('food')!
+    const byTram = travel.questions.find(question => question.id === 'travel-q2')!
+    const written = food.questions.find(question => !question.options)!
+    const firstParagraph = (text: string) => text.split('\n\n')[0]!
+
+    /** The toggle of the passage, if the exercise on screen has one. */
+    const passageToggle = (page: VueWrapper) =>
+      page.findAll('button').find(button => button.text().startsWith('Ver el texto'))
+
+    /** The right answer, the way each type is answered: an option, or the first alternative. */
+    const rightAnswer = (question: Question) => question.options ? question.answer : question.answer.split(/\s+\/\s+/)[0]!
+
+    /** What the form holds as the answer right now, as the learner sees it. */
+    const answerOnScreen = (page: VueWrapper, question: Question) => question.options
+      ? page.find('[role="radio"][aria-checked="true"]').attributes('value')
+      : (page.find('input').element as HTMLInputElement).value
+
+    async function answer(page: VueWrapper, question: Question) {
+      if (question.options) {
+        await page.findAll('[role="radio"]').find(option => option.attributes('value') === question.answer)!.trigger('click')
+      } else {
+        await page.find('input').setValue(rightAnswer(question))
+      }
+    }
+
+    /** Opens the passage from its native button, which Enter and Space activate on their own. */
+    async function openPassage(page: VueWrapper) {
+      const toggle = passageToggle(page)
+
+      expect(toggle, 'no hay botón para ver el texto').toBeDefined()
+      expect(toggle!.element.tagName).toBe('BUTTON')
+      expect(toggle!.attributes('type')).toBe('button')
+      expect(toggle!.attributes('tabindex')).not.toBe('-1')
+      expect(toggle!.element.closest('form'), 'abrir el texto no debe enviar la respuesta').toBeNull()
+      expect(toggle!.attributes('aria-expanded')).toBe('false')
+
+      ;(toggle!.element as HTMLElement).focus()
+      expect(document.activeElement).toBe(toggle!.element)
+
+      await toggle!.trigger('click')
+      await flushPromises()
+
+      expect(toggle!.attributes('aria-expanded')).toBe('true')
+
+      return page.find(`#${toggle!.attributes('aria-controls')}`)
+    }
+
+    it.each([
+      { name: 'travel-q2', reading: travel, question: byTram },
+      { name: 'a written question', reading: food, question: written }
+    ])('shows the text of $name before correcting, without recording anything', async ({ reading, question }) => {
+      const id = readingItemId(reading, question)
+      const attempt = review(undefined, id, false, addDays(day(), -1))
+
+      save({ [id]: attempt })
+
+      const page = await mountSuspended(Repaso, { attachTo: document.body })
+      onTestFinished(() => page.unmount())
+      await flushPromises()
+
+      expect(page.text()).toContain(question.question)
+      // Collapsed until asked for: the answer is in the text, so it does not show by itself.
+      expect(page.text()).not.toContain(firstParagraph(reading.text))
+      expect(passageToggle(page)!.find('[lang="en"]').text()).toBe(reading.title)
+
+      await answer(page, question)
+      expect(answerOnScreen(page, question)).toBe(rightAnswer(question))
+
+      const passage = await openPassage(page)
+
+      expect(passage.find('[lang="en"]').text()).toContain(firstParagraph(reading.text))
+      expect(answerOnScreen(page, question), 'abrir el texto ha borrado la respuesta').toBe(rightAnswer(question))
+      expect(load()[id], 'abrir el texto ha contado como intento').toEqual(attempt)
+
+      await page.find('form').trigger('submit')
+      await flushPromises()
+
+      expect(page.text()).toContain('¡Correcto!')
+      expect(load()[id]).toMatchObject({ id, box: 2, hits: 1, misses: 1, last: day() })
+    })
+
+    it('shows in a mixed session the text of the reading question on screen', async () => {
+      const ids = [frasesItemId(exercise), readingItemId(travel, byTram), readingItemId(food, written)]
+
+      // Stored in this order, which is the order the session asks them in.
+      save(Object.fromEntries(ids.map(id => [id, review(undefined, id, false, addDays(day(), -1))])))
+
+      const page = await mountSuspended(Repaso, { attachTo: document.body })
+      onTestFinished(() => page.unmount())
+      await flushPromises()
+
+      /** Corrects the exercise on screen and moves on to the next one. */
+      async function next() {
+        await page.find('form').trigger('submit')
+        await flushPromises()
+        await page.find('form').trigger('submit')
+        await flushPromises()
+      }
+
+      expect(page.text()).toContain(exercise.prompt)
+      expect(passageToggle(page), 'una frase no tiene texto que leer').toBeUndefined()
+
+      await page.find('input').setValue(exercise.solution)
+      await next()
+
+      for (const [reading, other, question] of [[travel, food, byTram], [food, travel, written]] as const) {
+        expect(page.text()).toContain(question.question)
+
+        const passage = await openPassage(page)
+
+        expect(passageToggle(page)!.text()).toContain(reading.title)
+        expect(passage.text()).toContain(firstParagraph(reading.text))
+        expect(passage.text()).not.toContain(firstParagraph(other.text))
+
+        await answer(page, question)
+        await next()
+      }
+
+      expect(page.text()).toContain('Repaso terminado: 3 de 3')
+      ids.forEach(id => expect(load()[id]).toMatchObject({ hits: 1, misses: 1 }))
+    })
   })
 
   it('shows on /progreso what has been practised', async () => {
