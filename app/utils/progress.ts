@@ -2,7 +2,7 @@
 // is stored here is all there is. One attempt per exercise, with its Leitner box.
 import { thirdPerson } from './check'
 import clipIndex from '../../content/clip-index.json'
-import { exercises, readings, tenses, verbs, type Clip, type Exercise, type Example, type Question, type Reading, type Tense, type Verb } from './content'
+import { exercises, forms, readings, tenses, verbs, type Clip, type Exercise, type Example, type Question, type Reading, type Tense, type Verb } from './content'
 import { clearUnavailable } from './unavailable'
 
 export const storageKey = 'ingles:progress'
@@ -190,7 +190,29 @@ export function parse(json: string): Progress {
     throw new Error('El fichero no tiene ningún intento válido')
   }
 
-  return Object.fromEntries(entries) as Progress
+  return upgradeSpeaking(Object.fromEntries(entries) as Progress)
+}
+
+/**
+ * Speaking ids carry the form of the example, so relabelling an example (an affirmative that
+ * was tagged as negative) renames its item. Attempts stored or exported under the old form move
+ * to the current id, and `merge` keeps a single attempt if both ids were practised.
+ */
+function upgradeSpeaking(progress: Progress): Progress {
+  const kept: Progress = {}
+  const moved: Progress[] = []
+
+  for (const [id, attempt] of Object.entries(progress)) {
+    const current = legacySpeakingIds.get(id)
+
+    if (current) {
+      moved.push({ [current]: { ...attempt, id: current } })
+    } else {
+      kept[id] = attempt
+    }
+  }
+
+  return moved.reduce(merge, kept)
 }
 
 /** Without a readable localStorage (SSR, blocked storage, a test with no DOM) progress is empty. */
@@ -286,6 +308,11 @@ export const verbItemId = (verb: Verb, form: VerbForm) => `verbos:${verb.infinit
 export const readingItemId = (reading: Reading, question: Question) => `reading:${reading.id}:${question.id}`
 export const clipItemId = (clip: Clip, exercise: Exercise) => `clips:${clip.id}:${exercise.id}`
 export const speakingItemId = (tense: Tense, example: Example) => `speaking:${tense.id}:${example.form}:${example.en}`
+
+/** Id of a speaking example under any other form -> its current id. */
+const legacySpeakingIds = new Map(tenses.flatMap(tense => tense.examples.flatMap(example => forms
+  .filter(form => form !== example.form)
+  .map(form => [speakingItemId(tense, { ...example, form }), speakingItemId(tense, example)] as const))))
 
 type ClipIndexItem = { id: string, tenseId: string }
 
