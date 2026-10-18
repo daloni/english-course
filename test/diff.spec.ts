@@ -79,4 +79,26 @@ describe('isRepeated', () => {
   it('still tolerates a small slip that keeps the meaning', () => {
     expect(repeated('She studies English every single morning.', 'she studies english every morning')).toBe(true)
   })
+
+  it.each([
+    ['We are going to move to Valencia in June.', 'we going to move to valencia in june'],
+    ['I am working from home this week.', 'I working from home this week'],
+    ['They have just arrived at the airport.', 'they just arrived at the airport']
+  ])('rejects "%s" without its auxiliary even above the threshold', (sentence, spoken) => {
+    const diff = compare(sentence, spoken)
+
+    expect(score(diff)).toBeGreaterThanOrEqual(0.8)
+    expect(isRepeated(diff)).toBe(false)
+  })
+
+  it('rejects an auxiliary swapped for another tense', () => {
+    expect(repeated('He is not going to come to the party tonight.', 'he was not going to come to the party tonight')).toBe(false)
+  })
+
+  it('accepts the auxiliaries contracted', () => {
+    expect(repeated('I am working from home this week.', 'I\'m working from home this week')).toBe(true)
+    expect(repeated('They are not going to sell the house this year.', 'they\'re not going to sell the house this year')).toBe(true)
+    expect(repeated('We haven\'t seen that film yet.', 'we have not seen that film yet')).toBe(true)
+    expect(repeated('They have just arrived at the airport.', 'they\'ve just arrived at the airport')).toBe(true)
+  })
 })
