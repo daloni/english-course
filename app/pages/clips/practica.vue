@@ -54,7 +54,6 @@ const round = ref<Question[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, question: Question } | null>(null)
-useFocusOnChange(checked)
 const results = ref<{ question: Question, answer: string, correct: boolean }[]>([])
 let mounted = false
 
@@ -62,6 +61,7 @@ const question = computed(() => round.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => round.value.length > 0 && index.value >= round.value.length)
+useFocusOnChange(checked, done)
 
 function restart() {
   round.value = newRound()
@@ -194,7 +194,11 @@ function onUnavailable(videoId: string) {
           </template>
 
           <template v-else-if="done">
-            <h2 class="text-xl font-semibold">
+            <h2
+              data-focus-result
+              tabindex="-1"
+              class="text-xl font-semibold"
+            >
               Resultado: {{ hits }} de {{ results.length }}
             </h2>
 

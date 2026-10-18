@@ -33,13 +33,13 @@ const quiz = ref<Question[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, solution: string } | null>(null)
-useFocusOnChange(checked)
 const results = ref<{ question: Question, answer: string, correct: boolean }[]>([])
 
 const question = computed(() => quiz.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => quiz.value.length > 0 && index.value >= quiz.value.length)
+useFocusOnChange(checked, done)
 
 function restart() {
   quiz.value = newQuiz()
@@ -91,7 +91,11 @@ function submit(skip = false) {
           </template>
 
           <template v-if="done">
-            <h2 class="text-xl font-semibold">
+            <h2
+              data-focus-result
+              tabindex="-1"
+              class="text-xl font-semibold"
+            >
               Resultado: {{ hits }} de {{ results.length }}
             </h2>
 

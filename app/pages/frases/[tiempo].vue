@@ -16,13 +16,13 @@ const round = ref<Exercise[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, exercise: Exercise } | null>(null)
-useFocusOnChange(checked)
 const results = ref<{ exercise: Exercise, answer: string, correct: boolean }[]>([])
 
 const exercise = computed(() => round.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => round.value.length > 0 && index.value >= round.value.length)
+useFocusOnChange(checked, done)
 
 /** Another round means another draw: what is due today first, and never the same list twice. */
 function restart() {
@@ -111,7 +111,11 @@ useSeo({
           </template>
 
           <template v-if="done">
-            <h2 class="text-xl font-semibold">
+            <h2
+              data-focus-result
+              tabindex="-1"
+              class="text-xl font-semibold"
+            >
               Resultado: {{ hits }} de {{ results.length }}
             </h2>
 

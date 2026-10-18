@@ -1,9 +1,10 @@
 import { readFileSync, readdirSync } from 'node:fs'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import DefaultLayout from '../app/layouts/default.vue'
+import ClipsPractice from '../app/pages/clips/practica.vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
 import Progreso from '../app/pages/progreso.vue'
 import Repaso from '../app/pages/repaso.vue'
@@ -207,6 +208,7 @@ describe('accesibilidad', () => {
 
   it('/verbos/practica keeps the keyboard cycle focused after correcting', async () => {
     const page = await mountSuspended(VerbPractice, { attachTo: document.body })
+    onTestFinished(() => page.unmount())
     await flushPromises()
 
     const input = page.find('input')
@@ -224,6 +226,54 @@ describe('accesibilidad', () => {
 
     expect(page.text()).toContain('Pregunta 2 de')
     expect(document.activeElement).toBe(page.find('input').element)
+  })
+
+  /** The control Tab reaches next from the element: the first one after it in document order. */
+  const nextTabStop = (from: Element) => [...document.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]')]
+    .find(element => from.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING)
+
+  it.each([
+    { name: `/frases/${slug}`, mount: () => mountSuspended(TensePractice, { route: `/frases/${slug}`, attachTo: document.body }) },
+    { name: '/verbos/practica', mount: () => mountSuspended(VerbPractice, { attachTo: document.body }) },
+    { name: '/clips/practica', mount: () => mountSuspended(ClipsPractice, { attachTo: document.body, global: { stubs: { ClipPlayer: true } } }) },
+    {
+      name: '/repaso',
+      mount: () => {
+        const due = items().filter(item => item.kind === 'frases' || item.kind === 'verbos').slice(0, 3)
+
+        save(Object.fromEntries(due.map(item => [item.id, review(undefined, item.id, false, day())])))
+
+        return mountSuspended(Repaso, { attachTo: document.body })
+      }
+    }
+  ])('$name hands the focus to the result and back to the first answer for another round', async ({ mount }) => {
+    localStorage.removeItem(storageKey)
+    const page = await mount()
+    onTestFinished(() => page.unmount())
+    // The clips arrive in a download of their own, after the first flush.
+    await vi.waitFor(() => expect(page.find('form').exists()).toBe(true))
+
+    // "No lo sé" and then "Siguiente", exercise after exercise, until the form gives way.
+    for (let i = 0; i < 20 && page.find('form').exists(); i++) {
+      await page.findAll('button').find(button => button.text() === 'No lo sé')!.trigger('click')
+      await flushPromises()
+      ;(page.find('form').element as HTMLFormElement).requestSubmit()
+      await flushPromises()
+    }
+
+    const heading = document.activeElement!
+
+    expect(heading.tagName, 'el foco no está en el encabezado del resultado').toBe('H2')
+    expect(heading.textContent).toMatch(/Resultado: 0 de|Repaso terminado: 0 de/)
+    // Tab goes on through the result, not back to the header.
+    expect(heading.parentElement!.contains(nextTabStop(heading)!)).toBe(true)
+
+    await page.findAll('button').find(button => button.text().startsWith('Otra ronda'))!.trigger('click')
+    await flushPromises()
+
+    const firstAnswer = page.find('form').find('input, [role="radiogroup"]')
+
+    expect(firstAnswer.element.contains(document.activeElement), 'el foco no está en la primera respuesta').toBe(true)
   })
 
   it('contains table overflow in a keyboard-accessible region', async () => {

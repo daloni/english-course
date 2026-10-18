@@ -10,13 +10,13 @@ const session = ref<Item[]>([])
 const index = ref(0)
 const answer = ref('')
 const checked = ref<{ correct: boolean, item: Item } | null>(null)
-useFocusOnChange(checked)
 const results = ref<{ item: Item, answer: string, correct: boolean }[]>([])
 
 const item = computed(() => session.value[index.value])
 const hits = computed(() => results.value.filter(result => result.correct).length)
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => session.value.length > 0 && index.value >= session.value.length)
+useFocusOnChange(checked, done)
 
 // A reading question is answered from its text, which /repaso would otherwise never show. The
 // markdown is versioned content, and renderMarkdown() keeps executable links out of v-html.
@@ -199,7 +199,11 @@ useSeo({
           </template>
 
           <template v-else-if="done">
-            <h2 class="text-xl font-semibold">
+            <h2
+              data-focus-result
+              tabindex="-1"
+              class="text-xl font-semibold"
+            >
               Repaso terminado: {{ hits }} de {{ results.length }}
             </h2>
 
