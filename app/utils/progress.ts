@@ -261,6 +261,8 @@ export interface Item extends Exercise {
   kind: ItemKind
   /** Clips only: the video the sentence comes from, so the review can play it back. */
   clip?: Clip
+  /** Reading only: Reading.id the question comes from, so the review can show its text. */
+  readingId?: string
 }
 
 /** What a verb can be asked about, and the tense each question counts towards. */
@@ -319,6 +321,7 @@ function buildItems(clips?: Clip[]): Item[] {
     ...readings.flatMap(reading => reading.questions.map(question => ({
       id: readingItemId(reading, question),
       kind: 'reading' as const,
+      readingId: reading.id,
       // Reading questions do not drill any particular tense: they only count by section.
       tenseId: '',
       prompt: question.question,

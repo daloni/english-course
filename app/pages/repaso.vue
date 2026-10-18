@@ -18,6 +18,14 @@ const hits = computed(() => results.value.filter(result => result.correct).lengt
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => session.value.length > 0 && index.value >= session.value.length)
 
+// A reading question is answered from its text, which /repaso would otherwise never show. The
+// markdown is versioned content, and renderMarkdown() keeps executable links out of v-html.
+const passage = computed(() => {
+  const reading = item.value?.readingId ? readingById(item.value.readingId) : undefined
+
+  return reading && { title: reading.title, html: renderMarkdown(reading.text) }
+})
+
 // What this visit has already asked: a missed exercise stays due today, so without this the
 // first ten would fill every round and the rest would never come up.
 const asked = new Set<string>()
@@ -248,6 +256,32 @@ useSeo({
               class="mt-4"
               @unavailable="onUnavailable"
             />
+
+            <!-- Outside the form: opening the text neither submits nor touches the answer. -->
+            <UCollapsible
+              v-if="passage"
+              :key="item.id"
+              class="mt-4"
+            >
+              <UButton
+                icon="i-lucide-book-open"
+                trailing-icon="i-lucide-chevron-down"
+                color="neutral"
+                variant="subtle"
+              >
+                Ver el texto: <span lang="en">{{ passage.title }}</span>
+              </UButton>
+
+              <template #content>
+                <!-- eslint-disable vue/no-v-html -- raw HTML is rejected by test/reading.spec.ts and the links go through renderMarkdown() -->
+                <div
+                  lang="en"
+                  class="mt-4 space-y-4 [&_em]:italic [&_strong]:font-semibold"
+                  v-html="passage.html"
+                />
+                <!-- eslint-enable vue/no-v-html -->
+              </template>
+            </UCollapsible>
 
             <form
               class="mt-4"
