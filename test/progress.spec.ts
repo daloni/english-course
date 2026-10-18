@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises, type VueWrapper } from '@vue/test-utils'
 import { defineComponent } from 'vue'
+import DefaultLayout from '../app/layouts/default.vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
 import Progreso from '../app/pages/progreso.vue'
 import Repaso from '../app/pages/repaso.vue'
@@ -491,23 +492,6 @@ describe('volatile progress', () => {
     session.record('y', true)
 
     expect(Object.keys(load())).toEqual(['y'])
-  })
-
-  it('shows an accessible warning with a link to the JSON export', async () => {
-    const session = await progressSession()
-
-    refuseToStore()
-    session.record('x', true)
-
-    const page = await mountSuspended(Progreso)
-
-    await flushPromises()
-    onTestFinished(() => page.unmount())
-
-    const warning = page.find('[role="status"]')
-
-    expect(warning.text()).toContain('no se guardará al recargar')
-    expect(warning.find('a').attributes('href')).toBe('#exportar-progreso')
   })
 })
 
@@ -1037,6 +1021,77 @@ describe('practising', () => {
     await flushPromises()
 
     expect(page.text()).toContain('Frase 2 de')
+  })
+
+  // The warning used to live only in /progreso, so whoever was practising closed the tab
+  // without ever seeing it. It is in the layout now, around every page.
+  it('warns from the layout while answers only live in memory, until a write gets through', async () => {
+    const second = exercisesOf('present-simple')[1]!
+    const layout = await mountSuspended(DefaultLayout, { attachTo: document.body })
+    onTestFinished(() => layout.unmount())
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    const warningText = 'El progreso solo se conserva en esta sesión'
+
+    expect(layout.text()).not.toContain(warningText)
+
+    const setItem = refuseToStore()
+
+    await page.find('input').setValue(exercise.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    // Correcting is not blocked, and the warning shows up without visiting /progreso.
+    expect(page.text()).toContain('¡Correcto!')
+
+    const warning = layout.find('[role="status"]')
+    const link = warning.find('a')
+
+    expect(warning.text()).toContain(warningText)
+    expect(warning.text()).toContain('no se guardará al recargar')
+    expect(link.attributes('href')).toBe('/progreso#exportar-progreso')
+
+    // A real link, reachable with Tab, that navigates inside the app: a full page load would
+    // drop exactly the answers it is warning about.
+    ;(link.element as HTMLElement).focus()
+    expect(document.activeElement).toBe(link.element)
+    await link.trigger('click')
+    // The page chunk loads before the navigation settles.
+    await vi.waitFor(() => expect(useRouter().currentRoute.value.fullPath).toBe('/progreso#exportar-progreso'))
+
+    const progreso = await mountSuspended(Progreso, { route: '/progreso' })
+    onTestFinished(() => progreso.unmount())
+    await flushPromises()
+
+    // The layout already warns, so /progreso does not repeat it.
+    expect(progreso.text()).not.toContain(warningText)
+
+    let exported!: Blob
+
+    vi.spyOn(URL, 'createObjectURL').mockImplementation((blob) => {
+      exported = blob
+      return 'blob:progress'
+    })
+    vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+
+    await progreso.findAll('button').find(button => button.text().includes('Exportar JSON'))!.trigger('click')
+
+    expect(parse(await exported.text())[frasesItemId(exercise)]).toMatchObject({ hits: 1, misses: 0 })
+
+    // The browser lets the next answer through: the warning goes and both answers are stored.
+    setItem.mockRestore()
+    await page.find('form').trigger('submit')
+    await flushPromises()
+    await page.find('input').setValue(second.solution)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(layout.text()).not.toContain(warningText)
+    expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: 1, misses: 0 })
+    expect(load()[frasesItemId(second)]).toMatchObject({ hits: 1, misses: 0 })
   })
 
   // The same correction as /frases: with no explanation, the structure of the tense.
