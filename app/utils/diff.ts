@@ -91,6 +91,16 @@ export function score(diff: WordDiff[]): number {
 export const negationChanged = (diff: WordDiff[]): boolean =>
   diff.some(word => word.status !== 'ok' && (word.word === 'not' || word.word === 'never'))
 
-/** What counts as a good repetition: enough of the words, and the same negation. */
+/**
+ * The auxiliaries the theory examples build their tenses with. Leaving one out loses the tense
+ * being practised ("we going to move", "they just arrived"), however many other words are right.
+ */
+const auxiliaries = new Set(['am', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will'])
+
+/** True when an auxiliary of the sentence was not said where it goes. */
+const auxiliaryMissing = (diff: WordDiff[]): boolean =>
+  diff.some(word => word.status === 'missing' && auxiliaries.has(word.word))
+
+/** What counts as a good repetition: enough of the words, the same negation and every auxiliary. */
 export const isRepeated = (diff: WordDiff[], threshold = 0.8): boolean =>
-  score(diff) >= threshold && !negationChanged(diff)
+  score(diff) >= threshold && !negationChanged(diff) && !auxiliaryMissing(diff)

@@ -1,10 +1,10 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import SpeakingPage from '../app/pages/speaking.vue'
 import { tenses } from '../app/utils/content'
-import { load, speakingItemId, storageKey } from '../app/utils/progress'
+import { addDays, day, load, review, save, speakingItemId, storageKey } from '../app/utils/progress'
 
 /** The browser recogniser, just enough to know whether it is still recording and what was said. */
 class FakeRecognition {
@@ -260,6 +260,63 @@ describe('/speaking', () => {
 
     expect(load()[id]).toMatchObject({ hits: 0, misses: 1, box: 1 })
     expect(page.text()).toContain('La negación no coincide')
+  })
+
+  it('records repetitions without their auxiliary as misses, in the progress and the summary', async () => {
+    supportSpeech()
+
+    // Sentence, what the recogniser heard and the auxiliary it left out.
+    const omissions = [
+      ['We are going to move to Valencia in June.', 'we going to move to valencia in june', 'are'],
+      ['I am working from home this week.', 'I working from home this week', 'am'],
+      ['They have just arrived at the airport.', 'they just arrived at the airport', 'have']
+    ]
+    const omissionOf = (sentence: string) => omissions.find(([en]) => en === sentence)
+    const future = addDays(day(), 1)
+
+    // Everything else is stored as reviewed and not due, so these three are the pending part
+    // of the round and, with the shuffle pinned, its first sentences.
+    save(Object.fromEntries(tenses.flatMap(tense => tense.examples
+      .filter(example => !omissionOf(example.en))
+      .map((example) => {
+        const id = speakingItemId(tense, example)
+
+        return [id, review(undefined, id, true, future)]
+      }))))
+    vi.spyOn(Math, 'random').mockReturnValue(0.999_999)
+    onTestFinished(() => vi.restoreAllMocks())
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const roundSize = 10
+
+    for (let i = 0; i < roundSize; i++) {
+      const current = sentenceOn(page)
+      const omission = omissionOf(current.example.en)
+
+      expect(omission !== undefined).toBe(i < omissions.length)
+
+      await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+      FakeRecognition.last!.say(omission?.[1] ?? current.example.en)
+      await flushPromises()
+
+      if (omission) {
+        expect(load()[speakingItemId(current.tense, current.example)]).toMatchObject({ hits: 0, misses: 1, box: 1 })
+      }
+
+      await page.findAll('button').find(button => button.text().includes('Otra frase'))!.trigger('click')
+      await flushPromises()
+    }
+
+    expect(page.text()).toContain(`Resultado: ${roundSize - omissions.length} de ${roundSize}`)
+    expect(page.text()).toContain(`${omissions.length} errores`)
+
+    const toReview = page.text().slice(page.text().indexOf('Para repasar'))
+
+    for (const [sentence, , auxiliary] of omissions) {
+      expect(toReview).toContain(`${sentence} No se te ha oído: ${auxiliary}.`)
+    }
   })
 
   it('records only the first transcription when the retry is incorrect', async () => {
