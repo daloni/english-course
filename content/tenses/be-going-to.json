@@ -117,7 +117,7 @@
       "es": "El cielo está oscuro; va a haber tormenta pronto."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "They are going to move in two weeks.",
       "es": "Van a mudarse en dos semanas."
     },
@@ -132,14 +132,24 @@
       "es": "Voy a reparar la estantería esta tarde."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "Look at that glass! It is going to fall.",
       "es": "¡Mira ese vaso! Va a caerse."
     },
     {
-      "form": "interrogative",
+      "form": "negative",
       "en": "We are not going to travel next summer.",
       "es": "No vamos a viajar el próximo verano."
+    },
+    {
+      "form": "negative",
+      "en": "She is not going to change her mind.",
+      "es": "Ella no va a cambiar de opinión."
+    },
+    {
+      "form": "interrogative",
+      "en": "Is it going to be sunny tomorrow?",
+      "es": "¿Va a hacer sol mañana?"
     }
   ]
 }

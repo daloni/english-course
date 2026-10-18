@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { gapCount, isCorrect } from '../app/utils/check'
-import { exerciseFiles, exerciseTypes, exercises, forms, levels, tenseFiles, tenses, typeOf, verbs } from '../app/utils/content'
+import { exerciseFiles, exerciseTypes, exercises, forms, levels, tenseById, tenseFiles, tenses, typeOf, verbs } from '../app/utils/content'
+import { relabelled } from './fixtures/relabelled'
 
 // Guards every JSON file under content/: a missing field, a duplicate id or a file name that
 // no longer matches its slug fails here instead of at runtime in the browser.
@@ -50,6 +51,10 @@ describe('tenses', () => {
 
   it('has no repeated English example', () => {
     expect(duplicates(tenses.flatMap(tense => tense.examples.map(example => example.en)))).toEqual([])
+  })
+
+  it.each(relabelled)('labels "$en" ($tenseId) as $form', ({ tenseId, en, form }) => {
+    expect(tenseById(tenseId)!.examples.find(example => example.en === en)?.form).toBe(form)
   })
 
   describe.each(Object.entries(tenseFiles))('%s', (path, tense) => {

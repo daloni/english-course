@@ -118,7 +118,7 @@
       "es": "Ella lleva una chaqueta azul esta mañana."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "We are staying with friends this week.",
       "es": "Nos estamos quedando con unos amigos esta semana."
     },
@@ -141,6 +141,11 @@
       "form": "interrogative",
       "en": "Why are you smiling at present?",
       "es": "¿Por qué estás sonriendo actualmente?"
+    },
+    {
+      "form": "negative",
+      "en": "It is not raining at the moment.",
+      "es": "Ahora mismo no está lloviendo."
     }
   ]
 }

@@ -118,7 +118,7 @@
       "es": "Habrá ahorrado suficiente dinero para el año que viene."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "By the end of the week, we will have moved house.",
       "es": "Para el final de la semana, nos habremos mudado."
     },
@@ -133,14 +133,29 @@
       "es": "Los constructores habrán pintado la habitación en dos meses."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "By 2030, the town will have changed completely.",
       "es": "Para 2030, el pueblo habrá cambiado por completo."
     },
     {
-      "form": "interrogative",
+      "form": "affirmative",
       "en": "I will have sent the invitation by then.",
       "es": "Habré enviado la invitación para entonces."
+    },
+    {
+      "form": "negative",
+      "en": "We will not have painted the kitchen by the weekend.",
+      "es": "No habremos pintado la cocina para el fin de semana."
+    },
+    {
+      "form": "negative",
+      "en": "By the time you call, he will not have left the office.",
+      "es": "Cuando llames, él todavía no habrá salido de la oficina."
+    },
+    {
+      "form": "interrogative",
+      "en": "Will she have arrived home by midnight?",
+      "es": "¿Habrá llegado ella a casa para la medianoche?"
     }
   ]
 }

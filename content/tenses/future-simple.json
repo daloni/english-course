@@ -105,7 +105,7 @@
     {
       "form": "negative",
       "en": "They will not forget this evening.",
-      "es": "No lo olvidarán esta tarde."
+      "es": "No olvidarán esta tarde."
     },
     {
       "form": "interrogative",
@@ -118,7 +118,7 @@
       "es": "El paquete llegará en una hora."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "She probably will choose the green dress.",
       "es": "Probablemente elegirá el vestido verde."
     },
@@ -133,14 +133,29 @@
       "es": "Nos reuniremos de nuevo el año que viene."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "I think he will understand soon.",
       "es": "Creo que lo entenderá pronto."
     },
     {
-      "form": "interrogative",
+      "form": "affirmative",
       "en": "The children will be excited tonight.",
       "es": "Los niños estarán emocionados esta noche."
+    },
+    {
+      "form": "negative",
+      "en": "I promise I won't be late.",
+      "es": "Te prometo que no llegaré tarde."
+    },
+    {
+      "form": "negative",
+      "en": "She will not like this film.",
+      "es": "A ella no le gustará esta película."
+    },
+    {
+      "form": "interrogative",
+      "en": "Who will win the election?",
+      "es": "¿Quién ganará las elecciones?"
     }
   ]
 }

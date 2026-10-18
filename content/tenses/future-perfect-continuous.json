@@ -118,7 +118,7 @@
       "es": "El mes que viene llevaremos un año viviendo aquí."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "He will have been running all morning by the race.",
       "es": "Para la carrera, llevará toda la mañana corriendo."
     },
@@ -141,6 +141,11 @@
       "form": "interrogative",
       "en": "How long will she have been working there by June?",
       "es": "¿Cuánto tiempo llevará trabajando allí en junio?"
+    },
+    {
+      "form": "negative",
+      "en": "By June, they will not have been living in the city for a year.",
+      "es": "En junio, aún no llevarán un año viviendo en la ciudad."
     }
   ]
 }

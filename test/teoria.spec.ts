@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import TeoriaIndex from '../app/pages/teoria/index.vue'
 import TensePage from '../app/pages/teoria/[slug].vue'
-import { exercisesOf, forms, tenseById, tenseFiles } from '../app/utils/content'
+import { exercisesOf, formLabels, forms, tenseById, tenseFiles } from '../app/utils/content'
+import { relabelled } from './fixtures/relabelled'
 
 // Every file in content/tenses/ must be reachable: listed on /teoria and rendered
 // at /teoria/<slug>. Adding a tense with /teoria and forgetting to ship it fails here.
@@ -39,6 +40,20 @@ describe('/teoria', () => {
 
     for (const example of tense.examples) {
       expect(html).toContain(example.en)
+    }
+  })
+
+  it.each([...new Set(relabelled.map(example => example.tenseId))])('/teoria/%s groups the relabelled examples under their form', async (slug) => {
+    const page = await mountSuspended(TensePage, { route: `/teoria/${slug}` })
+    const groups = page.findAll('h3').map(heading => ({
+      label: heading.text(),
+      examples: heading.element.nextElementSibling!.querySelectorAll('p[lang="en"]')
+    }))
+
+    for (const { en, form } of relabelled.filter(example => example.tenseId === slug)) {
+      const group = groups.find(candidate => [...candidate.examples].some(example => example.textContent?.trim() === en))
+
+      expect(group?.label, en).toBe(formLabels[form])
     }
   })
 

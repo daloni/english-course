@@ -118,7 +118,7 @@
       "es": "Estaré viajando toda la mañana mañana."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "At midnight, the city will be sleeping.",
       "es": "A medianoche, la ciudad estará durmiendo."
     },
@@ -141,6 +141,11 @@
       "form": "interrogative",
       "en": "What will you be doing when I call later today?",
       "es": "¿Qué estarás haciendo cuando llame más tarde hoy?"
+    },
+    {
+      "form": "negative",
+      "en": "I will not be watching the match tonight.",
+      "es": "Esta noche no estaré viendo el partido."
     }
   ]
 }

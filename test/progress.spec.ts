@@ -1610,7 +1610,7 @@ describe('items', () => {
 
     expect(new Set(ids).size).toBe(ids.length)
     expect(new Set(items().map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading', 'clips', 'speaking']))
-    expect(items().filter(item => item.kind === 'speaking')).toHaveLength(312)
+    expect(items().filter(item => item.kind === 'speaking')).toHaveLength(335)
     expect(items().filter(item => item.kind === 'speaking').every(item => item.tenseId !== '')).toBe(true)
   })
 
