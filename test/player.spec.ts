@@ -23,6 +23,9 @@ let loaded: { videoId: string, startSeconds?: number, endSeconds?: number } | nu
 let created = 0
 let destroyed = 0
 let playCalls = 0
+let pauseCalls = 0
+let seeks: number[] = []
+let currentTime = 0
 
 /** Stands in for the real iframe player, which needs a browser and a network. */
 class FakePlayer implements YTPlayer {
@@ -32,9 +35,9 @@ class FakePlayer implements YTPlayer {
   }
 
   playVideo() { playCalls += 1 }
-  pauseVideo() {}
-  seekTo() {}
-  getCurrentTime() { return 0 }
+  pauseVideo() { pauseCalls += 1 }
+  seekTo(seconds: number) { seeks.push(seconds) }
+  getCurrentTime() { return currentTime }
   getPlayerState() { return 0 }
   loadVideoById(options: { videoId: string, startSeconds?: number, endSeconds?: number }) { loaded = options }
   destroy() { destroyed += 1 }
@@ -75,6 +78,9 @@ beforeEach(() => {
   created = 0
   destroyed = 0
   playCalls = 0
+  pauseCalls = 0
+  seeks = []
+  currentTime = 0
   delete window.YT
   delete window.onYouTubeIframeAPIReady
   for (const script of apiScripts()) script.remove()
@@ -133,6 +139,7 @@ describe('ClipPlayer', () => {
     expect(player.find('iframe').exists()).toBe(false)
     expect(player.text()).toContain('se conectará con YouTube')
     expect(player.find('button').text()).toContain('Reproducir')
+    expect(player.findAll('button'), 'no pause control before there is anything to pause').toHaveLength(1)
 
     await player.find('button').trigger('click')
     expect(apiScripts()).toHaveLength(1)
@@ -267,5 +274,116 @@ describe('ClipPlayer', () => {
     await player.setProps({ videoId: 'abcdefghijk' })
 
     expect(cancelAnimationFrame).toHaveBeenCalled()
+  })
+
+  describe('playback control', () => {
+    // With YouTube's own controls and keyboard disabled, this button is the only way to stop a
+    // looping clip, so its label has to follow what the player reports, not what was clicked.
+    const { PLAYING, PAUSED } = fakeApi.PlayerState
+
+    async function startedPlayer() {
+      installApi()
+
+      const ClipPlayer = await freshComponent()
+      const player = await mountSuspended(ClipPlayer, { props, attachTo: document.body })
+      await player.find('button').trigger('click')
+      await flushPromises()
+
+      return player
+    }
+
+    /** Once started, the overlay is gone and the control is the player's only button. */
+    const control = (player: Awaited<ReturnType<typeof startedPlayer>>) => player.find('button')
+
+    async function report(player: Awaited<ReturnType<typeof startedPlayer>>, state: number) {
+      events.onStateChange!({ data: state })
+      await flushPromises()
+
+      return control(player)
+    }
+
+    it('hands focus to a native button that pauses and resumes the clip', async () => {
+      const player = await startedPlayer()
+      const button = control(player)
+
+      expect(button.element.tagName, 'a native button answers Enter and Space').toBe('BUTTON')
+      expect(document.activeElement, 'focus stays on a control after the overlay goes').toBe(button.element)
+
+      // Before onReady the real player has no methods to call: the click must be a no-op.
+      await button.trigger('click')
+      expect(playCalls).toBe(0)
+      expect(pauseCalls).toBe(0)
+
+      events.onReady!()
+      expect(playCalls).toBe(1)
+
+      expect((await report(player, PLAYING)).text()).toBe('Pausar')
+      await control(player).trigger('click')
+      expect(pauseCalls).toBe(1)
+      expect(control(player).text(), 'the label waits for the player to confirm').toBe('Pausar')
+
+      expect((await report(player, PAUSED)).text()).toBe('Reanudar')
+      await control(player).trigger('click')
+      expect(playCalls).toBe(2)
+      expect(pauseCalls).toBe(1)
+
+      expect((await report(player, PLAYING)).text()).toBe('Pausar')
+
+      await player.unmount()
+    })
+
+    it('stops looping while paused, so the clip stays stopped until resumed', async () => {
+      const frames: FrameRequestCallback[] = []
+      vi.spyOn(globalThis, 'requestAnimationFrame').mockImplementation(frame => frames.push(frame))
+      const cancelAnimationFrame = vi.spyOn(globalThis, 'cancelAnimationFrame')
+
+      const player = await startedPlayer()
+      events.onReady!()
+      await report(player, PLAYING)
+
+      // Past the end of the window, a playing clip loops back to its start.
+      currentTime = 5
+      frames.at(-1)!(0)
+      expect(seeks.at(-1)).toBe(1)
+      expect(frames).toHaveLength(2)
+
+      await control(player).trigger('click')
+      await report(player, PAUSED)
+
+      expect(cancelAnimationFrame, 'the pending tick would seek the paused clip').toHaveBeenLastCalledWith(frames.length)
+      expect(frames).toHaveLength(2)
+      expect(playCalls).toBe(1)
+
+      await control(player).trigger('click')
+      await report(player, PLAYING)
+
+      expect(playCalls).toBe(2)
+      expect(frames).toHaveLength(3)
+
+      await player.unmount()
+    })
+
+    it('keeps the control through a clip change and labels the new clip by its state', async () => {
+      const player = await startedPlayer()
+      events.onReady!()
+      await report(player, PLAYING)
+      await control(player).trigger('click')
+      const button = await report(player, PAUSED)
+
+      expect(button.text()).toBe('Reanudar')
+
+      await player.setProps({ videoId: 'abcdefghijk' })
+      await flushPromises()
+
+      // A new clip is a new exercise and plays on the session's first gesture, like before.
+      expect(loaded?.videoId).toBe('abcdefghijk')
+      expect(playCalls).toBe(2)
+      expect(control(player).element, 'the same button, so focus is not lost').toBe(button.element)
+      expect(control(player).text()).toBe('Reanudar')
+
+      expect((await report(player, PLAYING)).text()).toBe('Pausar')
+
+      await player.unmount()
+    })
   })
 })
