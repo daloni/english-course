@@ -35,7 +35,7 @@ import {
 } from '../app/utils/progress'
 import { clipFiles as lazyClipFiles, forgetClips } from '../app/utils/clips'
 import { clips } from './fixtures/clips'
-import { clearUnavailable, loadUnavailable, saveUnavailable } from '../app/utils/unavailable'
+import { clearUnavailable, loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
 
 const today = '2026-08-14'
 
@@ -1325,12 +1325,76 @@ describe('practising', () => {
 
       expect(page.text()).toContain('No se han podido cargar los clips')
       expect(page.text()).not.toContain('Hoy no toca repasar nada')
+      // Only clips are due, so there is nothing to go on with in the meantime.
+      expect(page.text()).not.toContain('Seguir sin los clips')
       expect(load()[id]!.misses).toBe(1)
 
       await retry(page).trigger('click')
       await vi.waitFor(() => expect(page.text()).toContain('Ejercicio 1 de'))
 
       expect(load()[id]!.misses).toBe(1)
+    })
+
+    it('goes on with the rest of a mixed queue and asks the clips once the download recovers', async () => {
+      const sentence = exercisesOf('present-simple')[0]!
+      const sentenceId = frasesItemId(sentence)
+      const clipAttempt = review(undefined, id, false, today)
+      const button = (page: Awaited<ReturnType<typeof mountSuspended>>, label: string) =>
+        page.findAll('button').find(candidate => candidate.text().includes(label))
+      const current = (page: Awaited<ReturnType<typeof mountSuspended>>) => (page.vm as unknown as { item: Item }).item
+
+      localStorage.removeItem(unavailableKey)
+      save({ [sentenceId]: review(undefined, sentenceId, false, today), [id]: clipAttempt })
+
+      const page = await mountSuspended(Repaso)
+      onTestFinished(() => page.unmount())
+      await flushPromises()
+
+      /** Misses the sentence on screen, so it stays due for the rounds that follow. */
+      async function miss() {
+        expect(current(page).id).toBe(sentenceId)
+        await page.find('input').setValue('nope')
+        await page.find('form').trigger('submit')
+        await flushPromises()
+        await page.find('form').trigger('submit')
+        await flushPromises()
+      }
+
+      expect(page.text()).toContain('No se han podido cargar los clips')
+      expect(page.text()).toContain('puedes repasar 1 ejercicio de frases, verbos y reading y dejar para después 1 ejercicio de clips')
+
+      await button(page, 'Seguir sin los clips')!.trigger('click')
+      await flushPromises()
+
+      expect(page.text()).toContain('Ejercicio 1 de 1')
+      expect(page.text()).toContain('1 ejercicio de clips para después')
+      await miss()
+
+      expect(page.text()).toContain('Repaso terminado: 0 de 1')
+      expect(page.text()).toContain('Has dejado para después 1 ejercicio de clips')
+      // Deferring is not answering: the clip keeps its attempt, box and due date, and its
+      // video is not taken for a dead one.
+      expect(load()[id]).toEqual(clipAttempt)
+      expect(loadUnavailable()).toEqual([])
+
+      // The next local round neither waits for the clips nor asks for them again.
+      await button(page, 'Otra ronda (quedan 1)')!.trigger('click')
+      await flushPromises()
+
+      expect(page.text()).not.toContain('No se han podido cargar los clips')
+      expect(page.text()).toContain('Ejercicio 1 de 1')
+      await miss()
+      expect(importer).toHaveBeenCalledTimes(1)
+
+      await button(page, 'Reintentar los clips')!.trigger('click')
+      await vi.waitFor(() => expect(current(page)?.id).toBe(id))
+
+      // The recovered round brings only the clip: the sentence, answered twice, is not asked again.
+      expect(importer).toHaveBeenCalledTimes(2)
+      expect(page.text()).toContain('Ejercicio 1 de 1')
+      expect(page.text()).not.toContain('para después')
+      expect(load()[sentenceId]!.misses).toBe(3)
+      expect(load()[id]).toEqual(clipAttempt)
     })
   })
 

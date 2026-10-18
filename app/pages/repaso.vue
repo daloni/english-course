@@ -26,6 +26,14 @@ const passage = computed(() => {
   return reading && { title: reading.title, html: renderMarkdown(reading.text) }
 })
 
+// A failed clip download need not block the rest: the learner can go on without the clips,
+// which wait out of the rounds, untouched, until a later download works.
+const deferred = ref(false)
+const localPending = computed(() => pending.value.filter(item => item.kind !== 'clips'))
+const queue = computed(() => deferred.value ? localPending.value : pending.value)
+const deferredClips = computed(() => pending.value.length - queue.value.length)
+const exercises = (count: number) => `${count} ${count === 1 ? 'ejercicio' : 'ejercicios'}`
+
 // What this visit has already asked: a missed exercise stays due today, so without this the
 // first ten would fill every round and the rest would never come up.
 const asked = new Set<string>()
@@ -35,11 +43,11 @@ const asked = new Set<string>()
  * Once everything has been covered, whatever is still pending starts a new lap.
  */
 function restart() {
-  let fresh = pending.value.filter(item => !asked.has(item.id))
+  let fresh = queue.value.filter(item => !asked.has(item.id))
 
   if (fresh.length === 0) {
     asked.clear()
-    fresh = pending.value
+    fresh = queue.value
   }
 
   session.value = fresh.slice(0, size)
@@ -60,6 +68,18 @@ async function start() {
 }
 
 onMounted(start)
+
+/** Nothing is recorded for the clips: a dropped connection is not a wrong answer. */
+function continueWithoutClips() {
+  deferred.value = true
+  restart()
+}
+
+/** After a round without clips: if the download works now, a new round starts with them. */
+function retryClips() {
+  deferred.value = false
+  return start()
+}
 
 /** The same button corrects first and moves on to the next exercise afterwards. */
 function submit(skip = false) {
@@ -134,10 +154,29 @@ useSeo({
             Preparando el repaso…
           </p>
 
-          <ClipsLoadError
-            v-else-if="error"
-            @retry="start"
-          />
+          <template v-else-if="error && !deferred">
+            <ClipsLoadError @retry="start" />
+
+            <div
+              v-if="localPending.length > 0"
+              class="mt-8 space-y-4"
+            >
+              <p class="text-muted">
+                Mientras tanto puedes repasar {{ exercises(localPending.length) }} de frases, verbos
+                y reading y dejar para después {{ exercises(pending.length - localPending.length) }}
+                de clips: no cuentan como fallo y podrás reintentarlos al acabar la ronda.
+              </p>
+
+              <UButton
+                type="button"
+                label="Seguir sin los clips"
+                icon="i-lucide-skip-forward"
+                color="neutral"
+                variant="outline"
+                @click="continueWithoutClips"
+              />
+            </div>
+          </template>
 
           <template v-else-if="session.length === 0">
             <h2 class="text-xl font-semibold">
@@ -166,6 +205,14 @@ useSeo({
 
             <p class="mt-2 text-muted">
               Lo acertado sube de caja y tardará más en volver; lo fallado sigue en la cola de hoy.
+            </p>
+
+            <p
+              v-if="deferredClips > 0"
+              class="mt-2 text-muted"
+            >
+              Has dejado para después {{ exercises(deferredClips) }} de clips que no se pudieron
+              descargar: siguen pendientes y no cuentan como fallo.
             </p>
 
             <div
@@ -225,10 +272,19 @@ useSeo({
 
             <div class="mt-8 flex flex-wrap gap-3">
               <UButton
-                v-if="pending.length > 0"
-                :label="`Otra ronda (quedan ${pending.length})`"
+                v-if="queue.length > 0"
+                :label="`Otra ronda (quedan ${queue.length})`"
                 icon="i-lucide-rotate-ccw"
                 @click="restart"
+              />
+
+              <UButton
+                v-if="deferredClips > 0"
+                type="button"
+                label="Reintentar los clips"
+                icon="i-lucide-wifi"
+                :color="queue.length > 0 ? 'neutral' : 'primary'"
+                @click="retryClips"
               />
 
               <UButton
@@ -245,6 +301,9 @@ useSeo({
               Ejercicio {{ index + 1 }} de {{ session.length }} ·
               {{ itemKindLabels[item.kind] }} ·
               {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
+              <template v-if="deferredClips > 0">
+                · {{ exercises(deferredClips) }} de clips para después
+              </template>
             </p>
 
             <!-- A clip is heard before it is answered: the line is only in the video. -->
