@@ -16,8 +16,11 @@ const emit = defineEmits<{ unavailable: [videoId: string] }>()
 const goneCodes = new Set([100, 101, 150])
 
 const host = useTemplateRef<HTMLDivElement>('host')
+const toggleButton = useTemplateRef<{ $el: HTMLElement }>('toggleButton')
 const player = shallowRef<YTPlayer | null>(null)
 const started = ref(false)
+// Follows the player's own state events, so the control never claims what the video isn't doing.
+const playing = ref(false)
 const failed = ref(false)
 const loadError = ref(false)
 const loading = ref(false)
@@ -87,7 +90,15 @@ async function mount() {
           }
         },
         onStateChange: (e: { data: number }) => {
-          if (e.data === YT.PlayerState.PLAYING) watchWindow()
+          if (e.data === YT.PlayerState.PLAYING) {
+            playing.value = true
+            watchWindow()
+          } else if (e.data !== YT.PlayerState.BUFFERING) {
+            playing.value = false
+            // A paused clip stays put: the loop must not seek it back into motion. ENDED keeps
+            // polling, because that is how the `end` backstop gets looped back to the start.
+            if (e.data === YT.PlayerState.PAUSED) cancelAnimationFrame(rafId)
+          }
         },
         onError: (e: { data: number }) => {
           loading.value = false
@@ -123,6 +134,8 @@ function retry() {
 /** Mobile blocks autoplay without a gesture, so the first tap starts the load and playback. */
 async function play() {
   started.value = true
+  // The overlay button this tap came from goes away; focus moves to the control that stays.
+  nextTick(() => toggleButton.value?.$el.focus())
   const p = player.value
   if (!p) {
     await mount()
@@ -130,6 +143,15 @@ async function play() {
   }
   p.seekTo(startS.value, true)
   p.playVideo()
+}
+
+/** YouTube's own controls and keyboard are off, so this is the only way to stop a looping clip. */
+function toggle() {
+  const p = player.value
+  // Before onReady the player has no methods yet; it starts on its own once ready.
+  if (!p || loading.value) return
+  if (playing.value) p.pauseVideo()
+  else p.playVideo()
 }
 
 function replay() {
@@ -160,74 +182,88 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-    <div
-      ref="host"
-      class="size-full"
-    />
+  <div>
+    <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+      <div
+        ref="host"
+        class="size-full"
+      />
 
-    <div
-      v-if="!started || failed || loadError || loading"
-      class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/80 text-center"
-    >
-      <template v-if="failed">
-        <UIcon
-          name="i-lucide-video-off"
-          class="size-8 text-neutral-400"
-        />
-        <p class="px-6 text-sm text-neutral-400">
-          Este vídeo ya no está disponible. Se excluirá del repaso, pero puedes recuperarlo desde Progreso.
-        </p>
-      </template>
-      <template v-else-if="loadError">
-        <UIcon
-          name="i-lucide-wifi-off"
-          class="size-8 text-neutral-400"
-        />
-        <p
-          role="status"
-          class="px-6 text-sm text-neutral-400"
-        >
-          No se pudo cargar el vídeo. Comprueba tu conexión.
-        </p>
-        <UButton
-          icon="i-lucide-rotate-ccw"
-          size="sm"
-          color="neutral"
-          variant="solid"
-          @click="retry"
-        >
-          Reintentar
-        </UButton>
-      </template>
-      <template v-else-if="loading">
-        <UIcon
-          name="i-lucide-loader-circle"
-          class="size-8 animate-spin text-neutral-500"
-        />
-      </template>
-      <template v-else>
-        <p
-          id="youtube-connection-notice"
-          class="px-6 text-sm text-neutral-400"
-        >
-          Al reproducir, este vídeo se conectará con YouTube.
-          <ULink
-            to="/cookies"
-            class="underline"
-          >Consulta la política de cookies</ULink>.
-        </p>
-        <UButton
-          icon="i-lucide-play"
-          size="xl"
-          color="neutral"
-          variant="solid"
-          aria-describedby="youtube-connection-notice"
-          @click="play"
-        >
-          Reproducir
-        </UButton>
-      </template>
+      <div
+        v-if="!started || failed || loadError || loading"
+        class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/80 text-center"
+      >
+        <template v-if="failed">
+          <UIcon
+            name="i-lucide-video-off"
+            class="size-8 text-neutral-400"
+          />
+          <p class="px-6 text-sm text-neutral-400">
+            Este vídeo ya no está disponible. Se excluirá del repaso, pero puedes recuperarlo desde Progreso.
+          </p>
+        </template>
+        <template v-else-if="loadError">
+          <UIcon
+            name="i-lucide-wifi-off"
+            class="size-8 text-neutral-400"
+          />
+          <p
+            role="status"
+            class="px-6 text-sm text-neutral-400"
+          >
+            No se pudo cargar el vídeo. Comprueba tu conexión.
+          </p>
+          <UButton
+            icon="i-lucide-rotate-ccw"
+            size="sm"
+            color="neutral"
+            variant="solid"
+            @click="retry"
+          >
+            Reintentar
+          </UButton>
+        </template>
+        <template v-else-if="loading">
+          <UIcon
+            name="i-lucide-loader-circle"
+            class="size-8 animate-spin text-neutral-500"
+          />
+        </template>
+        <template v-else>
+          <p
+            id="youtube-connection-notice"
+            class="px-6 text-sm text-neutral-400"
+          >
+            Al reproducir, este vídeo se conectará con YouTube.
+            <ULink
+              to="/cookies"
+              class="underline"
+            >Consulta la política de cookies</ULink>.
+          </p>
+          <UButton
+            icon="i-lucide-play"
+            size="xl"
+            color="neutral"
+            variant="solid"
+            aria-describedby="youtube-connection-notice"
+            @click="play"
+          >
+            Reproducir
+          </UButton>
+        </template>
+      </div>
     </div>
+
+    <UButton
+      v-if="started && !failed"
+      ref="toggleButton"
+      :icon="playing ? 'i-lucide-pause' : 'i-lucide-play'"
+      :label="playing ? 'Pausar' : 'Reanudar'"
+      size="sm"
+      color="neutral"
+      variant="outline"
+      class="mt-2"
+      @click="toggle"
+    />
   </div>
 </template>
