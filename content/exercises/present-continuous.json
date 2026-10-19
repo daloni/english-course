@@ -151,7 +151,7 @@
     "type": "transform",
     "form": "negative",
     "prompt": "Nina is reading a report at the moment.",
-    "solution": "Nina isn't reading a report at the moment.",
+    "solution": "Nina isn't reading a report at the moment. / Nina's not reading a report at the moment.",
     "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
   },
   {

@@ -54,7 +54,7 @@
     "type": "transform",
     "form": "negative",
     "prompt": "Nora has been using the meeting room all morning.",
-    "solution": "Nora hasn't been using the meeting room all morning.",
+    "solution": "Nora hasn't been using the meeting room all morning. / Nora's not been using the meeting room all morning.",
     "explanation": "not se coloca después de has; been y el verbo en -ing no cambian."
   },
   {
@@ -153,7 +153,7 @@
     "type": "transform",
     "form": "negative",
     "prompt": "Maya has been writing emails all morning.",
-    "solution": "Maya has not been writing emails all morning.",
+    "solution": "Maya has not been writing emails all morning. / Maya's not been writing emails all morning.",
     "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
   },
   {

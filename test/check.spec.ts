@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { checkExercise, isCorrect, normalize, thirdPerson } from '../app/utils/check'
-import type { Exercise } from '../app/utils/content'
+import { exercises, type Exercise } from '../app/utils/content'
 
 describe('normalize', () => {
   it('ignores capitals and surrounding spaces', () => {
@@ -103,6 +103,86 @@ describe('checkExercise', () => {
     // " / " as alternatives instead of positional answers.
     expect(checkExercise('was / were', twoGaps)).toBe(true)
     expect(checkExercise('was', twoGaps)).toBe(false)
+  })
+})
+
+// "'s" can mean is or has, so normalize leaves it alone: negative transformations with is and has
+// list the "'s not" form as an explicit alternative of their solution instead.
+describe('the negative transformations with is and has', () => {
+  const cases: [id: string, right: string[], wrong: string[]][] = [
+    ['be-going-to-008', [
+      'He is not going to study Italian next summer.',
+      'He isn\'t going to study Italian next summer.',
+      'He\'s not going to study Italian next summer.',
+      'He’s not going to study Italian next summer.'
+    ], [
+      'He has not going to study Italian next summer.',
+      'He hasn\'t going to study Italian next summer.',
+      'He\'s going to study Italian next summer.'
+    ]],
+    ['present-continuous-020', [
+      'Nina isn\'t reading a report at the moment.',
+      'Nina is not reading a report at the moment.',
+      'Nina\'s not reading a report at the moment.',
+      'Nina’s not reading a report at the moment.'
+    ], [
+      'Nina hasn\'t reading a report at the moment.',
+      'Nina has not reading a report at the moment.',
+      'Nina\'s reading a report at the moment.'
+    ]],
+    ['present-perfect-continuous-008', [
+      'Nora hasn\'t been using the meeting room all morning.',
+      'Nora has not been using the meeting room all morning.',
+      'Nora\'s not been using the meeting room all morning.',
+      'Nora’s not been using the meeting room all morning.'
+    ], [
+      'Nora isn\'t been using the meeting room all morning.',
+      'Nora is not been using the meeting room all morning.',
+      'Nora\'s been using the meeting room all morning.'
+    ]],
+    ['present-perfect-continuous-020', [
+      'Maya has not been writing emails all morning.',
+      'Maya hasn\'t been writing emails all morning.',
+      'Maya\'s not been writing emails all morning.',
+      'Maya’s not been writing emails all morning.'
+    ], [
+      'Maya isn\'t been writing emails all morning.',
+      'Maya is not been writing emails all morning.',
+      'Maya\'s been writing emails all morning.'
+    ]],
+    ['present-perfect-008', [
+      'Tom hasn\'t washed the car this morning.',
+      'Tom has not washed the car this morning.',
+      'Tom\'s not washed the car this morning.',
+      'Tom’s not washed the car this morning.'
+    ], [
+      'Tom isn\'t washed the car this morning.',
+      'Tom is not washed the car this morning.',
+      'Tom\'s washed the car this morning.'
+    ]],
+    ['present-perfect-019', [
+      'Laura has not cleaned the kitchen yet.',
+      'Laura hasn\'t cleaned the kitchen yet.',
+      'Laura\'s not cleaned the kitchen yet.',
+      'Laura’s not cleaned the kitchen yet.'
+    ], [
+      'Laura isn\'t cleaned the kitchen yet.',
+      'Laura is not cleaned the kitchen yet.',
+      'Laura\'s cleaned the kitchen yet.'
+    ]]
+  ]
+
+  // Each answer is typed on its own, never the whole list of alternatives.
+  it.each(cases)('%s', (id, right, wrong) => {
+    const exercise = exercises.find(candidate => candidate.id === id)
+
+    expect(exercise, `${id} must keep its id, the progress is stored under it`).toBeDefined()
+    for (const answer of right) {
+      expect(checkExercise(answer, exercise!), answer).toBe(true)
+    }
+    for (const answer of wrong) {
+      expect(checkExercise(answer, exercise!), answer).toBe(false)
+    }
   })
 })
 

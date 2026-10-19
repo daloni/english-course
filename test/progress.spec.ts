@@ -767,6 +767,9 @@ describe('several tabs', () => {
 
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!
+  /** Type one alternative for a transformation, preserving positional answers in multi-gap exercises. */
+  const writtenAnswer = (item: Item) =>
+    item.type === 'transform' ? item.solution.split(/\s+\/\s+/)[0]! : item.solution
 
   beforeEach(async () => {
     localStorage.removeItem(storageKey)
@@ -893,7 +896,7 @@ describe('practising', () => {
       if (radio) {
         await radio.trigger('click')
       } else {
-        await page.find('input').setValue(candidate.solution)
+        await page.find('input').setValue(writtenAnswer(candidate))
       }
 
       await page.find('form').trigger('submit')
@@ -946,7 +949,7 @@ describe('practising', () => {
         if (options.length > 0) {
           await (correct ? right : wrong)!.trigger('click')
         } else {
-          await page.find('input').setValue(correct ? current.solution : 'nope')
+          await page.find('input').setValue(correct ? writtenAnswer(current) : 'nope')
         }
 
         await page.find('form').trigger('submit')
@@ -1092,6 +1095,36 @@ describe('practising', () => {
     expect(layout.text()).not.toContain(warningText)
     expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: 1, misses: 0 })
     expect(load()[frasesItemId(second)]).toMatchObject({ hits: 1, misses: 0 })
+  })
+
+  it.each([
+    'Nora\'s not been using the meeting room all morning.',
+    'Nora’s not been using the meeting room all morning.'
+  ])('counts the alternative "%s" as a hit without another miss', async (answer) => {
+    const transform = exercisesOf('present-perfect-continuous').find(candidate => candidate.id === 'present-perfect-continuous-008')!
+    const id = frasesItemId(transform)
+
+    // Missed today, so it is the only exercise due.
+    save({ [id]: review(undefined, id, false) })
+
+    const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain('Ejercicio 1 de 1')
+    expect(page.text()).toContain(transform.prompt)
+
+    await page.find('input').setValue(answer)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('¡Correcto!')
+    expect(load()[id]).toMatchObject({ hits: 1, misses: 1 })
+
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('Repaso terminado: 1 de 1')
   })
 
   // The same correction as /frases: with no explanation, the structure of the tense.
