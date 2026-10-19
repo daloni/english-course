@@ -47,7 +47,7 @@
     "type": "transform",
     "form": "negative",
     "prompt": "Tom has washed the car this morning.",
-    "solution": "Tom hasn't washed the car this morning.",
+    "solution": "Tom hasn't washed the car this morning. / Tom's not washed the car this morning.",
     "explanation": "El not va detrás del auxiliar, y el participio no cambia: hasn't washed."
   },
   {
@@ -133,7 +133,7 @@
     "type": "transform",
     "form": "negative",
     "prompt": "Laura has already cleaned the kitchen.",
-    "solution": "Laura has not cleaned the kitchen yet.",
+    "solution": "Laura has not cleaned the kitchen yet. / Laura's not cleaned the kitchen yet.",
     "explanation": "El auxiliar y la forma verbal muestran la estructura de este tiempo verbal."
   },
   {
