@@ -3,15 +3,21 @@
 defineProps<{ exercise: Exercise, disabled?: boolean }>()
 
 const answer = defineModel<string>({ required: true })
+const instructionId = useId()
+const sentenceId = useId()
 </script>
 
 <template>
   <div>
-    <p class="text-sm text-muted">
+    <p
+      :id="instructionId"
+      class="text-sm text-muted"
+    >
       Pasa la frase a {{ formLabels[formOf(exercise)].toLowerCase() }}
     </p>
 
     <p
+      :id="sentenceId"
       lang="en"
       class="mt-1 text-xl"
     >
@@ -29,6 +35,7 @@ const answer = defineModel<string>({ required: true })
       spellcheck="false"
       placeholder="La frase entera"
       aria-label="La frase transformada"
+      :aria-describedby="`${instructionId} ${sentenceId}`"
       class="mt-4 w-full"
     />
   </div>
