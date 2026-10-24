@@ -25,6 +25,7 @@ const contractions: [RegExp, string][] = [
  * The punctuation is dropped: the final full stop or question mark, and the commas and
  * semicolons inside, so that "Yes, she does" and "Yes she does" are the same answer.
  * Rewriting a sentence is about the auxiliary and the word order, not about the punctuation.
+ * The result is trimmed once more after the expansion: a bare "'m" becomes "am", not " am".
  */
 export function normalize(answer: string): string {
   const text = answer
@@ -39,6 +40,7 @@ export function normalize(answer: string): string {
   return contractions
     .reduce((result, [pattern, replacement]) => result.replace(pattern, replacement), text)
     .replace(/\s+/g, ' ')
+    .trim()
 }
 
 /**
