@@ -97,10 +97,10 @@ export const negationChanged = (diff: WordDiff[]): boolean =>
  */
 const auxiliaries = new Set(['am', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will'])
 
-/** True when an auxiliary of the sentence was not said where it goes. */
-const auxiliaryMissing = (diff: WordDiff[]): boolean =>
-  diff.some(word => word.status === 'missing' && auxiliaries.has(word.word))
+/** The auxiliaries of the sentence that were not said where they go. */
+export const missingAuxiliaries = (diff: WordDiff[]): string[] =>
+  diff.filter(word => word.status === 'missing' && auxiliaries.has(word.word)).map(word => word.word)
 
 /** What counts as a good repetition: enough of the words, the same negation and every auxiliary. */
 export const isRepeated = (diff: WordDiff[], threshold = 0.8): boolean =>
-  score(diff) >= threshold && !negationChanged(diff) && !auxiliaryMissing(diff)
+  score(diff) >= threshold && !negationChanged(diff) && missingAuxiliaries(diff).length === 0

@@ -110,6 +110,19 @@ function sentenceOn(page: VueWrapper) {
   throw new Error(`No se reconoce la frase en pantalla: ${text}`)
 }
 
+/** Stores every other example as reviewed and not due, so `en` is the only pending one and opens the round. */
+function pin(en: string) {
+  const future = addDays(day(), 1)
+
+  save(Object.fromEntries(tenses.flatMap(tense => tense.examples
+    .filter(example => example.en !== en)
+    .map((example) => {
+      const id = speakingItemId(tense, example)
+
+      return [id, review(undefined, id, true, future)]
+    }))))
+}
+
 // happy-dom has neither SpeechRecognition nor speechSynthesis, so mounting the page here is
 // the browser without support: it has to warn and still show the sentence to listen to.
 describe('/speaking', () => {
@@ -361,6 +374,83 @@ describe('/speaking', () => {
     expect(attempt).toMatchObject({ hits: 0, misses: 1, box: 1 })
     expect(attempt.hits + attempt.misses).toBe(1)
     expect(page.text()).toContain('Frase completa, palabra por palabra.')
+  })
+
+  describe('verdict of the round', () => {
+    const sentence = 'They are going to move in two weeks.'
+
+    /** Opens the round on `sentence` and says each transcript in turn into the same microphone session. */
+    async function repeat(...transcripts: string[]) {
+      supportSpeech()
+      pin(sentence)
+
+      const page = await mountSuspended(SpeakingPage)
+      await flushPromises()
+
+      const current = sentenceOn(page)
+
+      expect(current.example.en).toBe(sentence)
+
+      await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+
+      for (const transcript of transcripts) {
+        FakeRecognition.last!.say(transcript)
+        await flushPromises()
+      }
+
+      return {
+        page,
+        attempt: () => load()[speakingItemId(current.tense, current.example)],
+        live: () => page.find('[aria-live="polite"]').text()
+      }
+    }
+
+    it('calls a repetition without its auxiliary a miss and names the auxiliary', async () => {
+      const { attempt, live } = await repeat('they going to move in two weeks')
+
+      expect(live()).toContain('7 de 8 palabras')
+      expect(live()).toContain('Cuenta como fallo en esta ronda.')
+      expect(live()).toContain('Falta el auxiliar: are.')
+      expect(attempt()).toMatchObject({ hits: 0, misses: 1 })
+    })
+
+    it('calls a word-perfect repetition a hit', async () => {
+      const { attempt, live } = await repeat(sentence)
+
+      expect(live()).toContain('Cuenta como acierto en esta ronda.')
+      expect(live()).not.toContain('fallo')
+      expect(attempt()).toMatchObject({ hits: 1, misses: 0 })
+    })
+
+    it('calls a repetition below the threshold a miss and gives the threshold', async () => {
+      const { attempt, live } = await repeat('they are going to move')
+
+      expect(live()).toContain('Cuenta como fallo en esta ronda.')
+      expect(live()).toContain('Coincide el 63 % de las palabras y hace falta al menos el 80 %.')
+      expect(live()).not.toContain('auxiliar')
+      expect(live()).not.toContain('negación')
+      expect(attempt()).toMatchObject({ hits: 0, misses: 1 })
+    })
+
+    it('labels a correct retry after a miss as practice that keeps the miss', async () => {
+      const { page, attempt, live } = await repeat('they going to move in two weeks', sentence)
+
+      expect(live()).toContain('Frase completa, palabra por palabra.')
+      expect(live()).toContain('Tu primer intento ya ha contado como fallo en esta ronda.')
+      expect(live()).toContain('Falta el auxiliar: are.')
+      expect(live()).toContain('Esta repetición es solo práctica')
+      expect(attempt()).toMatchObject({ hits: 0, misses: 1 })
+
+      const roundSize = 10
+
+      for (let i = 0; i < roundSize; i++) {
+        await page.findAll('button').find(button => button.text().includes('Otra frase'))!.trigger('click')
+        await flushPromises()
+      }
+
+      expect(page.text()).toContain('Resultado: 0 de 1')
+      expect(page.text().slice(page.text().indexOf('Para repasar'))).toContain(sentence)
+    })
   })
 
   it('shows a summary after the last sentence and restarts on a fresh round', async () => {
