@@ -10,15 +10,41 @@ export interface WordDiff {
   status: WordStatus
 }
 
+const units = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+const tens = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+
+const value = (word: string) => units.includes(word) ? units.indexOf(word) : 20 + 10 * tens.indexOf(word)
+
+const compoundNumber = new RegExp(`\\b(${tens.join('|')}) +(${units.slice(1, 10).join('|')})\\b`, 'g')
+const numberWord = new RegExp(`\\b(${[...units, ...tens].join('|')})\\b`, 'g')
+
+/**
+ * The recognizer speaks en-US, the examples are written in British English.
+ * ponytail: only the British spellings of the current examples; a new one in content needs its entry.
+ */
+const spellings: Record<string, string> = {
+  traveling: 'travelling',
+  traveled: 'travelled',
+  neighbor: 'neighbour',
+  neighborhood: 'neighbourhood'
+}
+
 /**
  * The words that are worth comparing: no capitals, no punctuation and contractions written
  * in full, because the recognizer writes "I am" where the sentence says "I'm" and back.
+ * Numbers are digits, because it writes "3" where the sentence says "three"; a possessive
+ * apostrophe that ends a word ("two hours' time") goes, because it is not heard.
  */
 export function words(sentence: string): string[] {
   return normalize(sentence)
     .replace(/[^\p{L}\p{N}' ]+/gu, ' ')
+    .replace(/'(?= |$)/g, '')
+    .replace(compoundNumber, (_, ten: string, unit: string) => String(value(ten) + value(unit)))
+    .replace(numberWord, word => String(value(word)))
+    .replace(/\b(\d+) +hundred\b/g, (_, count: string) => String(Number(count) * 100))
     .split(/\s+/)
-    .filter(word => word !== '' && word !== '\'')
+    .filter(word => word !== '')
+    .map(word => spellings[word] ?? word)
 }
 
 /**
