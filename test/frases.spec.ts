@@ -9,9 +9,10 @@ import ExerciseChoice from '../app/components/ExerciseChoice.vue'
 import ExerciseGap from '../app/components/ExerciseGap.vue'
 import ExerciseTransform from '../app/components/ExerciseTransform.vue'
 import type { Exercise, ExerciseType } from '../app/utils/content'
+import { gapCount } from '../app/utils/check'
 import { exerciseFiles, exerciseTypes, exercisesOf, tenseById, typeOf } from '../app/utils/content'
 import { correction, exerciseComponents, explain, formOf } from '../app/utils/explain'
-import { addDays, day, frasesItemId, items, review, save, storageKey } from '../app/utils/progress'
+import { addDays, day, frasesItemId, items, load, review, save, storageKey } from '../app/utils/progress'
 
 /** Sentences per round on /frases/<tiempo>. */
 const roundSize = 10
@@ -27,6 +28,13 @@ const componentByType: Record<ExerciseType, unknown> = {
   choice: ExerciseChoice
 }
 
+/**
+ * The right answer as the learner types it: every gap of a multiple-gap sentence, or a single
+ * alternative of the solution, never the whole list.
+ */
+const rightAnswer = (exercise: Exercise) =>
+  gapCount(exercise.prompt) > 1 ? exercise.solution : exercise.solution.split(/\s+\/\s+/)[0]!
+
 /** Answers the exercise on screen, right or wrong, the way its type is answered. */
 async function answer(page: VueWrapper, exercise: Exercise, correct: boolean) {
   if (typeOf(exercise) === 'choice') {
@@ -37,7 +45,7 @@ async function answer(page: VueWrapper, exercise: Exercise, correct: boolean) {
     expect(radio, `no radio for "${wanted}"`).toBeDefined()
     await radio!.trigger('click')
   } else {
-    await page.find('input').setValue(correct ? exercise.solution : 'nope')
+    await page.find('input').setValue(correct ? rightAnswer(exercise) : 'nope')
   }
 
   await flushPromises()
@@ -337,6 +345,37 @@ describe('/frases/[tiempo]', () => {
 
     expect(page.text()).toContain('Frase 1 de 10')
     expect(page.text()).toContain(missed.prompt)
+  })
+
+  it.each([
+    'He\'s not going to study Italian next summer.',
+    'He’s not going to study Italian next summer.'
+  ])('counts the alternative "%s" as a hit without a miss', async (answer) => {
+    const drill = exercisesOf('be-going-to')
+    const exercise = drill.find(candidate => candidate.id === 'be-going-to-008')!
+    const future = addDays(day(), 1)
+
+    // Everything else learnt and not due: the sentence is the only one pending, so it opens the round.
+    save(Object.fromEntries(drill
+      .filter(candidate => candidate !== exercise)
+      .map((candidate) => {
+        const id = frasesItemId(candidate)
+
+        return [id, review(undefined, id, true, future)]
+      })))
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/be-going-to' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(exercise.prompt)
+
+    await page.find('input').setValue(answer)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('¡Correcto!')
+    expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: 1, misses: 0 })
   })
 
   it('does not accept an empty answer', async () => {

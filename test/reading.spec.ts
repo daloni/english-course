@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, onTestFinished } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
@@ -219,6 +219,26 @@ describe('/reading/[slug]', () => {
     await again!.trigger('click')
     await flushPromises()
   }
+
+  it('hands the focus to the retry after correcting and back to the first question after it', async () => {
+    const page = await mountSuspended(ReadingDetail, { route: '/reading/travel', attachTo: document.body })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    ;(page.find('form').element as HTMLFormElement).requestSubmit()
+    await flushPromises()
+
+    const again = page.findAll('button').find(button => button.text().includes('Volver a intentarlo'))!
+
+    expect(document.activeElement).toBe(again.element)
+
+    await again.trigger('click')
+    await flushPromises()
+
+    const firstAnswer = page.find('form').find('input, [role="radiogroup"]')
+
+    expect(firstAnswer.element.contains(document.activeElement)).toBe(true)
+  })
 
   it('counts an unanswered question as a mistake', async () => {
     const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })

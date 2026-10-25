@@ -36,7 +36,7 @@ import {
 import { clipFiles as lazyClipFiles, forgetClips } from '../app/utils/clips'
 import { clips } from './fixtures/clips'
 import { relabelled } from './fixtures/relabelled'
-import { clearUnavailable, loadUnavailable, saveUnavailable } from '../app/utils/unavailable'
+import { clearUnavailable, loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
 
 const today = '2026-08-14'
 
@@ -840,6 +840,9 @@ describe('several tabs', () => {
 
 describe('practising', () => {
   const exercise = exercisesOf('present-simple')[0]!
+  /** Type one alternative for a transformation, preserving positional answers in multi-gap exercises. */
+  const writtenAnswer = (item: Item) =>
+    item.type === 'transform' ? item.solution.split(/\s+\/\s+/)[0]! : item.solution
 
   beforeEach(async () => {
     localStorage.removeItem(storageKey)
@@ -966,7 +969,7 @@ describe('practising', () => {
       if (radio) {
         await radio.trigger('click')
       } else {
-        await page.find('input').setValue(candidate.solution)
+        await page.find('input').setValue(writtenAnswer(candidate))
       }
 
       await page.find('form').trigger('submit')
@@ -1019,7 +1022,7 @@ describe('practising', () => {
         if (options.length > 0) {
           await (correct ? right : wrong)!.trigger('click')
         } else {
-          await page.find('input').setValue(correct ? current.solution : 'nope')
+          await page.find('input').setValue(correct ? writtenAnswer(current) : 'nope')
         }
 
         await page.find('form').trigger('submit')
@@ -1165,6 +1168,36 @@ describe('practising', () => {
     expect(layout.text()).not.toContain(warningText)
     expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: 1, misses: 0 })
     expect(load()[frasesItemId(second)]).toMatchObject({ hits: 1, misses: 0 })
+  })
+
+  it.each([
+    'Nora\'s not been using the meeting room all morning.',
+    'Nora’s not been using the meeting room all morning.'
+  ])('counts the alternative "%s" as a hit without another miss', async (answer) => {
+    const transform = exercisesOf('present-perfect-continuous').find(candidate => candidate.id === 'present-perfect-continuous-008')!
+    const id = frasesItemId(transform)
+
+    // Missed today, so it is the only exercise due.
+    save({ [id]: review(undefined, id, false) })
+
+    const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain('Ejercicio 1 de 1')
+    expect(page.text()).toContain(transform.prompt)
+
+    await page.find('input').setValue(answer)
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('¡Correcto!')
+    expect(load()[id]).toMatchObject({ hits: 1, misses: 1 })
+
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('Repaso terminado: 1 de 1')
   })
 
   // The same correction as /frases: with no explanation, the structure of the tense.
@@ -1398,12 +1431,76 @@ describe('practising', () => {
 
       expect(page.text()).toContain('No se han podido cargar los clips')
       expect(page.text()).not.toContain('Hoy no toca repasar nada')
+      // Only clips are due, so there is nothing to go on with in the meantime.
+      expect(page.text()).not.toContain('Seguir sin los clips')
       expect(load()[id]!.misses).toBe(1)
 
       await retry(page).trigger('click')
       await vi.waitFor(() => expect(page.text()).toContain('Ejercicio 1 de'))
 
       expect(load()[id]!.misses).toBe(1)
+    })
+
+    it('goes on with the rest of a mixed queue and asks the clips once the download recovers', async () => {
+      const sentence = exercisesOf('present-simple')[0]!
+      const sentenceId = frasesItemId(sentence)
+      const clipAttempt = review(undefined, id, false, today)
+      const button = (page: Awaited<ReturnType<typeof mountSuspended>>, label: string) =>
+        page.findAll('button').find(candidate => candidate.text().includes(label))
+      const current = (page: Awaited<ReturnType<typeof mountSuspended>>) => (page.vm as unknown as { item: Item }).item
+
+      localStorage.removeItem(unavailableKey)
+      save({ [sentenceId]: review(undefined, sentenceId, false, today), [id]: clipAttempt })
+
+      const page = await mountSuspended(Repaso)
+      onTestFinished(() => page.unmount())
+      await flushPromises()
+
+      /** Misses the sentence on screen, so it stays due for the rounds that follow. */
+      async function miss() {
+        expect(current(page).id).toBe(sentenceId)
+        await page.find('input').setValue('nope')
+        await page.find('form').trigger('submit')
+        await flushPromises()
+        await page.find('form').trigger('submit')
+        await flushPromises()
+      }
+
+      expect(page.text()).toContain('No se han podido cargar los clips')
+      expect(page.text()).toContain('puedes repasar 1 ejercicio de frases, verbos y reading y dejar para después 1 ejercicio de clips')
+
+      await button(page, 'Seguir sin los clips')!.trigger('click')
+      await flushPromises()
+
+      expect(page.text()).toContain('Ejercicio 1 de 1')
+      expect(page.text()).toContain('1 ejercicio de clips para después')
+      await miss()
+
+      expect(page.text()).toContain('Repaso terminado: 0 de 1')
+      expect(page.text()).toContain('Has dejado para después 1 ejercicio de clips')
+      // Deferring is not answering: the clip keeps its attempt, box and due date, and its
+      // video is not taken for a dead one.
+      expect(load()[id]).toEqual(clipAttempt)
+      expect(loadUnavailable()).toEqual([])
+
+      // The next local round neither waits for the clips nor asks for them again.
+      await button(page, 'Otra ronda (quedan 1)')!.trigger('click')
+      await flushPromises()
+
+      expect(page.text()).not.toContain('No se han podido cargar los clips')
+      expect(page.text()).toContain('Ejercicio 1 de 1')
+      await miss()
+      expect(importer).toHaveBeenCalledTimes(1)
+
+      await button(page, 'Reintentar los clips')!.trigger('click')
+      await vi.waitFor(() => expect(current(page)?.id).toBe(id))
+
+      // The recovered round brings only the clip: the sentence, answered twice, is not asked again.
+      expect(importer).toHaveBeenCalledTimes(2)
+      expect(page.text()).toContain('Ejercicio 1 de 1')
+      expect(page.text()).not.toContain('para después')
+      expect(load()[sentenceId]!.misses).toBe(3)
+      expect(load()[id]).toEqual(clipAttempt)
     })
   })
 

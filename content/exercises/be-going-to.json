@@ -51,7 +51,7 @@
     "type": "transform",
     "form": "negative",
     "prompt": "He is going to study Italian next summer.",
-    "solution": "He is not going to study Italian next summer.",
+    "solution": "He is not going to study Italian next summer. / He's not going to study Italian next summer.",
     "explanation": "El not va detrás del verbo be: is not going to study."
   },
   {

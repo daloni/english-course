@@ -6,6 +6,7 @@ const props = defineProps<{ exercise: Exercise, disabled?: boolean }>()
 const answer = defineModel<string>({ required: true })
 
 const items = computed(() => (props.exercise.options ?? []).map(option => ({ label: option, value: option })))
+const sentenceId = useId()
 </script>
 
 <template>
@@ -15,6 +16,7 @@ const items = computed(() => (props.exercise.options ?? []).map(option => ({ lab
     </p>
 
     <p
+      :id="sentenceId"
       lang="en"
       class="mt-1 text-xl"
     >
@@ -27,6 +29,7 @@ const items = computed(() => (props.exercise.options ?? []).map(option => ({ lab
       :disabled="disabled"
       data-focus-input
       legend="Elige el tiempo verbal"
+      :aria-describedby="sentenceId"
       :ui="{ fieldset: 'gap-y-2' }"
       class="mt-4"
     />
