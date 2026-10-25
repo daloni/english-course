@@ -8,7 +8,8 @@ import { isPlayable, loadUnavailable, saveUnavailable, unavailable } from '../ut
 export function useClips(options: { load?: boolean } = {}) {
   const shouldLoad = options.load !== false
   const clips = shallowRef<Clip[]>([])
-  const loading = ref(false)
+  // Prerendering and the first client render happen before the mounted load starts.
+  const loading = ref(shouldLoad)
   const error = ref(false)
   let loadPromise: Promise<void> | undefined
 
