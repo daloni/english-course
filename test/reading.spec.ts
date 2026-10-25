@@ -4,9 +4,11 @@ import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import ReadingIndex from '../app/pages/reading/index.vue'
 import ReadingDetail from '../app/pages/reading/[slug].vue'
+import Repaso from '../app/pages/repaso.vue'
 import type { Question, Reading } from '../app/utils/content'
 import { levels, readingFiles, readingMinutes, readings } from '../app/utils/content'
-import { load, readingItemId } from '../app/utils/progress'
+import { isCorrect } from '../app/utils/check'
+import { addDays, day, load, readingItemId, review, save } from '../app/utils/progress'
 
 // Guards content/readings/ and the pages that play it: a reading with too few questions, a
 // question without a correct answer, or a text that never reaches /reading/<slug> fails here.
@@ -28,6 +30,50 @@ const duplicates = (values: string[]) => values.filter((value, i) => values.inde
 
 /** What the page shows as the answer: the first of the "a / b" alternatives. */
 const shownAnswer = (question: Question) => question.answer.split('/')[0]!.trim()
+
+const shortAnswerCases: [id: string, right: string[], wrong: string[]][] = [
+  ['environment-q3', [
+    'The market', 'market', 'the bins near the market', 'bins near the market',
+    'overflowing bins near the market', 'the overflowing bins near the market',
+    'nearby villages', 'the nearby villages'
+  ], ['the bridge', 'local schools', 'the river', '']],
+  ['work-q3', [
+    'Three weeks', '3 weeks', 'only three weeks'
+  ], ['two weeks', '3 days', 'three months', '']],
+  ['daily-routine-q4', [
+    'Mia', 'with Mia'
+  ], ['Daniel', 'Leo', 'his sister', '']],
+  ['food-q4', [
+    'Orange juice', 'juice'
+  ], ['water', 'apple juice', 'bread', '']],
+  ['technology-q3', [
+    'A card', 'card', 'on a card'
+  ], ['a phone', 'the drawer', 'a photograph', '']],
+  ['travel-q5', [
+    'Lisbon', 'Lisboa'
+  ], ['Belém', 'Porto', 'Madrid', '']],
+  ['travel-q6', [
+    'Pastéis de nata', 'Pasteis de nata', 'cream cakes', 'cakes',
+    'the cream cakes', 'famous cream cakes', 'the famous cream cakes'
+  ], ['bread', 'lemon cake', 'orange juice', '']]
+]
+
+describe('short written reading answers', () => {
+  it.each(shortAnswerCases)('%s accepts equivalent answers and rejects wrong ones', (id, right, wrong) => {
+    const question = readings.flatMap(reading => reading.questions).find(question => question.id === id)
+
+    expect(question, `${id} must keep its id, the progress is stored under it`).toBeDefined()
+    expect(question!.options).toBeUndefined()
+    expect(shownAnswer(question!)).toBe(right[0])
+
+    for (const answer of right) {
+      expect(isCorrect(answer, question!.answer), answer).toBe(true)
+    }
+    for (const answer of wrong) {
+      expect(isCorrect(answer, question!.answer), answer).toBe(false)
+    }
+  })
+})
 
 describe('content/readings', () => {
   it('has unique ids', () => {
@@ -168,7 +214,7 @@ describe.each(readings.map(reading => reading.id))('/reading/%s', (slug) => {
     }
   })
 
-  it('scores every question right and explains why', async () => {
+  it('scores every question right, including written variants, and explains why', async () => {
     const page = await mountSuspended(ReadingDetail, { route: `/reading/${slug}` })
     await flushPromises()
 
@@ -176,7 +222,7 @@ describe.each(readings.map(reading => reading.id))('/reading/%s', (slug) => {
       expect(page.text()).toContain(question.question)
     }
 
-    await answerAll(page, reading, true)
+    await answerAll(page, reading, true, question => question.answer.split(' / ')[1] ?? shownAnswer(question))
     await page.find('form').trigger('submit')
     await flushPromises()
 
@@ -200,6 +246,51 @@ describe.each(readings.map(reading => reading.id))('/reading/%s', (slug) => {
     for (const question of reading.questions) {
       expect(page.text()).toContain(`La respuesta correcta es: ${shownAnswer(question)}`)
     }
+  })
+})
+
+describe.each(shortAnswerCases)('/repaso: %s', (id, right, wrong) => {
+  const reading = readings.find(reading => reading.questions.some(question => question.id === id))!
+  const question = reading.questions.find(question => question.id === id)!
+  const itemId = readingItemId(reading, question)
+
+  beforeEach(() => {
+    localStorage.clear()
+    save({ [itemId]: review(undefined, itemId, false, addDays(day(), -1)) })
+  })
+
+  it('records an equivalent written answer as a hit', async () => {
+    const page = await mountSuspended(Repaso, { route: '/repaso' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(question.question)
+    await page.find('input').setValue(right[1])
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('¡Correcto!')
+    expect(load()[itemId]).toMatchObject({ hits: 1, misses: 1, box: 2 })
+  })
+
+  it('rejects a wrong answer and shows only the first alternative', async () => {
+    const page = await mountSuspended(Repaso, { route: '/repaso' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    await page.find('input').setValue(wrong[0])
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain(`La respuesta correcta es: ${right[0]}.`)
+    expect(page.text()).not.toContain(' / ')
+    expect(load()[itemId]).toMatchObject({ hits: 0, misses: 2, box: 1 })
+
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('Repaso terminado: 0 de 1')
+    expect(page.find('strong[lang="en"]').text()).toBe(right[0])
   })
 })
 

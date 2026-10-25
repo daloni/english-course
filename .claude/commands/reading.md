@@ -67,6 +67,7 @@ in Spanish, because that is what the learner reads around the exercise.
   - `answer`: with `options`, **one of its strings, copied literally**; the test fails if it does
     not match. Without `options`, the written answer, with the valid variants separated by `/`
     (`"Lisbon / Lisboa"`): capitals and contractions are already forgiven by the correction.
+  - List short-answer variants without the article and with digits for numbers ("The market / Market", "Three weeks / 3 weeks").
   - `explanation`: **required**, in Spanish: why that is the answer, quoting the fragment of the
     text that says it. It is shown when correcting, hit or miss.
   - Leave at least one short-answer question: they are answered by typing, so the answer has to
