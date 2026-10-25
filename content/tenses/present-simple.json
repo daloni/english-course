@@ -118,7 +118,7 @@
       "es": "El museo abre a las diez entre semana."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "I rarely watch television before dinner.",
       "es": "Rara vez veo la televisión antes de cenar."
     },
@@ -133,7 +133,7 @@
       "es": "Nuestro profesor revisa los deberes cada semana."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "She never forgets her keys.",
       "es": "Ella nunca se olvida de las llaves."
     },
@@ -141,6 +141,16 @@
       "form": "interrogative",
       "en": "Does this bus stop here on Mondays?",
       "es": "¿Este autobús para aquí los lunes?"
+    },
+    {
+      "form": "negative",
+      "en": "I don't drink coffee in the evening.",
+      "es": "No tomo café por la noche."
+    },
+    {
+      "form": "negative",
+      "en": "It doesn't rain much here in summer.",
+      "es": "Aquí no llueve mucho en verano."
     }
   ]
 }

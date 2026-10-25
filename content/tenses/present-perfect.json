@@ -118,9 +118,9 @@
       "es": "Ya hemos elegido un hotel."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "She has lived in this flat since 2020.",
-      "es": "Ella ha vivido en este piso desde 2020."
+      "es": "Ella vive en este piso desde 2020."
     },
     {
       "form": "interrogative",
@@ -133,7 +133,7 @@
       "es": "Nunca me he roto un hueso."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "The team has won three matches this week.",
       "es": "El equipo ha ganado tres partidos esta semana."
     },
@@ -141,6 +141,16 @@
       "form": "interrogative",
       "en": "Has your brother called recently?",
       "es": "¿Ha llamado tu hermano recientemente?"
+    },
+    {
+      "form": "negative",
+      "en": "I have not finished my homework yet.",
+      "es": "Todavía no he terminado los deberes."
+    },
+    {
+      "form": "negative",
+      "en": "They haven't decided where to go on holiday.",
+      "es": "No han decidido adónde ir de vacaciones."
     }
   ]
 }
