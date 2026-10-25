@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { compare, isRepeated, negationChanged, score, words } from '../app/utils/diff'
+import { compare, isRepeated, missingAuxiliaries, negationChanged, score, words } from '../app/utils/diff'
 
 /** Compact view of a diff: "word" for a hit, "-word" missing, "+word" said on top. */
 const shape = (sentence: string, spoken: string) =>
@@ -132,5 +132,20 @@ describe('isRepeated', () => {
     expect(repeated('They are not going to sell the house this year.', 'they\'re not going to sell the house this year')).toBe(true)
     expect(repeated('We haven\'t seen that film yet.', 'we have not seen that film yet')).toBe(true)
     expect(repeated('They have just arrived at the airport.', 'they\'ve just arrived at the airport')).toBe(true)
+  })
+})
+
+describe('missingAuxiliaries', () => {
+  const left = (sentence: string, spoken: string) => missingAuxiliaries(compare(sentence, spoken))
+
+  it('names the auxiliaries of the sentence that were left out', () => {
+    expect(left('They are going to move in two weeks.', 'they going to move in two weeks')).toEqual(['are'])
+    expect(left('She has been working all day.', 'she working all day')).toEqual(['has', 'been'])
+    expect(left('He is not going to come.', 'he was not going to come')).toEqual(['is'])
+  })
+
+  it('names nothing when only other words are missing or the auxiliary is contracted', () => {
+    expect(left('They are going to move in two weeks.', 'they are going to move')).toEqual([])
+    expect(left('I am working from home this week.', 'I\'m working from home this week')).toEqual([])
   })
 })

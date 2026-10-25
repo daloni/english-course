@@ -19,8 +19,11 @@ const round = ref<typeof drill>([])
 const index = ref(0)
 const sentence = computed(() => round.value[index.value])
 const done = computed(() => round.value.length > 0 && index.value >= round.value.length)
-const results = ref<{ sentence: typeof drill[number], correct: boolean, missing: string[], extra: string[] }[]>([])
+const results = ref<{ sentence: typeof drill[number], correct: boolean, missing: string[], extra: string[], reasons: string[] }[]>([])
 const recorded = new Set<string>()
+/** The round keeps the first repetition of each sentence: the transcript on screen may be a later one. */
+const result = computed(() => results.value.find(result => result.sentence === sentence.value))
+const practice = ref(false)
 
 const diff = computed(() => sentence.value && transcript.value ? compare(sentence.value.en, transcript.value) : [])
 const correct = computed(() => isRepeated(diff.value, SPEAKING_SCORE_THRESHOLD))
@@ -29,6 +32,18 @@ const hits = computed(() => diff.value.filter(word => word.status === 'ok').leng
 const expected = computed(() => diff.value.filter(word => word.status !== 'extra').length)
 const missing = computed(() => diff.value.filter(word => word.status === 'missing').map(word => word.word))
 const extra = computed(() => diff.value.filter(word => word.status === 'extra').map(word => word.word))
+/** Why the repetition is not a hit, one sentence per rule of isRepeated that it breaks. */
+const reasons = computed(() => {
+  const share = score(diff.value)
+  const auxiliaries = missingAuxiliaries(diff.value)
+
+  return [
+    share < SPEAKING_SCORE_THRESHOLD ? `Coincide el ${Math.round(share * 100)} % de las palabras y hace falta al menos el ${SPEAKING_SCORE_THRESHOLD * 100} %.` : '',
+    auxiliaries.length === 1 ? `Falta el auxiliar: ${auxiliaries[0]}.` : '',
+    auxiliaries.length > 1 ? `Faltan los auxiliares: ${auxiliaries.join(', ')}.` : '',
+    negation.value ? 'La negación no coincide con la frase.' : ''
+  ].filter(Boolean)
+})
 const roundHits = computed(() => results.value.filter(result => result.correct).length)
 const mistakes = computed(() => results.value.filter(result => !result.correct))
 
@@ -63,13 +78,15 @@ watch(transcript, (value) => {
 
   const id = speakingItemId(sentence.value.tense, sentence.value)
 
-  if (recorded.has(id)) {
+  practice.value = recorded.has(id)
+
+  if (practice.value) {
     return
   }
 
   recorded.add(id)
   record(id, correct.value)
-  results.value.push({ sentence: sentence.value, correct: correct.value, missing: missing.value, extra: extra.value })
+  results.value.push({ sentence: sentence.value, correct: correct.value, missing: missing.value, extra: extra.value, reasons: reasons.value })
 })
 
 // The round depends on localStorage and chance, so it is drawn in the browser: building it
@@ -312,6 +329,37 @@ useSeo({
                 >
                   Frase completa, palabra por palabra.
                 </p>
+
+                <div
+                  v-if="result"
+                  class="mt-4"
+                >
+                  <p
+                    class="font-medium"
+                    :class="result.correct ? 'text-success' : 'text-error'"
+                  >
+                    {{ practice ? 'Tu primer intento ya ha contado' : 'Cuenta' }} como {{ result.correct ? 'acierto' : 'fallo' }} en esta ronda.
+                  </p>
+
+                  <ul
+                    v-if="result.reasons.length > 0"
+                    class="mt-1 list-disc ps-5 text-sm text-error"
+                  >
+                    <li
+                      v-for="reason in result.reasons"
+                      :key="reason"
+                    >
+                      {{ reason }}
+                    </li>
+                  </ul>
+
+                  <p
+                    v-if="practice"
+                    class="mt-1 text-sm text-muted"
+                  >
+                    Esta repetición es solo práctica: no cambia el resultado de la frase.
+                  </p>
+                </div>
               </section>
             </div>
           </template>
