@@ -11,8 +11,10 @@ import Repaso from '../app/pages/repaso.vue'
 import TenseTheory from '../app/pages/teoria/[slug].vue'
 import VerbosIndex from '../app/pages/verbos/index.vue'
 import VerbPractice from '../app/pages/verbos/practica.vue'
-import { exerciseFiles, exercisesOf, tenseById, typeOf } from '../app/utils/content'
-import { day, items, review, save, storageKey } from '../app/utils/progress'
+import { exerciseFiles, exercises, exercisesOf, formLabels, tenseById, typeOf } from '../app/utils/content'
+import type { Exercise } from '../app/utils/content'
+import { formOf } from '../app/utils/explain'
+import { addDays, day, frasesItemId, items, review, save, storageKey } from '../app/utils/progress'
 
 const slug = Object.keys(exerciseFiles)[0]!.split('/').pop()!.replace('.json', '')
 
@@ -35,6 +37,18 @@ function accessibleName(page: VueWrapper, input: Element): string {
   const tag = id ? page.find(`label[for="${id}"]`) : undefined
 
   return tag?.exists() ? tag.text() : ''
+}
+
+/**
+ * The accessible description of a control: the text of the elements its aria-describedby
+ * points to, which a screen reader reads out after the name when the control takes the focus.
+ */
+function accessibleDescription(page: VueWrapper, control: Element): string {
+  return (control.getAttribute('aria-describedby') ?? '')
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(id => page.find(`[id="${id}"]`).text())
+    .join(' ')
 }
 
 // Every page introduces itself with its own title and its own description: adding a new one
@@ -274,6 +288,65 @@ describe('accesibilidad', () => {
     const firstAnswer = page.find('form').find('input, [role="radiogroup"]')
 
     expect(firstAnswer.element.contains(document.activeElement), 'el foco no está en la primera respuesta').toBe(true)
+  })
+
+  /** Opens /frases/<tiempo> with everything else learnt and not due, so the exercise opens the round. */
+  async function openWith(exercise: Exercise) {
+    const future = addDays(day(), 1)
+
+    save(Object.fromEntries(exercisesOf(exercise.tenseId)
+      .filter(candidate => candidate !== exercise)
+      .map((candidate) => {
+        const id = frasesItemId(candidate)
+
+        return [id, review(undefined, id, true, future)]
+      })))
+
+    const page = await mountSuspended(TensePractice, { route: `/frases/${exercise.tenseId}` })
+    await flushPromises()
+
+    expect(page.text()).toContain(exercise.prompt)
+
+    return page
+  }
+
+  // The focus lands straight on the answer, so the sentence to work on has to come with it:
+  // otherwise only the generic name of the field is heard and the sentence is left behind.
+  it('/frases describes the gap field with the sentence, the gap read out as "hueco"', async () => {
+    localStorage.removeItem(storageKey)
+    const exercise = exercises.find(candidate => typeOf(candidate) === 'gap' && /___ \(.+\)/.test(candidate.prompt))!
+    const page = await openWith(exercise)
+
+    expect(accessibleDescription(page, page.find('input').element)).toBe(exercise.prompt.replaceAll('___', 'hueco'))
+  })
+
+  it('/frases describes the transform field with the form asked and the sentence', async () => {
+    localStorage.removeItem(storageKey)
+    const exercise = exercises.find(candidate => typeOf(candidate) === 'transform')!
+    const page = await openWith(exercise)
+    const description = accessibleDescription(page, page.find('input').element)
+
+    expect(description).toContain(`Pasa la frase a ${formLabels[formOf(exercise)].toLowerCase()}`)
+    expect(description).toContain(exercise.prompt)
+  })
+
+  it('/frases describes the radio group with the sentence', async () => {
+    localStorage.removeItem(storageKey)
+    const exercise = exercises.find(candidate => typeOf(candidate) === 'choice')!
+    const page = await openWith(exercise)
+
+    expect(accessibleDescription(page, page.find('[role="radiogroup"]').element)).toBe(exercise.prompt)
+  })
+
+  it('/clips/practica describes the gap field with the line of the clip', async () => {
+    localStorage.removeItem(storageKey)
+    const page = await mountSuspended(ClipsPractice, { global: { stubs: { ClipPlayer: true } } })
+    await vi.waitFor(() => expect(page.find('form').exists()).toBe(true))
+
+    const prompt = page.find('form p[lang="en"]').text()
+
+    expect(prompt).toContain('___')
+    expect(accessibleDescription(page, page.find('input').element)).toBe(prompt.replaceAll('___', 'hueco'))
   })
 
   it('contains table overflow in a keyboard-accessible region', async () => {
