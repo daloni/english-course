@@ -272,6 +272,70 @@ describe('/clips', () => {
     expect(page.findAll('[data-testid="clip-card"]')).toHaveLength(Math.min(30, matchingChannel.length))
     expect(page.text()).toContain(`Mostrando ${Math.min(30, matchingChannel.length)} de ${matchingChannel.length} clips`)
   })
+
+  // The prerender never mounts: what the first render shows is the HTML /clips ships.
+  it('reports loading from the first render when it is going to load', async () => {
+    const states: boolean[] = []
+    const page = await mountSuspended(defineComponent({
+      setup() {
+        states.push(useClips().loading.value, useClips({ load: false }).loading.value)
+        return () => null
+      }
+    }))
+    onTestFinished(() => page.unmount())
+
+    expect(states).toEqual([true, false])
+  })
+
+  it('shows only the loading status while the clips download', async () => {
+    forgetClips()
+
+    const [first] = Object.keys(lazyClipFiles)
+    const real = lazyClipFiles[first!]!
+    let finish!: () => void
+    vi.spyOn(lazyClipFiles, first!).mockImplementation(() => new Promise(resolve => finish = () => resolve(real())))
+    onTestFinished(() => {
+      vi.restoreAllMocks()
+      forgetClips()
+    })
+
+    const page = await mountSuspended(ClipsIndex)
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.get('[role="status"]').text()).toBe('Cargando clips…')
+    expect(page.text()).not.toContain('No hay clips con ese filtro todavía')
+    expect(page.text()).not.toContain('Mostrando 0 de 0 clips')
+    expect(page.find('[role="radio"]').exists()).toBe(false)
+
+    finish()
+    await vi.waitFor(() => expect(page.findAll('[data-testid="clip-card"]')).toHaveLength(30))
+
+    expect(page.text()).not.toContain('Cargando clips…')
+    expect(page.text()).toContain(`Mostrando 30 de ${clips.length} clips`)
+  })
+
+  it('shows the empty message once loaded when the filters match no clip', async () => {
+    const channels = [...new Set(clips.map(clip => clip.channel))]
+    const emptyFilter = levels.filter(level => clips.some(clip => clip.level === level))
+      .flatMap(level => channels.map(channel => [level, channel]))
+      .find(([level, channel]) => !clips.some(clip => clip.level === level && clip.channel === channel))
+
+    expect(emptyFilter, 'the fixture needs an empty level/channel combination').toBeDefined()
+
+    const page = await mountSuspended(ClipsIndex)
+    onTestFinished(() => page.unmount())
+    await vi.waitFor(() => expect(page.find('[data-testid="clip-card"]').exists()).toBe(true))
+
+    for (const value of emptyFilter!) {
+      await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === value)!.trigger('click')
+      await flushPromises()
+    }
+
+    expect(page.findAll('[data-testid="clip-card"]')).toHaveLength(0)
+    expect(page.text()).toContain('Mostrando 0 de 0 clips')
+    expect(page.text()).toContain('No hay clips con ese filtro todavía.')
+  })
 })
 
 describe('/clips/practica', () => {
