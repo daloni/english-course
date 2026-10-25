@@ -12,6 +12,19 @@ describe('words', () => {
     expect(words('Do you live near the station?')).toEqual(['do', 'you', 'live', 'near', 'the', 'station'])
     expect(words('We don\'t watch television, really.')).toEqual(['we', 'do', 'not', 'watch', 'television', 'really'])
   })
+
+  it('writes numbers as digits, compounds included', () => {
+    expect(words('She will be twenty next month.')).toEqual(['she', 'will', 'be', '20', 'next', 'month'])
+    expect(words('all three hundred pages')).toEqual(['all', '300', 'pages'])
+    expect(words('twenty-one or forty five')).toEqual(['21', 'or', '45'])
+    expect(words('since 2021 for 300 pages')).toEqual(['since', '2021', 'for', '300', 'pages'])
+  })
+
+  it('drops the possessive apostrophe that ends a word and spells it British', () => {
+    expect(words('In two years\' time.')).toEqual(['in', '2', 'years', 'time'])
+    expect(words('We will not be driving in two hours’ time.')).toEqual(['we', 'will', 'not', 'be', 'driving', 'in', '2', 'hours', 'time'])
+    expect(words('my neighbor was traveling')).toEqual(['my', 'neighbour', 'was', 'travelling'])
+  })
 })
 
 describe('compare', () => {
@@ -44,7 +57,7 @@ describe('compare', () => {
 
   it('marks a replaced word as missing and extra', () => {
     expect(shape('The shop opens at nine.', 'the shop closes at nine'))
-      .toBe('the shop -opens +closes at nine')
+      .toBe('the shop -opens +closes at 9')
   })
 
   it('marks the whole sentence missing when nothing was heard', () => {
@@ -93,6 +106,25 @@ describe('isRepeated', () => {
 
   it('rejects an auxiliary swapped for another tense', () => {
     expect(repeated('He is not going to come to the party tonight.', 'he was not going to come to the party tonight')).toBe(false)
+  })
+
+  it.each([
+    ['She will be twenty next month.', 'She will be 20 next month'],
+    ['The shop opens at nine on Saturdays.', 'the shop opens at 9 on Saturdays'],
+    ['He will be teaching from nine to five.', 'he will be teaching from 9 to 5'],
+    ['We will not be driving in two hours’ time.', 'we will not be driving in 2 hours time'],
+    ['By noon, I will not have read all three hundred pages.', 'by noon I will not have read all 300 pages'],
+    ['My neighbour waters the plants every morning.', 'my neighbor waters the plants every morning']
+  ])('accepts "%s" transcribed with digits or US spelling', (sentence, spoken) => {
+    const diff = compare(sentence, spoken)
+
+    expect(diff.every(word => word.status === 'ok')).toBe(true)
+    expect(isRepeated(diff)).toBe(true)
+  })
+
+  it('still marks a different number as a mistake', () => {
+    expect(shape('I have been studying English for three years.', 'I have been studying English for 4 years'))
+      .toBe('i have been studying english for -3 +4 years')
   })
 
   it('accepts the auxiliaries contracted', () => {
