@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { checkExercise, isCorrect, normalize, thirdPerson } from '../app/utils/check'
 import { exercises, type Exercise } from '../app/utils/content'
+import { clips } from './fixtures/clips'
 
 describe('normalize', () => {
   it('ignores capitals and surrounding spaces', () => {
@@ -28,6 +29,13 @@ describe('normalize', () => {
     expect(normalize('we\'ll')).toBe('we will')
   })
 
+  it('expands a bare contraction without a leading space', () => {
+    expect(normalize('\'m')).toBe('am')
+    expect(normalize('’re')).toBe('are')
+    expect(normalize('\'ve')).toBe('have')
+    expect(normalize('’ll')).toBe('will')
+  })
+
   it('ignores the punctuation inside the answer', () => {
     // "Yes, she does" and "Yes she does" are the same answer: the comma is not the mistake
     // being corrected.
@@ -41,6 +49,8 @@ describe('normalize', () => {
     // accept a wrong answer.
     expect(normalize('he\'s')).toBe('he\'s')
     expect(normalize('he\'d')).toBe('he\'d')
+    expect(normalize('\'s')).toBe('\'s')
+    expect(normalize('\'d')).toBe('\'d')
   })
 })
 
@@ -54,6 +64,19 @@ describe('isCorrect', () => {
     expect(isCorrect('don\'t', 'do not')).toBe(true)
     expect(isCorrect('do not', 'don\'t')).toBe(true)
     expect(isCorrect('doesn\'t go', 'does not go')).toBe(true)
+  })
+
+  it('accepts the bare contraction for the auxiliary of a gap', () => {
+    for (const apostrophe of ['\'', '’']) {
+      expect(isCorrect(`${apostrophe}m`, 'am')).toBe(true)
+      expect(isCorrect(`${apostrophe}re`, 'are')).toBe(true)
+      expect(isCorrect(`${apostrophe}ve`, 'have')).toBe(true)
+      expect(isCorrect(`${apostrophe}ll`, 'will')).toBe(true)
+      expect(isCorrect(`${apostrophe}m / going`, 'am / going', 2)).toBe(true)
+    }
+    // "'s" and "'d" stay ambiguous.
+    expect(isCorrect('\'s', 'is')).toBe(false)
+    expect(isCorrect('\'d', 'would')).toBe(false)
   })
 
   it('accepts the answer with or without its commas', () => {
@@ -103,6 +126,18 @@ describe('checkExercise', () => {
     // " / " as alternatives instead of positional answers.
     expect(checkExercise('was / were', twoGaps)).toBe(true)
     expect(checkExercise('was', twoGaps)).toBe(false)
+  })
+
+  it('accepts the contraction heard in a clip for its gap', () => {
+    // "I'm thrilled with the work they've done today." shown as "I ___ thrilled…".
+    const exercise = clips
+      .find(clip => clip.id === '2jLhZjfu5-o:1273520')
+      ?.exercises.find(candidate => candidate.id === 'verb-0')
+
+    expect(exercise, 'the-office 2jLhZjfu5-o:1273520 verb-0 must keep its id').toBeDefined()
+    expect(checkExercise('am', exercise!)).toBe(true)
+    expect(checkExercise('\'m', exercise!)).toBe(true)
+    expect(checkExercise('’m', exercise!)).toBe(true)
   })
 })
 

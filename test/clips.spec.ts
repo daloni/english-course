@@ -319,6 +319,28 @@ describe('/clips/practica', () => {
     }
   })
 
+  it('accepts the contraction heard in the clip and records a hit', async () => {
+    const clip = clips.find(candidate => candidate.id === '2jLhZjfu5-o:1273520')!
+    const exercise = clip.exercises.find(candidate => candidate.id === 'verb-0')!
+    const id = clipItemId(clip, exercise)
+
+    // Every other gap was just answered, so this one, still new, is the first of the round.
+    save(Object.fromEntries(clips.flatMap(other => other.exercises.map(gap => clipItemId(other, gap)))
+      .filter(other => other !== id)
+      .map(other => [other, review(undefined, other, true, day())])))
+
+    const page = await mountSuspended(ClipsPractice, { global: { stubs } })
+    onTestFinished(() => page.unmount())
+    await vi.waitFor(() => expect(page.text()).toContain(exercise.prompt))
+
+    await page.find('input').setValue('\'m')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('¡Correcto!')
+    expect(load()[id]!.hits).toBe(1)
+  })
+
   it('passes the active catalog filters to practice', async () => {
     const clip = clips[0]!
     const page = await mountSuspended(ClipsIndex)
