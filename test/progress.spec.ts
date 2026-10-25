@@ -35,6 +35,7 @@ import {
 } from '../app/utils/progress'
 import { clipFiles as lazyClipFiles, forgetClips } from '../app/utils/clips'
 import { clips } from './fixtures/clips'
+import { relabelled } from './fixtures/relabelled'
 import { clearUnavailable, loadUnavailable, saveUnavailable, unavailableKey } from '../app/utils/unavailable'
 
 const today = '2026-08-14'
@@ -301,6 +302,78 @@ describe('merge', () => {
     const imported = { x: { ...current, hits: 2, last: '2026-08-15', due: '2026-08-17' } }
 
     expect(merge(merge({}, imported), imported)).toEqual(imported)
+  })
+})
+
+describe('speaking examples whose form was relabelled', () => {
+  beforeEach(() => localStorage.removeItem(storageKey))
+
+  const ids = ({ tenseId, en, was }: typeof relabelled[number]) => {
+    const tense = tenseById(tenseId)!
+    const example = tense.examples.find(candidate => candidate.en === en)!
+
+    return { legacy: speakingItemId(tense, { ...example, form: was }), current: speakingItemId(tense, example) }
+  }
+
+  it('moves every attempt stored under the old form to the current id, counters and schedule included', () => {
+    const stored = Object.fromEntries(relabelled.map((example) => {
+      const { legacy } = ids(example)
+      const attempt = review(review(undefined, legacy, true, '2026-08-10'), legacy, true, today)
+
+      return [legacy, attempt]
+    }))
+
+    const progress = parse(serialize(stored))
+
+    expect(Object.keys(progress)).toEqual(relabelled.map(example => ids(example).current))
+
+    for (const example of relabelled) {
+      const { legacy, current } = ids(example)
+
+      expect(progress[current]).toEqual({ ...stored[legacy], id: current })
+      expect(itemById(current)?.kind).toBe('speaking')
+    }
+  })
+
+  it('keeps a single attempt, the merge way, when the old and the current id were both practised', () => {
+    const { legacy, current } = ids(relabelled[0]!)
+    const older = review(undefined, legacy, false, '2026-08-13')
+    const latest = review(undefined, current, true, today)
+    const moreAnswers = { ...review(undefined, legacy, false, today), hits: 3 }
+
+    expect(parse(serialize({ [older.id]: older, [latest.id]: latest }))).toEqual({ [current]: latest })
+    expect(parse(serialize({ [latest.id]: latest, [moreAnswers.id]: moreAnswers })))
+      .toEqual({ [current]: { ...moreAnswers, id: current } })
+  })
+
+  it('loads an attempt stored under the old form and saves it back under the current id only', async () => {
+    const { legacy, current } = ids(relabelled[0]!)
+    const attempt = review(undefined, legacy, false, today)
+
+    localStorage.setItem(storageKey, serialize({ [legacy]: attempt }))
+
+    const session = await progressSession()
+
+    expect(session.attemptOf(current)).toEqual({ ...attempt, id: current })
+
+    session.record(current, true)
+
+    expect(Object.keys(JSON.parse(localStorage.getItem(storageKey)!))).toEqual([current])
+    expect(load()[current]).toMatchObject({ hits: 1, misses: 1 })
+  })
+
+  it('imports an attempt exported under the old form without duplicating the current one', async () => {
+    const { legacy, current } = ids(relabelled[0]!)
+    const existing = review(undefined, current, true, '2026-08-13')
+    const exported = review(undefined, legacy, false, today)
+
+    save({ [current]: existing })
+
+    const session = await progressSession()
+
+    await expect(session.importFile(new File([serialize({ [legacy]: exported })], 'progress.json')))
+      .resolves.toEqual({ imported: 1, added: 0 })
+    expect(load()).toEqual({ [current]: { ...exported, id: current } })
   })
 })
 
@@ -1707,7 +1780,7 @@ describe('items', () => {
 
     expect(new Set(ids).size).toBe(ids.length)
     expect(new Set(items().map(item => item.kind))).toEqual(new Set(['frases', 'verbos', 'reading', 'clips', 'speaking']))
-    expect(items().filter(item => item.kind === 'speaking')).toHaveLength(312)
+    expect(items().filter(item => item.kind === 'speaking')).toHaveLength(335)
     expect(items().filter(item => item.kind === 'speaking').every(item => item.tenseId !== '')).toBe(true)
   })
 

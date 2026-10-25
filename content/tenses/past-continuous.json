@@ -118,7 +118,7 @@
       "es": "El viento soplaba toda la noche."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "We were having dinner at that moment.",
       "es": "Estábamos cenando en ese momento."
     },
@@ -141,6 +141,11 @@
       "form": "interrogative",
       "en": "What were they doing while the rain fell?",
       "es": "¿Qué estaban haciendo mientras caía la lluvia?"
+    },
+    {
+      "form": "negative",
+      "en": "She was not wearing a coat when it started to rain.",
+      "es": "Ella no llevaba abrigo cuando empezó a llover."
     }
   ]
 }

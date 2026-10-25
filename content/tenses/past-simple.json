@@ -116,7 +116,7 @@
       "es": "La tienda abrió en 2019."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "I lost my ticket that morning.",
       "es": "Perdí mi billete aquella mañana."
     },
@@ -131,7 +131,7 @@
       "es": "Ella escribió una postal cuando era niña."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "We never visited that village before the move.",
       "es": "Nunca visitamos aquel pueblo antes de la mudanza."
     },
@@ -139,6 +139,16 @@
       "form": "interrogative",
       "en": "What did Mark choose yesterday?",
       "es": "¿Qué eligió Mark ayer?"
+    },
+    {
+      "form": "negative",
+      "en": "She did not like the film.",
+      "es": "A ella no le gustó la película."
+    },
+    {
+      "form": "negative",
+      "en": "We weren't at the meeting on Monday.",
+      "es": "No estuvimos en la reunión del lunes."
     }
   ]
 }

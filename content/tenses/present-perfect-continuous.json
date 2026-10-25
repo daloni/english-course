@@ -118,7 +118,7 @@
       "es": "Llevamos dos horas hablando del plan."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "He has been learning Japanese since January.",
       "es": "Él lleva aprendiendo japonés desde enero."
     },
@@ -141,6 +141,11 @@
       "form": "interrogative",
       "en": "How long has she been teaching at this school?",
       "es": "¿Cuánto tiempo lleva ella enseñando en este colegio?"
+    },
+    {
+      "form": "negative",
+      "en": "They have not been training much this month.",
+      "es": "Este mes no han estado entrenando mucho."
     }
   ]
 }

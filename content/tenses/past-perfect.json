@@ -118,7 +118,7 @@
       "es": "Acababa de terminar el trabajo cuando llamó."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "They had never travelled abroad until then.",
       "es": "Nunca habían viajado al extranjero hasta entonces."
     },
@@ -133,14 +133,29 @@
       "es": "Lo habíamos preparado todo cuando llegaron los invitados."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "He had forgotten the address before the meeting.",
       "es": "Había olvidado la dirección antes de la reunión."
     },
     {
-      "form": "interrogative",
+      "form": "affirmative",
       "en": "It was the first time she had spoken in public.",
       "es": "Era la primera vez que ella había hablado en público."
+    },
+    {
+      "form": "negative",
+      "en": "I hadn't eaten anything, so I was very hungry.",
+      "es": "No había comido nada, así que tenía mucha hambre."
+    },
+    {
+      "form": "negative",
+      "en": "When we got to the cinema, the film had not started yet.",
+      "es": "Cuando llegamos al cine, la película todavía no había empezado."
+    },
+    {
+      "form": "interrogative",
+      "en": "Where had you put the keys before you left?",
+      "es": "¿Dónde habías puesto las llaves antes de salir?"
     }
   ]
 }

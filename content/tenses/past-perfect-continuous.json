@@ -118,7 +118,7 @@
       "es": "Había estado estudiando desde el amanecer antes del examen."
     },
     {
-      "form": "negative",
+      "form": "affirmative",
       "en": "We had been walking for two hours when it rained.",
       "es": "Habíamos estado caminando dos horas cuando llovió."
     },
@@ -141,6 +141,11 @@
       "form": "interrogative",
       "en": "How long had you been learning English by then?",
       "es": "¿Cuánto tiempo llevabas aprendiendo inglés hasta entonces?"
+    },
+    {
+      "form": "negative",
+      "en": "They had not been talking for long when the line went dead.",
+      "es": "No llevaban mucho tiempo hablando cuando se cortó la línea."
     }
   ]
 }

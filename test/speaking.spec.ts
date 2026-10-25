@@ -3,7 +3,7 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import SpeakingPage from '../app/pages/speaking.vue'
-import { tenses } from '../app/utils/content'
+import { tenseById, tenses } from '../app/utils/content'
 import { addDays, day, load, review, save, speakingItemId, storageKey } from '../app/utils/progress'
 
 /** The browser recogniser, just enough to know whether it is still recording and what was said. */
@@ -144,6 +144,36 @@ describe('/speaking', () => {
     expect(page.text()).toContain(current.example.en)
     expect(page.text()).toContain(current.example.es)
     expect(page.text()).toContain(current.tense.name)
+  })
+
+  it('labels a relabelled sentence with its form and keeps the attempt stored under the old one', async () => {
+    supportSpeech()
+
+    const tense = tenseById('be-going-to')!
+    const example = tense.examples.find(candidate => candidate.en === 'They are going to move in two weeks.')!
+    const id = speakingItemId(tense, example)
+    const legacy = speakingItemId(tense, { ...example, form: 'negative' })
+    // Everything else was practised and is not due, so the missed sentence opens the round.
+    const others = tenses.flatMap(other => other.examples.map(sentence => speakingItemId(other, sentence)))
+      .filter(other => other !== id)
+
+    save({
+      ...Object.fromEntries(others.map(other => [other, review(undefined, other, true)])),
+      [legacy]: review(undefined, legacy, false)
+    })
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    expect(sentenceOn(page).example).toBe(example)
+    expect(page.text()).toContain('Be going to · afirmativa')
+
+    await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+    FakeRecognition.last!.say(example.en)
+    await flushPromises()
+
+    expect(load()[id]).toMatchObject({ hits: 1, misses: 1 })
+    expect(Object.keys(JSON.parse(localStorage.getItem(storageKey)!))).not.toContain(legacy)
   })
 
   it('explains that speech recognition may process audio remotely before recording', async () => {
