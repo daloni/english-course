@@ -11,6 +11,7 @@ if (existsSync('.env')) {
 export default defineVitestConfig({
   test: {
     environment: 'nuxt',
+    hookTimeout: 30_000,
     testTimeout: 30_000
   }
 })

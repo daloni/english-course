@@ -18,6 +18,11 @@ const mistakes = computed(() => results.value.filter(result => !result.correct))
 const done = computed(() => session.value.length > 0 && index.value >= session.value.length)
 useFocusOnChange(checked, done)
 
+const shownAnswer = (item: Item) => item.kind === 'reading'
+  ? item.solution.split(/\s+\/\s+/)[0]!.trim()
+  : item.solution
+const shownCorrection = (item: Item) => correction({ ...item, solution: shownAnswer(item) })
+
 // A reading question is answered from its text, which /repaso would otherwise never show. The
 // markdown is versioned content, and renderMarkdown() keeps executable links out of v-html.
 const passage = computed(() => {
@@ -262,7 +267,7 @@ useSeo({
                     <strong
                       lang="en"
                       class="font-semibold"
-                    >{{ mistake.item.solution }}</strong>.
+                    >{{ shownAnswer(mistake.item) }}</strong>.
                   </p>
                   <p
                     v-if="explain(mistake.item)"
@@ -421,7 +426,7 @@ useSeo({
               <UAlert
                 v-if="checked"
                 :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-                :description="checked.correct ? checked.item.solution : correction(checked.item)"
+                :description="checked.correct ? shownAnswer(checked.item) : shownCorrection(checked.item)"
                 :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
                 :color="checked.correct ? 'success' : 'error'"
                 variant="subtle"
