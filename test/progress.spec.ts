@@ -937,6 +937,47 @@ describe('practising', () => {
     onTestFinished(() => vi.restoreAllMocks())
   })
 
+  it.each([
+    { kind: 'frases', correct: true },
+    { kind: 'frases', correct: false },
+    { kind: 'reading', correct: true },
+    { kind: 'reading', correct: false }
+  ])('shuffles $kind options in review and records their value (correct: $correct)', async ({ kind, correct }) => {
+    const candidate = items().find(item => kind === 'frases'
+      ? item.kind === 'frases' && item.type === 'choice'
+      : item.id === 'reading:travel:travel-q2')!
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0)
+    save({ [candidate.id]: review(undefined, candidate.id, false, addDays(day(), -1)) })
+
+    const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(candidate.prompt)
+    const order = page.findAll('[role="radio"]').map(radio => radio.attributes('value'))
+    expect(order[0]).not.toBe(candidate.solution)
+    expect([...order].sort()).toEqual([...candidate.options!].sort())
+
+    random.mockReturnValue(0.999_999)
+    const wanted = correct ? candidate.solution : order[0]
+    await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === wanted)!.trigger('click')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain(correct ? '¡Correcto!' : 'No es esa')
+    expect(load()[candidate.id]).toMatchObject({ hits: correct ? 1 : 0, misses: correct ? 1 : 2 })
+    expect(page.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(order)
+
+    if (!correct) {
+      await page.find('form').trigger('submit')
+      await flushPromises()
+      await page.findAll('button').find(button => button.text().includes('Otra ronda'))!.trigger('click')
+      await flushPromises()
+
+      expect(page.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(candidate.options)
+    }
+  })
+
   /** Answers the first sentence of /frases/present-simple wrong, as the learner would. */
   async function fail() {
     const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })

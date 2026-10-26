@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, onTestFinished } from 'vitest'
+import { beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
@@ -310,6 +310,35 @@ describe('/reading/[slug]', () => {
     await again!.trigger('click')
     await flushPromises()
   }
+
+  it.each([true, false])('shuffles reading options after mount and records their value (correct: %s)', async (correct) => {
+    const question = reading.questions.find(question => question.id === 'travel-q2')!
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0)
+    onTestFinished(() => vi.restoreAllMocks())
+
+    const page = await mountSuspended(ReadingDetail, { route: '/reading/travel' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    const group = page.findAll('ol > li')[reading.questions.indexOf(question)]!
+    const order = group.findAll('[role="radio"]').map(radio => radio.attributes('value'))
+    expect(order[0]).not.toBe(question.answer)
+    expect([...order].sort()).toEqual([...question.options!].sort())
+
+    random.mockReturnValue(0.999_999)
+    const wanted = correct ? question.answer : order[0]
+    await group.findAll('[role="radio"]').find(radio => radio.attributes('value') === wanted)!.trigger('click')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(load()[readingItemId(reading, question)]).toMatchObject({ hits: correct ? 1 : 0, misses: correct ? 0 : 1 })
+    expect(group.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(order)
+
+    await page.findAll('button').find(button => button.text().includes('Volver a intentarlo'))!.trigger('click')
+    await flushPromises()
+
+    expect(group.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(question.options)
+  })
 
   it('hands the focus to the retry after correcting and back to the first question after it', async () => {
     const page = await mountSuspended(ReadingDetail, { route: '/reading/travel', attachTo: document.body })
