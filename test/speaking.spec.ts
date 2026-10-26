@@ -284,6 +284,36 @@ describe('/speaking', () => {
     expect(load()[speakingItemId(second.tense, second.example)]).toMatchObject({ hits: 0, misses: 1 })
   })
 
+  it.each([
+    ['I have been studying English for three years.', 'I have been studying English for 3 years'],
+    ['She will be twenty next month.', 'She will be 20 next month'],
+    ['The shop opens at nine on Saturdays.', 'the shop opens at 9 on Saturdays'],
+    ['He will be teaching from nine to five.', 'he will be teaching from 9 to 5'],
+    ['We will not be driving in two hours’ time.', 'we will not be driving in 2 hours time'],
+    ['By noon, I will not have read all three hundred pages.', 'by noon I will not have read all 300 pages'],
+    ['My neighbour waters the plants every morning.', 'my neighbor waters the plants every morning']
+  ])('records "%s" as a word-perfect hit with a canonical transcript', async (sentence, transcript) => {
+    supportSpeech()
+    pin(sentence)
+
+    const page = await mountSuspended(SpeakingPage)
+    await flushPromises()
+
+    const current = sentenceOn(page)
+    expect(current.example.en).toBe(sentence)
+
+    await page.find('[aria-label="Repetir la frase al micrófono"]').trigger('click')
+    expect(FakeRecognition.last!.lang).toBe('en-US')
+
+    FakeRecognition.last!.say(transcript)
+    await flushPromises()
+
+    const feedback = page.find('[aria-live="polite"]').text()
+    expect(feedback).toContain('Frase completa, palabra por palabra.')
+    expect(feedback).toContain('Cuenta como acierto en esta ronda.')
+    expect(load()[speakingItemId(current.tense, current.example)]).toMatchObject({ hits: 1, misses: 0 })
+  })
+
   it('records a repetition that flips the negation as a miss', async () => {
     supportSpeech()
 
