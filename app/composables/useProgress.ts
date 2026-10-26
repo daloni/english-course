@@ -193,7 +193,7 @@ export function useProgress() {
 
   /** Imports an exported file. Throws if it is not one: the caller shows the error. */
   async function importFile(file: File) {
-    const imported = parse(await file.text())
+    const imported = parse(await file.text(), { rejectFuture: true })
     // Against what is stored, not against what this tab loaded: importing does not undo the
     // answers of another tab, and `merge` already keeps the most recent attempt of each id.
     const current = currentProgress()
