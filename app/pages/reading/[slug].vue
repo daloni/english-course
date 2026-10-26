@@ -16,6 +16,14 @@ const answers = ref<Record<string, string>>({})
 const submitted = ref(false)
 useFocusOnChange(submitted)
 const recorded = new Set<string>()
+const options = ref<Record<string, string[]>>({})
+
+function shuffleOptions() {
+  options.value = Object.fromEntries(reading!.questions.map(question => [question.id, shuffle(question.options ?? [])]))
+}
+
+// Keep the prerendered order until hydration has finished.
+onMounted(shuffleOptions)
 
 /**
  * The whole set is corrected at once, when the form is sent. A written answer goes through
@@ -63,6 +71,7 @@ function submit() {
 function retry() {
   answers.value = {}
   submitted.value = false
+  shuffleOptions()
 }
 
 const { siteUrl } = useRuntimeConfig().public
@@ -167,7 +176,7 @@ useSeo({
                 <URadioGroup
                   v-if="result.question.options"
                   v-model="answers[result.question.id]"
-                  :items="result.question.options.map(option => ({ label: option, value: option }))"
+                  :items="(options[result.question.id] ?? result.question.options).map(option => ({ label: option, value: option }))"
                   :legend="`${i + 1}. ${result.question.question}`"
                   :disabled="submitted"
                   lang="en"

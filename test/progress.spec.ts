@@ -260,7 +260,7 @@ describe('parse', () => {
       future: { ...attempt, id: 'future', last: addDays(today, 2), due: addDays(today, 4) }
     })
 
-    expect(Object.keys(parse(json))).toEqual(['today', 'yesterday', 'tomorrow'])
+    expect(Object.keys(parse(json, { rejectFuture: true }))).toEqual(['today', 'yesterday', 'tomorrow'])
   })
 
   it('rejects a file containing only attempts dated after tomorrow', () => {
@@ -268,9 +268,10 @@ describe('parse', () => {
     vi.setSystemTime(new Date(`${today}T12:00:00Z`))
     onTestFinished(() => vi.useRealTimers())
 
-    const future = { ...attempt, last: addDays(today, 2), due: addDays(today, 3) }
+    const future = { ...attempt, last: addDays(today, 2), due: addDays(today, 4) }
 
-    expect(() => parse(JSON.stringify({ x: future }))).toThrow('El fichero no tiene ningún intento válido')
+    expect(() => parse(JSON.stringify({ x: future }), { rejectFuture: true }))
+      .toThrow('El fichero no tiene ningún intento válido')
   })
 
   it('rejects what is not an exported progress', () => {
@@ -464,6 +465,86 @@ async function progressSession() {
 
   return session
 }
+
+describe('future-dated stored progress', () => {
+  const future = review(undefined, 'x', true, addDays(today, 3))
+
+  beforeEach(() => {
+    localStorage.removeItem(storageKey)
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(new Date(`${today}T12:00:00`))
+    onTestFinished(() => {
+      localStorage.removeItem(storageKey)
+      vi.useRealTimers()
+    })
+  })
+
+  it('loads attempts dated three days ahead of the device clock', () => {
+    save({ x: future })
+
+    expect(load()).toEqual({ x: future })
+  })
+
+  it('preserves a future attempt unchanged when recording another exercise', async () => {
+    save({ x: future })
+
+    const session = await progressSession()
+
+    session.record('y', true)
+
+    expect(JSON.parse(localStorage.getItem(storageKey)!)).toEqual({
+      x: future,
+      y: review(undefined, 'y', true, today)
+    })
+  })
+
+  it('includes future stored attempts in the session export', async () => {
+    save({ x: future })
+
+    const session = await progressSession()
+    let exported!: Blob
+
+    vi.spyOn(URL, 'createObjectURL').mockImplementation((blob) => {
+      exported = blob
+      return 'blob:progress'
+    })
+    vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+    onTestFinished(() => vi.restoreAllMocks())
+
+    session.exportFile()
+
+    expect(JSON.parse(await exported.text())).toEqual({ x: future })
+  })
+
+  it('keeps a future stored attempt out of the review queue until its due date', async () => {
+    const id = frasesItemId(exercisesOf('present-simple')[0]!)
+    const attempt = { ...future, id }
+
+    save({ [id]: attempt })
+
+    const session = await progressSession()
+
+    expect(session.attemptOf(id)).toEqual(attempt)
+    expect(session.pending.value).toEqual([])
+
+    vi.setSystemTime(new Date(`${attempt.due}T12:00:00`))
+    document.dispatchEvent(new Event('visibilitychange'))
+    await flushPromises()
+
+    expect(session.pending.value.map(item => item.id)).toEqual([id])
+  })
+
+  it('drops future attempts from a mixed import and keeps the rest', async () => {
+    const session = await progressSession()
+    const valid = review(undefined, 'y', true, today)
+
+    await expect(session.importFile(new File([serialize({ x: future, y: valid })], 'progress.json')))
+      .resolves.toEqual({ imported: 1, added: 1 })
+
+    expect(load()).toEqual({ y: valid })
+  })
+})
 
 describe('volatile progress', () => {
   beforeEach(async () => {
@@ -854,6 +935,47 @@ describe('practising', () => {
     // first sentence on screen is the first of the file, which is the one these tests answer.
     vi.spyOn(Math, 'random').mockReturnValue(0.999_999)
     onTestFinished(() => vi.restoreAllMocks())
+  })
+
+  it.each([
+    { kind: 'frases', correct: true },
+    { kind: 'frases', correct: false },
+    { kind: 'reading', correct: true },
+    { kind: 'reading', correct: false }
+  ])('shuffles $kind options in review and records their value (correct: $correct)', async ({ kind, correct }) => {
+    const candidate = items().find(item => kind === 'frases'
+      ? item.kind === 'frases' && item.type === 'choice'
+      : item.id === 'reading:travel:travel-q2')!
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0)
+    save({ [candidate.id]: review(undefined, candidate.id, false, addDays(day(), -1)) })
+
+    const page = await mountSuspended(Repaso)
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(candidate.prompt)
+    const order = page.findAll('[role="radio"]').map(radio => radio.attributes('value'))
+    expect(order[0]).not.toBe(candidate.solution)
+    expect([...order].sort()).toEqual([...candidate.options!].sort())
+
+    random.mockReturnValue(0.999_999)
+    const wanted = correct ? candidate.solution : order[0]
+    await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === wanted)!.trigger('click')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain(correct ? '¡Correcto!' : 'No es esa')
+    expect(load()[candidate.id]).toMatchObject({ hits: correct ? 1 : 0, misses: correct ? 1 : 2 })
+    expect(page.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(order)
+
+    if (!correct) {
+      await page.find('form').trigger('submit')
+      await flushPromises()
+      await page.findAll('button').find(button => button.text().includes('Otra ronda'))!.trigger('click')
+      await flushPromises()
+
+      expect(page.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(candidate.options)
+    }
   })
 
   /** Answers the first sentence of /frases/present-simple wrong, as the learner would. */
@@ -1547,6 +1669,7 @@ describe('practising', () => {
     await input.trigger('change')
     await flushPromises()
 
+    expect(progress.text()).toContain('El fichero no tiene ningún intento válido')
     expect(load()).toEqual({ [id]: existing })
 
     const reviewPage = await mountSuspended(Repaso)
