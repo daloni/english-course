@@ -151,8 +151,6 @@ function isAttempt(value: unknown): value is Attempt {
     && isDate(attempt.last) && isDate(attempt.due)
     // `review()` schedules the next review exactly from the box delay.
     && attempt.due === addDays(attempt.last, boxDelays[attempt.box])
-    // A device with a different timezone can be one local day behind the exporter.
-    && attempt.last <= addDays(day(), 1)
 }
 
 /** Combines progress without adding answer counters from the same attempt twice. */
@@ -176,15 +174,18 @@ export function merge(current: Progress, imported: Progress): Progress {
  * Reads a stored or imported progress. The file is chosen by whoever uses the site, so it is
  * checked in full: if it is not an object of attempts it is rejected; individual corrupt
  * attempts are dropped instead of bringing the whole import down.
+ * Only imports reject future practice: correcting this device's clock must not erase progress.
  */
-export function parse(json: string): Progress {
+export function parse(json: string, { rejectFuture = false } = {}): Progress {
   const data: unknown = JSON.parse(json)
 
   if (typeof data !== 'object' || data === null || Array.isArray(data)) {
     throw new Error('El fichero no es un progreso exportado')
   }
 
-  const entries = Object.entries(data).filter(([id, attempt]) => isAttempt(attempt) && attempt.id === id)
+  const entries = Object.entries(data).filter(([id, attempt]) => isAttempt(attempt) && attempt.id === id
+    // A device with a different timezone can be one local day behind the exporter.
+    && (!rejectFuture || attempt.last <= addDays(day(), 1)))
 
   if (entries.length === 0) {
     throw new Error('El fichero no tiene ningún intento válido')

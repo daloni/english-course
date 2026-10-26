@@ -260,7 +260,7 @@ describe('parse', () => {
       future: { ...attempt, id: 'future', last: addDays(today, 2), due: addDays(today, 4) }
     })
 
-    expect(Object.keys(parse(json))).toEqual(['today', 'yesterday', 'tomorrow'])
+    expect(Object.keys(parse(json, { rejectFuture: true }))).toEqual(['today', 'yesterday', 'tomorrow'])
   })
 
   it('rejects a file containing only attempts dated after tomorrow', () => {
@@ -268,9 +268,10 @@ describe('parse', () => {
     vi.setSystemTime(new Date(`${today}T12:00:00Z`))
     onTestFinished(() => vi.useRealTimers())
 
-    const future = { ...attempt, last: addDays(today, 2), due: addDays(today, 3) }
+    const future = { ...attempt, last: addDays(today, 2), due: addDays(today, 4) }
 
-    expect(() => parse(JSON.stringify({ x: future }))).toThrow('El fichero no tiene ningún intento válido')
+    expect(() => parse(JSON.stringify({ x: future }), { rejectFuture: true }))
+      .toThrow('El fichero no tiene ningún intento válido')
   })
 
   it('rejects what is not an exported progress', () => {
@@ -464,6 +465,86 @@ async function progressSession() {
 
   return session
 }
+
+describe('future-dated stored progress', () => {
+  const future = review(undefined, 'x', true, addDays(today, 3))
+
+  beforeEach(() => {
+    localStorage.removeItem(storageKey)
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(new Date(`${today}T12:00:00`))
+    onTestFinished(() => {
+      localStorage.removeItem(storageKey)
+      vi.useRealTimers()
+    })
+  })
+
+  it('loads attempts dated three days ahead of the device clock', () => {
+    save({ x: future })
+
+    expect(load()).toEqual({ x: future })
+  })
+
+  it('preserves a future attempt unchanged when recording another exercise', async () => {
+    save({ x: future })
+
+    const session = await progressSession()
+
+    session.record('y', true)
+
+    expect(JSON.parse(localStorage.getItem(storageKey)!)).toEqual({
+      x: future,
+      y: review(undefined, 'y', true, today)
+    })
+  })
+
+  it('includes future stored attempts in the session export', async () => {
+    save({ x: future })
+
+    const session = await progressSession()
+    let exported!: Blob
+
+    vi.spyOn(URL, 'createObjectURL').mockImplementation((blob) => {
+      exported = blob
+      return 'blob:progress'
+    })
+    vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+    onTestFinished(() => vi.restoreAllMocks())
+
+    session.exportFile()
+
+    expect(JSON.parse(await exported.text())).toEqual({ x: future })
+  })
+
+  it('keeps a future stored attempt out of the review queue until its due date', async () => {
+    const id = frasesItemId(exercisesOf('present-simple')[0]!)
+    const attempt = { ...future, id }
+
+    save({ [id]: attempt })
+
+    const session = await progressSession()
+
+    expect(session.attemptOf(id)).toEqual(attempt)
+    expect(session.pending.value).toEqual([])
+
+    vi.setSystemTime(new Date(`${attempt.due}T12:00:00`))
+    document.dispatchEvent(new Event('visibilitychange'))
+    await flushPromises()
+
+    expect(session.pending.value.map(item => item.id)).toEqual([id])
+  })
+
+  it('drops future attempts from a mixed import and keeps the rest', async () => {
+    const session = await progressSession()
+    const valid = review(undefined, 'y', true, today)
+
+    await expect(session.importFile(new File([serialize({ x: future, y: valid })], 'progress.json')))
+      .resolves.toEqual({ imported: 1, added: 1 })
+
+    expect(load()).toEqual({ y: valid })
+  })
+})
 
 describe('volatile progress', () => {
   beforeEach(async () => {
@@ -1547,6 +1628,7 @@ describe('practising', () => {
     await input.trigger('change')
     await flushPromises()
 
+    expect(progress.text()).toContain('El fichero no tiene ningún intento válido')
     expect(load()).toEqual({ [id]: existing })
 
     const reviewPage = await mountSuspended(Repaso)
