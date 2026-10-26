@@ -287,6 +287,37 @@ describe('ExerciseGap', () => {
 describe('/frases/[tiempo]', () => {
   beforeEach(() => localStorage.removeItem(storageKey))
 
+  it.each([true, false])('shuffles choice options and records the selected value (correct: %s)', async (correct) => {
+    const drill = exercisesOf('present-simple')
+    const exercise = drill.find(exercise => typeOf(exercise) === 'choice')!
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0)
+    onTestFinished(() => vi.restoreAllMocks())
+
+    const future = addDays(day(), 1)
+    save(Object.fromEntries(drill.filter(candidate => candidate !== exercise).map(candidate => [
+      frasesItemId(candidate), review(undefined, frasesItemId(candidate), true, future)
+    ])))
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    expect(page.text()).toContain(exercise.prompt)
+    const order = page.findAll('[role="radio"]').map(radio => radio.attributes('value'))
+    expect(order[0]).not.toBe(exercise.solution)
+    expect([...order].sort()).toEqual([...exercise.options!].sort())
+
+    random.mockReturnValue(0.999_999)
+    const wanted = correct ? exercise.solution : order[0]
+    await page.findAll('[role="radio"]').find(radio => radio.attributes('value') === wanted)!.trigger('click')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain(correct ? '¡Correcto!' : 'No es esa')
+    expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: correct ? 1 : 0, misses: correct ? 0 : 1 })
+    expect(page.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(order)
+  })
+
   // The round depends on the progress and on chance: rendering it in the prerender too would
   // ship a different sentence than the one the page hydrates with.
   it('declares loading content for the prerender before the round is drawn', () => {

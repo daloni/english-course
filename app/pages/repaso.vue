@@ -55,7 +55,11 @@ function restart() {
     fresh = queue.value
   }
 
-  session.value = fresh.slice(0, size)
+  // Reading options are shuffled with the snapshot, so they hold still while corrected; the
+  // sentences shuffle their own in ExerciseChoice.
+  session.value = fresh.slice(0, size).map(item => item.kind === 'reading' && item.options
+    ? { ...item, options: shuffle(item.options) }
+    : item)
   session.value.forEach(item => asked.add(item.id))
   index.value = 0
   answer.value = ''

@@ -5,7 +5,11 @@ const props = defineProps<{ exercise: Exercise, disabled?: boolean }>()
 
 const answer = defineModel<string>({ required: true })
 
-const items = computed(() => (props.exercise.options ?? []).map(option => ({ label: option, value: option })))
+// The content lists the solution first. Shuffling once per instance is enough: both parents key
+// it by exercise, so the order holds while the correction is shown, and render it inside
+// <ClientOnly>, so no prerender has to match it. Server-rendered, it would have to shuffle after
+// mount, as /reading/[slug] does.
+const items = shuffle(props.exercise.options ?? []).map(option => ({ label: option, value: option }))
 const sentenceId = useId()
 </script>
 
