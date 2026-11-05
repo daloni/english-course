@@ -31,11 +31,6 @@ overrides:
 # ships (see the README).
 auditConfig:
   ignoreGhsas:
-    # node-forge, through listhen (nuxt dev server). Only the RSA PKCS#1 v1.5 signature
-    # verification is affected; listhen uses forge to generate the self-signed certificate of
-    # `nuxt dev --https`, and nothing verifies a signature. Not part of the generated site.
-    # No patched release on npm. Owner: @daloni. Review by 2026-11-04.
-    - GHSA-86w9-cpqp-85rv
     # braces, through micromatch (nitropack's globby). A stack overflow on deeply nested brace
     # patterns; the patterns come from the repo's own build configuration, never from a
     # request or from user input, and the site is static. Not part of the generated site.

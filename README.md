@@ -89,12 +89,11 @@ nothing is needed. To serve it from somewhere else (Netlify, an `nginx`…) it i
 
 CI runs `pnpm audit --audit-level high` on the lockfile after lint, typecheck, tests, generation
 and the PWA artifact check: a new high or critical advisory fails the build without hiding
-code regressions. Six advisories have no compatible patched release yet, so they are ignored
+code regressions. Five advisories have no compatible patched release yet, so they are ignored
 one by one in `auditConfig.ignoreGhsas` of `pnpm-workspace.yaml`, each with its exposure assessment:
 
 | Advisory | Package | Why it does not apply | Owner | Review by |
 | --- | --- | --- | --- | --- |
-| [GHSA-86w9-cpqp-85rv](https://github.com/advisories/GHSA-86w9-cpqp-85rv) | `node-forge` (via `listhen`) | Only used to make the self-signed certificate of `nuxt dev --https`; no signature is verified and it is not in the generated site. | @daloni | 2026-11-04 |
 | [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) | `braces` (via `micromatch`) | Only globs the repo's own build configuration at build time; no request or user input reaches it. | @daloni | 2026-11-04 |
 | [GHSA-x6jw-m9v5-85vh](https://github.com/advisories/GHSA-x6jw-m9v5-85vh) | `simple-git` (via `@nuxt/devtools`) | Trailer command guard bypass; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
 | [GHSA-g4wm-2vf7-vfgr](https://github.com/advisories/GHSA-g4wm-2vf7-vfgr) | `simple-git` (via `@nuxt/devtools`) | Unblocked Git configuration includes; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
