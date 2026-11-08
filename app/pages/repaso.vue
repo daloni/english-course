@@ -131,19 +131,21 @@ useSeo({
 
 <template>
   <UPage>
-    <UPageHero
-      title="Repaso de hoy"
-      :description="`Tandas de hasta ${size} ejercicios. Hoy te tocan ${pending.length} en total.`"
-    >
-      <template #links>
-        <UButton
-          to="/progreso"
-          label="Ver el progreso"
-          icon="i-lucide-trending-up"
-          color="neutral"
-        />
-      </template>
-    </UPageHero>
+    <UContainer>
+      <UPageHeader
+        title="Repaso de hoy"
+        :description="`Tandas de hasta ${size} ejercicios. Hoy te tocan ${pending.length} en total.`"
+      >
+        <template #links>
+          <UButton
+            to="/progreso"
+            label="Ver el progreso"
+            icon="i-lucide-trending-up"
+            color="neutral"
+          />
+        </template>
+      </UPageHeader>
+    </UContainer>
 
     <UPageSection>
       <div class="mx-auto w-full max-w-xl">

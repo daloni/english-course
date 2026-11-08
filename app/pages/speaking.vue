@@ -101,10 +101,12 @@ useSeo({
 
 <template>
   <UPage>
-    <UPageHero
-      title="Speaking"
-      description="Escucha la frase, repítela en voz alta y compara lo que has dicho con lo que tocaba decir."
-    />
+    <UContainer>
+      <UPageHeader
+        title="Speaking"
+        description="Escucha la frase, repítela en voz alta y compara lo que has dicho con lo que tocaba decir."
+      />
+    </UContainer>
 
     <UPageSection>
       <ClientOnly>

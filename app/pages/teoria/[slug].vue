@@ -46,24 +46,26 @@ useSeo({
 
 <template>
   <UPage>
-    <UPageHero
-      :title="tense.name"
-      :description="tense.nameEs"
-    >
-      <template #links>
-        <UBadge
-          :label="`Nivel ${tense.level}`"
-          variant="subtle"
-        />
-        <UButton
-          v-if="hasExercises"
-          :to="`/frases/${tense.id}`"
-          label="Practicar con frases"
-          icon="i-lucide-message-square-text"
-          color="neutral"
-        />
-      </template>
-    </UPageHero>
+    <UContainer>
+      <UPageHeader
+        :title="tense.name"
+        :description="tense.nameEs"
+      >
+        <template #links>
+          <UBadge
+            :label="`Nivel ${tense.level}`"
+            variant="subtle"
+          />
+          <UButton
+            v-if="hasExercises"
+            :to="`/frases/${tense.id}`"
+            label="Practicar con frases"
+            icon="i-lucide-message-square-text"
+            color="neutral"
+          />
+        </template>
+      </UPageHeader>
+    </UContainer>
 
     <UPageSection>
       <div class="space-y-12">

@@ -28,10 +28,12 @@ function summary(exercises: Exercise[]) {
 
 <template>
   <UPage>
-    <UPageHero
-      title="Frases"
-      description="Elige un tiempo verbal y practícalo en frases: rellena el hueco, transforma la frase o reconoce el tiempo."
-    />
+    <UContainer>
+      <UPageHeader
+        title="Frases"
+        description="Elige un tiempo verbal y practícalo en frases: rellena el hueco, transforma la frase o reconoce el tiempo."
+      />
+    </UContainer>
 
     <UPageSection>
       <URadioGroup

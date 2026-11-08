@@ -438,7 +438,12 @@ describe('/reading/[slug]', () => {
     expect(page.text()).toContain(`Puntuación: ${reading.questions.length} de ${reading.questions.length}`)
   })
 
+  // The 404 goes to Nuxt's error state; the page itself renders nothing instead of crashing.
   it('404s on a reading that does not exist', async () => {
-    await expect(mountSuspended(ReadingDetail, { route: '/reading/no-existe' })).rejects.toThrow()
+    onTestFinished(() => clearError())
+    const page = await mountSuspended(ReadingDetail, { route: '/reading/no-existe' })
+
+    expect(useError().value?.statusCode).toBe(404)
+    expect(page.find('h1').exists()).toBe(false)
   })
 })

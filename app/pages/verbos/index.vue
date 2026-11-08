@@ -26,18 +26,20 @@ const filtered = computed(() => {
 
 <template>
   <UPage>
-    <UPageHero
-      title="Verbos"
-      description="Conjugación de verbos regulares e irregulares: infinitivo, pasado simple y participio."
-    >
-      <template #links>
-        <UButton
-          to="/verbos/practica"
-          label="Practicar conjugación"
-          icon="i-lucide-pencil"
-        />
-      </template>
-    </UPageHero>
+    <UContainer>
+      <UPageHeader
+        title="Verbos"
+        description="Conjugación de verbos regulares e irregulares: infinitivo, pasado simple y participio."
+      >
+        <template #links>
+          <UButton
+            to="/verbos/practica"
+            label="Practicar conjugación"
+            icon="i-lucide-pencil"
+          />
+        </template>
+      </UPageHeader>
+    </UContainer>
 
     <UPageSection>
       <div class="mb-8 flex flex-wrap items-center gap-6">

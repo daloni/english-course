@@ -76,10 +76,12 @@ function submit(skip = false) {
 
 <template>
   <UPage>
-    <UPageHero
-      title="Practicar conjugación"
-      :description="`Escribe la forma que se te pide. ${total} verbos, corrección al instante.`"
-    />
+    <UContainer>
+      <UPageHeader
+        title="Practicar conjugación"
+        :description="`Escribe la forma que se te pide. ${total} verbos, corrección al instante.`"
+      />
+    </UContainer>
 
     <UPageSection>
       <div class="mx-auto w-full max-w-xl">

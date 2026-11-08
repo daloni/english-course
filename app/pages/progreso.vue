@@ -72,10 +72,12 @@ useSeo({
 
 <template>
   <UPage>
-    <UPageHero
-      title="Progreso"
-      description="Lo que has practicado se guarda en este navegador. Cada acierto sube el ejercicio de caja y lo aleja en el tiempo; cada fallo lo devuelve al montón de hoy."
-    />
+    <UContainer>
+      <UPageHeader
+        title="Progreso"
+        description="Lo que has practicado se guarda en este navegador. Cada acierto sube el ejercicio de caja y lo aleja en el tiempo; cada fallo lo devuelve al montón de hoy."
+      />
+    </UContainer>
 
     <UPageSection>
       <div class="mx-auto w-full max-w-3xl space-y-12">

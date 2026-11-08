@@ -28,19 +28,21 @@ useSeo({
     <VitePwaManifest />
     <NuxtLayout>
       <UPage>
-        <UPageHero
-          :title="title"
-          :description="description"
-        >
-          <template #links>
-            <UButton
-              to="/"
-              label="Volver a la home"
-              icon="i-lucide-house"
-              @click="leave('/')"
-            />
-          </template>
-        </UPageHero>
+        <UContainer>
+          <UPageHeader
+            :title="title"
+            :description="description"
+          >
+            <template #links>
+              <UButton
+                to="/"
+                label="Volver a la home"
+                icon="i-lucide-house"
+                @click="leave('/')"
+              />
+            </template>
+          </UPageHeader>
+        </UContainer>
 
         <UPageSection>
           <p

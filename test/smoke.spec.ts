@@ -2,7 +2,11 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import DefaultLayout from '../app/layouts/default.vue'
+import TensePractice from '../app/pages/frases/[tiempo].vue'
 import IndexPage from '../app/pages/index.vue'
+import Repaso from '../app/pages/repaso.vue'
+import TenseTheory from '../app/pages/teoria/[slug].vue'
+import VerbosIndex from '../app/pages/verbos/index.vue'
 import { day, items, review, save, speakingItemId, storageKey } from '../app/utils/progress'
 import { sections } from '../app/utils/sections'
 import { tenses } from '../app/utils/content'
@@ -44,6 +48,21 @@ describe('home', () => {
 
     expect(page.text()).toContain('Nada pendiente por ahora')
     expect(page.text()).not.toContain('ejercicios te tocan hoy')
+  })
+})
+
+// These pages traded their hero for a compact header: the same single h1 and the same links.
+describe('page headers', () => {
+  it.each([
+    ['/teoria/present-simple', TenseTheory, 'Present Simple', 'Practicar con frases'],
+    ['/frases/present-simple', TensePractice, 'Frases de Present Simple', 'Repasar la teoría'],
+    ['/repaso', Repaso, 'Repaso de hoy', 'Ver el progreso'],
+    ['/verbos', VerbosIndex, 'Verbos', 'Practicar conjugación']
+  ] as const)('%s keeps one h1 and its header link', async (route, component, title, link) => {
+    const page = await mountSuspended(component, { route })
+
+    expect(page.findAll('h1').map(heading => heading.text())).toEqual([title])
+    expect(page.findAll('a').some(anchor => anchor.text() === link)).toBe(true)
   })
 })
 
