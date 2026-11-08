@@ -1,6 +1,26 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+/* @nuxt/ui puts primary on the 500 shade in light mode, and white text on blue-500 stays under
+   4.5:1. The 600 shade passes for primary text, white-on-primary buttons and the focus outline.
+   The dark rule has to be repeated: this file is unlayered and would beat the theme layer. */
+:root,
+.light {
+  --ui-primary: var(--ui-color-primary-600);
+}
+
+.dark {
+  --ui-primary: var(--ui-color-primary-400);
+}
+
+/* Display face for page titles and section headings; the body stays in the sans. */
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
+}
+
 /* Visible focus on what is not a @nuxt/ui component either: links in the markdown from
    content/, the file input of /progreso and the "Saltar al contenido" link. */
 :focus-visible {
@@ -129,16 +149,5 @@
 
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
-
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  --font-display: 'Bricolage Grotesque', 'Public Sans', sans-serif;
 }
