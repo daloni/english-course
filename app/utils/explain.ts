@@ -1,5 +1,6 @@
-// What the two screens that correct sentences share, /frases/<tiempo> and /repaso: which
-// component asks each type of exercise and what is read out after a miss.
+// What the screens that correct sentences share, /frases/<tiempo>, /repaso and /clips/practica:
+// which component asks each type of exercise, the completed sentence and what is read out after
+// a miss.
 import type { Component } from 'vue'
 import { ExerciseChoice, ExerciseGap, ExerciseTransform } from '#components'
 import { formLabels, tenseById, type Exercise, type ExerciseType, type Form } from './content'
@@ -49,5 +50,48 @@ export function explain(exercise: Exercise): string {
 }
 
 /** What is read out after a miss: the solution and the why, when there is one. */
-export const correction = (exercise: Exercise) =>
-  `La respuesta correcta es: ${exercise.solution}. ${explain(exercise)}`.trim()
+export function correction(exercise: Exercise): string {
+  // The transform solutions are whole sentences and already carry their own full stop.
+  const stop = /[.?!]$/.test(exercise.solution) ? '' : '.'
+
+  return `La respuesta correcta es: ${exercise.solution}${stop} ${explain(exercise)}`.trim()
+}
+
+/** A piece of the completed sentence; `filled` marks the words that went into a gap. */
+export interface Segment {
+  text: string
+  filled?: boolean
+}
+
+/** The first of the alternatives a solution may list: "He is not… / He's not…" gives the first. */
+const firstAlternative = (solution: string) => solution.split(/\s+\/\s+/)[0]!.trim()
+
+/**
+ * The sentence the exercise is about, completed with its solution, in pieces so the template
+ * can highlight the filled-in words without v-html. Each ___ of a gap, and the (hint) after
+ * it, takes its part of the solution in order: the first alternative for a single gap, one
+ * part of "Is / going to start" per gap otherwise. A transform shows its first alternative and
+ * a choice its sentence as is.
+ */
+export function completed(exercise: Exercise): Segment[] {
+  const type = typeOf(exercise)
+
+  if (type !== 'gap') {
+    return [{ text: type === 'transform' ? firstAlternative(exercise.solution) : exercise.prompt }]
+  }
+
+  const parts = gapCount(exercise.prompt) > 1
+    ? exercise.solution.split(/\s*\/\s*/)
+    : [firstAlternative(exercise.solution)]
+
+  return exercise.prompt.split(/___(?:\s*\([^)]*\))?/).flatMap((text, i) => i === 0
+    ? [{ text }]
+    : [{ text: parts[i - 1] ?? '', filled: true }, { text }])
+}
+
+/**
+ * reka-ui swallows Enter on a radio, so a choice could only be corrected from the button:
+ * handed to the form, Enter on the selected option corrects, as it does in a text field.
+ */
+export const submitOnEnter = (event: KeyboardEvent) =>
+  (event.target as HTMLElement).closest('form')?.requestSubmit()

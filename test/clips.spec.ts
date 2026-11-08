@@ -383,6 +383,21 @@ describe('/clips/practica', () => {
     }
   })
 
+  it('shows the whole line of the clip after a miss, in English', async () => {
+    const clip = clips[0]!
+    const page = await mountSuspended(ClipsPractice, { global: { stubs } })
+    onTestFinished(() => page.unmount())
+    await vi.waitFor(() => expect(page.text()).toContain(clip.exercises[0]!.prompt))
+
+    await page.find('input').setValue('nope')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('No es esa')
+    expect(page.find('[aria-live="polite"] [lang="en"]').text()).toBe(clip.text)
+    expect(page.text()).toContain(`La respuesta correcta es: ${clip.exercises[0]!.solution}`)
+  })
+
   it('accepts the contraction heard in the clip and records a hit', async () => {
     const clip = clips.find(candidate => candidate.id === '2jLhZjfu5-o:1273520')!
     const exercise = clip.exercises.find(candidate => candidate.id === 'verb-0')!

@@ -64,7 +64,7 @@ export interface Exercise {
   form?: Form
   /** 'choice' only: what to pick from; `solution` is one of them. */
   options?: string[]
-  /** Shown after a wrong answer, instead of the tense structure. */
+  /** Shown after the answer, right or wrong; a miss without one shows the tense structure. */
   explanation?: string
 }
 

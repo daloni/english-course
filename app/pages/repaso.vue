@@ -21,7 +21,17 @@ useFocusOnChange(checked, done)
 const shownAnswer = (item: Item) => item.kind === 'reading'
   ? item.solution.split(/\s+\/\s+/)[0]!.trim()
   : item.solution
-const shownCorrection = (item: Item) => correction({ ...item, solution: shownAnswer(item) })
+
+/**
+ * The English line the correction leads with: the completed sentence, or the line of the clip.
+ * Verbs and reading have no sentence to complete, so they keep showing the answer on a hit.
+ */
+const shownSentence = ({ item, correct }: { item: Item, correct: boolean }): Segment[] => {
+  if (item.kind === 'frases') return completed(item)
+  if (item.clip) return [{ text: item.clip.text }]
+
+  return correct ? [{ text: shownAnswer(item) }] : []
+}
 
 // A reading question is answered from its text, which /repaso would otherwise never show. The
 // markdown is versioned content, and renderMarkdown() keeps executable links out of v-html.
@@ -108,6 +118,9 @@ function submit(skip = false) {
   record(item.value.id, correct)
   results.value.push({ item: item.value, answer: answer.value, correct })
   checked.value = { correct, item: item.value }
+
+  // "No lo sé" answers nothing: a pick made before it is not marked as the learner's answer.
+  if (skip) answer.value = ''
 }
 
 /** A dead embed takes what is left of its video out of the session instead of blocking it. */
@@ -381,6 +394,7 @@ useSeo({
                 lang="en"
                 :ui="{ fieldset: 'gap-y-2' }"
                 data-focus-input
+                @keydown.enter="submitOnEnter"
               />
 
               <!-- The label is the prompt, and only the verbs ask it in Spanish ("Pasado
@@ -429,13 +443,11 @@ useSeo({
               class="mt-6"
               aria-live="polite"
             >
-              <UAlert
+              <ExerciseFeedback
                 v-if="checked"
-                :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-                :description="checked.correct ? shownAnswer(checked.item) : shownCorrection(checked.item)"
-                :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
-                :color="checked.correct ? 'success' : 'error'"
-                variant="subtle"
+                :correct="checked.correct"
+                :exercise="{ ...checked.item, solution: shownAnswer(checked.item) }"
+                :sentence="shownSentence(checked)"
               />
             </div>
           </template>

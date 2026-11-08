@@ -10,8 +10,8 @@ import ExerciseGap from '../app/components/ExerciseGap.vue'
 import ExerciseTransform from '../app/components/ExerciseTransform.vue'
 import type { Exercise, ExerciseType } from '../app/utils/content'
 import { gapCount } from '../app/utils/check'
-import { exerciseFiles, exerciseTypes, exercisesOf, tenseById, typeOf } from '../app/utils/content'
-import { correction, exerciseComponents, explain, formOf } from '../app/utils/explain'
+import { exerciseFiles, exerciseTypes, exercises, exercisesOf, tenseById, typeOf } from '../app/utils/content'
+import { completed, correction, exerciseComponents, explain, formOf } from '../app/utils/explain'
 import { addDays, day, frasesItemId, items, load, review, save, storageKey } from '../app/utils/progress'
 
 /** Sentences per round on /frases/<tiempo>. */
@@ -34,6 +34,12 @@ const componentByType: Record<ExerciseType, unknown> = {
  */
 const rightAnswer = (exercise: Exercise) =>
   gapCount(exercise.prompt) > 1 ? exercise.solution : exercise.solution.split(/\s+\/\s+/)[0]!
+
+/** The completed sentence as one string, the way the feedback reads it. */
+const sentenceOf = (exercise: Exercise) => completed(exercise).map(segment => segment.text).join('').trim()
+
+/** The English line the feedback leads with. */
+const feedbackSentence = (page: VueWrapper) => page.find('[aria-live="polite"] [lang="en"]')
 
 /** Answers the exercise on screen, right or wrong, the way its type is answered. */
 async function answer(page: VueWrapper, exercise: Exercise, correct: boolean) {
@@ -129,6 +135,13 @@ describe.each(slugs)('/frases/%s', (slug) => {
         await flushPromises()
 
         expect(page.text()).toContain(correct ? '¡Correcto!' : 'No es esa')
+        // Right or wrong, the feedback leads with the sentence completed, in English.
+        expect(feedbackSentence(page).text(), `${exercise.id} completed`).toBe(sentenceOf(exercise))
+
+        // A hit is explained too, with the explanation the exercise carries.
+        if (correct && exercise.explanation) {
+          expect(page.text()).toContain(exercise.explanation)
+        }
 
         // A mistake shows the solution and a short explanation: the one of the exercise, or
         // the structure of the tense when it does not carry one.
@@ -232,6 +245,56 @@ describe('explain', () => {
     expect(explain({ ...gap('She ___ (work) here.'), explanation: 'Tercera persona: -s.' })).toBe('Tercera persona: -s.')
   })
 
+  it('completes a gap with its solution, hint included', () => {
+    const exercise = exercisesOf('be-going-to').find(candidate => candidate.id === 'be-going-to-001')!
+
+    expect(completed(exercise)).toEqual([
+      { text: 'We ' },
+      { text: 'are going to move', filled: true },
+      { text: ' to Valencia in June; we signed the contract last week.' }
+    ])
+    expect(sentenceOf(gap('She ___ here.'))).toBe('She works here.')
+    // A single gap takes the first alternative, not the whole list.
+    expect(sentenceOf({ ...gap('They ___ (be) late.'), solution: 'were / was' })).toBe('They were late.')
+  })
+
+  it('fills each gap of a two-gap sentence with its own part, in order', () => {
+    const exercise = exercisesOf('be-going-to').find(candidate => candidate.prompt === '___ she ___ (start) a course in September?')!
+
+    expect(sentenceOf(exercise)).toBe('Is she going to start a course in September?')
+    expect(completed(exercise).filter(segment => segment.filled).map(segment => segment.text))
+      .toEqual(['Is', 'going to start'])
+  })
+
+  it('shows a transform with its first alternative and a choice as it is', () => {
+    const transform = exercisesOf('be-going-to').find(candidate => candidate.id === 'be-going-to-008')!
+    const choice = exercises.find(candidate => typeOf(candidate) === 'choice')!
+
+    expect(sentenceOf(transform)).toBe('He is not going to study Italian next summer.')
+    expect(sentenceOf(choice)).toBe(choice.prompt)
+  })
+
+  it('leaves no gap or hint behind in any sentence', () => {
+    for (const exercise of exercises.filter(candidate => typeOf(candidate) === 'gap')) {
+      const hints = exercise.prompt.match(/(?<=___\s*)\([^)]*\)/g) ?? []
+      const sentence = sentenceOf(exercise)
+
+      expect(sentence, exercise.id).not.toContain('___')
+      hints.forEach(hint => expect(sentence, exercise.id).not.toContain(hint))
+    }
+  })
+
+  it('does not stack a full stop on a solution that already ends its sentence', () => {
+    const transform = exercisesOf('be-going-to').find(candidate => candidate.id === 'be-going-to-008')!
+
+    expect(correction(transform)).toBe(`La respuesta correcta es: ${transform.solution} ${transform.explanation}`)
+
+    // Only what correction() writes around the solution: an explanation may quote "booked...?".
+    for (const exercise of exercises) {
+      expect(correction(exercise).replace(explain(exercise), ''), exercise.id).not.toMatch(/\.\.|\?\.|!\./)
+    }
+  })
+
   it('leaves no dangling dot when there is nothing to explain', () => {
     // Reading questions drill no tense at all, so there is no structure to fall back on.
     const question = items().find(item => item.kind === 'reading')!
@@ -284,8 +347,147 @@ describe('ExerciseGap', () => {
   })
 })
 
+describe('ExerciseChoice', () => {
+  const exercise = exercises.find(candidate => typeOf(candidate) === 'choice')!
+  const [wrong, other] = exercise.options!.filter(option => option !== exercise.solution)
+
+  /** What the option with that value reads, mark included. */
+  const option = (page: VueWrapper, value: string) => page.findAll('[data-slot="item"]')
+    .find(item => item.find('[role="radio"]').attributes('value') === value)!
+
+  const mount = (modelValue: string, disabled: boolean) =>
+    mountSuspended(ExerciseChoice, { props: { exercise, modelValue, disabled } })
+
+  it('marks nothing before the answer is corrected', async () => {
+    const page = await mount(wrong!, false)
+
+    expect(page.text()).not.toContain('Correcta')
+    expect(page.text()).not.toContain('Tu respuesta')
+    // The tenses are English names, read with the English voice.
+    expect(option(page, exercise.solution).find('[lang="en"]').text()).toBe(exercise.solution)
+  })
+
+  it('marks the right option and a wrong pick, each with an icon and a word', async () => {
+    const page = await mount(wrong!, true)
+
+    expect(option(page, exercise.solution).text()).toContain('Correcta')
+    expect(option(page, exercise.solution).find('.iconify').exists()).toBe(true)
+    expect(option(page, wrong!).text()).toContain('Tu respuesta')
+    expect(option(page, wrong!).find('.iconify').exists()).toBe(true)
+    expect(option(page, other!).text()).toBe(other)
+  })
+
+  it('marks only the right option when nothing was picked', async () => {
+    const page = await mount('', true)
+
+    expect(option(page, exercise.solution).text()).toContain('Correcta')
+    expect(page.text()).not.toContain('Tu respuesta')
+  })
+
+  it('marks a right pick only as the right option', async () => {
+    const page = await mount(exercise.solution, true)
+
+    expect(option(page, exercise.solution).text()).toContain('Correcta')
+    expect(page.text()).not.toContain('Tu respuesta')
+  })
+})
+
 describe('/frases/[tiempo]', () => {
   beforeEach(() => localStorage.removeItem(storageKey))
+
+  /** Stores every other sentence of the tense as learnt, so `exercise` opens the round. */
+  function onlyDue(exercise: Exercise) {
+    const future = addDays(day(), 1)
+
+    save(Object.fromEntries(exercisesOf(exercise.tenseId)
+      .filter(candidate => candidate !== exercise)
+      .map(candidate => [frasesItemId(candidate), review(undefined, frasesItemId(candidate), true, future)])))
+  }
+
+  it('corrects a gap with the whole sentence, in English and with the filled words highlighted', async () => {
+    const exercise = exercisesOf('be-going-to').find(candidate => candidate.id === 'be-going-to-001')!
+    onlyDue(exercise)
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/be-going-to' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    await page.find('input').setValue('nope')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    const sentence = feedbackSentence(page)
+
+    expect(sentence.text()).toBe('We are going to move to Valencia in June; we signed the contract last week.')
+    expect(sentence.find('strong').text()).toBe('are going to move')
+    expect(sentence.text()).not.toContain('___')
+    expect(sentence.text()).not.toContain('(move)')
+    expect(page.text()).toContain(exercise.explanation!)
+  })
+
+  it('corrects a transform miss without a doubled full stop', async () => {
+    const exercise = exercisesOf('be-going-to').find(candidate => candidate.id === 'be-going-to-008')!
+    onlyDue(exercise)
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/be-going-to' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    await page.find('input').setValue('nope')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain(`La respuesta correcta es: ${exercise.solution} ${exercise.explanation}`)
+    expect(page.text()).not.toContain('..')
+  })
+
+  it.each([true, false])('corrects a choice with Enter on the selected option (correct: %s)', async (correct) => {
+    const exercise = exercisesOf('present-simple').find(candidate => typeOf(candidate) === 'choice')!
+    onlyDue(exercise)
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple', attachTo: document.body })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    const wanted = correct ? exercise.solution : exercise.options!.find(option => option !== exercise.solution)!
+    const radio = page.findAll('[role="radio"]').find(candidate => candidate.attributes('value') === wanted)!
+
+    await radio.trigger('click')
+    expect(radio.attributes('aria-checked')).toBe('true')
+    await radio.trigger('keydown', { key: 'Enter' })
+    await flushPromises()
+
+    expect(page.text()).toContain(correct ? '¡Correcto!' : 'No es esa')
+    expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: correct ? 1 : 0, misses: correct ? 0 : 1 })
+
+    // The focus is now on "Siguiente", where Enter submits the form natively.
+    const next = document.activeElement as HTMLButtonElement
+
+    expect(next.textContent).toContain('Siguiente')
+    next.form!.requestSubmit()
+    await flushPromises()
+
+    expect(page.text()).toContain('Frase 2 de')
+  })
+
+  it('marks only the right option after "No lo sé", even with an option picked', async () => {
+    const exercise = exercisesOf('present-simple').find(candidate => typeOf(candidate) === 'choice')!
+    const wrong = exercise.options!.find(option => option !== exercise.solution)!
+    onlyDue(exercise)
+
+    const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    await page.findAll('[role="radio"]').find(candidate => candidate.attributes('value') === wrong)!.trigger('click')
+    await page.findAll('button').find(button => button.text() === 'No lo sé')!.trigger('click')
+    await flushPromises()
+
+    expect(page.text()).toContain('No es esa')
+    expect(page.text()).toContain('Correcta')
+    expect(page.text()).not.toContain('Tu respuesta')
+    expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: 0, misses: 1 })
+  })
 
   it.each([true, false])('shuffles choice options and records the selected value (correct: %s)', async (correct) => {
     const drill = exercisesOf('present-simple')
@@ -314,6 +516,8 @@ describe('/frases/[tiempo]', () => {
     await flushPromises()
 
     expect(page.text()).toContain(correct ? '¡Correcto!' : 'No es esa')
+    // A hit by chance out of three options still says why.
+    expect(page.text()).toContain(exercise.explanation!)
     expect(load()[frasesItemId(exercise)]).toMatchObject({ hits: correct ? 1 : 0, misses: correct ? 0 : 1 })
     expect(page.findAll('[role="radio"]').map(radio => radio.attributes('value'))).toEqual(order)
   })
