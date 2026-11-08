@@ -49,6 +49,50 @@ describe('home', () => {
     expect(page.text()).toContain('Nada pendiente por ahora')
     expect(page.text()).not.toContain('ejercicios te tocan hoy')
   })
+
+  it('groups the section cards under Aprende, Practica and Tu avance', async () => {
+    const page = await mountSuspended(IndexPage)
+    const groups = page.findAll('section').filter(group => group.find('h2').exists())
+
+    expect(groups.map(group => group.find('h2').text())).toEqual(['Aprende', 'Practica', 'Tu avance'])
+
+    for (const section of sections) {
+      const group = groups.find(candidate => candidate.find('h2').text() === section.group)
+
+      expect(group?.find(`a[href="${section.to}"]`).exists(), section.label).toBe(true)
+    }
+  })
+
+  /** The main action of the home: the link that says what to do now. */
+  const mainAction = (page: Awaited<ReturnType<typeof mountSuspended>>) =>
+    page.findAll('a').find(link => /Repasar hoy|Empezar por la teoría/.test(link.text()))
+
+  it('leads to today\'s review with the due count when something is due', async () => {
+    const item = items()[0]!
+    save({ [item.id]: review(undefined, item.id, false, day()) })
+    const page = await mountSuspended(IndexPage)
+
+    expect(mainAction(page)?.attributes('href')).toBe('/repaso')
+    expect(mainAction(page)?.text()).toBe('Repasar hoy (1)')
+  })
+
+  it('leads to the theory when nothing is due', async () => {
+    const page = await mountSuspended(IndexPage)
+
+    expect(mainAction(page)?.attributes('href')).toBe('/teoria')
+    expect(page.text()).not.toContain('Repasar hoy')
+  })
+
+  it('leads to the theory when only a speaking attempt is due', async () => {
+    const tense = tenses[0]!
+    const id = speakingItemId(tense, tense.examples[0]!)
+
+    save({ [id]: review(undefined, id, false, day()) })
+    const page = await mountSuspended(IndexPage)
+
+    expect(mainAction(page)?.attributes('href')).toBe('/teoria')
+    expect(page.text()).not.toContain('Repasar hoy')
+  })
 })
 
 // These pages traded their hero for a compact header: the same single h1 and the same links.
@@ -63,6 +107,18 @@ describe('page headers', () => {
 
     expect(page.findAll('h1').map(heading => heading.text())).toEqual([title])
     expect(page.findAll('a').some(anchor => anchor.text() === link)).toBe(true)
+  })
+})
+
+describe('header', () => {
+  it('shows the EN mark as decoration next to the site name', async () => {
+    const layout = await mountSuspended(DefaultLayout)
+    const home = layout.find('header a[href="/"]')
+
+    expect(home.attributes('aria-label')).toBe('Inglés')
+    expect(home.text()).toBe('Inglés')
+    expect(home.find('img').attributes('alt')).toBe('')
+    expect(home.find('img').attributes('src')).toBe('/icon.svg')
   })
 })
 
