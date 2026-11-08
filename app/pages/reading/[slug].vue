@@ -4,6 +4,7 @@ const { record } = useProgress()
 const route = useRoute()
 const reading = readingById(String(route.params.slug))
 
+// The template renders nothing without a reading, so an unknown slug ends here in the 404.
 if (!reading) {
   throw createError({ statusCode: 404, message: 'Lectura no encontrada', fatal: true })
 }
@@ -103,24 +104,26 @@ useSeo({
 </script>
 
 <template>
-  <UPage>
-    <UPageHero
-      :title="reading!.title"
-      :description="reading!.topic"
-    >
-      <template #links>
-        <UBadge
-          :label="`Nivel ${reading!.level}`"
-          variant="subtle"
-        />
-        <UBadge
-          :label="`${readingMinutes(reading!)} min de lectura`"
-          icon="i-lucide-clock"
-          variant="subtle"
-          color="neutral"
-        />
-      </template>
-    </UPageHero>
+  <UPage v-if="reading">
+    <UContainer>
+      <UPageHeader
+        :title="reading!.title"
+        :description="reading!.topic"
+      >
+        <template #links>
+          <UBadge
+            :label="`Nivel ${reading!.level}`"
+            variant="subtle"
+          />
+          <UBadge
+            :label="`${readingMinutes(reading!)} min de lectura`"
+            icon="i-lucide-clock"
+            variant="subtle"
+            color="neutral"
+          />
+        </template>
+      </UPageHeader>
+    </UContainer>
 
     <UPageSection>
       <div class="mx-auto w-full max-w-2xl space-y-10">

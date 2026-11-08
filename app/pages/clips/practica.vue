@@ -126,26 +126,28 @@ function onUnavailable(videoId: string) {
 
 <template>
   <UPage>
-    <UPageHero
-      title="Practicar con clips"
-      :description="`${filterLabel ? `Filtro activo: ${filterLabel}. ` : ''}Escucha la frase y escribe lo que falta. ${size} clips por ronda, corrección al instante.`"
-    >
-      <template #links>
-        <UButton
-          v-if="filterLabel"
-          to="/clips/practica"
-          label="Quitar filtros"
-          icon="i-lucide-filter-x"
-          color="neutral"
-        />
-        <UButton
-          to="/clips"
-          label="Ver los clips"
-          icon="i-lucide-clapperboard"
-          color="neutral"
-        />
-      </template>
-    </UPageHero>
+    <UContainer>
+      <UPageHeader
+        title="Practicar con clips"
+        :description="`${filterLabel ? `Filtro activo: ${filterLabel}. ` : ''}Escucha la frase y escribe lo que falta. ${size} clips por ronda, corrección al instante.`"
+      >
+        <template #links>
+          <UButton
+            v-if="filterLabel"
+            to="/clips/practica"
+            label="Quitar filtros"
+            icon="i-lucide-filter-x"
+            color="neutral"
+          />
+          <UButton
+            to="/clips"
+            label="Ver los clips"
+            icon="i-lucide-clapperboard"
+            color="neutral"
+          />
+        </template>
+      </UPageHeader>
+    </UContainer>
 
     <UPageSection>
       <div class="mx-auto w-full max-w-xl">

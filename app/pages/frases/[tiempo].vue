@@ -87,19 +87,21 @@ useSeo({
 
 <template>
   <UPage>
-    <UPageHero
-      :title="`Frases de ${tense!.name}`"
-      :description="`${drill.length} frases de ${tense!.nameEs.toLowerCase()}: cada ronda saca ${Math.min(size, drill.length)}, con corrección al instante.`"
-    >
-      <template #links>
-        <UButton
-          :to="`/teoria/${tense!.id}`"
-          label="Repasar la teoría"
-          icon="i-lucide-book-open"
-          color="neutral"
-        />
-      </template>
-    </UPageHero>
+    <UContainer>
+      <UPageHeader
+        :title="`Frases de ${tense!.name}`"
+        :description="`${drill.length} frases de ${tense!.nameEs.toLowerCase()}: cada ronda saca ${Math.min(size, drill.length)}, con corrección al instante.`"
+      >
+        <template #links>
+          <UButton
+            :to="`/teoria/${tense!.id}`"
+            label="Repasar la teoría"
+            icon="i-lucide-book-open"
+            color="neutral"
+          />
+        </template>
+      </UPageHeader>
+    </UContainer>
 
     <UPageSection>
       <div class="mx-auto w-full max-w-xl">

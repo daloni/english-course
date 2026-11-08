@@ -42,18 +42,20 @@ const tensesOf = (clip: Clip) => [...new Set(clip.exercises
 
 <template>
   <UPage>
-    <UPageHero
-      title="Clips"
-      description="Frases sueltas de vídeos reales, con su hueco. El vídeo lo pone YouTube: aquí solo se guarda qué trozo mirar."
-    >
-      <template #links>
-        <UButton
-          :to="{ path: '/clips/practica', query: { ...(level !== 'all' && { nivel: level }), ...(channel !== 'all' && { canal: channel }) } }"
-          label="Practicar"
-          icon="i-lucide-play"
-        />
-      </template>
-    </UPageHero>
+    <UContainer>
+      <UPageHeader
+        title="Clips"
+        description="Frases sueltas de vídeos reales, con su hueco. El vídeo lo pone YouTube: aquí solo se guarda qué trozo mirar."
+      >
+        <template #links>
+          <UButton
+            :to="{ path: '/clips/practica', query: { ...(level !== 'all' && { nivel: level }), ...(channel !== 'all' && { canal: channel }) } }"
+            label="Practicar"
+            icon="i-lucide-play"
+          />
+        </template>
+      </UPageHeader>
+    </UContainer>
 
     <UPageSection>
       <p

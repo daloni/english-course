@@ -21,10 +21,12 @@ useSeo({
 
 <template>
   <UPage>
-    <UPageHero
-      title="Reading"
-      description="Lee un texto en inglés, consulta el glosario si hace falta y responde a las preguntas de comprensión."
-    />
+    <UContainer>
+      <UPageHeader
+        title="Reading"
+        description="Lee un texto en inglés, consulta el glosario si hace falta y responde a las preguntas de comprensión."
+      />
+    </UContainer>
 
     <UPageSection>
       <UPageGrid>

@@ -33,10 +33,12 @@ const groups = computed(() => {
 
 <template>
   <UPage>
-    <UPageHero
-      title="Teoría"
-      description="Los tiempos verbales explicados: cuándo se usa cada uno y cómo se forma."
-    />
+    <UContainer>
+      <UPageHeader
+        title="Teoría"
+        description="Los tiempos verbales explicados: cuándo se usa cada uno y cómo se forma."
+      />
+    </UContainer>
 
     <UPageSection>
       <UInput

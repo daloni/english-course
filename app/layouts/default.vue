@@ -7,6 +7,10 @@ interface InstallPromptEvent extends Event {
 }
 
 const { pending, persistenceFailed } = useProgress()
+// The EN mark of the header hangs off the base, as the site lives under a subpath on GitHub
+// Pages. It is decorative (alt=""): UHeader names the home link after the text of its title
+// slot, so no comment goes in that slot either, or it would end up in the name.
+const { baseURL } = useRuntimeConfig().app
 const items = sections.map(({ label, to, icon }) => ({
   label,
   to,
@@ -76,9 +80,16 @@ onUnmounted(() => {
       Saltar al contenido
     </a>
 
-    <UHeader :ui="{ center: 'flex-1' }">
+    <UHeader :ui="{ center: 'flex-1', title: 'items-center gap-2' }">
       <template #title>
-        <span class="font-bold">Inglés</span>
+        <img
+          :src="`${baseURL}icon.svg`"
+          alt=""
+          width="28"
+          height="28"
+          class="size-7 rounded-md"
+        >
+        <span class="font-display font-bold">Inglés</span>
       </template>
 
       <UNavigationMenu :items="items">
