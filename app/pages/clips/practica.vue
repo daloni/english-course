@@ -301,13 +301,11 @@ function onUnavailable(videoId: string) {
               class="mt-6"
               aria-live="polite"
             >
-              <UAlert
+              <ExerciseFeedback
                 v-if="checked"
-                :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-                :description="checked.correct ? checked.question.clip.text : correction(checked.question.exercise)"
-                :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
-                :color="checked.correct ? 'success' : 'error'"
-                variant="subtle"
+                :correct="checked.correct"
+                :exercise="checked.question.exercise"
+                :sentence="[{ text: checked.question.clip.text }]"
               />
             </div>
           </template>

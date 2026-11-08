@@ -978,6 +978,61 @@ describe('practising', () => {
     }
   })
 
+  it.each([
+    { kind: 'frases', correct: true },
+    { kind: 'frases', correct: false },
+    { kind: 'reading', correct: true },
+    { kind: 'reading', correct: false }
+  ])('corrects a $kind option with Enter on the selected one (correct: $correct)', async ({ kind, correct }) => {
+    const candidate = items().find(item => kind === 'frases'
+      ? item.kind === 'frases' && item.type === 'choice'
+      : item.id === 'reading:travel:travel-q2')!
+    save({ [candidate.id]: review(undefined, candidate.id, false, addDays(day(), -1)) })
+
+    const page = await mountSuspended(Repaso, { attachTo: document.body })
+    onTestFinished(() => page.unmount())
+    await flushPromises()
+
+    const wanted = correct ? candidate.solution : candidate.options!.find(option => option !== candidate.solution)!
+    const radio = page.findAll('[role="radio"]').find(option => option.attributes('value') === wanted)!
+
+    await radio.trigger('click')
+    expect(radio.attributes('aria-checked')).toBe('true')
+    await radio.trigger('keydown', { key: 'Enter' })
+    await flushPromises()
+
+    expect(page.text()).toContain(correct ? '¡Correcto!' : 'No es esa')
+    expect(load()[candidate.id]).toMatchObject({ hits: correct ? 1 : 0, misses: correct ? 1 : 2 })
+    // A hit says why as well, with the explanation the exercise carries.
+    expect(page.text()).toContain(candidate.explanation!)
+
+    // The focus is now on "Siguiente", where Enter submits the form natively.
+    const next = document.activeElement as HTMLButtonElement
+
+    expect(next.textContent).toContain('Siguiente')
+    next.form!.requestSubmit()
+    await flushPromises()
+
+    expect(page.text()).toContain('Repaso terminado')
+  })
+
+  it('shows the line of a missed clip, in English', async () => {
+    const clip = clips[0]!
+    const id = clipItemId(clip, clip.exercises[0]!)
+    save({ [id]: review(undefined, id, false, addDays(day(), -1)) })
+
+    const page = await mountSuspended(Repaso, { global: { stubs: { ClipPlayer: true } } })
+    onTestFinished(() => page.unmount())
+    await vi.waitFor(() => expect(page.find('form').exists()).toBe(true))
+
+    await page.find('input').setValue('nope')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).toContain('No es esa')
+    expect(page.find('[aria-live="polite"] [lang="en"]').text()).toBe(clip.text)
+  })
+
   /** Answers the first sentence of /frases/present-simple wrong, as the learner would. */
   async function fail() {
     const page = await mountSuspended(TensePractice, { route: '/frases/present-simple' })
@@ -1314,6 +1369,7 @@ describe('practising', () => {
     await flushPromises()
 
     expect(page.text()).toContain('¡Correcto!')
+    expect(page.text()).toContain(transform.explanation!)
     expect(load()[id]).toMatchObject({ hits: 1, misses: 1 })
 
     await page.find('form').trigger('submit')

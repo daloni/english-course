@@ -55,6 +55,9 @@ function submit(skip = false) {
   record(frasesItemId(exercise.value), correct)
   results.value.push({ exercise: exercise.value, answer: answer.value, correct })
   checked.value = { correct, exercise: exercise.value }
+
+  // "No lo sé" answers nothing: a pick made before it is not marked as the learner's answer.
+  if (skip) answer.value = ''
 }
 
 const { siteUrl } = useRuntimeConfig().public
@@ -210,13 +213,11 @@ useSeo({
               class="mt-6"
               aria-live="polite"
             >
-              <UAlert
+              <ExerciseFeedback
                 v-if="checked"
-                :title="checked.correct ? '¡Correcto!' : 'No es esa'"
-                :description="checked.correct ? checked.exercise.solution : correction(checked.exercise)"
-                :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
-                :color="checked.correct ? 'success' : 'error'"
-                variant="subtle"
+                :correct="checked.correct"
+                :exercise="checked.exercise"
+                :sentence="completed(checked.exercise)"
               />
             </div>
           </template>

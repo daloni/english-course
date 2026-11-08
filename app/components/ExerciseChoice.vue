@@ -36,6 +36,34 @@ const sentenceId = useId()
       :aria-describedby="sentenceId"
       :ui="{ fieldset: 'gap-y-2' }"
       class="mt-4"
-    />
+      @keydown.enter="submitOnEnter"
+    >
+      <!-- Once corrected, the right option and a wrong pick say so with an icon and a word. The
+           word keeps the text colour: the 500 shade of success and error, dimmed further by the
+           disabled option, stays under 4.5:1; the darker icon only has to reach 3:1. -->
+      <template #label="{ item }">
+        <span lang="en">{{ item.label }}</span>
+        <span
+          v-if="disabled && item.value === exercise.solution"
+          class="ms-2 inline-flex items-center gap-1 text-sm font-medium text-highlighted"
+        >
+          <UIcon
+            name="i-lucide-check"
+            class="text-(--ui-color-success-700) dark:text-(--ui-color-success-400)"
+          />
+          Correcta
+        </span>
+        <span
+          v-else-if="disabled && item.value === answer"
+          class="ms-2 inline-flex items-center gap-1 text-sm font-medium text-highlighted"
+        >
+          <UIcon
+            name="i-lucide-x"
+            class="text-(--ui-color-error-700) dark:text-(--ui-color-error-400)"
+          />
+          Tu respuesta
+        </span>
+      </template>
+    </URadioGroup>
   </div>
 </template>
