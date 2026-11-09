@@ -90,6 +90,32 @@ describe('/verbos/practica', () => {
     expect(page.findAll('ul li')).toHaveLength(5)
   })
 
+  it('holds the question in a card, with a progress bar and the field and both actions in the form', async () => {
+    const page = await mountSuspended(Practica)
+    await flushPromises()
+
+    const bar = () => page.find('[role="progressbar"]')
+    const card = bar().element.closest('[data-slot="body"]')!
+    const form = page.find('form')
+
+    expect(card.textContent).toContain('Pregunta 1 de 10')
+    expect(card.contains(page.find('h2').element)).toBe(true)
+    expect(card.contains(form.element)).toBe(true)
+    expect(card.contains(page.find('h1').element)).toBe(false)
+    expect(bar().element.closest('[aria-hidden="true"]')).not.toBeNull()
+    expect(bar().attributes('aria-valuemax')).toBe('10')
+    expect(bar().attributes('aria-valuenow')).toBe('0')
+    expect(form.find('input').exists()).toBe(true)
+    expect(form.findAll('button').map(button => button.text())).toEqual(['Comprobar', 'No lo sé'])
+
+    await form.find('input').setValue('nope')
+    await form.trigger('submit')
+    await flushPromises()
+
+    expect(bar().attributes('aria-valuenow')).toBe('1')
+    expect(card.textContent).toContain('No es esa')
+  })
+
   it('does not accept an empty answer', async () => {
     const page = await mountSuspended(Practica)
     await flushPromises()

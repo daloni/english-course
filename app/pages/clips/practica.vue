@@ -150,7 +150,7 @@ function onUnavailable(videoId: string) {
     </UContainer>
 
     <UPageSection>
-      <div class="mx-auto w-full max-w-xl">
+      <div class="mx-auto w-full max-w-xl sm:max-w-2xl">
         <ClientOnly>
           <template #fallback>
             <p class="text-sm text-muted">
@@ -253,11 +253,20 @@ function onUnavailable(videoId: string) {
             />
           </template>
 
-          <template v-else-if="question">
+          <UCard v-else-if="question">
             <p class="text-sm text-muted">
               Clip {{ index + 1 }} de {{ round.length }} · {{ question.clip.channel }} ·
               {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
             </p>
+
+            <!-- The line above already says where the round is: the bar is not read out again. -->
+            <UProgress
+              :model-value="results.length"
+              :max="round.length"
+              size="sm"
+              aria-hidden="true"
+              class="mt-2"
+            />
 
             <ClipPlayer
               :video-id="question.clip.videoId"
@@ -278,12 +287,15 @@ function onUnavailable(videoId: string) {
                 :disabled="!!checked"
               />
 
-              <div class="mt-6 flex flex-wrap gap-3">
+              <!-- On a phone the actions share the width of the card. -->
+              <div class="mt-6 flex gap-3">
                 <UButton
                   data-focus-target
                   type="submit"
                   :label="checked ? 'Siguiente' : 'Comprobar'"
                   :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                 />
                 <UButton
                   v-if="!checked"
@@ -292,23 +304,23 @@ function onUnavailable(videoId: string) {
                   icon="i-lucide-circle-help"
                   color="neutral"
                   variant="outline"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                   @click="submit(true)"
                 />
               </div>
             </form>
 
-            <div
-              class="mt-6"
-              aria-live="polite"
-            >
+            <div aria-live="polite">
               <ExerciseFeedback
                 v-if="checked"
                 :correct="checked.correct"
                 :exercise="checked.question.exercise"
                 :sentence="[{ text: checked.question.clip.text }]"
+                class="mt-6"
               />
             </div>
-          </template>
+          </UCard>
         </ClientOnly>
       </div>
     </UPageSection>

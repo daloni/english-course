@@ -107,7 +107,7 @@ useSeo({
     </UContainer>
 
     <UPageSection>
-      <div class="mx-auto w-full max-w-xl">
+      <div class="mx-auto w-full max-w-xl sm:max-w-2xl">
         <ClientOnly>
           <template #fallback>
             <p class="text-sm text-muted">
@@ -173,10 +173,19 @@ useSeo({
             />
           </template>
 
-          <template v-else-if="exercise">
+          <UCard v-else-if="exercise">
             <p class="text-sm text-muted">
               Frase {{ index + 1 }} de {{ round.length }} · {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
             </p>
+
+            <!-- The line above already says where the round is: the bar is not read out again. -->
+            <UProgress
+              :model-value="results.length"
+              :max="round.length"
+              size="sm"
+              aria-hidden="true"
+              class="mt-2"
+            />
 
             <form
               class="mt-4"
@@ -190,12 +199,15 @@ useSeo({
                 :disabled="!!checked"
               />
 
-              <div class="mt-6 flex flex-wrap gap-3">
+              <!-- On a phone the actions share the width of the card. -->
+              <div class="mt-6 flex gap-3">
                 <UButton
                   data-focus-target
                   type="submit"
                   :label="checked ? 'Siguiente' : 'Comprobar'"
                   :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                 />
                 <UButton
                   v-if="!checked"
@@ -204,23 +216,23 @@ useSeo({
                   icon="i-lucide-circle-help"
                   color="neutral"
                   variant="outline"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                   @click="submit(true)"
                 />
               </div>
             </form>
 
-            <div
-              class="mt-6"
-              aria-live="polite"
-            >
+            <div aria-live="polite">
               <ExerciseFeedback
                 v-if="checked"
                 :correct="checked.correct"
                 :exercise="checked.exercise"
                 :sentence="completed(checked.exercise)"
+                class="mt-6"
               />
             </div>
-          </template>
+          </UCard>
         </ClientOnly>
       </div>
     </UPageSection>

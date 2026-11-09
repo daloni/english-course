@@ -36,7 +36,8 @@ function accessibleName(page: VueWrapper, input: Element): string {
   const id = input.getAttribute('id')
   const tag = id ? page.find(`label[for="${id}"]`) : undefined
 
-  return tag?.exists() ? tag.text() : ''
+  // The card options of a radio group are named by the label that wraps them.
+  return tag?.exists() ? tag.text() : input.closest('label')?.textContent?.trim() ?? ''
 }
 
 /**
