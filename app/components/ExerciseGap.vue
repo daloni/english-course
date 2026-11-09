@@ -10,11 +10,21 @@ const sentenceId = useId()
 
 <template>
   <div>
+    <!-- Each ___ is drawn as a blank but keeps its text: the sentence still reads and copies as written. -->
     <p
       lang="en"
-      class="text-xl"
+      class="text-2xl font-medium leading-snug text-highlighted sm:text-3xl"
     >
-      {{ exercise.prompt }}
+      <template
+        v-for="(part, i) in exercise.prompt.split('___')"
+        :key="i"
+      >
+        <span
+          v-if="i"
+          class="rounded-sm bg-primary/10 px-1 text-primary"
+        >___</span>
+        <span>{{ part }}</span>
+      </template>
     </p>
 
     <!-- What the field reads out on taking the focus, each ___ spoken as "hueco"; hidden so it is not read twice. -->
@@ -43,6 +53,7 @@ const sentenceId = useId()
       :placeholder="gaps > 1 ? `Las ${gapLabel} respuestas separadas por /` : 'Lo que va en el hueco'"
       :aria-label="gaps > 1 ? `Las ${gapLabel} respuestas separadas por /` : 'Lo que va en el hueco'"
       :aria-describedby="sentenceId"
+      size="xl"
       class="mt-4 w-full max-w-sm"
     />
 

@@ -84,7 +84,7 @@ function submit(skip = false) {
     </UContainer>
 
     <UPageSection>
-      <div class="mx-auto w-full max-w-xl">
+      <div class="mx-auto w-full max-w-xl sm:max-w-2xl">
         <ClientOnly>
           <template #fallback>
             <p class="text-sm text-muted">
@@ -147,12 +147,21 @@ function submit(skip = false) {
             />
           </template>
 
-          <template v-else-if="question">
+          <UCard v-else-if="question">
             <p class="text-sm text-muted">
               Pregunta {{ index + 1 }} de {{ quiz.length }} · {{ hits }} {{ hits === 1 ? 'acierto' : 'aciertos' }}
             </p>
 
-            <h2 class="mt-2 text-xl font-semibold">
+            <!-- The line above already says where the quiz is: the bar is not read out again. -->
+            <UProgress
+              :model-value="results.length"
+              :max="quiz.length"
+              size="sm"
+              aria-hidden="true"
+              class="mt-2"
+            />
+
+            <h2 class="mt-4 text-2xl font-medium leading-snug text-highlighted sm:text-3xl">
               {{ question.label }} de <em
                 lang="en"
                 class="italic"
@@ -163,8 +172,9 @@ function submit(skip = false) {
               {{ question.verb.es }}
             </p>
 
+            <!-- On a phone the field takes the width of the card, with the actions under it. -->
             <form
-              class="mt-6 flex items-start gap-3"
+              class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start"
               @submit.prevent="submit()"
             >
               <UInput
@@ -179,15 +189,18 @@ function submit(skip = false) {
                 spellcheck="false"
                 placeholder="Tu respuesta"
                 :aria-label="`${question.label} de ${question.verb.infinitive}`"
-                class="flex-1"
+                size="xl"
+                class="sm:flex-1"
               />
 
-              <div class="flex flex-wrap gap-3">
+              <div class="flex gap-3">
                 <UButton
                   data-focus-target
                   type="submit"
                   :label="checked ? 'Siguiente' : 'Comprobar'"
                   :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                 />
                 <UButton
                   v-if="!checked"
@@ -196,15 +209,14 @@ function submit(skip = false) {
                   icon="i-lucide-circle-help"
                   color="neutral"
                   variant="outline"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                   @click="submit(true)"
                 />
               </div>
             </form>
 
-            <div
-              class="mt-6"
-              aria-live="polite"
-            >
+            <div aria-live="polite">
               <UAlert
                 v-if="checked"
                 :title="checked.correct ? '¡Correcto!' : 'No es esa'"
@@ -212,9 +224,11 @@ function submit(skip = false) {
                 :icon="checked.correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
                 :color="checked.correct ? 'success' : 'error'"
                 variant="subtle"
+                :ui="feedbackUi(checked.correct)"
+                class="mt-6"
               />
             </div>
-          </template>
+          </UCard>
         </ClientOnly>
       </div>
     </UPageSection>

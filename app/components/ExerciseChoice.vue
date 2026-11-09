@@ -22,7 +22,7 @@ const sentenceId = useId()
     <p
       :id="sentenceId"
       lang="en"
-      class="mt-1 text-xl"
+      class="mt-1 text-2xl font-medium leading-snug text-highlighted sm:text-3xl"
     >
       {{ exercise.prompt }}
     </p>
@@ -34,6 +34,7 @@ const sentenceId = useId()
       data-focus-input
       legend="Elige el tiempo verbal"
       :aria-describedby="sentenceId"
+      variant="card"
       :ui="{ fieldset: 'gap-y-2' }"
       class="mt-4"
       @keydown.enter="submitOnEnter"

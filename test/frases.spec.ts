@@ -5,6 +5,8 @@ import { flushPromises } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import FrasesIndex from '../app/pages/frases/index.vue'
 import TensePractice from '../app/pages/frases/[tiempo].vue'
+import ClipsPractice from '../app/pages/clips/practica.vue'
+import Repaso from '../app/pages/repaso.vue'
 import ExerciseChoice from '../app/components/ExerciseChoice.vue'
 import ExerciseGap from '../app/components/ExerciseGap.vue'
 import ExerciseTransform from '../app/components/ExerciseTransform.vue'
@@ -320,7 +322,11 @@ describe('ExerciseGap', () => {
     })
 
     const input = page.find('input')
+    const sentence = page.find('p[lang="en"]')
 
+    // Each gap is drawn as a blank of its own, and the sentence still reads as written.
+    expect(sentence.text()).toBe('___ they ___ (wait) for the doctor now?')
+    expect(sentence.findAll('span').filter(span => span.text() === '___')).toHaveLength(2)
     expect(input.attributes('placeholder')).toBe('Las dos respuestas separadas por /')
     expect(input.attributes('aria-label')).toBe('Las dos respuestas separadas por /')
     expect(page.text()).toContain('Hay dos huecos: escribe las respuestas separadas por / (por ejemplo Are / waiting).')
@@ -626,5 +632,49 @@ describe('/frases/[tiempo]', () => {
 
   it('404s on a tense without exercises', async () => {
     await expect(mountSuspended(TensePractice, { route: '/frases/no-existe' })).rejects.toThrow()
+  })
+})
+
+// The exercise is what the page is about: everything that belongs to it shares one card, the
+// page header stays out of it, and a bar shows the position without announcing it twice.
+describe('the exercise card', () => {
+  beforeEach(() => localStorage.removeItem(storageKey))
+
+  it.each([
+    { name: '/frases/present-simple', mount: () => mountSuspended(TensePractice, { route: '/frases/present-simple' }) },
+    { name: '/clips/practica', mount: () => mountSuspended(ClipsPractice, { global: { stubs: { ClipPlayer: true } } }) },
+    {
+      name: '/repaso',
+      mount: () => {
+        const due = items().filter(item => item.kind === 'frases').slice(0, 3)
+
+        save(Object.fromEntries(due.map(item => [item.id, review(undefined, item.id, false, day())])))
+
+        return mountSuspended(Repaso)
+      }
+    }
+  ])('$name holds the exercise in a card with a progress bar that advances per answer', async ({ mount }) => {
+    const page = await mount()
+    onTestFinished(() => page.unmount())
+    // The clips arrive in a download of their own, after the first flush.
+    await vi.waitFor(() => expect(page.find('form').exists()).toBe(true))
+
+    const bar = () => page.find('[role="progressbar"]')
+    const card = bar().element.closest('[data-slot="body"]')!
+    const size = bar().attributes('aria-valuemax')
+
+    expect(card.textContent).toMatch(new RegExp(` 1 de ${size} ·`))
+    expect(card.contains(page.find('form').element)).toBe(true)
+    expect(card.contains(page.find('[aria-live="polite"]').element)).toBe(true)
+    expect(card.contains(page.find('h1').element)).toBe(false)
+    // The text says the same: assistive technology does not get the bar too.
+    expect(bar().element.closest('[aria-hidden="true"]')).not.toBeNull()
+    expect(bar().attributes('aria-valuenow')).toBe('0')
+
+    await page.findAll('button').find(button => button.text() === 'No lo sé')!.trigger('click')
+    await flushPromises()
+
+    expect(bar().attributes('aria-valuenow')).toBe('1')
+    expect(card.textContent).toContain('No es esa')
   })
 })

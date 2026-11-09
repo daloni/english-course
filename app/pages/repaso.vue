@@ -49,6 +49,9 @@ const queue = computed(() => deferred.value ? localPending.value : pending.value
 const deferredClips = computed(() => pending.value.length - queue.value.length)
 const exercises = (count: number) => `${count} ${count === 1 ? 'ejercicio' : 'ejercicios'}`
 
+/** Verbs and reading carry their question in the legend or the label: as large as a sentence. */
+const prompt = 'text-2xl font-medium leading-snug text-highlighted sm:text-3xl'
+
 // What this visit has already asked: a missed exercise stays due today, so without this the
 // first ten would fill every round and the rest would never come up.
 const asked = new Set<string>()
@@ -161,7 +164,7 @@ useSeo({
     </UContainer>
 
     <UPageSection>
-      <div class="mx-auto w-full max-w-xl">
+      <div class="mx-auto w-full max-w-xl sm:max-w-2xl">
         <ClientOnly>
           <template #fallback>
             <p class="text-muted">
@@ -324,7 +327,7 @@ useSeo({
             </div>
           </template>
 
-          <template v-else-if="item">
+          <UCard v-else-if="item">
             <p class="text-sm text-muted">
               Ejercicio {{ index + 1 }} de {{ session.length }} ·
               {{ itemKindLabels[item.kind] }} ·
@@ -333,6 +336,15 @@ useSeo({
                 · {{ exercises(deferredClips) }} de clips para después
               </template>
             </p>
+
+            <!-- The line above already says where the round is: the bar is not read out again. -->
+            <UProgress
+              :model-value="results.length"
+              :max="session.length"
+              size="sm"
+              aria-hidden="true"
+              class="mt-2"
+            />
 
             <!-- A clip is heard before it is answered: the line is only in the video. -->
             <ClipPlayer
@@ -392,7 +404,8 @@ useSeo({
                 :legend="item.prompt"
                 :disabled="!!checked"
                 lang="en"
-                :ui="{ fieldset: 'gap-y-2' }"
+                variant="card"
+                :ui="{ fieldset: 'gap-y-2', legend: `mb-4 ${prompt}` }"
                 data-focus-input
                 @keydown.enter="submitOnEnter"
               />
@@ -405,6 +418,7 @@ useSeo({
                 :label="item.prompt"
                 :lang="item.kind === 'verbos' ? undefined : 'en'"
                 size="xl"
+                :ui="{ label: prompt }"
               >
                 <UInput
                   v-model="answer"
@@ -416,16 +430,19 @@ useSeo({
                   autocomplete="off"
                   spellcheck="false"
                   placeholder="Tu respuesta"
-                  class="mt-2 w-full"
+                  class="mt-4 w-full"
                 />
               </UFormField>
 
-              <div class="mt-6 flex flex-wrap gap-3">
+              <!-- On a phone the actions share the width of the card. -->
+              <div class="mt-6 flex gap-3">
                 <UButton
                   data-focus-target
                   type="submit"
                   :label="checked ? 'Siguiente' : 'Comprobar'"
                   :icon="checked ? 'i-lucide-arrow-right' : 'i-lucide-check'"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                 />
                 <UButton
                   v-if="!checked"
@@ -434,23 +451,23 @@ useSeo({
                   icon="i-lucide-circle-help"
                   color="neutral"
                   variant="outline"
+                  size="xl"
+                  class="flex-1 justify-center sm:flex-none"
                   @click="submit(true)"
                 />
               </div>
             </form>
 
-            <div
-              class="mt-6"
-              aria-live="polite"
-            >
+            <div aria-live="polite">
               <ExerciseFeedback
                 v-if="checked"
                 :correct="checked.correct"
                 :exercise="{ ...checked.item, solution: shownAnswer(checked.item) }"
                 :sentence="shownSentence(checked)"
+                class="mt-6"
               />
             </div>
-          </template>
+          </UCard>
         </ClientOnly>
       </div>
     </UPageSection>

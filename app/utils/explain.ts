@@ -95,3 +95,15 @@ export function completed(exercise: Exercise): Segment[] {
  */
 export const submitOnEnter = (event: KeyboardEvent) =>
   (event.target as HTMLElement).closest('form')?.requestSubmit()
+
+/**
+ * The text of the subtle alert that corrects, here and in /verbos/practica. It writes in the
+ * 500 shade, about 2:1 (success) and 3.3:1 (error) on its tint: the 800 shade in light and the
+ * 300 in dark reach 6.5:1 and more, and the description goes neutral.
+ */
+export const feedbackUi = (correct: boolean) => ({
+  title: correct
+    ? 'text-(--ui-color-success-800) dark:text-(--ui-color-success-300)'
+    : 'text-(--ui-color-error-800) dark:text-(--ui-color-error-300)',
+  description: 'text-default opacity-100'
+})

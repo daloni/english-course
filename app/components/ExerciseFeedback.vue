@@ -11,11 +11,13 @@ defineProps<{ correct: boolean, exercise: Exercise, sentence: Segment[] }>()
     :icon="correct ? 'i-lucide-check-circle' : 'i-lucide-x-circle'"
     :color="correct ? 'success' : 'error'"
     variant="subtle"
+    :ui="feedbackUi(correct)"
   >
     <template #description>
       <p
         v-if="sentence.length > 0"
         lang="en"
+        class="text-base text-highlighted"
       >
         <!-- The text goes inline in its tag: written on its own lines it would gain spaces. -->
         <template
