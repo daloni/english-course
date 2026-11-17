@@ -12,14 +12,17 @@ else — code, comments and this documentation — is in English.
 
 ## Requirements
 
-- Node 22+
-- pnpm 12+
+- Node `^22.22.3 || ^24.15.0 || >=26.0.0` (Nuxt's supported versions; CI uses Node 22)
+- pnpm 12.21.0, pinned in `package.json` and `pnpm-lock.yaml`
+
+See the [dependency compatibility review](docs/dependencies.md) for the complete inventory,
+migration notes and the upstream restriction that keeps TypeScript on 6.x.
 
 ## Getting started
 
 ```bash
 cp .env.example .env   # the configuration; without it the build stops
-pnpm install
+pnpm install --frozen-lockfile
 pnpm dev               # http://localhost:3000
 ```
 
@@ -89,23 +92,16 @@ nothing is needed. To serve it from somewhere else (Netlify, an `nginx`…) it i
 
 CI runs `pnpm audit --audit-level high` on the lockfile after lint, typecheck, tests, generation
 and the PWA artifact check: a new high or critical advisory fails the build without hiding
-code regressions. Five advisories have no compatible patched release yet, so they are ignored
-one by one in `auditConfig.ignoreGhsas` of `pnpm-workspace.yaml`, each with its exposure assessment:
+code regressions. The five former exceptions were removed after reassessing the refreshed
+tree. One advisory with no published fix, `GHSA-fc5q-39xc-vjpf` in build/test glob matching,
+is excepted individually. Only the scoped `esbuild@^0.27.0` override is still necessary.
+Two moderate build/test tooling advisories remain visible and do not cross the CI threshold.
+Their parent-package restrictions, exposure, owner, review date and removal conditions are
+recorded in the [security review](docs/dependencies.md#security-policy).
 
-| Advisory | Package | Why it does not apply | Owner | Review by |
-| --- | --- | --- | --- | --- |
-| [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) | `braces` (via `micromatch`) | Only globs the repo's own build configuration at build time; no request or user input reaches it. | @daloni | 2026-11-04 |
-| [GHSA-x6jw-m9v5-85vh](https://github.com/advisories/GHSA-x6jw-m9v5-85vh) | `simple-git` (via `@nuxt/devtools`) | Trailer command guard bypass; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
-| [GHSA-g4wm-2vf7-vfgr](https://github.com/advisories/GHSA-g4wm-2vf7-vfgr) | `simple-git` (via `@nuxt/devtools`) | Unblocked Git configuration includes; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
-| [GHSA-858h-whjf-mvg5](https://github.com/advisories/GHSA-858h-whjf-mvg5) | `simple-git` (via `@nuxt/devtools`) | Long-option abbreviation guard bypass; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
-| [GHSA-v5rq-49vh-5v5c](https://github.com/advisories/GHSA-v5rq-49vh-5v5c) | `@simple-git/argv-parser` (via `simple-git` 3.x) | Missing `VISUAL` editor guard; development tooling, absent from the generated site. The fix requires incompatible `simple-git` 4.x. | @daloni | 2026-11-04 |
-
-Do not override `simple-git` or `@simple-git/argv-parser`: `simple-git` 4.x removes the default
-export that `@nuxt/devtools` imports, breaking `nuxt prepare` during installation. Remove these
-four exceptions when `@nuxt/devtools` migrates to `simple-git` 4.
-
-On the review date run `pnpm audit` without the exceptions: delete every entry that already has
-a fix, update the dependency, and extend the date of the rest only if the assessment still holds.
+Refresh dependencies through their parents and supported ranges. Do not force a major version
+of `simple-git` or its argument parser into an older DevTools: its former default import was
+incompatible with simple-git 4. The selected DevTools removed that dependency entirely.
 
 ## SEO
 

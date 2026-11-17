@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { readFileSync, statSync } from 'node:fs'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 // The manifest is built from nuxt.config.ts, so what it promises and what public/ ships can drift
 // apart without anything looking broken: a renamed icon just leaves the site uninstallable, with
@@ -10,6 +10,31 @@ const config = readFileSync(new URL('../nuxt.config.ts', import.meta.url), 'utf8
 
 /** The icons the manifest declares, read off the config rather than duplicated here. */
 const icons = [...config.matchAll(/src: '([^']+\.png)'/g)].map(match => match[1]!)
+
+async function precacheOptions() {
+  vi.stubGlobal('defineNuxtConfig', (value: unknown) => value)
+  try {
+    return (await import('../nuxt.config')).default.pwa!.generateSW!
+  } finally {
+    vi.unstubAllGlobals()
+  }
+}
+
+describe('offline URL matching', () => {
+  it.each(['/teoria/', '/english-course/teoria/'])('matches the canonical URL %s to its precache entry', async (path) => {
+    const options = await precacheOptions()
+    const urls = options.urlManipulation?.({ url: new URL(`https://pwa.invalid${path}`) }) ?? []
+
+    expect(urls.map(url => url.pathname)).toContain(path.slice(0, -1))
+  })
+
+  it('matches Nuxt payloads regardless of their build cache-busting parameter', async () => {
+    const options = await precacheOptions()
+
+    expect(options.ignoreURLParametersMatching?.some(pattern => pattern.test('_b'))).toBe(true)
+    expect(options.ignoreURLParametersMatching?.some(pattern => pattern.test('lesson'))).toBe(false)
+  })
+})
 
 describe('the PWA manifest', () => {
   it('declares the three icons an installable app needs', () => {

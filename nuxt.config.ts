@@ -76,6 +76,13 @@ export default defineNuxtConfig({
     }
   },
 
+  // Icons inside ClientOnly must be bundled too: a static offline site has no icon API.
+  icon: {
+    clientBundle: {
+      scan: true
+    }
+  },
+
   // Installable and usable without a connection. What survives offline is everything the bundle
   // already carries — theory, verbs, sentences, reading, /progreso and /repaso — because
   // content/ is compiled in, not fetched. The clips need the YouTube iframe and the speaking
@@ -104,11 +111,19 @@ export default defineNuxtConfig({
       ]
     },
 
-    workbox: {
-      // `json` are the _payload.json Nuxt writes for every prerendered route, and `woff2` the
-      // fonts @nuxt/fonts leaves in _fonts/. Without either, an offline start renders unstyled
-      // pages with no data.
-      globPatterns: ['**/*.{js,css,html,json,svg,png,ico,woff2}'],
+    generateSW: {
+      // The PWA module adds Nuxt's payload and build JSON patterns itself. Include the fonts
+      // @nuxt/fonts leaves in _fonts/ too, so offline pages keep their self-hosted typefaces.
+      globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+      // Nuxt adds _b to payload URLs; Workbox revisions already keep each build's data fresh.
+      ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^_b$/],
+      // The module precaches page URLs without a trailing slash; Pages serves their canonical
+      // URLs with one. Both must resolve to the same entry when reloaded offline.
+      urlManipulation: ({ url }) => {
+        const page = new URL(url)
+        page.pathname = page.pathname.replace(/\/$/, '')
+        return [page]
+      },
       // No navigateFallback on purpose: every route is prerendered with its own index.html and
       // precached, so each URL opens offline with its own page. An SPA fallback to / would
       // replace all of them with the home.
