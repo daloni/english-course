@@ -631,7 +631,12 @@ describe('/frases/[tiempo]', () => {
   })
 
   it('404s on a tense without exercises', async () => {
-    await expect(mountSuspended(TensePractice, { route: '/frases/no-existe' })).rejects.toThrow()
+    onTestFinished(() => clearError())
+    const page = await mountSuspended(TensePractice, { route: '/frases/no-existe' })
+    onTestFinished(() => page.unmount())
+
+    expect(useError().value).toMatchObject({ statusCode: 404, message: 'No hay frases de este tiempo verbal' })
+    expect(page.find('h1').exists()).toBe(false)
   })
 })
 

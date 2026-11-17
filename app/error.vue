@@ -25,7 +25,7 @@ useSeo({
 
 <template>
   <UApp>
-    <VitePwaManifest />
+    <NuxtPwaManifest />
     <NuxtLayout>
       <UPage>
         <UContainer>

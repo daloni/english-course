@@ -44,6 +44,13 @@ describe('PWA artifact validation', () => {
     expect(validateArtifact(fixture(), '/english-course/')).toEqual([])
   })
 
+  it('accepts template literal URLs emitted by Workbox 8', () => {
+    const artifact = fixture()
+    writeFileSync(join(artifact, 'sw.js'), 'importScripts("./workbox-test.js");precacheAndRoute([{url:`/english-course/`},{url:`icon-192.png`}])')
+
+    expect(validateArtifact(artifact, '/english-course/')).toEqual([])
+  })
+
   it('reports missing precached resources and out-of-base links', () => {
     const artifact = fixture()
     writeFileSync(join(artifact, 'index.html'), '<link rel="manifest" href="/manifest.webmanifest"><script src="/app.js"></script>')

@@ -5,51 +5,24 @@ allowBuilds:
   unrs-resolver: false
   vue-demi: false
 
-# Transitive dependencies carry advisories that `pnpm update` cannot resolve on its own,
-# so they are pinned here and nowhere else. These are build tooling: nothing of this reaches
-# the generated site.
+# @nuxt/ui still requires @nuxt/fonts ^0.14.0 -> fontless ^0.2.1 -> esbuild ^0.27.0.
+# GHSA-g7r4-m6w7-qqqr is fixed in 0.28.1; use the 0.28.2 already used by Vite/Nitro.
+# Owner: @daloni. Review by 2026-12-17; remove when the font tooling accepts patched esbuild.
 overrides:
-  # postcss asks for nanoid ^3.3.16 and pnpm keeps resolving 3.3.16, which is the version
-  # with the advisory. 3.3.18 is inside the range that postcss already declares.
-  nanoid@3: ^3.3.18
-  # fontless (@nuxt/fonts) asks for esbuild ^0.27.0 and the fix only exists from 0.28.1 on:
-  # no version inside its range is patched. 0.28.2 is what the rest of the tree already
-  # uses, so this deduplicates esbuild instead of adding another copy of it.
   esbuild@^0.27.0: ^0.28.2
-  # postcss and Vue resolve source-map-js 1.2.1; 1.2.2 fixes the source-map denial of service
-  # and is inside their declared range.
-  source-map-js@^1.2.1: ^1.2.2
-  # launch-editor (@nuxt/devtools) resolves shell-quote 1.10.0; 1.11.0 fixes command injection
-  # and is inside its declared range.
-  shell-quote: ^1.11.0
-  # @nuxt/eslint's config inspector pulls in the MCP client; 2.2.0 fixes OAuth credential
-  # disclosure to an authorization server chosen by an untrusted MCP server.
-  '@modelcontextprotocol/client': ^2.2.0
 
-# Temporary audit exceptions, one per advisory, so any new high or critical advisory still
-# fails `pnpm audit --audit-level high` in CI. Drop each entry as soon as a compatible fix
-# ships (see the README).
+# No patched picomatch release exists (latest: 4.0.7). Only repository-owned build/test
+# globs reach these tooling dependencies; learner answers never become glob patterns.
+# Owner: @daloni. Review by 2026-11-24; remove when all affected parent ranges accept fixes.
 auditConfig:
   ignoreGhsas:
-    # braces, through micromatch (nitropack's globby). A stack overflow on deeply nested brace
-    # patterns; the patterns come from the repo's own build configuration, never from a
-    # request or from user input, and the site is static. Not part of the generated site.
-    # No patched release on npm. Owner: @daloni. Review by 2026-11-04.
-    - GHSA-vfj7-8cjw-p6xm
-    # simple-git's trailer command guard bypass, through @nuxt/devtools. Development only,
-    # not part of the generated site. 4.x removes the default export and breaks devtools.
-    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
-    - GHSA-x6jw-m9v5-85vh
-    # simple-git's unblocked Git configuration includes, through @nuxt/devtools. Development
-    # only, not part of the generated site. 4.x removes the default export and breaks devtools.
-    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
-    - GHSA-g4wm-2vf7-vfgr
-    # simple-git's long-option abbreviation guard bypass, through @nuxt/devtools. Development
-    # only, not part of the generated site. 4.x removes the default export and breaks devtools.
-    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
-    - GHSA-858h-whjf-mvg5
-    # @simple-git/argv-parser's VISUAL editor guard bypass, through devtools' simple-git 3.x.
-    # Development only, not part of the generated site. Moving to simple-git 4.x removes the
-    # default export and breaks devtools; do not override the parser independently either.
-    # Owner: @daloni. Review by 2026-11-04, or when @nuxt/devtools moves to simple-git 4.
-    - GHSA-v5rq-49vh-5v5c
+    - GHSA-fc5q-39xc-vjpf
+
+# Exact releases reviewed for this update; keep the default release-age protection elsewhere.
+minimumReleaseAgeExclude:
+  - '@iconify-json/lucide@1.2.156'
+  - '@iconify-json/simple-icons@1.2.103'
+  - '@typescript-eslint/parser@8.73.0'
+  - '@typescript-eslint/scope-manager@8.73.0'
+  - '@typescript-eslint/types@8.73.0'
+  - marked@18.2.1

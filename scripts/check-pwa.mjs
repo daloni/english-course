@@ -142,7 +142,7 @@ export function validateArtifact(artifact, baseValue = process.env.NUXT_APP_BASE
 
   if (fileExists(serviceWorkerFile)) {
     const serviceWorker = readFileSync(serviceWorkerFile, 'utf8')
-    const precacheUrls = [...serviceWorker.matchAll(/url:["']([^"']+)["']/g)].map(match => match[1])
+    const precacheUrls = [...serviceWorker.matchAll(/\burl:\s*(["'`])([^"'`]+)\1/g)].map(match => match[2])
 
     if (precacheUrls.length === 0) errors.push('sw.js does not contain a precache manifest')
     for (const url of precacheUrls) {

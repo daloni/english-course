@@ -17,23 +17,26 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "@iconify-json/lucide": "^1.2.122",
-    "@iconify-json/simple-icons": "^1.2.93",
-    "@nuxt/ui": "^4.10.0",
-    "marked": "^17.0.6",
-    "nuxt": "^4.5.2",
-    "tailwindcss": "^4.3.3"
+    "@iconify-json/lucide": "^1.2.156",
+    "@iconify-json/simple-icons": "^1.2.103",
+    "@nuxt/ui": "^4.12.2",
+    "marked": "^18.2.1",
+    "nuxt": "^4.6.4",
+    "tailwindcss": "^4.3.5"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.17.0",
-    "@nuxt/test-utils": "^4.1.0",
-    "@vite-pwa/nuxt": "^1.1.1",
-    "@vue/test-utils": "^2.4.11",
-    "eslint": "^10.8.1",
+    "@nuxt/test-utils": "^4.4.0",
+    "@vite-pwa/nuxt": "^2.0.1",
+    "@vue/test-utils": "^2.6.0",
+    "eslint": "^10.15.0",
     "happy-dom": "^21.0.4",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.10",
-    "vue-tsc": "^3.3.9"
+    "vitest": "^5.1.0",
+    "vue-tsc": "^3.3.14"
   },
-  "packageManager": "pnpm@12.0.0"
+  "packageManager": "pnpm@12.21.0",
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
+  }
 }
